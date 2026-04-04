@@ -701,8 +701,8 @@
     <!-- Latest -->
     <section>
       <p class="section-label">Latest</p>
-      <div class="card featured-card" onclick="openEntry(0)">
-        <img src="images/attention_dba_graph.png" alt="Attention graph with DBA line" class="featured-image" style="object-fit:cover;width:100%;" />
+      <div class="card featured-card" onclick="openEntry(0)" id="featured-card">
+        <img id="featured-thumb" src="images/attention_dba_graph.png" alt="Attention graph with DBA line" class="featured-image" style="object-fit:cover;width:100%;" />
         <div class="featured-body">
           <p class="card-meta">Behind the Build &nbsp;·&nbsp; 4 April 2026</p>
           <h2 class="card-title">Making an Attention Tester: Part 2</h2>
@@ -715,29 +715,7 @@
     <!-- Previous Entries -->
     <section>
       <p class="section-label">Previous Entries</p>
-      <div class="archive-grid">
-
-        <div class="card archive-card" onclick="openEntry(1)">
-          <img src="images/attention_upload.png" alt="Attention Tester upload interface" class="archive-image" style="object-fit:cover;width:100%;" />
-          <div class="archive-body">
-            <p class="card-meta">Behind the Build &nbsp;·&nbsp; 4 April 2026</p>
-            <h3 class="card-title">Making an Attention Tester: Part 1</h3>
-            <p class="card-excerpt">Upload a video, get a graph, toggle the platform, watch the numbers change.</p>
-            <a class="card-read" onclick="event.stopPropagation(); openEntry(1)">Read entry</a>
-          </div>
-        </div>
-
-        <div class="card archive-card" onclick="openEntry(2)">
-          <img src="images/fowler_lfc.jpeg" alt="Robbie Fowler in the Liverpool away kit" class="archive-image" style="object-fit:cover;width:100%;" />
-          <div class="archive-body">
-            <p class="card-meta">Behind the Build &nbsp;·&nbsp; 4 April 2026</p>
-            <h3 class="card-title">Making the stephenjcleary Brand Style Guide</h3>
-            <p class="card-excerpt">I wanted to build a blog and a few tools, but before any of that I needed to figure out what they'd look like.</p>
-            <a class="card-read" onclick="event.stopPropagation(); openEntry(2)">Read entry</a>
-          </div>
-        </div>
-
-      </div>
+      <div class="archive-grid" id="archive-grid"></div>
     </section>
 
     <!-- View All Button -->
@@ -773,6 +751,8 @@
   <script>
     const entries = [
       {
+        thumb: 'images/attention_dba_graph.png',
+        thumbAlt: 'Attention graph with DBA line',
         meta: 'Behind the Build &nbsp;·&nbsp; 4 April 2026',
         title: 'Making an Attention Tester: Part 2',
         body: `
@@ -788,6 +768,8 @@
         `
       },
       {
+        thumb: 'images/attention_upload.png',
+        thumbAlt: 'Attention Tester upload interface',
         meta: 'Behind the Build &nbsp;·&nbsp; 4 April 2026',
         title: 'Making an Attention Tester: Part 1',
         body: `
@@ -805,6 +787,8 @@
         `
       },
       {
+        thumb: 'images/fowler_lfc.jpeg',
+        thumbAlt: 'Robbie Fowler in the Liverpool away kit',
         meta: 'Behind the Build &nbsp;·&nbsp; 4 April 2026',
         title: 'Making the stephenjcleary Brand Style Guide',
         body: `
@@ -877,6 +861,32 @@
         closeSearch();
       }
     });
+
+    // ── Archive Grid ──
+    function renderArchiveGrid() {
+      const grid = document.getElementById('archive-grid');
+      const slots = [1, 2, 3];
+      grid.innerHTML = slots.map(slot => {
+        const i = slot < entries.length ? slot : slot % entries.length;
+        const entry = entries[i];
+        const thumb = entry.thumb
+          ? `<img src="${entry.thumb}" alt="${entry.thumbAlt || ''}" class="archive-image" style="object-fit:cover;width:100%;" />`
+          : `<div class="img-placeholder archive-image">Image placeholder</div>`;
+        const excerpt = entry.body.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 120) + '…';
+        return `
+          <div class="card archive-card" onclick="openEntry(${i})">
+            ${thumb}
+            <div class="archive-body">
+              <p class="card-meta">${entry.meta}</p>
+              <h3 class="card-title">${entry.title}</h3>
+              <p class="card-excerpt">${excerpt}</p>
+              <a class="card-read" onclick="event.stopPropagation(); openEntry(${i})">Read entry</a>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    renderArchiveGrid();
 
     // ── All Entries Overlay ──
     function renderArchiveList() {
