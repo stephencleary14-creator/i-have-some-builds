@@ -737,16 +737,6 @@
           </div>
         </div>
 
-        <div class="card archive-card" onclick="openEntry(3)">
-          <div class="img-placeholder archive-image">Image placeholder</div>
-          <div class="archive-body">
-            <p class="card-meta">Claude Code &nbsp;·&nbsp; 28 March 2026</p>
-            <h3 class="card-title">The First Thing I Built Was Embarrassingly Simple</h3>
-            <p class="card-excerpt">I wanted to build a blog and a few tools. Here's what I learned from doing the most basic thing possible.</p>
-            <a class="card-read" onclick="event.stopPropagation(); openEntry(3)">Read entry</a>
-          </div>
-        </div>
-
       </div>
     </section>
 
@@ -850,60 +840,6 @@
           <p>Six colours, one font, a handful of rules. It's simple enough to apply consistently across anything I build — including this blog.</p>
         `
       },
-      {
-        meta: 'Claude Code &nbsp;·&nbsp; 28 March 2026',
-        title: 'The First Thing I Built Was Embarrassingly Simple',
-        body: `
-          <p>I won't pretend the first thing I made was impressive. It was a single HTML file that displayed my name in large text and changed the background colour when you clicked it. That's it. I'm telling you this because it matters.</p>
-          <p>The thing about starting out with Claude Code is that the gap between idea and output shrinks almost immediately. I'd described what I wanted in plain English and something appeared on the screen. It worked. Not brilliantly, but it worked, and that early feedback loop is harder to replicate than I expected.</p>
-          <p>What I found surprising was how much I learned just from reading what was produced. The HTML structure, the way the script was organised at the bottom, the logic of the CSS variables — none of it was hidden. It was right there in front of me, readable and editable.</p>
-          <div class="img-placeholder" style="height:240px;border-radius:6px;">Image placeholder</div>
-          <p>I spent the first hour just changing things to see what would break. That's an underrated way to learn. The answer to "what does this line do?" is usually faster than any tutorial when you can just delete it and find out.</p>
-          <p>The second build was only slightly less simple. A colour picker tool that I had no real use for but that taught me how event listeners worked. Again, I didn't set out to learn that — it just came out of doing the thing.</p>
-          <p>What I keep coming back to is this: the bottleneck is no longer technical. I can describe something and have a starting point in minutes. The new bottleneck is knowing what to build and why. That's a better problem to have. I'm still figuring it out, but I'm figuring it out with something working in front of me rather than a blank page.</p>
-          <p>The first build was embarrassingly simple. The tenth one won't be. That's the whole point of the first one.</p>
-        `
-      },
-      {
-        meta: 'Prompting &nbsp;·&nbsp; 14 March 2026',
-        title: 'Learning to Prompt Is a Skill. Who Knew.',
-        body: `
-          <p>I assumed prompting was basically just asking nicely. Type what you want, get what you want. It's roughly true, but roughly is doing a lot of work in that sentence.</p>
-          <p>The first few sessions I had with Claude Code were fine. Good, even. But there was a pattern I didn't notice until later: the vague prompts got vague results, and I'd spend time nudging and correcting. The specific prompts — the ones where I'd described the context, the constraint, the format I expected — those landed much closer first time.</p>
-          <div class="video-placeholder" style="height:240px;border-radius:6px;"><div class="play-icon"></div><span>Video placeholder</span></div>
-          <p>It's not unlike briefing a designer or a developer. If you tell someone "make it look better" you'll get something back that reflects their interpretation of better, not yours. If you describe what better means — warmer, less cluttered, the headline needs more weight — you close the gap before anything is produced.</p>
-          <p>The prompts I've found most useful follow a rough shape: what I'm trying to do, what currently exists, what good looks like, and any constraints that aren't obvious. That last one matters more than I expected. Things like "this is a single-file HTML project, no build tools, no npm" removes a whole category of well-intentioned but wrong suggestions.</p>
-          <p>I've also learned to be specific about what I don't want. That feels counterintuitive at first — you're focused on what you're building — but a well-placed "don't add comments" or "keep the same file structure" saves a lot of tidying up afterwards.</p>
-          <p>I'm still learning this. I don't think I'm particularly good at it yet. But I'm getting faster at spotting when a prompt is underspecified before I send it, which is probably the most useful thing I've picked up.</p>
-        `
-      },
-      {
-        meta: 'Claude Code &nbsp;·&nbsp; 5 March 2026',
-        title: 'I Built a Tool I Actually Use Every Day',
-        body: `
-          <p>Most of the things I build are experiments. I finish them, look at them, feel briefly pleased with myself, and then never open them again. This one was different.</p>
-          <p>It started as a note-taking page — nothing unusual. A simple HTML file where I could type quickly without having to open a whole application. No formatting, no syncing, no account. Just a box and some text. The kind of thing that sounds trivially simple right up until you try building something with the exact constraints that suit you.</p>
-          <p>What I added over a few sessions was small: a basic tagging system, a way to pin things to the top, and a dark mode toggle that I put in because I was working late one night and the white background was genuinely unpleasant. None of it was complicated. All of it was exactly what I needed.</p>
-          <div class="img-placeholder" style="height:240px;border-radius:6px;">Image placeholder</div>
-          <p>I open it every morning now without thinking about it. That's the measure I didn't know I was aiming for. Useful tools disappear into your routine. You stop noticing them the way you stop noticing a good chair — it's only when they're absent that you feel it.</p>
-          <p>The thing I take from this is that the best thing to build is something you'd actually use. Not what seems impressive, not what demonstrates the most technical complexity, but something that solves a small, real friction in your day. The bar for that is low enough to clear in an afternoon.</p>
-          <p>I've since built two more things that fall into the same category. They're all slightly unsexy. None of them would make a compelling case study. I use all of them regularly, which is about as good an outcome as I know how to aim for.</p>
-        `
-      },
-      {
-        meta: 'Reflection &nbsp;·&nbsp; 20 February 2026',
-        title: 'Some Things Break. That\'s the Point.',
-        body: `
-          <p>Three builds in, something fell apart completely. Not subtly wrong — completely broken. The layout collapsed, the script threw errors I didn't understand, and the thing I'd spent two evenings on looked, in the browser, like a crime scene.</p>
-          <p>My first instinct was to undo everything back to the last working state. I nearly did. I'm glad I didn't.</p>
-          <p>What I did instead was read the errors. Actually read them, rather than copying them directly into a prompt and waiting for an explanation. I understood maybe half of what they meant. The other half I looked up. This took longer. It was also significantly more useful.</p>
-          <div class="img-placeholder" style="height:240px;border-radius:6px;">Image placeholder</div>
-          <p>The mistake turned out to be a simple one — a function that worked in isolation but had a naming conflict with something else on the page. Easy to fix once I understood what was happening. The point is that I understood what was happening, which I wouldn't have if I'd just accepted the corrected output without looking at it.</p>
-          <p>I've been thinking about this since. There's a version of using AI tools that gets faster and faster at producing outputs you understand less and less. That path exists and it's genuinely easy to slide down. You get fast results, things work, and then one day something breaks and you have no idea where to start.</p>
-          <p>The version I'm trying to build is different: outputs I can read, changes I can trace, mistakes I can learn from. That's slower in the short term. I reckon it compounds better.</p>
-          <p>Some things break. That's not a failure of the process. It's the process working.</p>
-        `
-      }
     ];
 
     function openEntry(index) {
