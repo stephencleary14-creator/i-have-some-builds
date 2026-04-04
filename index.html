@@ -702,11 +702,11 @@
     <section>
       <p class="section-label">Latest</p>
       <div class="card featured-card" onclick="openEntry(0)">
-        <div class="img-placeholder featured-image">Video demo</div>
+        <img src="images/attention_dba_graph.png" alt="Attention graph with DBA line" class="featured-image" style="object-fit:cover;width:100%;" />
         <div class="featured-body">
           <p class="card-meta">Behind the Build &nbsp;·&nbsp; 4 April 2026</p>
-          <h2 class="card-title">Making an Attention Tester: Part 1</h2>
-          <p class="card-excerpt">I wanted to see if I could build a tool that explains attention in advertising. Upload a video, get a graph, toggle the platform, watch the numbers change.</p>
+          <h2 class="card-title">Making an Attention Tester: Part 2</h2>
+          <p class="card-excerpt">AI video analysis, a Distinctive Brand Asset checker, and a DBA marker on the attention graph. Is your brand showing up at the right moment?</p>
           <a class="card-read" onclick="event.stopPropagation(); openEntry(0)">Read entry</a>
         </div>
       </div>
@@ -718,21 +718,21 @@
       <div class="archive-grid">
 
         <div class="card archive-card" onclick="openEntry(1)">
-          <img src="images/fowler_lfc.jpeg" alt="Robbie Fowler in the Liverpool away kit" class="archive-image" style="object-fit:cover;width:100%;" />
+          <div class="img-placeholder archive-image">Video demo</div>
           <div class="archive-body">
             <p class="card-meta">Behind the Build &nbsp;·&nbsp; 4 April 2026</p>
-            <h3 class="card-title">Making the stephenjcleary Brand Style Guide</h3>
-            <p class="card-excerpt">I wanted to build a blog and a few tools, but before any of that I needed to figure out what they'd look like.</p>
+            <h3 class="card-title">Making an Attention Tester: Part 1</h3>
+            <p class="card-excerpt">Upload a video, get a graph, toggle the platform, watch the numbers change.</p>
             <a class="card-read" onclick="event.stopPropagation(); openEntry(1)">Read entry</a>
           </div>
         </div>
 
         <div class="card archive-card" onclick="openEntry(2)">
-          <div class="img-placeholder archive-image">Image placeholder</div>
+          <img src="images/fowler_lfc.jpeg" alt="Robbie Fowler in the Liverpool away kit" class="archive-image" style="object-fit:cover;width:100%;" />
           <div class="archive-body">
-            <p class="card-meta">Claude Code &nbsp;·&nbsp; 28 March 2026</p>
-            <h3 class="card-title">The First Thing I Built Was Embarrassingly Simple</h3>
-            <p class="card-excerpt">I wanted to build a blog and a few tools. Here's what I learned from doing the most basic thing possible.</p>
+            <p class="card-meta">Behind the Build &nbsp;·&nbsp; 4 April 2026</p>
+            <h3 class="card-title">Making the stephenjcleary Brand Style Guide</h3>
+            <p class="card-excerpt">I wanted to build a blog and a few tools, but before any of that I needed to figure out what they'd look like.</p>
             <a class="card-read" onclick="event.stopPropagation(); openEntry(2)">Read entry</a>
           </div>
         </div>
@@ -740,9 +740,9 @@
         <div class="card archive-card" onclick="openEntry(3)">
           <div class="img-placeholder archive-image">Image placeholder</div>
           <div class="archive-body">
-            <p class="card-meta">Prompting &nbsp;·&nbsp; 14 March 2026</p>
-            <h3 class="card-title">Learning to Prompt Is a Skill. Who Knew.</h3>
-            <p class="card-excerpt">I thought you just... asked nicely. Turns out there's a lot more to it than that.</p>
+            <p class="card-meta">Claude Code &nbsp;·&nbsp; 28 March 2026</p>
+            <h3 class="card-title">The First Thing I Built Was Embarrassingly Simple</h3>
+            <p class="card-excerpt">I wanted to build a blog and a few tools. Here's what I learned from doing the most basic thing possible.</p>
             <a class="card-read" onclick="event.stopPropagation(); openEntry(3)">Read entry</a>
           </div>
         </div>
@@ -782,6 +782,21 @@
 
   <script>
     const entries = [
+      {
+        meta: 'Behind the Build &nbsp;·&nbsp; 4 April 2026',
+        title: 'Making an Attention Tester: Part 2',
+        body: `
+          <p>Part 1 got the core working — upload a video, get a graph, toggle between platforms. Part 2 was about pushing it further.</p>
+          <p>The first addition was connecting to Gemini. Once that was in place, the tool could actually read and analyse the video content. The result is an AI headline at the top — a one-line summary of what the video contains. It sounds simple but it changes how the tool feels. It goes from a graph to something that understands what it's looking at.</p>
+          <img src="images/attention_ai_headline.png" alt="AI headline showing video summary" class="entry-img" />
+          <p>That got me thinking. If it can analyse a video, can it tell me whether the brand shows up in it? I added a Distinctive Brand Asset checker. You upload an image of your logo, character, or any visual brand asset, and the tool confirms whether it appears in the video — and at what second.</p>
+          <img src="images/attention_dba_checker.png" alt="DBA checker showing Lotto logo detected at 6s" class="entry-img" />
+          <p>The natural next step was to connect those two things. The DBA moment is now marked on the attention graph as a line — so you can see not just when the brand appears, but how much attention the platform is likely to be giving at that exact moment. In this case, the Lotto logo appears at 6 seconds on TikTok, right around where average active attention starts to drop off.</p>
+          <img src="images/attention_dba_graph.png" alt="Attention graph with DBA line marked at 6s" class="entry-img" />
+          <p>That combination — attention curve, platform toggle, and DBA marker — is what makes it useful. It's not just a graph. It's a question: is your brand showing up at the right moment?</p>
+          <p>More to come in Part 3.</p>
+        `
+      },
       {
         meta: 'Behind the Build &nbsp;·&nbsp; 4 April 2026',
         title: 'Making an Attention Tester: Part 1',
