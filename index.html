@@ -446,6 +446,66 @@
       content: '← ';
     }
 
+    /* ── Entry images ── */
+    .entry-img {
+      width: 100%;
+      border-radius: 6px;
+      margin: 28px 0;
+      display: block;
+      object-fit: cover;
+      max-height: 400px;
+    }
+
+    .entry-img-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .entry-img-pair img {
+      width: 100%;
+      border-radius: 6px;
+      object-fit: cover;
+      height: 280px;
+    }
+
+    .entry-img-caption {
+      font-size: 12px;
+      color: var(--mid);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    /* ── Colour swatches ── */
+    .swatch-row {
+      display: flex;
+      gap: 12px;
+      margin: 28px 0;
+      flex-wrap: wrap;
+    }
+
+    .swatch-block {
+      flex: 1;
+      min-width: 80px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .swatch-block-colour {
+      height: 64px;
+    }
+
+    .swatch-block-label {
+      background: white;
+      padding: 6px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--dark);
+      text-align: center;
+    }
+
     /* ── View All Button ── */
     .view-all-btn {
       display: block;
@@ -642,11 +702,11 @@
     <section>
       <p class="section-label">Latest</p>
       <div class="card featured-card" onclick="openEntry(0)">
-        <div class="img-placeholder featured-image">Image placeholder</div>
+        <img src="images/fowler_lfc.jpeg" alt="Robbie Fowler in the Liverpool away kit" class="featured-image" style="object-fit:cover;width:100%;" />
         <div class="featured-body">
-          <p class="card-meta">Claude Code &nbsp;·&nbsp; 28 March 2026</p>
-          <h2 class="card-title">The First Thing I Built Was Embarrassingly Simple</h2>
-          <p class="card-excerpt">I won't pretend the first thing I made was impressive. It wasn't. But it worked, and that was the thing that mattered. Here's what I learned from doing the most basic thing possible.</p>
+          <p class="card-meta">Behind the Build &nbsp;·&nbsp; 4 April 2026</p>
+          <h2 class="card-title">Making the stephenjcleary Brand Style Guide</h2>
+          <p class="card-excerpt">I wanted to build a blog and a few tools, but before any of that I needed to figure out what they'd look like. So I started with a brand style guide.</p>
           <a class="card-read" onclick="event.stopPropagation(); openEntry(0)">Read entry</a>
         </div>
       </div>
@@ -660,9 +720,9 @@
         <div class="card archive-card" onclick="openEntry(1)">
           <div class="img-placeholder archive-image">Image placeholder</div>
           <div class="archive-body">
-            <p class="card-meta">Prompting &nbsp;·&nbsp; 14 March 2026</p>
-            <h3 class="card-title">Learning to Prompt Is a Skill. Who Knew.</h3>
-            <p class="card-excerpt">I thought you just... asked nicely. Turns out there's a lot more to it than that.</p>
+            <p class="card-meta">Claude Code &nbsp;·&nbsp; 28 March 2026</p>
+            <h3 class="card-title">The First Thing I Built Was Embarrassingly Simple</h3>
+            <p class="card-excerpt">I wanted to build a blog and a few tools. Here's what I learned from doing the most basic thing possible.</p>
             <a class="card-read" onclick="event.stopPropagation(); openEntry(1)">Read entry</a>
           </div>
         </div>
@@ -670,9 +730,9 @@
         <div class="card archive-card" onclick="openEntry(2)">
           <div class="img-placeholder archive-image">Image placeholder</div>
           <div class="archive-body">
-            <p class="card-meta">Claude Code &nbsp;·&nbsp; 5 March 2026</p>
-            <h3 class="card-title">I Built a Tool I Actually Use Every Day</h3>
-            <p class="card-excerpt">Most side projects collect dust. This one didn't. I open it every morning without thinking about it now.</p>
+            <p class="card-meta">Prompting &nbsp;·&nbsp; 14 March 2026</p>
+            <h3 class="card-title">Learning to Prompt Is a Skill. Who Knew.</h3>
+            <p class="card-excerpt">I thought you just... asked nicely. Turns out there's a lot more to it than that.</p>
             <a class="card-read" onclick="event.stopPropagation(); openEntry(2)">Read entry</a>
           </div>
         </div>
@@ -680,9 +740,9 @@
         <div class="card archive-card" onclick="openEntry(3)">
           <div class="img-placeholder archive-image">Image placeholder</div>
           <div class="archive-body">
-            <p class="card-meta">Reflection &nbsp;·&nbsp; 20 February 2026</p>
-            <h3 class="card-title">Some Things Break. That's the Point.</h3>
-            <p class="card-excerpt">Three builds in and something finally fell apart completely. It was the best thing that happened to me.</p>
+            <p class="card-meta">Claude Code &nbsp;·&nbsp; 5 March 2026</p>
+            <h3 class="card-title">I Built a Tool I Actually Use Every Day</h3>
+            <p class="card-excerpt">Most side projects collect dust. This one didn't. I open it every morning without thinking about it now.</p>
             <a class="card-read" onclick="event.stopPropagation(); openEntry(3)">Read entry</a>
           </div>
         </div>
@@ -722,6 +782,42 @@
 
   <script>
     const entries = [
+      {
+        meta: 'Behind the Build &nbsp;·&nbsp; 4 April 2026',
+        title: 'Making the stephenjcleary Brand Style Guide',
+        body: `
+          <p>I wanted to build a blog and a few tools, but before any of that I needed to figure out what they'd look like. So I started with a brand style guide — a single HTML file that defines the colours, typography, and visual rules for everything I make.</p>
+          <p>I'm a big Liverpool FC fan, and I wanted to base the design on a shirt I love. This shirt is the one.</p>
+          <div class="entry-img-pair">
+            <div>
+              <img src="images/fowler_lfc.jpeg" alt="Robbie Fowler in the 1990s Liverpool away kit" class="entry-img" style="margin:0;" />
+              <p class="entry-img-caption">Robbie Fowler, 1990s Liverpool away kit</p>
+            </div>
+            <div>
+              <img src="images/salah_lfc.jpeg" alt="Mohamed Salah in the current Liverpool away kit" class="entry-img" style="margin:0;" />
+              <p class="entry-img-caption">Mohamed Salah, current Liverpool away kit</p>
+            </div>
+          </div>
+          <p>The palette I built from it uses those warm creams as the base, with a deep red lifted from the Liverpool crest as the accent colour. Paired with a near-black for text and a warm brown-grey for secondary labels.</p>
+          <div class="swatch-row">
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#C8102E;"></div><div class="swatch-block-label">#C8102E</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#A00E24;"></div><div class="swatch-block-label">#A00E24</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#EDE0C4;"></div><div class="swatch-block-label">#EDE0C4</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#F7F2EA;"></div><div class="swatch-block-label">#F7F2EA</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#1C1C1C;"></div><div class="swatch-block-label">#1C1C1C</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#5C5247;"></div><div class="swatch-block-label">#5C5247</div></div>
+          </div>
+          <p>Here's how each one gets used:</p>
+          <p><strong>#C8102E</strong> — deep red, the primary accent. Links, highlights, anything that needs to draw the eye.<br>
+          <strong>#A00E24</strong> — a darker red for hover states and emphasis.<br>
+          <strong>#EDE0C4</strong> — warm ecru, the main background. Straight from the shirt.<br>
+          <strong>#F7F2EA</strong> — lighter cream for cards and section backgrounds.<br>
+          <strong>#1C1C1C</strong> — near-black for all body text.<br>
+          <strong>#5C5247</strong> — warm brown-grey for secondary text and labels.</p>
+          <p>The typeface is Inter. Clean and readable without feeling corporate. Headlines use Title Case. Body copy uses sentence case. Nothing in all-caps, ever.</p>
+          <p>Six colours, one font, a handful of rules. It's simple enough to apply consistently across anything I build — including this blog.</p>
+        `
+      },
       {
         meta: 'Claude Code &nbsp;·&nbsp; 28 March 2026',
         title: 'The First Thing I Built Was Embarrassingly Simple',
