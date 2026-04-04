@@ -702,11 +702,11 @@
     <section>
       <p class="section-label">Latest</p>
       <div class="card featured-card" onclick="openEntry(0)" id="featured-card">
-        <img id="featured-thumb" src="images/attention_dba_graph.png" alt="Attention graph with DBA line" class="featured-image" style="object-fit:cover;width:100%;" />
+        <img id="featured-thumb" src="images/social_copy_output.png" alt="Social copy skill output" class="featured-image" style="object-fit:cover;width:100%;" />
         <div class="featured-body">
           <p class="card-meta">Behind the Build &nbsp;·&nbsp; 4 April 2026</p>
-          <h2 class="card-title">Making an Attention Tester: Part 2</h2>
-          <p class="card-excerpt">AI video analysis, a Distinctive Brand Asset checker, and a DBA marker on the attention graph. Is your brand showing up at the right moment?</p>
+          <h2 class="card-title">Creating a Social Copywriter Skill</h2>
+          <p class="card-excerpt">I wanted to see if Claude could help brainstorm social media copy that sounds like me, per channel, with two options to choose from.</p>
           <a class="card-read" onclick="event.stopPropagation(); openEntry(0)">Read entry</a>
         </div>
       </div>
@@ -750,6 +750,22 @@
 
   <script>
     const entries = [
+      {
+        thumb: 'images/social_copy_output.png',
+        thumbAlt: 'Social copy skill output for Caroline Cleary',
+        meta: 'Behind the Build &nbsp;·&nbsp; 4 April 2026',
+        title: 'Creating a Social Copywriter Skill',
+        body: `
+          <p>I wanted to see if Claude could help brainstorm social media copy. Not generic copy — copy that actually sounds like me, per channel, with two options to choose from.</p>
+          <p>The skill didn't need much building. Claude already understands the structure of social copy across platforms — what works on Instagram is different to what works on X or LinkedIn, and it knows that. What I added was my own tone of voice so the output would sound like me rather than a generic AI post.</p>
+          <p>The tone of voice is built from real writing samples — LinkedIn posts, published articles, and a book contribution. It's broken into seven sections: who stephenjcleary is, voice characteristics, how sentences work, how to open, vocabulary, format by platform, and what the voice is not.</p>
+          <img src="images/tov_page.png" alt="Tone of voice guide page" class="entry-img" />
+          <p>Once that was in place I tried it out. I briefed it to write Instagram copy about my wife Caroline and her mental health therapy business, Replenish. The brief was straightforward — her work on OCD, the key message that she's brilliant at what she does, statement only with no link required.</p>
+          <p>What came back was good. Both options captured something real about what Caroline does without being heavy or clinical about it. The second option in particular landed well.</p>
+          <img src="images/social_copy_output.png" alt="Social copy skill output showing Instagram options for Caroline Cleary" class="entry-img" />
+          <p>That's the thing with a well-built skill — the brief can be short because the context is already baked in. I didn't have to explain tone, format, or structure. I just described what I wanted to say and about who.</p>
+        `
+      },
       {
         thumb: 'images/attention_dba_graph.png',
         thumbAlt: 'Attention graph with DBA line',
