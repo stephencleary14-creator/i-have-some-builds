@@ -702,11 +702,11 @@
     <section>
       <p class="section-label">Latest</p>
       <div class="card featured-card" onclick="openEntry(0)">
-        <img src="images/fowler_lfc.jpeg" alt="Robbie Fowler in the Liverpool away kit" class="featured-image" style="object-fit:cover;width:100%;" />
+        <div class="img-placeholder featured-image">Video demo</div>
         <div class="featured-body">
           <p class="card-meta">Behind the Build &nbsp;·&nbsp; 4 April 2026</p>
-          <h2 class="card-title">Making the stephenjcleary Brand Style Guide</h2>
-          <p class="card-excerpt">I wanted to build a blog and a few tools, but before any of that I needed to figure out what they'd look like. So I started with a brand style guide.</p>
+          <h2 class="card-title">Making an Attention Tester: Part 1</h2>
+          <p class="card-excerpt">I wanted to see if I could build a tool that explains attention in advertising. Upload a video, get a graph, toggle the platform, watch the numbers change.</p>
           <a class="card-read" onclick="event.stopPropagation(); openEntry(0)">Read entry</a>
         </div>
       </div>
@@ -718,11 +718,11 @@
       <div class="archive-grid">
 
         <div class="card archive-card" onclick="openEntry(1)">
-          <div class="img-placeholder archive-image">Image placeholder</div>
+          <img src="images/fowler_lfc.jpeg" alt="Robbie Fowler in the Liverpool away kit" class="archive-image" style="object-fit:cover;width:100%;" />
           <div class="archive-body">
-            <p class="card-meta">Claude Code &nbsp;·&nbsp; 28 March 2026</p>
-            <h3 class="card-title">The First Thing I Built Was Embarrassingly Simple</h3>
-            <p class="card-excerpt">I wanted to build a blog and a few tools. Here's what I learned from doing the most basic thing possible.</p>
+            <p class="card-meta">Behind the Build &nbsp;·&nbsp; 4 April 2026</p>
+            <h3 class="card-title">Making the stephenjcleary Brand Style Guide</h3>
+            <p class="card-excerpt">I wanted to build a blog and a few tools, but before any of that I needed to figure out what they'd look like.</p>
             <a class="card-read" onclick="event.stopPropagation(); openEntry(1)">Read entry</a>
           </div>
         </div>
@@ -730,9 +730,9 @@
         <div class="card archive-card" onclick="openEntry(2)">
           <div class="img-placeholder archive-image">Image placeholder</div>
           <div class="archive-body">
-            <p class="card-meta">Prompting &nbsp;·&nbsp; 14 March 2026</p>
-            <h3 class="card-title">Learning to Prompt Is a Skill. Who Knew.</h3>
-            <p class="card-excerpt">I thought you just... asked nicely. Turns out there's a lot more to it than that.</p>
+            <p class="card-meta">Claude Code &nbsp;·&nbsp; 28 March 2026</p>
+            <h3 class="card-title">The First Thing I Built Was Embarrassingly Simple</h3>
+            <p class="card-excerpt">I wanted to build a blog and a few tools. Here's what I learned from doing the most basic thing possible.</p>
             <a class="card-read" onclick="event.stopPropagation(); openEntry(2)">Read entry</a>
           </div>
         </div>
@@ -740,9 +740,9 @@
         <div class="card archive-card" onclick="openEntry(3)">
           <div class="img-placeholder archive-image">Image placeholder</div>
           <div class="archive-body">
-            <p class="card-meta">Claude Code &nbsp;·&nbsp; 5 March 2026</p>
-            <h3 class="card-title">I Built a Tool I Actually Use Every Day</h3>
-            <p class="card-excerpt">Most side projects collect dust. This one didn't. I open it every morning without thinking about it now.</p>
+            <p class="card-meta">Prompting &nbsp;·&nbsp; 14 March 2026</p>
+            <h3 class="card-title">Learning to Prompt Is a Skill. Who Knew.</h3>
+            <p class="card-excerpt">I thought you just... asked nicely. Turns out there's a lot more to it than that.</p>
             <a class="card-read" onclick="event.stopPropagation(); openEntry(3)">Read entry</a>
           </div>
         </div>
@@ -782,6 +782,22 @@
 
   <script>
     const entries = [
+      {
+        meta: 'Behind the Build &nbsp;·&nbsp; 4 April 2026',
+        title: 'Making an Attention Tester: Part 1',
+        body: `
+          <p>A big part of my work over the last few years has been attention — specifically, how much of it advertising actually gets. I've led studies on this in the Irish market and was included in Professor Karen Nelson-Field's book on the Attention Economy. It's a subject I find genuinely fascinating.</p>
+          <p>I wanted to see if I could build something that explains it. Not a slide deck or a document — an actual tool you can use.</p>
+          <p>The idea was straightforward. You upload a video ad. The tool breaks it down frame by frame, second by second, and shows you a graph of the expected attention that video would get — based on real attention data. Alongside that, it plays back a "window of attention" — the video plays, but only for as long as a real viewer would typically watch it on that platform.</p>
+          <p>The bit I found most interesting to build was the channel toggle. Different platforms have very different attention profiles. What gets watched on YouTube behaves nothing like what gets watched on TikTok or Facebook. So the tool lets you switch between platforms and the graph animates to reflect each one — same video, completely different story depending on where it lives.</p>
+          <p>Here's what the first version looked like:</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/attention_demo.mp4" type="video/mp4" />
+          </video>
+          <p>It's rough. The UI needs work and there are things I'd do differently now. But the core of it works — upload a video, get a graph, toggle the platform, watch the numbers change.</p>
+          <p>That felt like enough for Part 1.</p>
+        `
+      },
       {
         meta: 'Behind the Build &nbsp;·&nbsp; 4 April 2026',
         title: 'Making the stephenjcleary Brand Style Guide',
