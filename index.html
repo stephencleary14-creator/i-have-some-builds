@@ -412,6 +412,33 @@
       border-bottom: 3px solid var(--red);
     }
 
+    .entry-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .entry-header-top .card-meta {
+      margin-bottom: 0;
+    }
+
+    .entry-close-top {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      transition: color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .entry-close-top:hover {
+      color: var(--red-deep);
+    }
+
     .entry-header .card-meta {
       color: var(--mid);
       margin-bottom: 10px;
@@ -815,7 +842,10 @@
   <div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
     <div class="entry-panel" id="entry-panel">
       <div class="entry-header">
-        <p class="card-meta" id="entry-meta"></p>
+        <div class="entry-header-top">
+          <p class="card-meta" id="entry-meta"></p>
+          <button class="entry-close-top" onclick="closeEntry()">Close ✕</button>
+        </div>
         <h1 class="entry-title" id="entry-title"></h1>
       </div>
       <div class="entry-body" id="entry-body"></div>
