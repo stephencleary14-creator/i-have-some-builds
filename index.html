@@ -807,13 +807,13 @@
       <p class="section-label">Latest</p>
       <div class="card featured-card" onclick="openEntry(0)" id="featured-card">
         <div id="featured-thumb" class="featured-image">
-          <img src="images/social_copy_output.png" alt="Social copy skill output" />
+          <img src="images/attention_summary.png" alt="Ad Performance Summary output showing Creative Interest, Branding and Platform Fit panels" />
           <div class="thumb-icon"></div>
         </div>
         <div class="featured-body">
-          <p class="card-meta">4 April 2026</p>
-          <h2 class="card-title">Creating a Social Copywriter Skill</h2>
-          <p class="card-excerpt">I wanted to see if Claude could help brainstorm social media copy that sounds like me, per channel, with two options to choose from.</p>
+          <p class="card-meta">5 April 2026</p>
+          <h2 class="card-title">Making an Attention Tester: Part 3</h2>
+          <p class="card-excerpt">Parts 1 and 2 got the attention tester working. Part 3 was about adding something that tells you what the data actually means — an Ad Performance Summary with three clear verdicts.</p>
           <a class="card-read" onclick="event.stopPropagation(); openEntry(0)">Read entry</a>
         </div>
       </div>
@@ -882,6 +882,18 @@
         <polyline points="58,57 80,33 102,57" stroke="#C8102E" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         <rect x="42" y="88" width="76" height="8" rx="4" fill="#C8102E"/>
       </svg>`,
+      attentionPt3: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <rect x="24" y="22" width="112" height="22" rx="6" fill="#C8102E" opacity="0.15"/>
+        <rect x="32" y="28" width="68" height="6" rx="3" fill="#C8102E"/>
+        <circle cx="122" cy="33" r="7" fill="#C8102E"/>
+        <rect x="24" y="49" width="112" height="22" rx="6" fill="#C8102E" opacity="0.15"/>
+        <rect x="32" y="55" width="52" height="6" rx="3" fill="#C8102E"/>
+        <circle cx="122" cy="60" r="7" fill="#C8102E"/>
+        <rect x="24" y="76" width="112" height="22" rx="6" fill="#C8102E" opacity="0.15"/>
+        <rect x="32" y="82" width="60" height="6" rx="3" fill="#C8102E"/>
+        <circle cx="122" cy="87" r="7" fill="#C8102E"/>
+      </svg>`,
       brandGuide: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect width="160" height="120" fill="#EDE0C4"/>
         <rect x="24" y="26" width="34" height="68" rx="6" fill="#C8102E"/>
@@ -894,6 +906,26 @@
     };
 
     const entries = [
+      {
+        icon: icons.attentionPt3,
+        photo: 'images/attention_summary.png',
+        photoAlt: 'Ad Performance Summary output showing Creative Interest, Branding and Platform Fit panels',
+        meta: '5 April 2026',
+        title: 'Making an Attention Tester: Part 3',
+        body: `
+          <p>Parts 1 and 2 got the attention tester working — upload a video, get a graph, see where attention drops off and where your brand first appears. Useful. But I kept thinking: what does someone actually <em>do</em> with that information?</p>
+          <p>A graph tells you what happened. What I wanted was something that tells you what it means.</p>
+          <p>So Part 3 was about adding an Ad Performance Summary. One button. Three verdicts.</p>
+          <p><strong>Is it interesting?</strong> The tool looks at the creative hook — whether the ad has a clear character, action, and setting in the opening seconds. An ad that only establishes a setting, with no character or action, gets flagged as a weak hook. That's not a pass/fail — it's a steer. Go back and look at your first three seconds. This is quite basic for now though — there's a lot more that makes a social ad interesting that I could layer in over time. Camera movement, music, pacing. Something to come back to.</p>
+          <p><strong>Is it well branded early?</strong> This one cross-references the DBA (Distinct Brand Asset) detection from Parts 1 and 2. If your brand appears at 0s — before any drop-off — that's well branded across all platforms. The tool says so clearly, in green. No ambiguity.</p>
+          <p><strong>Which platform is it suited to?</strong> This is where it got interesting to build. I wanted the tool to give a platform-by-platform verdict, not just a generic "this is too long." Claude Code worked out a scoring model using two signals: whether DBA appears before the attention drop-off point, and how the total ad length compares to each platform's active attention window.</p>
+          <img src="images/attention_platform_scoring.png" alt="Platform Fit scoring matrix showing DBA timing and length ratio signals" class="entry-img" />
+          <p>The logic comes out as a simple matrix — DBA timing crossed with length ratio — and produces three outcomes: Good, Partial, or Poor. Each platform gets its own line. If it's Partial, you get a specific recommendation: <em>"ad is 1.8× the attention window — consider cutting to 8s."</em> That's the kind of note a media planner would actually use.</p>
+          <img src="images/attention_summary.png" alt="Ad Performance Summary showing Creative Interest, Branding and Platform Fit panels" class="entry-img" />
+          <p>The thing I find most satisfying about this is that the tool now produces something you could put in front of a colleague. It's not a dashboard for data scientists. It's a summary for someone who needs to make a decision about a piece of creative.</p>
+          <p>That's what I was going for from the start. Took three parts to get there.</p>
+        `
+      },
       {
         icon: icons.socialCopy,
         photo: 'images/social_copy_output.png',
