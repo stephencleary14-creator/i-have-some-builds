@@ -920,10 +920,13 @@
           <p><strong>Is it well branded early?</strong> This one cross-references the DBA (Distinct Brand Asset) detection from Parts 1 and 2. If your brand appears at 0s — before any drop-off — that's well branded across all platforms. The tool says so clearly, in green. No ambiguity.</p>
           <p><strong>Which platform is it suited to?</strong> This is where it got interesting to build. I wanted the tool to give a platform-by-platform verdict, not just a generic "this is too long." Claude Code worked out a scoring model using two signals: whether DBA appears before the attention drop-off point, and how the total ad length compares to each platform's active attention window.</p>
           <img src="images/attention_platform_scoring.png" alt="Platform Fit scoring matrix showing DBA timing and length ratio signals" class="entry-img" />
-          <p>The logic comes out as a simple matrix — DBA timing crossed with length ratio — and produces three outcomes: Good, Partial, or Poor. Each platform gets its own line. If it's Partial, you get a specific recommendation: <em>"ad is 1.8× the attention window — consider cutting to 8s."</em> That's the kind of note a media planner would actually use.</p>
           <img src="images/attention_summary.png" alt="Ad Performance Summary showing Creative Interest, Branding and Platform Fit panels" class="entry-img" />
+          <p>The logic comes out as a simple matrix — DBA timing crossed with length ratio — and produces three outcomes: Good, Partial, or Poor. Each platform gets its own line. If it's Partial, you get a specific recommendation: <em>"ad is 1.8× the attention window — consider cutting to 8s."</em> That's the kind of note a media planner would actually use.</p>
           <p>The thing I find most satisfying about this is that the tool now produces something you could put in front of a colleague. It's not a dashboard for data scientists. It's a summary for someone who needs to make a decision about a piece of creative.</p>
           <p>That's what I was going for from the start. Took three parts to get there.</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/attention_summary_demo.mov" type="video/mp4" />
+          </video>
         `
       },
       {
