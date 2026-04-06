@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>I Have Some Builds — stephenjcleary</title>
+  <title>My Works In Progress — stephenjcleary</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -155,12 +156,58 @@
     /* ── Page Header ── */
     .page-header {
       background: var(--dark);
-      padding: 56px 32px 52px;
+      padding: 52px 32px 48px;
       border-bottom: 3px solid var(--red);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dot grid */
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+
+    /* Red glow behind "Progress" */
+    .page-header::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 62%;
+      transform: translate(-50%, -44%);
+      width: 500px;
+      height: 240px;
+      background: radial-gradient(ellipse at center,
+        rgba(200,16,46,0.30) 0%,
+        rgba(200,16,46,0.12) 40%,
+        transparent 70%
+      );
+      pointer-events: none;
     }
 
     .page-header .container {
       padding-bottom: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--red);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 4px;
+      margin-bottom: 16px;
     }
 
     .page-title {
@@ -169,13 +216,7 @@
       color: var(--cream-light);
       letter-spacing: -0.02em;
       line-height: 1.1;
-      margin-bottom: 10px;
-    }
-
-    .page-subtitle {
-      font-size: 15px;
-      font-weight: 400;
-      color: var(--mid);
+      text-shadow: 0 2px 14px rgba(0,0,0,0.45);
     }
 
     /* ── Layout ── */
@@ -794,8 +835,14 @@
   <!-- Page Header -->
   <div class="page-header">
     <div class="container">
-      <h1 class="page-title">I Have Some Builds</h1>
-      <p class="page-subtitle">A journal about learning to use Claude Code.</p>
+      <div class="header-tag">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <rect x="5" y="1" width="5" height="3" rx="1" fill="white" transform="rotate(45 5 1)"/>
+          <line x1="2" y1="10" x2="6.5" y2="5.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Build Log
+      </div>
+      <h1 class="page-title">My Works In Progress</h1>
     </div>
   </div>
 
