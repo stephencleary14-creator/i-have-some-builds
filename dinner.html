@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What's For Dinner?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:       #EDE0C4;
+      --cream-light: #F7F2EA;
+      --red:         #C8102E;
+      --red-deep:    #A00E24;
+      --dark:        #1C1C1C;
+      --mid:         #5C5247;
+      --font:        'Inter', 'Segoe UI', sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--cream-light);
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--dark);
+      padding: 52px 32px 44px;
+      margin-bottom: 56px;
+    }
+
+    header .inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header h1 {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 16px;
+      color: var(--cream);
+      opacity: 0.8;
+    }
+
+    /* ── Main container ── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 32px 80px;
+    }
+
+    /* ── Search modes ── */
+    .search-modes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    .search-modes-full {
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 600px) {
+      .search-modes { grid-template-columns: 1fr; }
+      header { padding: 36px 20px 32px; }
+      main { padding: 0 20px 60px; }
+    }
+
+    /* Category buttons */
+    .category-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn-category {
+      padding: 10px 18px;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 600;
+      border: 2px solid var(--cream);
+      border-radius: 100px;
+      background: var(--cream-light);
+      color: var(--mid);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .btn-category:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .btn-category.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+    }
+
+    .mode-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 28px 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    }
+
+    .mode-card h2 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--mid);
+      margin-bottom: 8px;
+    }
+
+    .mode-card p {
+      font-size: 14px;
+      color: var(--mid);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* Surprise Me button */
+    .btn-surprise {
+      display: block;
+      width: 100%;
+      padding: 14px 20px;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-surprise:hover { background: var(--red-deep); }
+
+    /* Ingredient search */
+    .search-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .search-row input {
+      flex: 1;
+      padding: 12px 14px;
+      font-family: var(--font);
+      font-size: 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      color: var(--dark);
+      background: var(--cream-light);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .search-row input::placeholder { color: #aaa; }
+    .search-row input:focus { border-color: var(--red); }
+
+    .btn-search {
+      padding: 12px 18px;
+      background: var(--dark);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+    }
+
+    .btn-search:hover { opacity: 0.85; }
+
+    /* ── Results ── */
+    #results-section { display: none; }
+
+    .results-header {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1.5px solid var(--cream);
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .dish-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 22px 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 0.3s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dish-card:nth-child(1) { animation-delay: 0.05s; }
+    .dish-card:nth-child(2) { animation-delay: 0.1s; }
+    .dish-card:nth-child(3) { animation-delay: 0.15s; }
+    .dish-card:nth-child(4) { animation-delay: 0.2s; }
+    .dish-card:nth-child(5) { animation-delay: 0.25s; }
+
+    .dish-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .dish-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--red);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .dish-chef {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--mid);
+      background: var(--cream-light);
+      border: 1px solid var(--cream);
+      border-radius: 100px;
+      padding: 3px 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .dish-description {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .dish-ingredients {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill {
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--cream);
+      color: var(--mid);
+      border-radius: 100px;
+      padding: 4px 10px;
+    }
+
+    .pill.gf {
+      background: #E8F4E8;
+      color: #3A7A3A;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--mid);
+      font-size: 15px;
+    }
+
+    .no-results strong {
+      display: block;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="inner">
+      <h1>What's For Dinner?</h1>
+      <p>Hi Caroline! Find something delicious.</p>
+    </div>
+  </header>
+
+  <main>
+
+    <div class="search-modes">
+      <div class="mode-card">
+        <h2>Random pick</h2>
+        <p>Not sure what you fancy? Let Stephen decide — hit the button and get five ideas.</p>
+        <button class="btn-surprise" id="btn-surprise">Surprise me</button>
+      </div>
+
+      <div class="mode-card">
+        <h2>Search by ingredient</h2>
+        <p>Got something in mind? Type an ingredient and find dishes that use it.</p>
+        <div class="search-row">
+          <input type="text" id="ingredient-input" placeholder="e.g. halloumi, sweet potato…" autocomplete="off">
+          <button class="btn-search" id="btn-search">Search</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="search-modes-full">
+      <div class="mode-card">
+        <h2>Browse by dish type</h2>
+        <p>Know what kind of meal you're after? Pick a category and get five ideas from that section.</p>
+        <div class="category-buttons" id="category-buttons">
+          <button class="btn-category" data-category="Pasta &amp; Grains">Pasta &amp; Grains</button>
+          <button class="btn-category" data-category="Noodles">Noodles</button>
+          <button class="btn-category" data-category="Curries &amp; Stews">Curries &amp; Stews</button>
+          <button class="btn-category" data-category="Soups">Soups</button>
+          <button class="btn-category" data-category="Comfort Food">Comfort Food</button>
+          <button class="btn-category" data-category="Salads &amp; Light">Salads &amp; Light</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="results-section">
+      <div class="results-header" id="results-header"></div>
+      <div class="results-grid" id="results-grid"></div>
+    </div>
+
+  </main>
+
+  <script>
+    const dishes = [
+      // ── Pasta & Grains ──
+      {
+        name: "Cacio e Pepe",
+        description: "A simple Roman pasta with black pepper and butter — few ingredients, huge flavour",
+        ingredients: ["spaghetti (use GF pasta)", "vegan parmesan", "black pepper", "butter", "pasta water"],
+        category: "Pasta & Grains",
+        chef: "Classic",
+        gf: true
+      },
+      {
+        name: "Butter & Sage Gnocchi",
+        description: "Pillowy gnocchi crisped in brown butter with crispy sage leaves and vegan parmesan",
+        ingredients: ["potato gnocchi (use GF gnocchi)", "butter", "fresh sage", "vegan parmesan", "black pepper"],
+        category: "Pasta & Grains",
+        chef: "Classic",
+        gf: true
+      },
+      {
+        name: "Leek & Vegan Cheese Tart",
+        description: "A golden pastry tart filled with softened leeks, vegan cheese and a silky cream custard",
+        ingredients: ["shortcrust pastry (use GF pastry)", "leeks", "vegan cheese", "eggs", "double cream", "butter", "fresh thyme"],
+        category: "Pasta & Grains",
+        chef: "Classic",
+        gf: true
+      },
+      {
+        name: "Roasted Red Pepper & Vegan Cheese Pasta",
+        description: "Sweet roasted red peppers blended into a silky sauce with vegan cheese and garlic",
+        ingredients: ["pasta (use GF pasta)", "roasted red peppers", "vegan cheese", "butter", "garlic", "fresh basil", "black pepper"],
+        category: "Pasta & Grains",
+        chef: "Classic",
+        gf: true
+      },
+      {
+        name: "Creamy Garlic & Herb Pasta",
+        description: "A simple, rich pasta with a garlic cream sauce and fresh herbs",
+        ingredients: ["pasta (use GF pasta)", "garlic", "double cream", "butter", "fresh parsley", "fresh basil", "black pepper"],
+        category: "Pasta & Grains",
+        chef: "Classic",
+        gf: true
+      },
+      {
+        name: "Sweet Potato Gnocchi with Brown Butter",
+        description: "Homemade sweet potato gnocchi tossed in nutty brown butter, sage and vegan parmesan",
+        ingredients: ["sweet potatoes", "plain flour (use GF flour)", "egg", "butter", "fresh sage", "vegan parmesan", "black pepper"],
+        category: "Pasta & Grains",
+        chef: "Classic",
+        gf: true
+      },
+      {
+        name: "Mozzarella & Roasted Pepper Pasta",
+        description: "Roasted sweet peppers tossed through pasta with fresh mozzarella and basil",
+        ingredients: ["pasta (use GF pasta)", "mozzarella", "roasted red peppers", "garlic", "olive oil", "fresh basil", "black pepper"],
+        category: "Pasta & Grains",
+        chef: "Classic",
+        gf: true
+      },
+      {
+        name: "Pea & Herb Risotto",
+        description: "A bright, fresh risotto with sweet peas, fresh parsley and a hint of vegan parmesan",
+        ingredients: ["arborio rice", "frozen peas", "fresh parsley", "butter", "white onion", "garlic", "vegetable stock", "vegan parmesan"],
+        category: "Pasta & Grains",
+        chef: "Rainbow Plant Life",
+        gf: false
+      },
+      // ── Noodle Dishes ──
+      {
+        name: "Coconut Broth Rice Noodles",
+        description: "Silky rice noodles in a mild, fragrant coconut broth with bok choy and ginger",
+        ingredients: ["rice noodles", "coconut milk", "vegetable stock", "fresh ginger", "garlic", "bok choy", "spring onions", "sesame oil"],
+        category: "Noodles",
+        chef: "LifebyMikeG",
+        gf: false
+      },
+      {
+        name: "Stir-Fried Rice Noodles with Veg",
+        description: "Wok-tossed rice noodles with crunchy vegetables, garlic and a light oil sauce",
+        ingredients: ["rice noodles", "red pepper", "carrots", "spring onions", "garlic", "sesame oil", "sesame seeds", "fresh ginger"],
+        category: "Noodles",
+        chef: "Gaz Oakley",
+        gf: false
+      },
+      {
+        name: "Clear Ginger Broth Noodle Soup",
+        description: "A warming, clear broth with rice noodles, bok choy, garlic and fresh ginger",
+        ingredients: ["rice noodles", "vegetable stock", "bok choy", "fresh ginger", "garlic", "spring onions", "sesame oil"],
+        category: "Noodles",
+        chef: "Derek Sarno",
+        gf: false
+      },
+      {
+        name: "Garlic Butter Rice Noodles",
+        description: "Simple rice noodles tossed in garlic butter with fresh herbs and sesame seeds",
+        ingredients: ["rice noodles", "butter", "garlic", "fresh parsley", "sesame seeds", "spring onions", "black pepper"],
+        category: "Noodles",
+        chef: "Classic",
+        gf: false
+      },
+      {
+        name: "Roasted Carrot & Ginger Rice Noodles",
+        description: "Tender roasted carrots over rice noodles in a coconut and ginger broth",
+        ingredients: ["rice noodles", "carrots", "coconut milk", "vegetable stock", "fresh ginger", "garlic", "spring onions", "sesame oil"],
+        category: "Noodles",
+        chef: "Rainbow Plant Life",
+        gf: false
+      },
+      {
+        name: "Butternut Squash & Rice Noodle Soup",
+        description: "Velvety butternut squash broth with rice noodles, ginger and fresh herbs",
+        ingredients: ["rice noodles", "butternut squash", "vegetable stock", "fresh ginger", "garlic", "white onion", "sesame oil", "fresh parsley"],
+        category: "Noodles",
+        chef: "Classic",
+        gf: false
+      },
+      // ── Curries & Stews ──
+      {
+        name: "Butternut Squash & Parsnip Stew",
+        description: "A hearty stew of butternut squash and parsnips in a spiced coconut broth",
+        ingredients: ["butternut squash", "parsnips", "coconut milk", "garlic", "cumin", "fresh ginger", "white onion", "vegetable stock"],
+        category: "Curries & Stews",
+        chef: "Derek Sarno",
+        gf: false
+      },
+      {
+        name: "Sweet Potato & Coconut Curry",
+        description: "Tender sweet potato in a creamy mild coconut curry sauce with fresh ginger",
+        ingredients: ["sweet potato", "coconut milk", "fresh ginger", "mild curry powder", "garlic", "white onion", "vegetable stock", "fresh parsley"],
+        category: "Curries & Stews",
+        chef: "Rainbow Plant Life",
+        gf: false
+      },
+      {
+        name: "Red Lentil & Sweet Potato Soup-Stew",
+        description: "A thick, warming stew-style soup of red lentils and sweet potato in coconut milk",
+        ingredients: ["red lentils", "sweet potato", "coconut milk", "cumin", "garlic", "fresh ginger", "vegetable stock", "fresh parsley"],
+        category: "Curries & Stews",
+        chef: "LifebyMikeG",
+        gf: false
+      },
+      {
+        name: "Coconut Dhal (no coriander)",
+        description: "A comforting lentil dhal simmered in coconut milk with turmeric and cumin",
+        ingredients: ["red lentils", "coconut milk", "fresh ginger", "turmeric", "cumin", "garlic", "white onion", "vegetable stock"],
+        category: "Curries & Stews",
+        chef: "Gaz Oakley",
+        gf: false
+      },
+      {
+        name: "Cauliflower & Sweet Potato Coconut Curry",
+        description: "Florets of cauliflower and sweet potato simmered in a mild, fragrant coconut sauce",
+        ingredients: ["cauliflower", "sweet potato", "coconut milk", "mild curry powder", "fresh ginger", "garlic", "white onion", "vegetable stock"],
+        category: "Curries & Stews",
+        chef: "Derek Sarno",
+        gf: false
+      },
+      // ── Soups ──
+      {
+        name: "Butternut Squash Soup",
+        description: "A smooth, warming soup with roasted butternut squash and a hint of nutmeg",
+        ingredients: ["butternut squash", "double cream", "butter", "nutmeg", "vegetable stock", "white onion", "garlic"],
+        category: "Soups",
+        chef: "Classic",
+        gf: false
+      },
+      {
+        name: "Leek & Potato Soup",
+        description: "A classic, silky-smooth leek and potato soup finished with cream and chives",
+        ingredients: ["leeks", "potatoes", "butter", "double cream", "fresh chives", "vegetable stock", "garlic"],
+        category: "Soups",
+        chef: "Classic",
+        gf: false
+      },
+      {
+        name: "Roasted Carrot & Ginger Soup",
+        description: "Deeply flavoured roasted carrots blended with fresh ginger and coconut milk",
+        ingredients: ["carrots", "fresh ginger", "coconut milk", "vegetable stock", "butter", "white onion", "garlic"],
+        category: "Soups",
+        chef: "Rainbow Plant Life",
+        gf: false
+      },
+      {
+        name: "Roasted Cauliflower Soup",
+        description: "Smoky roasted cauliflower blended into a velvety, comforting soup with garlic",
+        ingredients: ["cauliflower", "garlic", "double cream", "butter", "vegetable stock", "white onion", "fresh thyme"],
+        category: "Soups",
+        chef: "Classic",
+        gf: false
+      },
+      {
+        name: "Sweet Potato & Coconut Soup",
+        description: "A silky, mildly spiced sweet potato soup with coconut milk and ginger",
+        ingredients: ["sweet potato", "coconut milk", "fresh ginger", "vegetable stock", "white onion", "garlic", "mild curry powder"],
+        category: "Soups",
+        chef: "LifebyMikeG",
+        gf: false
+      },
+      // ── Comfort Food ──
+      {
+        name: "Halloumi & Root Veg Traybake",
+        description: "Golden halloumi with roasted sweet potato, parsnips and herbs — a simple oven tray supper",
+        ingredients: ["halloumi", "sweet potato", "parsnips", "red onion", "olive oil", "fresh rosemary", "fresh thyme", "garlic"],
+        category: "Comfort Food",
+        chef: "Classic",
+        gf: false
+      },
+      {
+        name: "Cauliflower Cheese (vegan)",
+        description: "Tender cauliflower in a rich, bubbling vegan cheese sauce — a comforting classic",
+        ingredients: ["cauliflower", "vegan cheese", "plant-based butter", "oat milk", "plain flour (use GF flour)", "nutmeg", "black pepper"],
+        category: "Comfort Food",
+        chef: "Gaz Oakley",
+        gf: true
+      },
+      {
+        name: "Vegan Cheese & Onion Quiche",
+        description: "A crisp pastry shell filled with caramelised onions, vegan cheese and a creamy egg custard",
+        ingredients: ["shortcrust pastry (use GF pastry)", "vegan cheese", "white onion", "eggs", "oat cream", "butter"],
+        category: "Comfort Food",
+        chef: "Classic",
+        gf: true
+      },
+      {
+        name: "Mozzarella & Roasted Veg Bake",
+        description: "Roasted seasonal vegetables layered with fresh mozzarella and baked until golden",
+        ingredients: ["mozzarella", "red pepper", "butternut squash", "red onion", "olive oil", "fresh basil", "garlic"],
+        category: "Comfort Food",
+        chef: "Classic",
+        gf: false
+      },
+      {
+        name: "Green Lentil & Veg Shepherd's Pie",
+        description: "A hearty green lentil and carrot filling topped with buttery golden mashed potato",
+        ingredients: ["green lentils", "carrots", "parsnips", "white onion", "vegetable stock", "butter", "potatoes", "fresh thyme"],
+        category: "Comfort Food",
+        chef: "Derek Sarno",
+        gf: false
+      },
+      {
+        name: "Baked Mozzarella & Garlic Flatbreads",
+        description: "Warm flatbreads topped with melted mozzarella, roasted garlic and fresh basil",
+        ingredients: ["flatbreads (use GF flatbreads)", "mozzarella", "garlic", "olive oil", "fresh basil", "black pepper"],
+        category: "Comfort Food",
+        chef: "Classic",
+        gf: true
+      },
+      {
+        name: "Potato & Leek Gratin (vegan cheese)",
+        description: "Thinly sliced potatoes baked with leeks, cream and melted vegan cheese",
+        ingredients: ["potatoes", "leeks", "vegan cheese", "oat cream", "garlic", "fresh thyme", "butter"],
+        category: "Comfort Food",
+        chef: "Classic",
+        gf: false
+      },
+      // ── Salads & Light Dishes ──
+      {
+        name: "Warm Quinoa Bowl with Roasted Veg",
+        description: "Nutty quinoa with roasted sweet potato and red pepper in a garlic herb dressing",
+        ingredients: ["quinoa", "sweet potato", "red pepper", "red onion", "garlic", "olive oil", "fresh parsley", "black pepper"],
+        category: "Salads & Light",
+        chef: "Rainbow Plant Life",
+        gf: false
+      },
+      {
+        name: "Cucumber & Sesame Rice Bowl",
+        description: "A fresh, cool bowl of sushi rice with cucumber, sesame seeds and spring onions",
+        ingredients: ["sushi rice", "cucumber", "sesame seeds", "spring onions", "sesame oil", "fresh ginger", "garlic"],
+        category: "Salads & Light",
+        chef: "LifebyMikeG",
+        gf: false
+      },
+      {
+        name: "Roasted Carrot & Sweet Potato Flatbread",
+        description: "Warm flatbreads spread with mashed sweet potato and topped with roasted carrots and herbs",
+        ingredients: ["flatbreads (use GF flatbreads)", "sweet potato", "carrots", "olive oil", "fresh parsley", "garlic", "black pepper"],
+        category: "Salads & Light",
+        chef: "Gaz Oakley",
+        gf: true
+      },
+      {
+        name: "Halloumi Burger with Apple Slaw",
+        description: "A grilled halloumi patty in a soft bun with a crisp apple and red cabbage slaw",
+        ingredients: ["halloumi", "brioche bun (use GF bun)", "apple", "red cabbage", "mayo", "cucumber", "fresh parsley"],
+        category: "Salads & Light",
+        chef: "Gaz Oakley",
+        gf: true
+      },
+      {
+        name: "Roasted Carrot & Vegan Cheese Salad",
+        description: "Sweet roasted carrots with vegan cheese, mixed salad leaves and a herb dressing",
+        ingredients: ["carrots", "vegan cheese", "mixed salad leaves", "olive oil", "fresh thyme", "fresh parsley", "garlic"],
+        category: "Salads & Light",
+        chef: "Classic",
+        gf: false
+      },
+      {
+        name: "Caprese Salad",
+        description: "Fresh mozzarella with sliced cucumber, basil and a drizzle of olive oil",
+        ingredients: ["mozzarella", "cucumber", "fresh basil", "olive oil", "black pepper"],
+        category: "Salads & Light",
+        chef: "Classic",
+        gf: false
+      },
+      {
+        name: "Baked Egg Muffins with Peas",
+        description: "Baked egg muffins packed with sweet peas, spring onions and herbs",
+        ingredients: ["eggs", "frozen peas", "spring onions", "olive oil", "black pepper", "oat cream", "fresh parsley"],
+        category: "Salads & Light",
+        chef: "Classic",
+        gf: false
+      },
+      {
+        name: "Sweet Potato & Roasted Veg Bowl",
+        description: "Roasted sweet potato and parsnips over rice with mild cumin and red cabbage",
+        ingredients: ["sweet potato", "parsnips", "rice", "mild cumin", "red cabbage", "olive oil", "spring onions"],
+        category: "Salads & Light",
+        chef: "LifebyMikeG",
+        gf: false
+      },
+      {
+        name: "Butternut Squash & Mozzarella Salad",
+        description: "Roasted butternut squash with fresh mozzarella, pumpkin seeds and fresh basil",
+        ingredients: ["butternut squash", "mozzarella", "pumpkin seeds", "fresh basil", "olive oil", "garlic"],
+        category: "Salads & Light",
+        chef: "Classic",
+        gf: false
+      }
+    ];
+
+    // ── Utilities ──
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function renderCards(results, headerText) {
+      const section = document.getElementById('results-section');
+      const header = document.getElementById('results-header');
+      const grid = document.getElementById('results-grid');
+
+      header.textContent = headerText;
+      grid.innerHTML = '';
+
+      if (results.length === 0) {
+        grid.innerHTML = `<div class="no-results"><strong>No dishes found</strong>Try a different ingredient — halloumi, sweet potato, coconut milk…</div>`;
+      } else {
+        results.slice(0, 5).forEach(dish => {
+          const card = document.createElement('div');
+          card.className = 'dish-card';
+
+          const pills = dish.ingredients.map(ing => {
+            const isGFNote = ing.toLowerCase().includes('use gf');
+            return `<span class="pill${isGFNote ? ' gf' : ''}">${ing}</span>`;
+          }).join('');
+
+          card.innerHTML = `
+            <div class="dish-card-top">
+              <div class="dish-name">${dish.name}</div>
+              <span class="dish-chef">${dish.chef}</span>
+            </div>
+            <div class="dish-description">${dish.description}</div>
+            <div class="dish-ingredients">${pills}</div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      section.style.display = 'block';
+      section.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // ── Random ──
+    document.getElementById('btn-surprise').addEventListener('click', () => {
+      document.getElementById('ingredient-input').value = '';
+      document.querySelectorAll('.btn-category').forEach(b => b.classList.remove('active'));
+      const picks = shuffle(dishes);
+      renderCards(picks, 'Five ideas for tonight');
+    });
+
+    // ── Ingredient search ──
+    function runSearch() {
+      const raw = document.getElementById('ingredient-input').value.trim().toLowerCase();
+      if (!raw) return;
+      document.querySelectorAll('.btn-category').forEach(b => b.classList.remove('active'));
+
+      const matches = dishes.filter(d =>
+        d.ingredients.some(ing => ing.toLowerCase().includes(raw)) ||
+        d.name.toLowerCase().includes(raw)
+      );
+
+      const label = matches.length > 0
+        ? `${matches.length} dish${matches.length === 1 ? '' : 'es'} with "${raw}" — showing ${Math.min(matches.length, 5)}`
+        : `No dishes found for "${raw}"`;
+
+      renderCards(matches, label);
+    }
+
+    document.getElementById('btn-search').addEventListener('click', runSearch);
+    document.getElementById('ingredient-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') runSearch();
+    });
+
+    // ── Browse by category ──
+    document.getElementById('category-buttons').addEventListener('click', e => {
+      const btn = e.target.closest('.btn-category');
+      if (!btn) return;
+
+      // Toggle active state
+      document.querySelectorAll('.btn-category').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Clear other inputs
+      document.getElementById('ingredient-input').value = '';
+
+      const category = btn.dataset.category;
+      const matches = dishes.filter(d => d.category === category);
+      const picks = shuffle(matches);
+
+      const label = `${category} — five ideas`;
+      renderCards(picks, label);
+    });
+  </script>
+
+</body>
+</html>
