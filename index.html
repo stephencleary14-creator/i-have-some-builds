@@ -854,13 +854,13 @@
       <p class="section-label">Latest</p>
       <div class="card featured-card" onclick="openEntry(0)" id="featured-card">
         <div id="featured-thumb" class="featured-image">
-          <img src="images/attention_summary.png" alt="Ad Performance Summary output showing Creative Interest, Branding and Platform Fit panels" />
+          <img src="images/dinner_page.png" alt="What's For Dinner? page showing the three search modes" />
           <div class="thumb-icon"></div>
         </div>
         <div class="featured-body">
-          <p class="card-meta">5 April 2026</p>
-          <h2 class="card-title">Making an Attention Tester: Part 3</h2>
-          <p class="card-excerpt">Parts 1 and 2 got the attention tester working. Part 3 was about adding something that tells you what the data actually means — an Ad Performance Summary with three clear verdicts.</p>
+          <p class="card-meta">6 April 2026</p>
+          <h2 class="card-title">What's For Dinner?</h2>
+          <p class="card-excerpt">My wife Caroline has a complicated relationship with food. So I built her a dish finder — curated, adapted to her restrictions, with three ways to find something she can actually eat.</p>
           <a class="card-read" onclick="event.stopPropagation(); openEntry(0)">Read entry</a>
         </div>
       </div>
@@ -950,9 +950,40 @@
         <rect x="71" y="86" width="18" height="4" rx="2" fill="#EDE0C4" opacity="0.55"/>
         <rect x="110" y="86" width="18" height="4" rx="2" fill="#EDE0C4" opacity="0.55"/>
       </svg>`,
+      dinner: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <circle cx="80" cy="58" r="36" stroke="#C8102E" stroke-width="5" fill="none"/>
+        <line x1="80" y1="16" x2="80" y2="28" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <line x1="56" y1="44" x2="46" y2="38" stroke="#C8102E" stroke-width="3" stroke-linecap="round"/>
+        <line x1="104" y1="44" x2="114" y2="38" stroke="#C8102E" stroke-width="3" stroke-linecap="round"/>
+        <line x1="44" y1="86" x2="116" y2="86" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <line x1="56" y1="94" x2="104" y2="94" stroke="#C8102E" stroke-width="3" stroke-linecap="round" opacity="0.45"/>
+        <circle cx="80" cy="58" r="8" fill="#C8102E"/>
+      </svg>`,
     };
 
     const entries = [
+      {
+        icon: icons.dinner,
+        photo: 'images/dinner_page.png',
+        photoAlt: "What's For Dinner? page showing the three search modes",
+        meta: '6 April 2026',
+        title: "What's For Dinner?",
+        body: `
+          <p>My wife Caroline has a complicated relationship with food. Gluten free. Low histamine. Vegetarian. No spice, no acid, no tomato. Add a few personal dislikes on top of that and dinner becomes more of a logic puzzle than a pleasure.</p>
+          <p>I wanted to do something useful about it. So I built her a page.</p>
+          <p>It's a simple dish finder — a curated list of meals I know she can actually eat, drawn from some of my favourite food creators: Gaz Oakley, Derek Sarno, Rainbow Plant Life, LifebyMikeG. All vegetarian, all adapted to her restrictions.</p>
+          <img src="images/dinner_page.png" alt="What's For Dinner? page showing three search modes" class="entry-img" />
+          <p>There are three ways to use it.</p>
+          <p><strong>Surprise me</strong> does exactly what it says. Hit the button and get five random dishes from the full list. Good for when you don't know what you want but you're hungry now.</p>
+          <p><strong>Search by ingredient</strong> lets you type something — halloumi, sweet potato, whatever — and it finds every dish that uses it. Useful when something in the fridge needs eating.</p>
+          <img src="images/dinner_search.png" alt="Search by ingredient with leek typed and Curries & Stews category selected" class="entry-img" />
+          <p><strong>Browse by dish type</strong> gives you category buttons — Pasta & Grains, Noodles, Curries & Stews, Soups, Comfort Food, Salads. Pick one and get five ideas from that section.</p>
+          <p>Each dish card shows the ingredients, a gluten free tag where it applies, and which chef it's inspired by. No recipes — just enough to know what's possible and what to look up.</p>
+          <img src="images/dinner_results.png" alt="Results cards showing noodle dishes with chef attribution tags" class="entry-img" />
+          <p>It's a small build. But it's one of the more useful things I've made.</p>
+        `
+      },
       {
         icon: icons.attentionPt3,
         photo: 'images/attention_summary.png',
