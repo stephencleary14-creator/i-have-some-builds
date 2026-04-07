@@ -110,6 +110,17 @@
       color: #fff;
     }
 
+    .btn-favourites {
+      border-color: #C8860A;
+      color: #C8860A;
+    }
+
+    .btn-favourites:hover, .btn-favourites.active {
+      background: #C8860A;
+      border-color: #C8860A;
+      color: #fff;
+    }
+
     .mode-card {
       background: #fff;
       border-radius: 10px;
@@ -354,6 +365,7 @@
         <h2>Browse by dish type</h2>
         <p>Know what kind of meal you're after? Pick a category and get five ideas from that section.</p>
         <div class="category-buttons" id="category-buttons">
+          <button class="btn-category btn-favourites" data-category="__favourites__">★ My Favourites</button>
           <button class="btn-category" data-category="Pasta &amp; Grains">Pasta &amp; Grains</button>
           <button class="btn-category" data-category="Noodles & Rice">Noodles &amp; Rice</button>
           <button class="btn-category" data-category="Curries &amp; Stews">Curries &amp; Stews</button>
@@ -804,11 +816,15 @@
       document.getElementById('ingredient-input').value = '';
 
       const category = btn.dataset.category;
-      const matches = dishes.filter(d => d.category === category);
-      const picks = shuffle(matches);
 
-      const label = `${category} — five ideas`;
-      renderCards(picks, label);
+      if (category === '__favourites__') {
+        const scored = dishes.filter(d => d.score).sort((a, b) => b.score - a.score);
+        renderCards(scored, "Caroline's top rated dishes");
+      } else {
+        const matches = dishes.filter(d => d.category === category);
+        const picks = shuffle(matches);
+        renderCards(picks, `${category} — five ideas`);
+      }
     });
   </script>
 
