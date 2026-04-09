@@ -854,13 +854,13 @@
       <p class="section-label">Latest</p>
       <div class="card featured-card" onclick="openEntry(0)" id="featured-card">
         <div id="featured-thumb" class="featured-image">
-          <img src="images/dinner_page.png" alt="What's For Dinner? page showing the three search modes" />
+          <img src="images/NathanScott.jpg" alt="Nathan and Haley Scott in couples therapy, One Tree Hill Season 5" />
           <div class="thumb-icon"></div>
         </div>
         <div class="featured-body">
-          <p class="card-meta">6 April 2026</p>
-          <h2 class="card-title">What's For Dinner?</h2>
-          <p class="card-excerpt">My wife Caroline has a complicated relationship with food. So I built her a dish finder — curated, adapted to her restrictions, with three ways to find something she can actually eat.</p>
+          <p class="card-meta">9 April 2026</p>
+          <h2 class="card-title">Why am I enjoying this so much?</h2>
+          <p class="card-excerpt">There's a moment in One Tree Hill where a therapist asks Nathan and Haley why they don't describe themselves the way they used to. A basketball player and a musician. Life got in the way. It stuck with me.</p>
           <a class="card-read" onclick="event.stopPropagation(); openEntry(0)">Read entry</a>
         </div>
       </div>
@@ -961,9 +961,36 @@
         <line x1="103" y1="18" x2="103" y2="102" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
         <path d="M103 18 Q118 28 118 50 Q118 62 103 65" stroke="#C8102E" stroke-width="4" fill="#C8102E" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>`,
+      whyEnjoying: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Bulb globe -->
+        <path d="M80 22 C60 22 46 36 46 54 C46 66 53 76 63 82 L63 92 L97 92 L97 82 C107 76 114 66 114 54 C114 36 100 22 80 22 Z" fill="#C8102E"/>
+        <!-- Base rings -->
+        <rect x="63" y="93" width="34" height="6" rx="3" fill="#C8102E"/>
+        <rect x="66" y="101" width="28" height="5" rx="2.5" fill="#C8102E"/>
+        <!-- Highlight -->
+        <path d="M66 40 C66 36 70 32 76 30" stroke="#EDE0C4" stroke-width="4" stroke-linecap="round" opacity="0.55"/>
+      </svg>`,
     };
 
     const entries = [
+      {
+        icon: icons.whyEnjoying,
+        photo: 'images/NathanScott.jpg',
+        photoAlt: 'Nathan and Haley Scott in couples therapy, One Tree Hill Season 5',
+        meta: '9 April 2026',
+        title: "Why am I enjoying this so much?",
+        body: `
+          <p>I've been rewatching One Tree Hill on Netflix, like so many others apparently. There's an episode in Season 5 where Nathan and Haley are in couples therapy. The therapist asks them why they don't describe themselves the way they used to — a basketball player and a musician. Their answer is simple: life got in the way.</p>
+          <img src="images/NathanScott.jpg" alt="Nathan and Haley Scott in couples therapy, One Tree Hill Season 5" class="entry-img" />
+          <p>It's a throwaway moment in a teen drama. But it stuck with me.</p>
+          <p>My career started with making things. My undergrad was Multimedia Design — I was building websites regularly, learning by doing, putting things out into the world. My big break at adidas came because I took initiative. I made a campaign to find an internship: built a website, networked, documented the whole thing as it happened. It won a Digital Advertising Northern Ireland award.</p>
+          <img src="images/DANIawards.JPG" alt="Digital Advertising Northern Ireland award" class="entry-img" />
+          <p>That instinct — to make something rather than just talk about it — is what got me in the room. And somewhere along the way, I stopped exercising it.</p>
+          <p>I think that's why throwing myself into Claude Code has felt so good. It's not just that the tools are impressive or the builds are useful. It's that I'm making things again. Properly making them — from an idea to something you can open in a browser and use.</p>
+          <p>I used to describe myself as someone who builds things. Life got in the way for a while. It's good to be back.</p>
+        `
+      },
       {
         icon: icons.dinner,
         photo: 'images/dinner_page.png',
