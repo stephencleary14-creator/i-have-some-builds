@@ -1185,6 +1185,25 @@
   <script>
     // SVG icons: bold geometric, red (#C8102E) on cream (#EDE0C4)
     const icons = {
+      balanceScales: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Centre pole -->
+        <line x1="80" y1="28" x2="80" y2="96" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <!-- Base -->
+        <line x1="56" y1="96" x2="104" y2="96" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <!-- Beam -->
+        <line x1="28" y1="40" x2="132" y2="40" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <!-- Left chain -->
+        <line x1="36" y1="40" x2="36" y2="62" stroke="#C8102E" stroke-width="3" stroke-linecap="round"/>
+        <!-- Right chain -->
+        <line x1="124" y1="40" x2="124" y2="62" stroke="#C8102E" stroke-width="3" stroke-linecap="round"/>
+        <!-- Left pan -->
+        <path d="M18 62 Q36 70 54 62" stroke="#C8102E" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <!-- Right pan -->
+        <path d="M106 62 Q124 70 142 62" stroke="#C8102E" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <!-- Centre pivot dot -->
+        <circle cx="80" cy="40" r="5" fill="#C8102E"/>
+      </svg>`,
       handshake: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect width="160" height="120" fill="#EDE0C4"/>
         <!-- Left arm -->
@@ -1356,6 +1375,61 @@
     };
 
     const entries = [
+      {
+        icon: icons.balanceScales,
+        photo: 'images/SJC_sciencelab.png',
+        photoAlt: 'SJC figurine standing in a miniature science laboratory, hands on hips, studying a set of brass balance scales on the workbench',
+        meta: '5 Jun 2026',
+        title: 'Making an Attention Tester: Part 4',
+        body: `
+          <img src="images/SJC_sciencelab.png" alt="SJC figurine in a science lab studying balance scales" class="entry-img" />
+          <p>Part 3 ended with a tool that could tell you three things about a social ad: is it interesting, is it well branded, and which platform suits it best. A reasonable summary. But the more I used it, the more I felt it was treating all ads the same. They're not.</p>
+          <p>In my last entry I wrote about the tension between hooking someone early and getting your brand in front of them early. I've been thinking about that balance ever since. A brand ad and a performance ad are doing fundamentally different jobs. Judging them on the same criteria is like weighing a fishing rod and a landing net. Both useful. Very different purposes.</p>
+          <p>So Part 4 was about pulling those two things apart.</p>
+          <h3>Brand or Performance — the tool now asks</h3>
+          <p>Before you can run an analysis, the tool now asks you to declare what type of ad you're working with. Brand Marketing or Performance Marketing. That one choice changes everything that follows.</p>
+          <img src="images/Tester_choose.png" alt="Attention Tester ad type selector showing Brand Marketing and Performance Marketing options" class="entry-img" />
+          <h3>A smarter Creative Summary</h3>
+          <p>For brand ads, the Creative Interest section is now built on System1's research into what makes creative work emotionally resonant. Their work identifies a set of right-brain features that consistently outperform left-brain approaches in long-term brand building.</p>
+          <table style="width:100%;border-collapse:collapse;margin:24px 0;font-size:0.95rem;">
+            <thead>
+              <tr>
+                <th style="background:var(--red);color:#fff;padding:10px 14px;text-align:left;border-radius:6px 0 0 0;">Left Brain</th>
+                <th style="background:var(--red);color:#fff;padding:10px 14px;text-align:left;border-radius:0 6px 0 0;">Right Brain</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Flatness</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">A clear sense of place</td></tr>
+              <tr style="background:var(--cream-light);"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Abstracted product, feature, ingredient</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">One scene unfolding with progression</td></tr>
+              <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Abstracted body part (e.g. hands, mouth)</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Characters with agency (voice, movement, expression)</td></tr>
+              <tr style="background:var(--cream-light);"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Words obtrude during the ad</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Implicit, unspoken communication (knowing glances)</td></tr>
+              <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Voiceover</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Dialogue</td></tr>
+              <tr style="background:var(--cream-light);"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Monologue (e.g. testimonial)</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Distinctive accents</td></tr>
+              <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Adjectives used as nouns</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Play on words or subversion of language</td></tr>
+              <tr style="background:var(--cream-light);"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Freeze-frame effect</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Set in the past (costumes &amp; sets)</td></tr>
+              <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Audio repetition (metered prose, sound effects)</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Reference to cultural works (pastiche/parody)</td></tr>
+              <tr style="background:var(--cream-light);"><td style="padding:9px 14px;">Highly rhythmic soundtrack</td><td style="padding:9px 14px;">Music with melody</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.85rem;color:var(--mid);margin-top:-12px;margin-bottom:24px;">Source: Lemon, Orlando Wood, IPA, 2019</p>
+          <p>The tool checks for these features in the uploaded video and returns which are present and which are missing, with a summary verdict on creative strength.</p>
+          <p>For performance ads, the analysis shifts entirely. The tool looks for whether the ad has a clear message and a call to action. Less about story, more about signal.</p>
+          <h3>Branding — beyond just "does it appear?"</h3>
+          <p>Part 3 checked whether your Distinct Brand Asset appeared and at what point. Part 4 goes further. The tool now identifies the type of DBA and cross-references it against System1's hierarchy of assets most likely to be recalled.</p>
+          <img src="images/Tester_Brand.png" alt="Attention Tester branding section showing DBA type and effectiveness rating" class="entry-img" />
+          <p>A logo floating on screen for half a second is not the same as a fluent character built over years. The tool now makes that distinction.</p>
+          <h3>Platform Fit — actually fit for purpose</h3>
+          <p>The old platform scoring leaned too heavily on DBA timing and attention windows. Useful signals, but not the full picture. Different content suits different platforms for different reasons.</p>
+          <p>A brand ad heavy on text overlays with no dialogue is probably not your best TikTok candidate, even if it's short. A performance ad with a sharp product message and an on-screen CTA will land better on Meta than on Snapchat, where that approach tends to feel intrusive.</p>
+          <img src="images/Tester_Performance.png" alt="Attention Tester platform fit section showing Good, Partial and Poor verdicts per platform" class="entry-img" />
+          <p>Part 4 rebuilds platform fit around what actually matters per ad type. Brand ads are assessed on creative quality, character, sound dependency, pacing, and how well the DBA works in that environment. Performance ads are assessed on thumb-stop quality, message clarity, product visibility, offer signals, and CTA presence.</p>
+          <p>Each platform gets its own verdict. Good, Partial, or Poor, with a reason specific to that combination of ad and platform.</p>
+          <p>Here is the demo of the Attention Tester with the above additions.</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/Tester_record.mp4" type="video/mp4" />
+          </video>
+        `
+      },
       {
         icon: icons.fishingHook,
         photo: 'images/hook_fishing.png',
