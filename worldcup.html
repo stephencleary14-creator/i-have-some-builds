@@ -1493,33 +1493,29 @@ function drawIntro() {
   ctx.font = 'bold 18px "Courier New", monospace';
   ctx.fillText(level.subtitle + ' · ' + level.venue, W / 2, 262);
   ctx.font = '15px "Courier New", monospace';
-  wrapText(level.brief, W / 2, 320, 520, 22);
+  const briefEnd = wrapText(level.brief, W / 2, 320, 520, 22);
+
+  // mechanic instructions — start clear of the brief, never overlapping
+  let lines = null;
   if (level.mechanic === 'dribble') {
-    ctx.fillStyle = '#aaffaa';
-    ctx.font = 'bold 13px "Courier New", monospace';
-    ctx.fillText(TOUCH ? 'STEER: hold LEFT/RIGHT side of screen' : 'STEER: hold LEFT/RIGHT side of screen (or arrow keys)', W / 2, 372);
-    ctx.fillText(TOUCH ? 'SPRINT: rapid taps' : 'SPRINT: rapid clicks (or SPACE)', W / 2, 394);
-    ctx.fillText(TOUCH ? 'SHOOT: once past the keeper \u2014 tap' : 'SHOOT: once past the keeper \u2014 click or SPACE', W / 2, 416);
+    lines = TOUCH
+      ? ['STEER: hold LEFT/RIGHT side of screen', 'SPRINT: rapid taps', 'SHOOT: once past the keeper \u2014 tap']
+      : ['STEER: hold LEFT/RIGHT side of screen (or arrow keys)', 'SPRINT: rapid clicks (or SPACE)', 'SHOOT: once past the keeper \u2014 click or SPACE'];
+  } else if (level.mechanic === 'volley') {
+    lines = ['CHEST: tap as the ball drops \u2014 the higher you take it,', 'the more POWER you bank (you need plenty from 25 yards)', 'VOLLEY: tap again as it falls \u2014 timing sets the direction'];
+  } else if (level.mechanic === 'header') {
+    lines = ['READ: watch the cross drop in from the left', 'LEAP: tap to dive as it arrives \u2014 timing is everything', 'POWER: tap the bar gently \u2014 loop it, don\u2019t lash it'];
   }
-  if (level.mechanic === 'volley') {
+  let iy = briefEnd + 40;
+  if (lines) {
     ctx.fillStyle = '#aaffaa';
-    ctx.font = 'bold 13px "Courier New", monospace';
-    ctx.fillText('CHEST: tap as the ball drops \u2014 the higher you take it,', W / 2, 372);
-    ctx.fillText('the more POWER you bank (you need plenty from 25 yards)', W / 2, 394);
-    ctx.fillText('VOLLEY: tap again as it falls \u2014 timing sets the direction', W / 2, 416);
-  }
-  if (level.mechanic === 'header') {
-    ctx.fillStyle = '#aaffaa';
-    ctx.font = 'bold 13px "Courier New", monospace';
-    ctx.fillText('READ: watch the cross drop in from the left', W / 2, 372);
-    ctx.fillText('LEAP: tap to dive as it arrives \u2014 timing is everything', W / 2, 394);
-    ctx.fillText('POWER: tap the bar gently \u2014 loop it, don\u2019t lash it', W / 2, 416);
+    ctx.font = 'bold 16px "Courier New", monospace';
+    for (const ln of lines) { ctx.fillText(ln, W / 2, iy); iy += 26; }
   }
   if (stateTime > 0.4 && Math.floor(stateTime * 2) % 2 === 0) {
     ctx.fillStyle = '#fff';
     ctx.font = 'bold 16px "Courier New", monospace';
-    const lower = level.mechanic === 'dribble' || level.mechanic === 'volley' || level.mechanic === 'header';
-    ctx.fillText('TAP TO PLAY', W / 2, lower ? 460 : 420);
+    ctx.fillText('TAP TO PLAY', W / 2, iy + 22);
   }
 }
 
@@ -1766,6 +1762,7 @@ function wrapText(text, x, y, maxW, lh) {
     } else line = test;
   }
   ctx.fillText(line.trim(), x, y);
+  return y;
 }
 
 // ---------- MAIN LOOP ----------
