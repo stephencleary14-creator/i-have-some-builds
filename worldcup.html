@@ -1468,10 +1468,6 @@ function drawTitle() {
   ctx.fillStyle = '#fff';
   ctx.font = 'bold 16px "Courier New", monospace';
   ctx.fillText('FIVE REAL WORLD CUP GOALS. YOUR BOOTS.', W / 2, 300);
-  const n = LEVELS.filter(l => l.implemented).length;
-  ctx.fillStyle = '#aaffaa';
-  ctx.font = 'bold 13px "Courier New", monospace';
-  ctx.fillText(n === 5 ? 'ALL 5 LEVELS PLAYABLE' : 'EARLY BUILD · ' + n + ' OF 5 LEVELS PLAYABLE', W / 2, 336);
   if (Math.floor(stateTime * 2) % 2 === 0) {
     ctx.fillStyle = '#fff';
     ctx.font = 'bold 18px "Courier New", monospace';
@@ -1725,7 +1721,7 @@ function drawComplete() {
   ctx.fillText('YOU SCORED THAT!', W * 0.42, 150);
   ctx.fillStyle = '#fff';
   ctx.font = 'bold 15px "Courier New", monospace';
-  ctx.fillText('Goals recreated in this build:', W * 0.42, 200);
+  ctx.fillText('Your goalscoring record:', W * 0.42, 200);
   let yy = 240;
   for (const g of goalsScored) {
     const l = LEVELS.find(v => v.id === g.id);
