@@ -46,10 +46,16 @@ const W = 800, H = 600;
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 
+let rotated = false;  // portrait phones: rotate the canvas 90° so the game fills the screen
 function fitCanvas() {
-  const s = Math.min(window.innerWidth / W, window.innerHeight * 0.97 / H);
+  const vw = window.innerWidth, vh = window.innerHeight;
+  rotated = vh > vw * 1.2 && vw < 700;
+  const s = rotated
+    ? Math.min(vh * 0.97 / W, vw * 0.97 / H)
+    : Math.min(vw / W, vh * 0.97 / H);
   canvas.style.width  = (W * s) + 'px';
   canvas.style.height = (H * s) + 'px';
+  canvas.style.transform = rotated ? 'rotate(90deg)' : '';
 }
 window.addEventListener('resize', fitCanvas);
 fitCanvas();
@@ -264,8 +270,14 @@ function sfxCrowd(goal) {
 }
 
 // ---------- INPUT (pointer events: mouse + touch) ----------
+const TOUCH = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+
 function canvasPos(e) {
   const r = canvas.getBoundingClientRect();
+  if (rotated) {
+    // canvas is rotated 90° clockwise: screen-down = game +x, screen-left = game +y
+    return { x: (e.clientY - r.top) * (W / r.height), y: (r.right - e.clientX) * (H / r.width) };
+  }
   return { x: (e.clientX - r.left) * (W / r.width), y: (e.clientY - r.top) * (H / r.height) };
 }
 
@@ -1297,7 +1309,7 @@ function drawDribbleHUD() {
   ctx.fillStyle = '#fff';
   ctx.font = 'bold 10px "Courier New", monospace';
   ctx.textAlign = 'center';
-  ctx.fillText(dyn.boost > 0.8 ? 'SPRINTING!' : 'PACE \u2014 CLICK TO SPRINT', W / 2, by - 10);
+  ctx.fillText(dyn.boost > 0.8 ? 'SPRINTING!' : (TOUCH ? 'PACE \u2014 TAP TO SPRINT' : 'PACE \u2014 CLICK TO SPRINT'), W / 2, by - 10);
 
   // chaser gap meter: how close the hunt is behind you
   if (!dyn.rounded) {
@@ -1328,7 +1340,7 @@ function drawDribbleHUD() {
     }
     ctx.fillStyle = '#fff';
     ctx.font = 'bold 16px "Courier New", monospace';
-    ctx.fillText('CLICK OR PRESS SPACE', W / 2, 170);
+    ctx.fillText(TOUCH ? 'TAP THE SCREEN' : 'CLICK OR PRESS SPACE', W / 2, 170);
     return;
   }
 
@@ -1350,7 +1362,7 @@ function drawDribbleHUD() {
     ctx.font = 'bold 20px "Courier New", monospace';
     ctx.fillText("THEY'RE ON YOUR HEELS! SPRINT!", W / 2, 130);
   }
-  drawPrompt('CLICK = SPRINT \u00b7 HOLD LEFT/RIGHT SIDE = STEER');
+  drawPrompt(TOUCH ? 'TAP = SPRINT \u00b7 HOLD LEFT/RIGHT SIDE = STEER' : 'CLICK = SPRINT \u00b7 HOLD LEFT/RIGHT SIDE = STEER');
 }
 
 function drawAim() {
@@ -1485,9 +1497,9 @@ function drawIntro() {
   if (level.mechanic === 'dribble') {
     ctx.fillStyle = '#aaffaa';
     ctx.font = 'bold 13px "Courier New", monospace';
-    ctx.fillText('STEER: hold LEFT/RIGHT side of screen (or arrow keys)', W / 2, 372);
-    ctx.fillText('SPRINT: rapid clicks (or SPACE)', W / 2, 394);
-    ctx.fillText('SHOOT: once past the keeper \u2014 click or SPACE', W / 2, 416);
+    ctx.fillText(TOUCH ? 'STEER: hold LEFT/RIGHT side of screen' : 'STEER: hold LEFT/RIGHT side of screen (or arrow keys)', W / 2, 372);
+    ctx.fillText(TOUCH ? 'SPRINT: rapid taps' : 'SPRINT: rapid clicks (or SPACE)', W / 2, 394);
+    ctx.fillText(TOUCH ? 'SHOOT: once past the keeper \u2014 tap' : 'SHOOT: once past the keeper \u2014 click or SPACE', W / 2, 416);
   }
   if (level.mechanic === 'volley') {
     ctx.fillStyle = '#aaffaa';
