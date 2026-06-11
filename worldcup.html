@@ -652,11 +652,11 @@ function simDribble(dt) {
 function shootSlot() {
   // quick low finish into the open net, angled away from the slider
   aim.targetX = clamp(-dyn.px * 0.4 + rand(-0.6, 0.6), -2.8, 2.8);
-  aim.angle = 6;
-  power.locked = 0.4;
+  aim.angle = 9;
+  power.locked = 0.6;
   kickAnim = 0.22;
   sfxKick(0.5);
-  kickBall(15);
+  kickBall(Math.min(14 + ball.y * 0.9, 28));   // scale with distance so it never dies short
 }
 
 function kickBall(speed) {
