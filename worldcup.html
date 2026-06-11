@@ -1497,7 +1497,11 @@ function drawIntro() {
 
   // mechanic instructions — start clear of the brief, never overlapping
   let lines = null;
-  if (level.mechanic === 'dribble') {
+  if (level.mechanic === 'firsttime') {
+    lines = ['WATCH: Pel\u00e9 rolls it across your path', 'STRIKE: tap as it arrives \u2014 timing sets the direction', 'POWER: tap the bar \u2014 corners need plenty'];
+  } else if (level.mechanic === 'lob') {
+    lines = ['WATCH: the ball bounces in to you', 'STRIKE: tap on the bounce \u2014 timing shapes the lob', 'POWER: tap the bar \u2014 clear the keeper, under the bar'];
+  } else if (level.mechanic === 'dribble') {
     lines = TOUCH
       ? ['STEER: hold LEFT/RIGHT side of screen', 'SPRINT: rapid taps', 'SHOOT: once past the keeper \u2014 tap']
       : ['STEER: hold LEFT/RIGHT side of screen (or arrow keys)', 'SPRINT: rapid clicks (or SPACE)', 'SHOOT: once past the keeper \u2014 click or SPACE'];
