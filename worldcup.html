@@ -22,6 +22,11 @@
     touch-action: none;
     cursor: crosshair;
     image-rendering: pixelated;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
   }
 </style>
 </head>
@@ -46,18 +51,31 @@ const W = 1060, H = 600;
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 
+const TOUCH = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+
 let rotated = false;  // portrait phones: rotate the canvas 90° so the game fills the screen
 function fitCanvas() {
-  const vw = window.innerWidth, vh = window.innerHeight;
+  // visualViewport gives the real visible area (handles mobile browser bars on rotate)
+  const vv = window.visualViewport;
+  const vw = vv ? vv.width : window.innerWidth;
+  const vh = vv ? vv.height : window.innerHeight;
   rotated = vh > vw * 1.2 && vw < 700;
+  const pad = TOUCH ? 1 : 0.97;  // full bleed on phones/tablets
   const s = rotated
-    ? Math.min(vh * 0.97 / W, vw * 0.97 / H)
-    : Math.min(vw / W, vh * 0.97 / H);
+    ? Math.min(vh * pad / W, vw * pad / H)
+    : Math.min(vw * pad / W, vh * pad / H);
   canvas.style.width  = (W * s) + 'px';
   canvas.style.height = (H * s) + 'px';
   canvas.style.transform = rotated ? 'rotate(90deg)' : '';
 }
 window.addEventListener('resize', fitCanvas);
+if (window.visualViewport) window.visualViewport.addEventListener('resize', fitCanvas);
+window.addEventListener('orientationchange', () => {
+  // mobile browsers report stale dimensions mid-rotation; re-fit once things settle
+  fitCanvas();
+  setTimeout(fitCanvas, 300);
+  setTimeout(fitCanvas, 800);
+});
 fitCanvas();
 
 // ---------- CAMERA / PROJECTION (tune these by eye) ----------
@@ -270,7 +288,9 @@ function sfxCrowd(goal) {
 }
 
 // ---------- INPUT (pointer events: mouse + touch) ----------
-const TOUCH = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+// suppress long-press selection/highlight (e.g. holding to steer in the Maradona level)
+canvas.addEventListener('touchstart', e => e.preventDefault(), { passive: false });
+canvas.addEventListener('contextmenu', e => e.preventDefault());
 
 function canvasPos(e) {
   const r = canvas.getBoundingClientRect();
