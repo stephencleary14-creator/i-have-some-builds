@@ -104,11 +104,14 @@ const GOAL_HW = 3.66;       // goal half width (m)
 const BAR_H  = 2.44;        // crossbar height (m)
 const POST_R = 0.16;        // post/bar band half-thickness for woodwork
 
+// crowd shirt/skin colours
+const CROWD_COLS = ['#e8d8a0', '#c46a6a', '#6a88c4', '#d8b86a', '#88c47a', '#e8e8e8', '#b07ac4', '#e8987a'];
+
 // ---------- LEVEL CONFIGS (all 5; tune from screengrabs later) ----------
 const LEVELS = [
   {
     id: 'carlosalberto', implemented: true, num: 4, mechanic: 'firsttime',
-    title: 'CARLOS ALBERTO', subtitle: 'BRAZIL 4-1 ITALY', venue: "AZTECA · MEXICO '70",
+    title: 'CARLOS ALBERTO', flags: ['bra','ita'], subtitle: 'BRAZIL 4-1 ITALY', venue: "AZTECA · MEXICO '70",
     brief: 'Pel\u00e9 rolls it into your path on the edge of the box. Meet it first time and drive it low across the keeper.',
     // Carlos Alberto arrives inside-right; Pel\u00e9 central just outside the box (ref screengrabs)
     ballStart: { x: 5.0, y: 15.5 },
@@ -128,7 +131,7 @@ const LEVELS = [
   },
   {
     id: 'houghton', implemented: true, num: 8, mechanic: 'lob',
-    title: 'RAY HOUGHTON', subtitle: 'IRELAND 1-0 ITALY', venue: "GIANTS STADIUM · USA '94",
+    title: 'RAY HOUGHTON', flags: ['irl','ita'], subtitle: 'IRELAND 1-0 ITALY', venue: "GIANTS STADIUM · USA '94",
     brief: 'The ball drops to you 25 yards out. Hit it on the bounce, then pick your power. Pagliuca is off his line.',
     // Houghton strikes from right of centre, just outside the D (ref screengrabs)
     ballStart: { x: 2.3, y: 22 },
@@ -148,7 +151,7 @@ const LEVELS = [
   },
   {
     id: 'vanpersie', implemented: true, num: 9, mechanic: 'header',
-    title: 'ROBIN VAN PERSIE', subtitle: 'NETHERLANDS 5-1 SPAIN', venue: "SALVADOR · BRAZIL '14",
+    title: 'ROBIN VAN PERSIE', flags: ['ned','esp'], subtitle: 'NETHERLANDS 5-1 SPAIN', venue: "SALVADOR · BRAZIL '14",
     brief: 'Blind\u2019s long ball drops in from the left. Read the flight, time the leap, and loop the header over Casillas \u2014 he\u2019s miles off his line.',
     // VP meets it at the edge of the box, dead central (ref frames 2-3)
     ballStart: { x: 0.3, y: 16 },
@@ -169,7 +172,7 @@ const LEVELS = [
   },
   {
     id: 'james', implemented: true, num: 10, mechanic: 'volley',
-    title: 'JAMES RODR\u00cdGUEZ', subtitle: 'COLOMBIA 2-0 URUGUAY', venue: "MARACAN\u00c3 · BRAZIL '14",
+    title: 'JAMES RODR\u00cdGUEZ', flags: ['col','uru'], subtitle: 'COLOMBIA 2-0 URUGUAY', venue: "MARACAN\u00c3 · BRAZIL '14",
     brief: 'The ball drops out of the sky 25 yards out. Chest it down \u2014 how high you take it sets the power \u2014 then swivel and volley it in off the bar.',
     // James receives centrally, ~23m out (ref frames 1 & 3)
     ballStart: { x: 0.5, y: 23 },
@@ -189,7 +192,7 @@ const LEVELS = [
   },
   {
     id: 'maradona', implemented: true, num: 10, mechanic: 'dribble',
-    title: 'DIEGO MARADONA', subtitle: 'ARGENTINA 2-1 ENGLAND', venue: "AZTECA · MEXICO '86",
+    title: 'DIEGO MARADONA', flags: ['arg','eng'], subtitle: 'ARGENTINA 2-1 ENGLAND', venue: "AZTECA · MEXICO '86",
     brief: 'Pick it up in your own half. Outrun the chasers, skip the challenges, round Shilton and finish before the slide comes in.',
     // run starts right of centre near halfway (ref frame 1)
     ballStart: { x: 2.0, y: 44 },
@@ -938,18 +941,38 @@ function drawScene() {
   ctx.fillStyle = sky;
   ctx.fillRect(0, 0, W, CAM.horizon);
 
-  // crowd band
-  ctx.fillStyle = '#5a4a52';
+  // crowd band — cheering fans, bobbing; they go wild when you score
+  ctx.fillStyle = '#4a3a42';
   ctx.fillRect(0, CAM.horizon - 46, W, 46);
-  ctx.fillStyle = 'rgba(255,255,255,0.18)';
-  for (let i = 0; i < 260; i++) {
-    const cx = (i * 53.7) % W;
-    const cy = CAM.horizon - 44 + ((i * 31.3) % 42);
-    ctx.fillRect(cx, cy, 2, 2);
+  const cheer = (gameState === 'RESULT' && resultGood) ? 4 : 1.3;
+  for (let i = 0; i < 340; i++) {
+    const fx = (i * 37.31) % W;
+    const row = (i * 7) % 4;
+    const fy = CAM.horizon - 41 + row * 10;
+    const bob = (Math.sin(stateTime * (4 + (i % 5)) + i * 1.7) * 0.5 + 0.5) * cheer;
+    ctx.fillStyle = CROWD_COLS[i % CROWD_COLS.length];
+    ctx.fillRect(fx, fy - bob - 3, 3, 3);                    // head
+    ctx.fillStyle = CROWD_COLS[(i * 3 + 1) % CROWD_COLS.length];
+    ctx.fillRect(fx - 0.5, fy - bob, 4, 5);                  // shirt
+    if (cheer > 2 && i % 3 === 0) {                          // arms up on a goal
+      ctx.fillRect(fx - 2, fy - bob - 5, 1.5, 4);
+      ctx.fillRect(fx + 3.5, fy - bob - 5, 1.5, 4);
+    }
   }
   // stand roof line
   ctx.fillStyle = '#3a3138';
   ctx.fillRect(0, CAM.horizon - 52, W, 7);
+
+  // nation flags on poles, right-hand end of the stand
+  if (level && level.flags) {
+    const roofY = CAM.horizon - 52;
+    [W - 160, W - 90].forEach((px, i) => {
+      ctx.fillStyle = '#c8c8c8';
+      ctx.fillRect(px, roofY - 44, 2.5, 44);                       // pole
+      const wave = Math.sin(stateTime * 2.5 + i * 1.3) * 1.5;      // gentle flutter
+      drawFlag(level.flags[i], px + 2.5, roofY - 44 + wave, 28);
+    });
+  }
 
   // pitch
   ctx.fillStyle = '#3f9e4d';
@@ -976,12 +999,12 @@ function drawScene() {
     (gameState === 'DRIBBLE' || gameState === 'FLIGHT' || gameState === 'RESULT');
   if (dribbleLive) {
     ents.push({ y: keeperState.y, fn: drawKeeper });
-    for (const d of dyn.defs) if (d.alive && d.y < CAM.y - 1.5) {
-      ents.push({ y: d.y, fn: () => drawPlayer(d.x, d.y, level.defKit, level.defKit2) });
-    }
-    for (const c of dyn.chasers) if (c.y < CAM.y - 1.5) {
-      ents.push({ y: c.y, fn: () => drawPlayer(c.x, c.y, level.defKit, level.defKit2) });
-    }
+    dyn.defs.forEach((d, i) => { if (d.alive && d.y < CAM.y - 1.5)
+      ents.push({ y: d.y, fn: () => drawPlayer(d.x, d.y, level.defKit, level.defKit2, i) });
+    });
+    dyn.chasers.forEach((c, i) => { if (c.y < CAM.y - 1.5)
+      ents.push({ y: c.y, fn: () => drawPlayer(c.x, c.y, level.defKit, level.defKit2, i + 3) });
+    });
     if (dyn.slider) {
       const sl = dyn.slider;
       ents.push({ y: sl.y, fn: () => drawSlidingPlayer(sl.x, sl.y, level.defKit, level.defKit2) });
@@ -989,12 +1012,12 @@ function drawScene() {
     ents.push({ y: ball.y, fn: drawBall });
   } else if (level && gameState !== 'TITLE') {
     ents.push({ y: keeperState.y, fn: drawKeeper });
-    if (level.defenders) for (const d of level.defenders) {
-      ents.push({ y: d.y, fn: () => drawPlayer(d.x, d.y, level.defKit, level.defKit2) });
-    }
-    if (level.mates) for (const m of level.mates) {
-      ents.push({ y: m.y, fn: () => drawPlayer(m.x, m.y, level.selfKit, level.selfKit2) });
-    }
+    if (level.defenders) level.defenders.forEach((d, i) => {
+      ents.push({ y: d.y, fn: () => drawPlayer(d.x, d.y, level.defKit, level.defKit2, i) });
+    });
+    if (level.mates) level.mates.forEach((m, i) => {
+      ents.push({ y: m.y, fn: () => drawPlayer(m.x, m.y, level.selfKit, level.selfKit2, i + 5) });
+    });
     ents.push({ y: ball.y, fn: drawBall });
   }
   // far (small y) first, near (large y) last
@@ -1071,7 +1094,101 @@ function drawGoal() {
   ctx.stroke();
 }
 
-function drawPlayer(x, y, kit, kit2) {
+// ---------- NATION FLAGS (canvas-drawn) ----------
+function drawFlag(code, x, y, w) {
+  const h = w * 0.66;
+  ctx.save();
+  ctx.translate(x, y);
+  const third = w / 3;
+  switch (code) {
+    case 'bra':
+      ctx.fillStyle = '#009b3a'; ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#fedf00';
+      ctx.beginPath(); ctx.moveTo(w / 2, h * 0.12); ctx.lineTo(w * 0.88, h / 2);
+      ctx.lineTo(w / 2, h * 0.88); ctx.lineTo(w * 0.12, h / 2); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#002776';
+      ctx.beginPath(); ctx.arc(w / 2, h / 2, h * 0.22, 0, Math.PI * 2); ctx.fill();
+      break;
+    case 'ita':
+      ctx.fillStyle = '#009246'; ctx.fillRect(0, 0, third, h);
+      ctx.fillStyle = '#fff';    ctx.fillRect(third, 0, third, h);
+      ctx.fillStyle = '#ce2b37'; ctx.fillRect(third * 2, 0, third, h);
+      break;
+    case 'irl':
+      ctx.fillStyle = '#169b62'; ctx.fillRect(0, 0, third, h);
+      ctx.fillStyle = '#fff';    ctx.fillRect(third, 0, third, h);
+      ctx.fillStyle = '#ff883e'; ctx.fillRect(third * 2, 0, third, h);
+      break;
+    case 'ned':
+      ctx.fillStyle = '#ae1c28'; ctx.fillRect(0, 0, w, h / 3);
+      ctx.fillStyle = '#fff';    ctx.fillRect(0, h / 3, w, h / 3);
+      ctx.fillStyle = '#21468b'; ctx.fillRect(0, h * 2 / 3, w, h / 3);
+      break;
+    case 'esp':
+      ctx.fillStyle = '#aa151b'; ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#f1bf00'; ctx.fillRect(0, h * 0.25, w, h * 0.5);
+      break;
+    case 'col':
+      ctx.fillStyle = '#fcd116'; ctx.fillRect(0, 0, w, h / 2);
+      ctx.fillStyle = '#003893'; ctx.fillRect(0, h / 2, w, h / 4);
+      ctx.fillStyle = '#ce1126'; ctx.fillRect(0, h * 0.75, w, h / 4);
+      break;
+    case 'uru':
+      ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#0038a8';
+      for (let i = 1; i < 9; i += 2) ctx.fillRect(0, h * i / 9, w, h / 9);
+      ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w * 0.4, h * 4 / 9);
+      ctx.fillStyle = '#fcd116';
+      ctx.beginPath(); ctx.arc(w * 0.2, h * 0.22, h * 0.13, 0, Math.PI * 2); ctx.fill();
+      break;
+    case 'arg':
+      ctx.fillStyle = '#74acdf'; ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#fff';    ctx.fillRect(0, h / 3, w, h / 3);
+      ctx.fillStyle = '#f6b40e';
+      ctx.beginPath(); ctx.arc(w / 2, h / 2, h * 0.11, 0, Math.PI * 2); ctx.fill();
+      break;
+    case 'eng':
+      ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#ce1124';
+      ctx.fillRect(0, h / 2 - h * 0.1, w, h * 0.2);
+      ctx.fillRect(w / 2 - h * 0.1, 0, h * 0.2, h);
+      break;
+  }
+  ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(0, 0, w, h);
+  ctx.restore();
+}
+
+// per-player looks: stable variety in skin tone, hair colour and style
+const PLAYER_LOOKS = [
+  { skin: '#e8b88f', hair: '#2a1a0a', style: 'short' },   // dark short
+  { skin: '#8d5a3b', hair: '#141414', style: 'afro'  },
+  { skin: '#e8b88f', hair: '#d8a23c', style: 'long'  },   // blond mullet
+  { skin: '#c68a5f', hair: '#141414', style: 'short' },
+  { skin: '#e8b88f', hair: '#b3502a', style: 'short' },   // ginger
+  { skin: '#e8b88f', hair: '#3a2a14', style: 'bald'  },
+  { skin: '#8d5a3b', hair: '#141414', style: 'long'  },
+  { skin: '#e8b88f', hair: '#5a3315', style: 'long'  },   // brown flow
+];
+
+function drawHead(cx, cy, hr, look) {
+  ctx.fillStyle = look.skin;
+  ctx.beginPath(); ctx.arc(cx, cy, hr, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = look.hair;
+  if (look.style === 'short') {
+    ctx.beginPath(); ctx.arc(cx, cy, hr * 1.02, Math.PI, Math.PI * 2); ctx.fill();
+  } else if (look.style === 'afro') {
+    ctx.beginPath(); ctx.arc(cx, cy - hr * 0.25, hr * 1.18, Math.PI * 0.92, Math.PI * 2.08); ctx.fill();
+  } else if (look.style === 'long') {
+    ctx.beginPath(); ctx.arc(cx, cy, hr * 1.02, Math.PI, Math.PI * 2); ctx.fill();
+    ctx.fillRect(cx - hr * 1.02, cy - hr * 0.1, hr * 0.4, hr * 1.5);   // flowing sides
+    ctx.fillRect(cx + hr * 0.62, cy - hr * 0.1, hr * 0.4, hr * 1.5);
+  }
+  // bald: no hair
+}
+
+function drawPlayer(x, y, kit, kit2, seed = 0) {
   const p = project(x, y, 0);
   const hM = 1.8;                     // height in metres
   const h = hM * p.s;
@@ -1090,8 +1207,7 @@ function drawPlayer(x, y, kit, kit2) {
   ctx.fillStyle = kit;
   ctx.fillRect(p.x - w * 0.5, p.y - h * 0.82, w, h * 0.38);
   // head
-  ctx.fillStyle = '#e8b88f';
-  ctx.beginPath(); ctx.arc(p.x, p.y - h * 0.9, h * 0.09, 0, Math.PI * 2); ctx.fill();
+  drawHead(p.x, p.y - h * 0.9, h * 0.09, PLAYER_LOOKS[seed % PLAYER_LOOKS.length]);
 }
 
 function drawKeeper() {
@@ -1130,8 +1246,7 @@ function drawKeeper() {
   ctx.beginPath(); ctx.arc(-w * (0.75 + armUp * 0.1), -h * (0.78 + armUp * 0.32), w * 0.12, 0, Math.PI * 2); ctx.fill();
   ctx.beginPath(); ctx.arc(w * (0.75 + armUp * 0.1), -h * (0.78 + armUp * 0.32), w * 0.12, 0, Math.PI * 2); ctx.fill();
   // head
-  ctx.fillStyle = '#e8b88f';
-  ctx.beginPath(); ctx.arc(0, -h * 0.92, h * 0.09, 0, Math.PI * 2); ctx.fill();
+  drawHead(0, -h * 0.92, h * 0.09, PLAYER_LOOKS[0]);
   ctx.restore();
 }
 
@@ -1150,8 +1265,7 @@ function drawSlidingPlayer(x, y, kit, kit2) {
   ctx.fillStyle = '#1a1a1a';
   ctx.fillRect(p.x + h * 0.38, p.y - h * 0.12, h * 0.18, h * 0.07);
   // head up
-  ctx.fillStyle = '#e8b88f';
-  ctx.beginPath(); ctx.arc(p.x - h * 0.42, p.y - h * 0.2, h * 0.08, 0, Math.PI * 2); ctx.fill();
+  drawHead(p.x - h * 0.42, p.y - h * 0.2, h * 0.08, PLAYER_LOOKS[1]);
 }
 
 function drawBall() { drawBallAt(ball.x, ball.y, ball.z); }
@@ -1517,7 +1631,24 @@ function drawIntro() {
   ctx.fillText(level.title, W / 2, 225);
   ctx.fillStyle = '#fff';
   ctx.font = 'bold 18px "Courier New", monospace';
-  ctx.fillText(level.subtitle + ' · ' + level.venue, W / 2, 262);
+  if (level.flags) {
+    // [flag1] SCORELINE [flag2] · VENUE — laid out inline, centred as a whole
+    const venueText = '· ' + level.venue;
+    const fw = 36, gap = 12;
+    const subW = ctx.measureText(level.subtitle).width;
+    const venW = ctx.measureText(venueText).width;
+    const totalW = fw + gap + subW + gap + fw + gap + venW;
+    let lx = W / 2 - totalW / 2;
+    const fy = 262 - 6 - fw * 0.33;            // vertically centred on the text line
+    ctx.textAlign = 'left';
+    drawFlag(level.flags[0], lx, fy, fw); lx += fw + gap;
+    ctx.fillText(level.subtitle, lx, 262); lx += subW + gap;
+    drawFlag(level.flags[1], lx, fy, fw); lx += fw + gap;
+    ctx.fillText(venueText, lx, 262);
+    ctx.textAlign = 'center';
+  } else {
+    ctx.fillText(level.subtitle + ' · ' + level.venue, W / 2, 262);
+  }
   ctx.font = '15px "Courier New", monospace';
   const briefEnd = wrapText(level.brief, W / 2, 320, 520, 22);
 
