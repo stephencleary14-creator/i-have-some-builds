@@ -1390,9 +1390,50 @@
         <circle cx="52" cy="36" r="10" stroke="#C8102E" stroke-width="4" fill="#EDE0C4"/>
         <circle cx="52" cy="36" r="4" fill="#C8102E"/>
       </svg>`,
+      dashboard: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Screen -->
+        <rect x="18" y="22" width="124" height="76" rx="6" fill="#C8102E"/>
+        <rect x="26" y="30" width="108" height="60" rx="4" fill="#EDE0C4" opacity="0.12"/>
+        <!-- Bar chart bars -->
+        <rect x="34" y="66" width="14" height="18" rx="2" fill="#EDE0C4"/>
+        <rect x="52" y="54" width="14" height="30" rx="2" fill="#EDE0C4"/>
+        <rect x="70" y="44" width="14" height="40" rx="2" fill="#EDE0C4"/>
+        <!-- Line graph -->
+        <polyline points="96,72 108,52 120,58 132,38" stroke="#EDE0C4" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="96" cy="72" r="3.5" fill="#EDE0C4"/>
+        <circle cx="108" cy="52" r="3.5" fill="#EDE0C4"/>
+        <circle cx="120" cy="58" r="3.5" fill="#EDE0C4"/>
+        <circle cx="132" cy="38" r="3.5" fill="#EDE0C4"/>
+        <!-- Stand -->
+        <rect x="72" y="98" width="16" height="6" rx="3" fill="#C8102E"/>
+        <rect x="56" y="104" width="48" height="5" rx="2.5" fill="#C8102E"/>
+      </svg>`,
     };
 
     const entries = [
+      {
+        icon: icons.dashboard,
+        photo: 'images/SJC_dashboard_pose.png',
+        photoAlt: 'SJC figurine standing in a futuristic science lab beside multiple holographic data screens, one hand on hip, one hand on chin',
+        meta: '19 Jun 2026',
+        title: 'A DIY Campaign Dashboard',
+        body: `
+          <img src="images/SJC_dashboard_pose.png" alt="SJC figurine standing in a futuristic science lab beside multiple holographic data screens" class="entry-img" />
+          <p>As a brand manager you need to be fairly organised. I do my best. But I still catch myself scouring through five different versions of a media plan, or trying to remember whether a creative has gone live. Everything exists somewhere. Nothing exists in one place.</p>
+          <p>So I built one.</p>
+          <p>This is a campaign dashboard. A single HTML file with no server, no build step, no spreadsheet. The whole thing runs in the browser and saves to local storage.</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/Campaign_Dashboard.mp4" type="video/mp4" />
+          </video>
+          <p>What makes it different to a fancy Excel spreadsheet is the interactive layer. You can upload a CSV file and it maps your media plan directly into the dashboard. Or add channels manually. In the Media tab you can filter by time period and see your Gantt flight schedule with a marker showing where you are today.</p>
+          <img src="images/Media_month.png" alt="Campaign dashboard media tab showing Gantt chart filtered by month" class="entry-img" />
+          <p>You can host a preview of creative in the Creative tab. Upload a screengrab and it attaches to the tactic card. There's also a Live tab that shows you which media channels and creative are running this week.</p>
+          <img src="images/Live_dashboard.png" alt="Campaign dashboard live tab showing active media and creative this week" class="entry-img" />
+          <p>The campaign itself is a fictional one, for my own website. Claude chose the media channels, budget splits and agencies.</p>
+          <p>Now, if someone could actually give me those budgets for my website that would be great.</p>
+        `
+      },
       {
         icon: icons.trophy,
         photo: 'images/SJC_trophy.png',
