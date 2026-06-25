@@ -1409,9 +1409,53 @@
         <rect x="72" y="98" width="16" height="6" rx="3" fill="#C8102E"/>
         <rect x="56" y="104" width="48" height="5" rx="2.5" fill="#C8102E"/>
       </svg>`,
+      scissors: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Pivot -->
+        <circle cx="80" cy="60" r="6" fill="#C8102E"/>
+        <!-- Top blade -->
+        <path d="M80 60 L28 22" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <!-- Bottom blade -->
+        <path d="M80 60 L28 98" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <!-- Top handle ring -->
+        <circle cx="22" cy="18" r="12" stroke="#C8102E" stroke-width="5" fill="none"/>
+        <!-- Bottom handle ring -->
+        <circle cx="22" cy="102" r="12" stroke="#C8102E" stroke-width="5" fill="none"/>
+        <!-- Cut line (fabric edge) -->
+        <line x1="110" y1="30" x2="148" y2="30" stroke="#C8102E" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 5"/>
+        <line x1="110" y1="90" x2="148" y2="90" stroke="#C8102E" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 5"/>
+      </svg>`,
     };
 
     const entries = [
+      {
+        icon: icons.scissors,
+        photo: 'images/SJC_tailor_pose.png',
+        photoAlt: 'SJC figurine standing at a miniature tailor\'s workshop, one hand on a tailor\'s dummy, the other holding scissors, bolts of fabric on shelves behind',
+        meta: '25 Jun 2026',
+        title: 'The Content Atelier',
+        body: `
+          <img src="images/SJC_tailor_pose.png" alt="SJC figurine standing at a miniature tailor's workshop" class="entry-img" />
+          <p>This one started with Paul Dervan. He wrote a great piece on his Substack, <a href="https://runwithfoxes.substack.com/p/ad-versioning-in-six-seconds" target="_blank" rel="noopener">Ad Versioning in Six Seconds</a>, about adapting creative across formats at speed. It made me want to try it myself.</p>
+          <p>I built a content formatter. You give it a hero animation and it reproduces it across six formats: social, email and web.</p>
+          <p>It took a while to get right. There was a fair bit of trial and error before the process felt clean. But here's where I landed:</p>
+          <ul>
+            <li>I make a basic animation on Canva and drop it into a folder. I point Claude at the folder.</li>
+            <li>Claude detects and cuts out the key elements from the animation: the figurine, a headline, a CTA and the website wordmark.</li>
+            <li>I'm shown the element files for review. I can Approve or give Feedback.</li>
+            <li>Once approved, Claude places each element into the format specs I defined. Each spec has its own rules around safe space, sizing and handling different headline lengths.</li>
+            <li>I'm presented with a review page. All six formats in one view, each one clickable to see in full.</li>
+          </ul>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/Content_Formatter_demo.mp4" type="video/mp4" />
+          </video>
+          <ul>
+            <li>I reply to say whether they're all Approved, or share Feedback on individual formats.</li>
+            <li>Once approved, a new folder is created with the exported PNG or GIF files. Done.</li>
+          </ul>
+          <p>I can already see how this saves time and money when producing performance marketing or repeatable content marketing assets. The brief goes in once. The formats come out right.</p>
+        `
+      },
       {
         icon: icons.dashboard,
         photo: 'images/SJC_dashboard_pose.png',
