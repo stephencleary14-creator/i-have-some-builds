@@ -409,28 +409,6 @@
       transition: border-color 0.2s, color 0.2s;
     }
     .btn-ghost:hover { border-color: var(--mid); color: var(--dark); }
-
-    /* ── API Key section ── */
-    .key-section {
-      background: white;
-      border: 2px solid var(--cream);
-      border-radius: 8px;
-      padding: 24px 36px;
-      margin-bottom: 16px;
-    }
-    .key-row {
-      display: flex;
-      gap: 16px;
-      align-items: flex-end;
-    }
-    .key-saved {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--green);
-    }
   </style>
 </head>
 <body>
@@ -441,22 +419,6 @@
 </header>
 
 <main>
-
-  <!-- API Key -->
-  <div class="key-section" id="key-section">
-    <div class="key-row">
-      <div class="field" style="flex:1">
-        <label for="api-key-input">Anthropic API Key</label>
-        <input type="password" id="api-key-input" placeholder="sk-ant-…" autocomplete="off" oninput="onKeyInput()">
-        <p class="hint">Saved for this browser session only. Get a key at <a href="https://console.anthropic.com/" target="_blank" rel="noopener" style="color:var(--red)">console.anthropic.com</a>.</p>
-      </div>
-      <button class="btn-primary" id="save-key-btn" onclick="saveKey()" style="align-self:flex-start;margin-top:27px" disabled>Save key</button>
-    </div>
-    <div class="key-saved" id="key-saved" style="display:none">
-      <span>&#10003; API key saved for this session</span>
-      <button class="btn-ghost" onclick="clearKey()" style="padding:6px 14px;font-size:12px">Change</button>
-    </div>
-  </div>
 
   <!-- Input -->
   <div class="input-section">
@@ -609,47 +571,15 @@ Return ONLY valid JSON in this exact format with no markdown, no commentary:
     return JSON.parse(cleaned);
   }
 
-  // ── API Key management ────────────────────────────────────────────────────
-  function onKeyInput() {
-    const val = document.getElementById('api-key-input').value.trim();
-    document.getElementById('save-key-btn').disabled = !val;
-  }
-
-  function saveKey() {
-    const val = document.getElementById('api-key-input').value.trim();
-    if (!val) return;
-    sessionStorage.setItem('cep_api_key', val);
-    document.getElementById('api-key-input').value = '';
-    document.getElementById('key-row') && (document.getElementById('key-row').style.display = 'none');
-    document.querySelector('.key-row').style.display = 'none';
-    document.getElementById('key-saved').style.display = 'flex';
-  }
-
-  function clearKey() {
-    sessionStorage.removeItem('cep_api_key');
-    document.querySelector('.key-row').style.display = 'flex';
-    document.getElementById('key-saved').style.display = 'none';
-    document.getElementById('save-key-btn').disabled = true;
-  }
-
-  // Restore key state on load
-  (function initKeyUI() {
-    if (sessionStorage.getItem('cep_api_key')) {
-      document.querySelector('.key-row').style.display = 'none';
-      document.getElementById('key-saved').style.display = 'flex';
-    }
-  })();
-
   // ── Generate ──────────────────────────────────────────────────────────────
   async function generate() {
     const category = document.getElementById('category-input').value.trim();
     const demographic = document.getElementById('demographic-input').value.trim();
     const market      = document.getElementById('market-input').value.trim() || 'Global';
-    const apiKey = sessionStorage.getItem('cep_api_key') || '';
+    const apiKey = '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';
     const errEl  = document.getElementById('input-error');
     errEl.textContent = '';
 
-    if (!apiKey) { errEl.textContent = 'Please enter and save your API key above.'; return; }
     if (!category) { errEl.textContent = 'Please enter a category.'; return; }
 
     // Reset state
