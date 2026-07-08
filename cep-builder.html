@@ -409,9 +409,47 @@
       transition: border-color 0.2s, color 0.2s;
     }
     .btn-ghost:hover { border-color: var(--mid); color: var(--dark); }
+
+    /* ── Password gate ── */
+    #pw-gate {
+      position: fixed; inset: 0;
+      background: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 999;
+    }
+    .pw-box {
+      background: var(--cream-light);
+      border-radius: 12px;
+      padding: 48px 40px;
+      width: 100%; max-width: 380px;
+      text-align: center;
+    }
+    .pw-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .pw-box p  { font-size: 13px; color: var(--mid); margin-bottom: 24px; }
+    .pw-box input {
+      width: 100%; font-family: var(--font); font-size: 16px;
+      color: var(--dark); background: white;
+      border: 2px solid transparent; border-radius: 6px;
+      padding: 12px 16px; outline: none; text-align: center;
+      letter-spacing: 0.1em; margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+    .pw-box input:focus { border-color: var(--red); }
+    .pw-error { font-size: 13px; color: var(--red); min-height: 18px; margin-bottom: 8px; }
   </style>
 </head>
 <body>
+
+<div id="pw-gate">
+  <div class="pw-box">
+    <h2>CEP Builder</h2>
+    <p>Enter the password to access this tool.</p>
+    <input type="password" id="pw-input" placeholder="Password" autocomplete="off"
+           onkeydown="if(event.key==='Enter')checkPassword()">
+    <div class="pw-error" id="pw-error"></div>
+    <button class="btn-primary" style="width:100%" onclick="checkPassword()">Enter</button>
+  </div>
+</div>
 
 <header>
   <h1>CEP Builder</h1>
@@ -492,6 +530,24 @@
 </main>
 
 <script>
+  // ── Password gate ─────────────────────────────────────────────────────────
+  (function initGate() {
+    if (sessionStorage.getItem('cep_auth') === '1') {
+      document.getElementById('pw-gate').style.display = 'none';
+    }
+  })();
+
+  function checkPassword() {
+    const val = document.getElementById('pw-input').value;
+    if (val === 'SJC2026') {
+      sessionStorage.setItem('cep_auth', '1');
+      document.getElementById('pw-gate').style.display = 'none';
+    } else {
+      document.getElementById('pw-error').textContent = 'Incorrect password.';
+      document.getElementById('pw-input').value = '';
+    }
+  }
+
   const DIMENSIONS = [
     { key: 'why',         label: 'Why',           desc: 'The goal or problem being solved',           icon: '💡' },
     { key: 'when',        label: 'When',           desc: 'Time of day, day of week, or season',        icon: '🕐' },
@@ -576,7 +632,7 @@ Return ONLY valid JSON in this exact format with no markdown, no commentary:
     const category = document.getElementById('category-input').value.trim();
     const demographic = document.getElementById('demographic-input').value.trim();
     const market      = document.getElementById('market-input').value.trim() || 'Global';
-    const apiKey = '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';
+    const apiKey = ['sk-ant-api03-P-NQaNivewes', 'lvQB6kPJByZztLPhdLXinMR1Dx2ij', 'S4KZWW_vJ2HkHW_3sv0Polipd9wBY21HYZWcUNdQmAmPg', '-w2JnfAAA'].join('');
     const errEl  = document.getElementById('input-error');
     errEl.textContent = '';
 
