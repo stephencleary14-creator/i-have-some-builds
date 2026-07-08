@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CEP Builder — Category Entry Points</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:       #EDE0C4;
+      --cream-light: #F7F2EA;
+      --red:         #C8102E;
+      --red-deep:    #A00E24;
+      --dark:        #1C1C1C;
+      --mid:         #5C5247;
+      --font:        'Outfit', 'Segoe UI', sans-serif;
+      --green:       #1A7A4A;
+      --green-light: #E8F5EE;
+      --amber:       #B06000;
+      --amber-light: #FFF3E0;
+      --grey-light:  #F0EDEA;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--cream);
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--dark);
+      border-top: 4px solid var(--red);
+      padding: 28px 48px 24px;
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+    }
+    header h1 { font-size: 22px; font-weight: 700; color: var(--cream-light); letter-spacing: -0.01em; }
+    header span { font-size: 11px; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: 0.12em; }
+
+    /* ── Main ── */
+    main { max-width: 920px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* ── Input section ── */
+    .input-section {
+      background: var(--cream-light);
+      border-radius: 8px;
+      padding: 32px 36px;
+      margin-bottom: 32px;
+    }
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px 24px;
+    }
+    @media (max-width: 720px) { .input-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .input-grid { grid-template-columns: 1fr; } }
+
+    .field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+    .field input {
+      width: 100%;
+      font-family: var(--font);
+      font-size: 15px;
+      color: var(--dark);
+      background: white;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .field input:focus { border-color: var(--red); }
+    .field input::placeholder { color: #bbb; }
+    .field .hint {
+      font-size: 11px;
+      color: var(--mid);
+      margin-top: 6px;
+    }
+
+    .btn-row {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-primary {
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+      background: var(--red);
+      border: none;
+      border-radius: 6px;
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--red-deep); }
+    .btn-primary:disabled { background: #ccc; cursor: not-allowed; }
+
+    .error-msg {
+      font-size: 13px;
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    /* ── Loading ── */
+    #loading {
+      display: none;
+      padding: 56px;
+      text-align: center;
+      color: var(--mid);
+      font-size: 15px;
+    }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--cream);
+      border-top-color: var(--red);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Phase divider ── */
+    .phase-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--mid);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 6px;
+    }
+    .section-heading {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    .section-sub {
+      font-size: 14px;
+      color: var(--mid);
+      margin-bottom: 28px;
+    }
+
+    /* ── Phase 1: Results ── */
+    #phase1 { display: none; }
+
+    .cep-group { margin-bottom: 28px; }
+    .cep-group-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--red);
+    }
+    .dim-icon {
+      width: 34px; height: 34px;
+      background: var(--red);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+      line-height: 1;
+    }
+    .cep-group-header h3 { font-size: 16px; font-weight: 700; }
+    .cep-group-header .dim-desc { font-size: 12px; color: var(--mid); }
+
+    .cep-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    @media (max-width: 580px) { .cep-items { grid-template-columns: 1fr; } }
+
+    .cep-item {
+      background: var(--cream-light);
+      border: 2px solid transparent;
+      border-radius: 6px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      user-select: none;
+    }
+    .cep-item:hover { border-color: var(--red); }
+    .cep-item.selected { background: white; border-color: var(--red); }
+    .cep-item.selected .check { background: var(--red); border-color: var(--red); }
+    .cep-item.selected .check::after { opacity: 1; }
+    .check {
+      width: 17px; height: 17px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      position: relative;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .check::after {
+      content: '';
+      position: absolute;
+      top: 1px; left: 4px;
+      width: 5px; height: 9px;
+      border: 2px solid white;
+      border-top: none; border-left: none;
+      transform: rotate(45deg);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .cep-item p { font-size: 13px; color: var(--dark); line-height: 1.4; }
+
+    .phase1-footer {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .selected-count {
+      font-size: 13px;
+      color: var(--mid);
+    }
+    .selected-count strong { color: var(--dark); }
+
+    /* ── Phase 2: 3C Scoring ── */
+    #phase2 { display: none; margin-top: 48px; }
+
+    .scoring-intro {
+      background: var(--dark);
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+    }
+    .scoring-intro h2 { font-size: 18px; font-weight: 700; color: var(--cream-light); margin-bottom: 8px; }
+    .scoring-intro p { font-size: 13px; color: #9A8F87; line-height: 1.5; }
+    .three-c-legend {
+      display: flex;
+      gap: 20px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .legend-item { font-size: 12px; color: #9A8F87; }
+    .legend-item strong { color: var(--cream-light); }
+
+    .scoring-card {
+      background: var(--cream-light);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+    }
+    .scoring-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .scoring-card-text { font-size: 14px; font-weight: 600; color: var(--dark); flex: 1; }
+    .scoring-dim-tag {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: white;
+      background: var(--red);
+      border-radius: 4px;
+      padding: 3px 8px;
+      flex-shrink: 0;
+    }
+    .scoring-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 560px) { .scoring-controls { grid-template-columns: 1fr; } }
+
+    .c-control label {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid);
+      margin-bottom: 6px;
+    }
+    .toggle-group {
+      display: flex;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+    }
+    .toggle-group button {
+      flex: 1;
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 600;
+      border: none;
+      background: white;
+      color: var(--mid);
+      padding: 6px 2px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      border-right: 1px solid #ddd;
+    }
+    .toggle-group button:last-child { border-right: none; }
+    .toggle-group button.active-low  { background: #FEE8E8; color: var(--red-deep); }
+    .toggle-group button.active-med  { background: var(--amber-light); color: var(--amber); }
+    .toggle-group button.active-high { background: var(--green-light); color: var(--green); }
+
+    /* ── Phase 3: Final List ── */
+    #phase3 { display: none; margin-top: 48px; }
+
+    .final-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--red);
+    }
+    .final-header h2 { font-size: 20px; font-weight: 700; }
+
+    .final-item {
+      background: var(--cream-light);
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .priority-bar {
+      width: 5px;
+      border-radius: 3px;
+      align-self: stretch;
+      flex-shrink: 0;
+      min-height: 40px;
+    }
+    .priority-bar.priority  { background: var(--green); }
+    .priority-bar.consider  { background: #E8A000; }
+    .priority-bar.deprioritise { background: #bbb; }
+
+    .final-item-body { flex: 1; }
+    .final-item-text { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+    .final-item-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .tag-dim {
+      font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--mid);
+      background: white;
+      border-radius: 4px;
+      padding: 2px 7px;
+    }
+    .tag-priority {
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+    .tag-priority.priority    { background: var(--green-light); color: var(--green); }
+    .tag-priority.consider    { background: var(--amber-light); color: var(--amber); }
+    .tag-priority.deprioritise { background: var(--grey-light); color: var(--mid); }
+
+    .final-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .btn-secondary {
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+      background: white;
+      border: 2px solid var(--dark);
+      border-radius: 6px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-secondary:hover { background: var(--cream); }
+    .btn-ghost {
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--mid);
+      background: transparent;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--mid); color: var(--dark); }
+
+    /* ── API Key section ── */
+    .key-section {
+      background: white;
+      border: 2px solid var(--cream);
+      border-radius: 8px;
+      padding: 24px 36px;
+      margin-bottom: 16px;
+    }
+    .key-row {
+      display: flex;
+      gap: 16px;
+      align-items: flex-end;
+    }
+    .key-saved {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--green);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>CEP Builder</h1>
+  <span>Category Entry Points</span>
+</header>
+
+<main>
+
+  <!-- API Key -->
+  <div class="key-section" id="key-section">
+    <div class="key-row">
+      <div class="field" style="flex:1">
+        <label for="api-key-input">Anthropic API Key</label>
+        <input type="password" id="api-key-input" placeholder="sk-ant-…" autocomplete="off" oninput="onKeyInput()">
+        <p class="hint">Saved for this browser session only. Get a key at <a href="https://console.anthropic.com/" target="_blank" rel="noopener" style="color:var(--red)">console.anthropic.com</a>.</p>
+      </div>
+      <button class="btn-primary" id="save-key-btn" onclick="saveKey()" style="align-self:flex-start;margin-top:27px" disabled>Save key</button>
+    </div>
+    <div class="key-saved" id="key-saved" style="display:none">
+      <span>&#10003; API key saved for this session</span>
+      <button class="btn-ghost" onclick="clearKey()" style="padding:6px 14px;font-size:12px">Change</button>
+    </div>
+  </div>
+
+  <!-- Input -->
+  <div class="input-section">
+    <div class="input-grid">
+      <div class="field">
+        <label for="category-input">Your category</label>
+        <input type="text" id="category-input" placeholder="e.g. Craft IPA, luxury dog food…" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="demographic-input">Core demographic <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--mid)">(optional)</span></label>
+        <input type="text" id="demographic-input" placeholder="e.g. Men 25–40, urban professionals…" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="market-input">Market <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--mid)">(optional)</span></label>
+        <input type="text" id="market-input" placeholder="Global" autocomplete="off">
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-primary" id="gen-btn" onclick="generate()">Generate CEPs</button>
+      <span class="error-msg" id="input-error"></span>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div id="loading">
+    <div class="spinner"></div>
+    Analysing your category and generating entry points…
+  </div>
+
+  <!-- Phase 1: Select CEPs -->
+  <div id="phase1">
+    <div class="phase-label">Phase 1 of 2</div>
+    <div class="section-heading" id="p1-heading"></div>
+    <div class="section-sub">Select the entry points most relevant to your brand. Pick across as many dimensions as you like.</div>
+    <div id="cep-groups"></div>
+    <div class="phase1-footer">
+      <button class="btn-primary" id="score-btn" onclick="startScoring()" disabled>Score my CEPs →</button>
+      <span class="selected-count" id="selected-count">0 selected</span>
+    </div>
+  </div>
+
+  <!-- Phase 2: 3C Scoring -->
+  <div id="phase2">
+    <div class="scoring-intro">
+      <h2>3C Prioritisation</h2>
+      <p>Score each selected CEP across the three Cs to identify which entry points your brand should own.</p>
+      <div class="three-c-legend">
+        <div class="legend-item"><strong>Commonality</strong> — How frequent and widespread is this moment across your target market?</div>
+        <div class="legend-item"><strong>Credibility</strong> — How well does it fit your brand's positioning and distinctive assets?</div>
+        <div class="legend-item"><strong>Competitiveness</strong> — How much whitespace exists? Low = competitors already own it.</div>
+      </div>
+    </div>
+    <div id="scoring-cards"></div>
+    <div class="btn-row" style="margin-top:20px;">
+      <button class="btn-primary" onclick="buildFinalList()">Build my CEP list →</button>
+    </div>
+  </div>
+
+  <!-- Phase 3: Final List -->
+  <div id="phase3">
+    <div class="final-header">
+      <h2>Your CEP List</h2>
+    </div>
+    <div id="final-items"></div>
+    <div class="final-actions">
+      <button class="btn-secondary" onclick="copyList()">Copy to clipboard</button>
+      <button class="btn-ghost" onclick="resetAll()">Start over</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  const DIMENSIONS = [
+    { key: 'why',         label: 'Why',           desc: 'The goal or problem being solved',           icon: '💡' },
+    { key: 'when',        label: 'When',           desc: 'Time of day, day of week, or season',        icon: '🕐' },
+    { key: 'where',       label: 'Where',          desc: 'Location or environment when need arises',   icon: '📍' },
+    { key: 'while',       label: 'While',          desc: 'Activity happening alongside consumption',   icon: '🔄' },
+    { key: 'whom',        label: 'With / For Whom',desc: 'Who they\'re with or buying for',            icon: '👥' },
+    { key: 'with_what',   label: 'With What',      desc: 'Other categories bought or used alongside',  icon: '🔗' },
+    { key: 'how_feeling', label: 'How Feeling',    desc: 'Emotional state in the moment of engagement',icon: '💭' }
+  ];
+
+  // State
+  let selectedCEPs = []; // { dimension, label, text }
+  let scores = {};        // key: `${dimension}::${text}` → { commonality, credibility, competitiveness }
+
+  // ── API call ──────────────────────────────────────────────────────────────
+  async function callClaudeAPI(category, demographic, market, apiKey) {
+    const demographicLine = demographic
+      ? `Core demographic: ${demographic}\nTailor all suggestions specifically to this demographic's lifestyle, habits, and motivations.`
+      : `Generate CEPs that reflect the broad range of buyers in this category.`;
+    const marketLine = market !== 'Global'
+      ? `Market: ${market}\nReflect the cultural norms, retail environments, occasions, and behaviours specific to this market.`
+      : `Market: Global — draw on broadly applicable entry points across cultures.`;
+
+    const prompt = `You are a brand strategy expert specialising in Category Entry Points (CEPs) — the specific situations, moments, and motivations that trigger people to think about and buy within a category.
+
+For the category: "${category}"
+${demographicLine}
+${marketLine}
+
+Generate 6 specific, realistic Category Entry Points for each of the 7 dimensions below. Make suggestions genuinely specific to this category — draw on real consumption culture, social occasions, emotional drivers, adjacent behaviours, and cultural context. Avoid generic statements that could apply to any category.
+
+Dimensions:
+1. why — The goal or problem the person is trying to solve
+2. when — The specific time of day, day of week, or seasonal moment
+3. where — The location or environment when the need arises
+4. while — The activity happening alongside consumption or purchase
+5. whom — Who they are with or buying for
+6. with_what — Other specific categories or products used or bought alongside
+7. how_feeling — The emotional state in the moment of engagement
+
+Return ONLY valid JSON in this exact format with no markdown, no commentary:
+{
+  "why": ["...", "...", "...", "...", "...", "..."],
+  "when": ["...", "...", "...", "...", "...", "..."],
+  "where": ["...", "...", "...", "...", "...", "..."],
+  "while": ["...", "...", "...", "...", "...", "..."],
+  "whom": ["...", "...", "...", "...", "...", "..."],
+  "with_what": ["...", "...", "...", "...", "...", "..."],
+  "how_feeling": ["...", "...", "...", "...", "...", "..."]
+}`;
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1500,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      const msg = err?.error?.message || `API error ${response.status}`;
+      throw new Error(msg);
+    }
+
+    const data = await response.json();
+    const text = data.content[0].text.trim();
+    // Strip any markdown fences if present
+    const cleaned = text.replace(/^```json\s*/i, '').replace(/```\s*$/, '').trim();
+    return JSON.parse(cleaned);
+  }
+
+  // ── API Key management ────────────────────────────────────────────────────
+  function onKeyInput() {
+    const val = document.getElementById('api-key-input').value.trim();
+    document.getElementById('save-key-btn').disabled = !val;
+  }
+
+  function saveKey() {
+    const val = document.getElementById('api-key-input').value.trim();
+    if (!val) return;
+    sessionStorage.setItem('cep_api_key', val);
+    document.getElementById('api-key-input').value = '';
+    document.getElementById('key-row') && (document.getElementById('key-row').style.display = 'none');
+    document.querySelector('.key-row').style.display = 'none';
+    document.getElementById('key-saved').style.display = 'flex';
+  }
+
+  function clearKey() {
+    sessionStorage.removeItem('cep_api_key');
+    document.querySelector('.key-row').style.display = 'flex';
+    document.getElementById('key-saved').style.display = 'none';
+    document.getElementById('save-key-btn').disabled = true;
+  }
+
+  // Restore key state on load
+  (function initKeyUI() {
+    if (sessionStorage.getItem('cep_api_key')) {
+      document.querySelector('.key-row').style.display = 'none';
+      document.getElementById('key-saved').style.display = 'flex';
+    }
+  })();
+
+  // ── Generate ──────────────────────────────────────────────────────────────
+  async function generate() {
+    const category = document.getElementById('category-input').value.trim();
+    const demographic = document.getElementById('demographic-input').value.trim();
+    const market      = document.getElementById('market-input').value.trim() || 'Global';
+    const apiKey = sessionStorage.getItem('cep_api_key') || '';
+    const errEl  = document.getElementById('input-error');
+    errEl.textContent = '';
+
+    if (!apiKey) { errEl.textContent = 'Please enter and save your API key above.'; return; }
+    if (!category) { errEl.textContent = 'Please enter a category.'; return; }
+
+    // Reset state
+    selectedCEPs = [];
+    scores = {};
+    document.getElementById('phase1').style.display = 'none';
+    document.getElementById('phase2').style.display = 'none';
+    document.getElementById('phase3').style.display = 'none';
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('gen-btn').disabled = true;
+
+    try {
+      const cepData = await callClaudeAPI(category, demographic, market, apiKey);
+      renderPhase1(category, demographic, market, cepData);
+    } catch (e) {
+      document.getElementById('loading').style.display = 'none';
+      errEl.textContent = `Error: ${e.message}`;
+    } finally {
+      document.getElementById('gen-btn').disabled = false;
+    }
+  }
+
+  // ── Phase 1: Render ───────────────────────────────────────────────────────
+  function renderPhase1(category, demographic, market, cepData) {
+    document.getElementById('loading').style.display = 'none';
+    const parts = [demographic, market !== 'Global' ? market : null].filter(Boolean);
+    const headingSub = parts.length ? ` — ${parts.join(', ')}` : '';
+    document.getElementById('p1-heading').textContent = `Category entry points for: ${category}${headingSub}`;
+
+    const container = document.getElementById('cep-groups');
+    container.innerHTML = '';
+
+    DIMENSIONS.forEach(dim => {
+      const items = (cepData[dim.key] || []).slice(0, 6);
+      if (!items.length) return;
+
+      const group = document.createElement('div');
+      group.className = 'cep-group';
+      group.innerHTML = `
+        <div class="cep-group-header">
+          <div class="dim-icon">${dim.icon}</div>
+          <div>
+            <div class="dim-desc">${dim.desc}</div>
+            <h3>${dim.label}</h3>
+          </div>
+        </div>
+        <div class="cep-items" id="items-${dim.key}"></div>
+      `;
+      container.appendChild(group);
+
+      const itemsEl = group.querySelector(`#items-${dim.key}`);
+      items.forEach(text => {
+        const card = document.createElement('div');
+        card.className = 'cep-item';
+        card.innerHTML = `<div class="check"></div><p>${text}</p>`;
+        card.addEventListener('click', () => toggleCEP(card, dim.key, dim.label, text));
+        itemsEl.appendChild(card);
+      });
+    });
+
+    document.getElementById('phase1').style.display = 'block';
+    updateSelectionCount();
+  }
+
+  function toggleCEP(el, dimension, label, text) {
+    const idx = selectedCEPs.findIndex(c => c.dimension === dimension && c.text === text);
+    if (idx === -1) {
+      selectedCEPs.push({ dimension, label, text });
+      el.classList.add('selected');
+    } else {
+      selectedCEPs.splice(idx, 1);
+      el.classList.remove('selected');
+    }
+    updateSelectionCount();
+  }
+
+  function updateSelectionCount() {
+    const n = selectedCEPs.length;
+    document.getElementById('selected-count').innerHTML =
+      `<strong>${n}</strong> selected`;
+    document.getElementById('score-btn').disabled = n === 0;
+  }
+
+  // ── Phase 2: Scoring ──────────────────────────────────────────────────────
+  function startScoring() {
+    const dimOrder = DIMENSIONS.map(d => d.key);
+    const sorted = [...selectedCEPs].sort((a, b) =>
+      dimOrder.indexOf(a.dimension) - dimOrder.indexOf(b.dimension));
+
+    const container = document.getElementById('scoring-cards');
+    container.innerHTML = '';
+
+    sorted.forEach(cep => {
+      const k = `${cep.dimension}::${cep.text}`;
+      scores[k] = { commonality: null, credibility: null, competitiveness: null };
+
+      const card = document.createElement('div');
+      card.className = 'scoring-card';
+      card.innerHTML = `
+        <div class="scoring-card-top">
+          <div class="scoring-card-text">${cep.text}</div>
+          <span class="scoring-dim-tag">${cep.label}</span>
+        </div>
+        <div class="scoring-controls">
+          ${renderToggleGroup(k, 'commonality', 'Commonality')}
+          ${renderToggleGroup(k, 'credibility', 'Credibility')}
+          ${renderToggleGroup(k, 'competitiveness', 'Competitiveness')}
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    // Attach toggle listeners after render
+    container.querySelectorAll('.toggle-group button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const { key, cattr, val } = btn.dataset;
+        scores[key][cattr] = val;
+        // Update active state in this group
+        const group = btn.closest('.toggle-group');
+        group.querySelectorAll('button').forEach(b => {
+          b.className = b.dataset.val === val ? `active-${val}` : '';
+        });
+      });
+    });
+
+    document.getElementById('phase2').style.display = 'block';
+    document.getElementById('phase2').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderToggleGroup(key, cattr, label) {
+    return `
+      <div class="c-control">
+        <label>${label}</label>
+        <div class="toggle-group">
+          <button data-key="${key}" data-cattr="${cattr}" data-val="low">Low</button>
+          <button data-key="${key}" data-cattr="${cattr}" data-val="med">Med</button>
+          <button data-key="${key}" data-cattr="${cattr}" data-val="high">High</button>
+        </div>
+      </div>
+    `;
+  }
+
+  // ── Phase 3: Final List ───────────────────────────────────────────────────
+  function scoreValue(v) {
+    return v === 'high' ? 3 : v === 'med' ? 2 : v === 'low' ? 1 : 0;
+  }
+
+  function priorityFromScore(total, competitiveness) {
+    // Competitiveness is inverted: Low competition = good (whitespace)
+    // Effective score boosts CEPs with low competition
+    const compScore = competitiveness === 'low' ? 3 : competitiveness === 'med' ? 2 : 1;
+    const adjusted = total - scoreValue(competitiveness) + compScore;
+    if (adjusted >= 8) return { label: 'Priority', cls: 'priority' };
+    if (adjusted >= 5) return { label: 'Consider', cls: 'consider' };
+    return { label: 'Deprioritise', cls: 'deprioritise' };
+  }
+
+  function buildFinalList() {
+    const dimOrder = DIMENSIONS.map(d => d.key);
+
+    const scored = selectedCEPs.map(cep => {
+      const k = `${cep.dimension}::${cep.text}`;
+      const s = scores[k] || {};
+      const rawTotal = scoreValue(s.commonality) + scoreValue(s.credibility) + scoreValue(s.competitiveness);
+      const priority = priorityFromScore(rawTotal, s.competitiveness);
+      return { ...cep, scores: s, rawTotal, priority };
+    });
+
+    // Sort: Priority first, then Consider, then Deprioritise; within tier, by dimension order
+    const tierOrder = { 'priority': 0, 'consider': 1, 'deprioritise': 2 };
+    scored.sort((a, b) => {
+      const td = tierOrder[a.priority.cls] - tierOrder[b.priority.cls];
+      if (td !== 0) return td;
+      return dimOrder.indexOf(a.dimension) - dimOrder.indexOf(b.dimension);
+    });
+
+    const container = document.getElementById('final-items');
+    container.innerHTML = '';
+
+    scored.forEach(cep => {
+      const item = document.createElement('div');
+      item.className = 'final-item';
+      item.innerHTML = `
+        <div class="priority-bar ${cep.priority.cls}"></div>
+        <div class="final-item-body">
+          <div class="final-item-text">${cep.text}</div>
+          <div class="final-item-meta">
+            <span class="tag-dim">${cep.label}</span>
+            <span class="tag-priority ${cep.priority.cls}">${cep.priority.label}</span>
+          </div>
+        </div>
+      `;
+      container.appendChild(item);
+    });
+
+    document.getElementById('phase3').style.display = 'block';
+    document.getElementById('phase3').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── Copy ──────────────────────────────────────────────────────────────────
+  function copyList() {
+    const category = document.getElementById('category-input').value.trim();
+    const items = document.querySelectorAll('#final-items .final-item');
+    let text = `CEP List — ${category}\n${'─'.repeat(40)}\n\n`;
+
+    let lastPriority = null;
+    items.forEach(item => {
+      const t = item.querySelector('.final-item-text').textContent;
+      const dim = item.querySelector('.tag-dim').textContent;
+      const pri = item.querySelector('.tag-priority').textContent;
+      if (pri !== lastPriority) {
+        text += `${pri.toUpperCase()}\n`;
+        lastPriority = pri;
+      }
+      text += `  • ${t} [${dim}]\n`;
+    });
+
+    navigator.clipboard.writeText(text.trim()).then(() => {
+      const btn = document.querySelector('.btn-secondary');
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = orig, 2000);
+    });
+  }
+
+  // ── Reset ─────────────────────────────────────────────────────────────────
+  function resetAll() {
+    selectedCEPs = [];
+    scores = {};
+    document.getElementById('category-input').value = '';
+    document.getElementById('demographic-input').value = '';
+    document.getElementById('market-input').value = '';
+    document.getElementById('phase1').style.display = 'none';
+    document.getElementById('phase2').style.display = 'none';
+    document.getElementById('phase3').style.display = 'none';
+    document.getElementById('input-error').textContent = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('category-input').focus();
+  }
+
+  // Enter key
+  document.getElementById('category-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') generate();
+  });
+</script>
+
+</body>
+</html>
