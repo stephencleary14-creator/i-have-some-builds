@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Making an Attention Tester: Part 4 — stephenjcleary</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HLCJ1PDQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5HLCJ1PDQK');
+  </script>
+  <style>
+    :root { --cream: #EDE0C4; --cream-light: #F7F2EA; --red: #C8102E; --red-deep: #A00E24; --dark: #1C1C1C; --mid: #5C5247; --font: 'Outfit', 'Segoe UI', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--cream-light); color: var(--dark); font-size: 16px; line-height: 1.6; }
+    nav { background: transparent; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: absolute; top: 0; left: 0; right: 0; z-index: 100; }
+    .nav-home { font-size: 13px; font-weight: 600; color: rgba(237, 224, 196, 0.7); text-decoration: none; transition: color 0.15s; }
+    .nav-home:hover { color: var(--cream); }
+    .nav-home::before { content: '← '; }
+    .nav-search { position: relative; display: flex; align-items: center; }
+    .nav-search input { background: #2e2e2e; border: 1px solid rgba(237, 224, 196, 0.25); border-radius: 4px; color: #ffffff; -webkit-text-fill-color: #ffffff; caret-color: #ffffff; font-family: var(--font); font-size: 13px; padding: 6px 14px; width: 220px; outline: none; position: relative; z-index: 101; transition: border-color 0.15s, width 0.2s; }
+    .nav-search input:focus { border-color: rgba(237, 224, 196, 0.6); width: 280px; }
+    .nav-search input::placeholder { color: rgba(237, 224, 196, 0.4); }
+    .entry-header { background: var(--dark); padding: 80px 32px 36px; border-bottom: 3px solid var(--red); position: relative; overflow: hidden; }
+    .entry-header::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px); background-size: 22px 22px; pointer-events: none; }
+    .entry-header::after { content: ''; position: absolute; top: 50%; left: 72%; transform: translate(-50%, -44%); width: 500px; height: 240px; background: radial-gradient(ellipse at center, rgba(200,16,46,0.35) 0%, rgba(200,16,46,0.14) 40%, transparent 70%); pointer-events: none; }
+    .entry-header-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+    .entry-header-top { margin-bottom: 16px; }
+    .card-meta { font-size: 11px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em; }
+    .entry-title { font-size: clamp(22px, 4vw, 36px); font-weight: 700; color: var(--cream-light); line-height: 1.2; }
+    .entry-body-wrap { max-width: 720px; margin: 0 auto; padding: 40px 32px 24px; }
+    .entry-body p { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 20px; }
+    .entry-body h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 32px 0 12px; line-height: 1.3; }
+    .entry-body ul { margin: 0 0 20px 20px; padding: 0; }
+    .entry-body ul li { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 8px; }
+    .entry-body a { color: var(--red); text-decoration: none; }
+    .entry-body a:hover { color: var(--red-deep); text-decoration: underline; }
+    .entry-body em { font-style: italic; }
+    .entry-body strong { font-weight: 700; }
+    .entry-img { width: 100%; border-radius: 6px; margin: 28px 0; display: block; object-fit: cover; max-height: 400px; }
+    .entry-img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+    .entry-img-pair img { width: 100%; border-radius: 6px; object-fit: cover; height: 280px; }
+    .entry-img-caption { font-size: 12px; color: var(--mid); text-align: center; margin-top: 6px; }
+    .back-link { display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: var(--red); text-decoration: none; margin-bottom: 16px; transition: color 0.15s; }
+    .back-link::before { content: '← '; margin-right: 2px; }
+    .back-link:hover { color: var(--red-deep); }
+    footer { text-align: center; padding: 0 32px 32px; }
+    footer img { max-width: 960px; width: 100%; display: block; margin: 0 auto; }
+    @media (max-width: 720px) { nav { padding: 0 20px; } .nav-search input { width: 160px; } .entry-header { padding: 72px 20px 28px; } .entry-body-wrap { padding: 28px 20px 24px; } .entry-img-pair { grid-template-columns: 1fr; } .entry-img-pair img { height: 200px; } footer { padding: 0 20px 24px; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-home" href="../index.html">Back home</a>
+    <div class="nav-search">
+      <input type="text" placeholder="Search entries…" autocomplete="off" spellcheck="false" />
+    </div>
+  </nav>
+
+  <div class="entry-header">
+    <div class="entry-header-inner">
+      <div class="entry-header-top">
+        <span class="card-meta">5 Jun 2026</span>
+      </div>
+      <h1 class="entry-title">Making an Attention Tester: Part 4</h1>
+    </div>
+  </div>
+
+  <div class="entry-body-wrap">
+    <div class="entry-body">
+
+      <img src="../images/SJC_sciencelab.jpeg" alt="SJC figurine in a science lab studying balance scales" class="entry-img" />
+      <p>Part 3 ended with a tool that could tell you three things about a social ad: is it interesting, is it well branded, and which platform suits it best. A reasonable summary. But the more I used it, the more I felt it was treating all ads the same. They're not.</p>
+      <p>In my last entry I wrote about the tension between hooking someone early and getting your brand in front of them early. I've been thinking about that balance ever since. A brand ad and a performance ad are doing fundamentally different jobs. Both useful. Very different purposes.</p>
+      <p>So Part 4 was about pulling those two things apart.</p>
+      <h3>Brand or Performance — the tool now asks</h3>
+      <p>Before you can run an analysis, the tool now asks you to declare what type of ad you're working with. Brand Marketing or Performance Marketing. That one choice changes everything that follows.</p>
+      <img src="../images/Tester_choose.png" alt="Attention Tester ad type selector showing Brand Marketing and Performance Marketing options" class="entry-img" />
+      <h3>A smarter Creative Summary</h3>
+      <p>For brand ads, the Creative Interest section is now built on System1's research into what makes creative work emotionally resonant. Their work identifies a set of right-brain features that consistently outperform left-brain approaches in long-term brand building.</p>
+      <table style="width:100%;border-collapse:collapse;margin:24px 0;font-size:0.95rem;">
+        <thead>
+          <tr>
+            <th style="background:var(--red);color:#fff;padding:10px 14px;text-align:left;border-radius:6px 0 0 0;">Left Brain</th>
+            <th style="background:var(--red);color:#fff;padding:10px 14px;text-align:left;border-radius:0 6px 0 0;">Right Brain</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Flatness</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">A clear sense of place</td></tr>
+          <tr style="background:var(--cream-light);"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Abstracted product, feature, ingredient</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">One scene unfolding with progression</td></tr>
+          <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Abstracted body part (e.g. hands, mouth)</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Characters with agency (voice, movement, expression)</td></tr>
+          <tr style="background:var(--cream-light);"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Words obtrude during the ad</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Implicit, unspoken communication (knowing glances)</td></tr>
+          <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Voiceover</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Dialogue</td></tr>
+          <tr style="background:var(--cream-light);"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Monologue (e.g. testimonial)</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Distinctive accents</td></tr>
+          <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Adjectives used as nouns</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Play on words or subversion of language</td></tr>
+          <tr style="background:var(--cream-light);"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Freeze-frame effect</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Set in the past (costumes &amp; sets)</td></tr>
+          <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Audio repetition (metered prose, sound effects)</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Reference to cultural works (pastiche/parody)</td></tr>
+          <tr style="background:var(--cream-light);"><td style="padding:9px 14px;">Highly rhythmic soundtrack</td><td style="padding:9px 14px;">Music with melody</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.85rem;color:var(--mid);margin-top:-12px;margin-bottom:24px;">Source: Lemon, Orlando Wood, IPA, 2019</p>
+      <p>The tool checks for these features in the uploaded video and returns which are present and which are missing, with a summary verdict on creative strength.</p>
+      <p>For performance ads, the analysis shifts entirely. The tool looks for whether the ad has a clear message and a call to action. Less about story, more about signal.</p>
+      <h3>Branding — beyond just "does it appear?"</h3>
+      <p>Part 3 checked whether your Distinct Brand Asset appeared and at what point. Part 4 goes further. The tool now identifies the type of DBA and cross-references it against System1's hierarchy of assets most likely to be recalled.</p>
+      <img src="../images/Tester_Brand.png" alt="Attention Tester branding section showing DBA type and effectiveness rating" class="entry-img" />
+      <p>A logo floating on screen for half a second is not the same as a fluent character built over years. The tool now makes that distinction.</p>
+      <h3>Platform Fit — actually fit for purpose</h3>
+      <p>The old platform scoring leaned too heavily on DBA timing and attention windows. Useful signals, but not the full picture. Different content suits different platforms for different reasons.</p>
+      <p>A brand ad heavy on text overlays with no dialogue is probably not your best TikTok candidate, even if it's short. A performance ad with a sharp product message and an on-screen CTA will land better on Meta than on Snapchat, where that approach tends to feel intrusive.</p>
+      <img src="../images/Tester_performance.png" alt="Attention Tester platform fit section showing Good, Partial and Poor verdicts per platform" class="entry-img" />
+      <p>Part 4 rebuilds platform fit around what actually matters per ad type. Brand ads are assessed on creative quality, character, sound dependency, pacing, and how well the DBA works in that environment. Performance ads are assessed on thumb-stop quality, message clarity, product visibility, offer signals, and CTA presence.</p>
+      <p>Each platform gets its own verdict. Good, Partial, or Poor, with a reason specific to that combination of ad and platform.</p>
+      <p>Here is the demo of the Attention Tester with the above additions.</p>
+      <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+        <source src="../images/Tester_record.mp4" type="video/mp4" />
+      </video>
+
+    </div>
+
+    <a class="back-link" href="../index.html">Back home</a>
+  </div>
+
+  <footer>
+    <picture>
+      <source media="(max-width: 720px)" srcset="images/SJC_section_June26.png" />
+      <img src="../images/SJC_footer_June26.png" alt="stephenjcleary" />
+    </picture>
+  </footer>
+
+</body>
+</html>

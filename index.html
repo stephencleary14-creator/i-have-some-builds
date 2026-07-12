@@ -1124,7 +1124,7 @@
           <p class="card-meta" id="featured-meta"></p>
           <h2 class="card-title" id="featured-title"></h2>
           <p class="card-excerpt" id="featured-excerpt"></p>
-          <a class="card-read" onclick="event.stopPropagation(); openEntry(0)">Read entry</a>
+          <a class="card-read" id="featured-read" href="#">Read entry</a>
         </div>
       </div>
     </section>
@@ -2580,6 +2580,38 @@
       }
     });
 
+    // ── Slug map — title → filename ──
+    const slugMap = [
+      'posts/a-seaside-walk-and-ceps.html',
+      'posts/a-bobby-dazzler.html',
+      'posts/the-content-atelier.html',
+      'posts/a-diy-campaign-dashboard.html',
+      'posts/the-13-year-itch.html',
+      'posts/making-an-attention-tester-part-4.html',
+      'posts/the-struggle-is-real-hook-early-or-brand-early.html',
+      'posts/exploring-brand-positioning-with-derek-zoolander.html',
+      'posts/hiring-xabi-alonso.html',
+      'posts/creativity-codes-and-constraints.html',
+      'posts/how-social-advertising-works.html',
+      'posts/sweating-the-brand-asset.html',
+      'posts/five-minutes-and-counting.html',
+      'posts/the-greatest-show.html',
+      'posts/character-incident-place.html',
+      'posts/prompting-my-mascot-to-move.html',
+      'posts/he-kicked-animating-my-brand-mascot.html',
+      'posts/fancy-a-game-of-keepy-uppies.html',
+      'posts/i-made-a-brand-mascot.html',
+      'posts/finding-a-new-font.html',
+      'posts/making-a-deck-with-claude-design.html',
+      'posts/why-am-i-enjoying-this-so-much.html',
+      'posts/whats-for-dinner.html',
+      'posts/making-an-attention-tester-part-3.html',
+      'posts/creating-a-social-copywriter-skill.html',
+      'posts/making-an-attention-tester-part-2.html',
+      'posts/making-an-attention-tester-part-1.html',
+      'posts/the-stephenjcleary-brand-style-guide.html',
+    ];
+
     // ── Featured card — populate dynamically from entries[0] ──
     const featured = entries[0];
     const featuredExcerpt = featured.body.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160) + '…';
@@ -2590,6 +2622,8 @@
     document.querySelector('#featured-thumb img').alt = featured.photoAlt || '';
     document.querySelector('#featured-thumb .thumb-icon').innerHTML = featured.icon;
     if (featured.photoBg) document.getElementById('featured-thumb').style.background = featured.photoBg;
+    document.getElementById('featured-card').onclick = () => location.href = slugMap[0];
+    document.getElementById('featured-read').href = slugMap[0];
 
     // ── Archive Grid ──
     function renderArchiveGrid() {
@@ -2603,7 +2637,7 @@
           ? `<img src="${entry.photo}" alt="${entry.photoAlt || ''}" style="object-position: ${entry.photoPosition || 'center center'}" />`
           : '';
         return `
-          <div class="card archive-card" onclick="openEntry(${i})">
+          <div class="card archive-card" onclick="location.href='${slugMap[i]}'">
             <div class="archive-image" style="${entry.photoBg ? `background:${entry.photoBg}` : ''}">
               ${photo}
               <div class="thumb-icon">${entry.icon}</div>
@@ -2612,7 +2646,7 @@
               <p class="card-meta">${entry.meta}</p>
               <h3 class="card-title">${entry.title}</h3>
               <p class="card-excerpt">${excerpt}</p>
-              <a class="card-read" onclick="event.stopPropagation(); openEntry(${i})">Read entry</a>
+              <a class="card-read" href="${slugMap[i]}">Read entry</a>
             </div>
           </div>`;
       }).join('');
@@ -2626,7 +2660,7 @@
       list.innerHTML = entries.map((entry, i) => {
         const datePart = entry.meta.replace(/&nbsp;/g, ' ').replace(/<[^>]*>/g, '').split('·').pop().trim();
         return `
-          <div class="all-entries-row" onclick="openEntryFromAll(${i})">
+          <div class="all-entries-row" onclick="location.href='${slugMap[i]}'">
             <span class="all-entries-title">${entry.title}</span>
             <span class="all-entries-date">${datePart}</span>
           </div>
@@ -2694,7 +2728,7 @@
         searchResults.innerHTML = '<p class="search-no-results">No entries found.</p>';
       } else {
         searchResults.innerHTML = matches.map(m => `
-          <div class="search-result-item" onclick="openEntry(${m.index}); clearSearch();">
+          <div class="search-result-item" onclick="location.href='${slugMap[m.index]}'; clearSearch();">
             <div class="search-result-title">${m.title}</div>
             <div class="search-result-snippet">${m.snippet}</div>
           </div>

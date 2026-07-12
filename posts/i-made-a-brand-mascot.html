@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I made a brand mascot — stephenjcleary</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HLCJ1PDQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5HLCJ1PDQK');
+  </script>
+  <style>
+    :root { --cream: #EDE0C4; --cream-light: #F7F2EA; --red: #C8102E; --red-deep: #A00E24; --dark: #1C1C1C; --mid: #5C5247; --font: 'Outfit', 'Segoe UI', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--cream-light); color: var(--dark); font-size: 16px; line-height: 1.6; }
+    nav { background: transparent; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: absolute; top: 0; left: 0; right: 0; z-index: 100; }
+    .nav-home { font-size: 13px; font-weight: 600; color: rgba(237, 224, 196, 0.7); text-decoration: none; transition: color 0.15s; }
+    .nav-home:hover { color: var(--cream); }
+    .nav-home::before { content: '← '; }
+    .nav-search { position: relative; display: flex; align-items: center; }
+    .nav-search input { background: #2e2e2e; border: 1px solid rgba(237, 224, 196, 0.25); border-radius: 4px; color: #ffffff; -webkit-text-fill-color: #ffffff; caret-color: #ffffff; font-family: var(--font); font-size: 13px; padding: 6px 14px; width: 220px; outline: none; position: relative; z-index: 101; transition: border-color 0.15s, width 0.2s; }
+    .nav-search input:focus { border-color: rgba(237, 224, 196, 0.6); width: 280px; }
+    .nav-search input::placeholder { color: rgba(237, 224, 196, 0.4); }
+    .entry-header { background: var(--dark); padding: 80px 32px 36px; border-bottom: 3px solid var(--red); position: relative; overflow: hidden; }
+    .entry-header::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px); background-size: 22px 22px; pointer-events: none; }
+    .entry-header::after { content: ''; position: absolute; top: 50%; left: 72%; transform: translate(-50%, -44%); width: 500px; height: 240px; background: radial-gradient(ellipse at center, rgba(200,16,46,0.35) 0%, rgba(200,16,46,0.14) 40%, transparent 70%); pointer-events: none; }
+    .entry-header-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+    .entry-header-top { margin-bottom: 16px; }
+    .card-meta { font-size: 11px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em; }
+    .entry-title { font-size: clamp(22px, 4vw, 36px); font-weight: 700; color: var(--cream-light); line-height: 1.2; }
+    .entry-body-wrap { max-width: 720px; margin: 0 auto; padding: 40px 32px 24px; }
+    .entry-body p { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 20px; }
+    .entry-body h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 32px 0 12px; line-height: 1.3; }
+    .entry-body ul { margin: 0 0 20px 20px; padding: 0; }
+    .entry-body ul li { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 8px; }
+    .entry-body a { color: var(--red); text-decoration: none; }
+    .entry-body a:hover { color: var(--red-deep); text-decoration: underline; }
+    .entry-body em { font-style: italic; }
+    .entry-body strong { font-weight: 700; }
+    .entry-img { width: 100%; border-radius: 6px; margin: 28px 0; display: block; object-fit: cover; max-height: 400px; }
+    .entry-img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+    .entry-img-pair img { width: 100%; border-radius: 6px; object-fit: cover; height: 280px; }
+    .entry-img-caption { font-size: 12px; color: var(--mid); text-align: center; margin-top: 6px; }
+    .back-link { display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: var(--red); text-decoration: none; margin-bottom: 16px; transition: color 0.15s; }
+    .back-link::before { content: '← '; margin-right: 2px; }
+    .back-link:hover { color: var(--red-deep); }
+    footer { text-align: center; padding: 0 32px 32px; }
+    footer img { max-width: 960px; width: 100%; display: block; margin: 0 auto; }
+    @media (max-width: 720px) { nav { padding: 0 20px; } .nav-search input { width: 160px; } .entry-header { padding: 72px 20px 28px; } .entry-body-wrap { padding: 28px 20px 24px; } .entry-img-pair { grid-template-columns: 1fr; } .entry-img-pair img { height: 200px; } footer { padding: 0 20px 24px; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-home" href="../index.html">Back home</a>
+    <div class="nav-search">
+      <input type="text" placeholder="Search entries…" autocomplete="off" spellcheck="false" />
+    </div>
+  </nav>
+
+  <div class="entry-header">
+    <div class="entry-header-inner">
+      <div class="entry-header-top">
+        <span class="card-meta">24 April 2026</span>
+      </div>
+      <h1 class="entry-title">I made a brand mascot</h1>
+    </div>
+  </div>
+
+  <div class="entry-body-wrap">
+    <div class="entry-body">
+
+      <p>I have spent a lot of time thinking about Distinctive Brand Assets. It is one of the most rigorous and practically useful areas of marketing science. I follow Jenni Romaniuk's work closely — her research through the Ehrenberg-Bass Institute has shaped how I think about what brands actually own in the mind of a buyer.</p>
+      <p>At the National Lottery we worked on building and measuring DBAs properly. Not just asking "do people like our logo" but tracking distinctiveness, uniqueness, and fame across assets — visual, audio, character. It changes how you think about brand investment. I presented our work at a global research conference in Amsterdam.</p>
+      <img src="../images/AmsterdamDBA.jpeg" alt="Stephen Cleary presenting at the ESOMAR research conference in Amsterdam" class="entry-img" />
+      <p>So when I started building my personal brand, I wanted to apply the same thinking. One of the asset types I was most interested in was a character — something ownable, memorable, and a bit fun.</p>
+      <p>Growing up I was obsessed with Corinthian figurines. If you're not familiar — they were small, incredibly detailed football player models. I had dozens. My brother and I then played matches with them.</p>
+      <img src="../images/corinthians.jpg" alt="Four Corinthian football figurines including Nakata and Thuram" class="entry-img" />
+      <p>That format stuck with me. So I asked ChatGPT to create a version of me as one. I gave it a description, a few reference points, and let it work. Then I added some objects around the figurine to give it a bit more personality and context.</p>
+      <p>Here's the final product.</p>
+      <img src="../images/ChatGPT_Image_Apr_24__2026__08_09_16_AM-removebg-preview.png" alt="A ChatGPT-generated Corinthian-style figurine of Stephen Cleary" class="entry-img" style="object-fit: contain; max-height: 320px; background: var(--cream-light); padding: 24px;" />
+      <p>What I really like is the detail. The CLEARY name carved into the green base. The number 9 and SJC crest on the jersey. And the kit colours match the brand style exactly.</p>
+      <p>It's now sitting in the header of this blog — and I made a version for the footer too. A small, distinctive, ownable asset. Now to see how flexible I can make the character.</p>
+
+    </div>
+
+    <a class="back-link" href="../index.html">Back home</a>
+  </div>
+
+  <footer>
+    <picture>
+      <source media="(max-width: 720px)" srcset="images/SJC_section_June26.png" />
+      <img src="../images/SJC_footer_June26.png" alt="stephenjcleary" />
+    </picture>
+  </footer>
+
+</body>
+</html>

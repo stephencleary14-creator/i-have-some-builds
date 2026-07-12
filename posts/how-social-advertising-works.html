@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How social advertising works — stephenjcleary</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HLCJ1PDQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5HLCJ1PDQK');
+  </script>
+  <style>
+    :root { --cream: #EDE0C4; --cream-light: #F7F2EA; --red: #C8102E; --red-deep: #A00E24; --dark: #1C1C1C; --mid: #5C5247; --font: 'Outfit', 'Segoe UI', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--cream-light); color: var(--dark); font-size: 16px; line-height: 1.6; }
+    nav { background: transparent; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: absolute; top: 0; left: 0; right: 0; z-index: 100; }
+    .nav-home { font-size: 13px; font-weight: 600; color: rgba(237, 224, 196, 0.7); text-decoration: none; transition: color 0.15s; }
+    .nav-home:hover { color: var(--cream); }
+    .nav-home::before { content: '← '; }
+    .nav-search { position: relative; display: flex; align-items: center; }
+    .nav-search input { background: #2e2e2e; border: 1px solid rgba(237, 224, 196, 0.25); border-radius: 4px; color: #ffffff; -webkit-text-fill-color: #ffffff; caret-color: #ffffff; font-family: var(--font); font-size: 13px; padding: 6px 14px; width: 220px; outline: none; position: relative; z-index: 101; transition: border-color 0.15s, width 0.2s; }
+    .nav-search input:focus { border-color: rgba(237, 224, 196, 0.6); width: 280px; }
+    .nav-search input::placeholder { color: rgba(237, 224, 196, 0.4); }
+    .entry-header { background: var(--dark); padding: 80px 32px 36px; border-bottom: 3px solid var(--red); position: relative; overflow: hidden; }
+    .entry-header::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px); background-size: 22px 22px; pointer-events: none; }
+    .entry-header::after { content: ''; position: absolute; top: 50%; left: 72%; transform: translate(-50%, -44%); width: 500px; height: 240px; background: radial-gradient(ellipse at center, rgba(200,16,46,0.35) 0%, rgba(200,16,46,0.14) 40%, transparent 70%); pointer-events: none; }
+    .entry-header-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+    .entry-header-top { margin-bottom: 16px; }
+    .card-meta { font-size: 11px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em; }
+    .entry-title { font-size: clamp(22px, 4vw, 36px); font-weight: 700; color: var(--cream-light); line-height: 1.2; }
+    .entry-body-wrap { max-width: 720px; margin: 0 auto; padding: 40px 32px 24px; }
+    .entry-body p { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 20px; }
+    .entry-body h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 32px 0 12px; line-height: 1.3; }
+    .entry-body ul { margin: 0 0 20px 20px; padding: 0; }
+    .entry-body ul li { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 8px; }
+    .entry-body a { color: var(--red); text-decoration: none; }
+    .entry-body a:hover { color: var(--red-deep); text-decoration: underline; }
+    .entry-body em { font-style: italic; }
+    .entry-body strong { font-weight: 700; }
+    .entry-img { width: 100%; border-radius: 6px; margin: 28px 0; display: block; object-fit: cover; max-height: 400px; }
+    .entry-img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+    .entry-img-pair img { width: 100%; border-radius: 6px; object-fit: cover; height: 280px; }
+    .entry-img-caption { font-size: 12px; color: var(--mid); text-align: center; margin-top: 6px; }
+    .back-link { display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: var(--red); text-decoration: none; margin-bottom: 16px; transition: color 0.15s; }
+    .back-link::before { content: '← '; margin-right: 2px; }
+    .back-link:hover { color: var(--red-deep); }
+    footer { text-align: center; padding: 0 32px 32px; }
+    footer img { max-width: 960px; width: 100%; display: block; margin: 0 auto; }
+    @media (max-width: 720px) { nav { padding: 0 20px; } .nav-search input { width: 160px; } .entry-header { padding: 72px 20px 28px; } .entry-body-wrap { padding: 28px 20px 24px; } .entry-img-pair { grid-template-columns: 1fr; } .entry-img-pair img { height: 200px; } footer { padding: 0 20px 24px; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-home" href="../index.html">Back home</a>
+    <div class="nav-search">
+      <input type="text" placeholder="Search entries…" autocomplete="off" spellcheck="false" />
+    </div>
+  </nav>
+
+  <div class="entry-header">
+    <div class="entry-header-inner">
+      <div class="entry-header-top">
+        <span class="card-meta">16 May 2026</span>
+      </div>
+      <h1 class="entry-title">How social advertising works</h1>
+    </div>
+  </div>
+
+  <div class="entry-body-wrap">
+    <div class="entry-body">
+
+      <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+        <source src="../images/lightswitch.mp4" type="video/mp4" />
+      </video>
+      <p>I heard a really good analogy once that explained how social advertising works. It was a lady at a conference and unfortunately I can't remember who it was. She said, if you have a strong brand with a campaign that is broad reaching and carries emotion, using a set of distinctive brand assets, it's like having a beautifully furnished living room. Advertising on social is like flicking the lights on and off. Consider your social feeds. People are scrolling and there's so much distraction. But at a glance, people might notice the brand. Your distinctive brand assets are really useful ways to help with that.</p>
+      <p>Peter Field is one of the most respected voices in marketing effectiveness. He told us at the National Lottery that social media advertising is a gentle reinforcement of your distinctive brand assets.</p>
+      <p>Social has great reach and targeting capabilities. But the evidence is pretty clear on how little attention you are likely to get. From long form, short form, creators, gifs, memes and trends, with all the things possible on social, there are also a lot of constraints on how much of your advertising is actually seen. So the question I keep coming back to is whether your brand is getting noticed at all.</p>
+      <p>The guidance from Peter Field and the attention research we had done transformed our approach to social advertising at The National Lottery. We created a set of principles that we applied to everything we made.</p>
+      <ul>
+        <li>No longer than 10 seconds, no long story arcs</li>
+        <li>Distinctive brand assets used up front; big, early and often</li>
+        <li>Works with and without audio</li>
+        <li>Bright visuals with little text</li>
+        <li>Fun and rooted in the overall brand narrative</li>
+      </ul>
+      <p>No more long ads. We cut out the heavy dialogue. Considered how the brand shows up early. But kept it as bright and fun within the time likely to be available.</p>
+      <p>We make sure when the lights flick on, people know which room they're looking at.</p>
+
+    </div>
+
+    <a class="back-link" href="../index.html">Back home</a>
+  </div>
+
+  <footer>
+    <picture>
+      <source media="(max-width: 720px)" srcset="images/SJC_section_June26.png" />
+      <img src="../images/SJC_footer_June26.png" alt="stephenjcleary" />
+    </picture>
+  </footer>
+
+</body>
+</html>

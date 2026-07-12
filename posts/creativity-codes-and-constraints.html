@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creativity, Codes &amp; Constraints — stephenjcleary</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HLCJ1PDQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5HLCJ1PDQK');
+  </script>
+  <style>
+    :root { --cream: #EDE0C4; --cream-light: #F7F2EA; --red: #C8102E; --red-deep: #A00E24; --dark: #1C1C1C; --mid: #5C5247; --font: 'Outfit', 'Segoe UI', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--cream-light); color: var(--dark); font-size: 16px; line-height: 1.6; }
+    nav { background: transparent; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: absolute; top: 0; left: 0; right: 0; z-index: 100; }
+    .nav-home { font-size: 13px; font-weight: 600; color: rgba(237, 224, 196, 0.7); text-decoration: none; transition: color 0.15s; }
+    .nav-home:hover { color: var(--cream); }
+    .nav-home::before { content: '← '; }
+    .nav-search { position: relative; display: flex; align-items: center; }
+    .nav-search input { background: #2e2e2e; border: 1px solid rgba(237, 224, 196, 0.25); border-radius: 4px; color: #ffffff; -webkit-text-fill-color: #ffffff; caret-color: #ffffff; font-family: var(--font); font-size: 13px; padding: 6px 14px; width: 220px; outline: none; position: relative; z-index: 101; transition: border-color 0.15s, width 0.2s; }
+    .nav-search input:focus { border-color: rgba(237, 224, 196, 0.6); width: 280px; }
+    .nav-search input::placeholder { color: rgba(237, 224, 196, 0.4); }
+    .entry-header { background: var(--dark); padding: 80px 32px 36px; border-bottom: 3px solid var(--red); position: relative; overflow: hidden; }
+    .entry-header::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px); background-size: 22px 22px; pointer-events: none; }
+    .entry-header::after { content: ''; position: absolute; top: 50%; left: 72%; transform: translate(-50%, -44%); width: 500px; height: 240px; background: radial-gradient(ellipse at center, rgba(200,16,46,0.35) 0%, rgba(200,16,46,0.14) 40%, transparent 70%); pointer-events: none; }
+    .entry-header-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+    .entry-header-top { margin-bottom: 16px; }
+    .card-meta { font-size: 11px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em; }
+    .entry-title { font-size: clamp(22px, 4vw, 36px); font-weight: 700; color: var(--cream-light); line-height: 1.2; }
+    .entry-body-wrap { max-width: 720px; margin: 0 auto; padding: 40px 32px 24px; }
+    .entry-body p { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 20px; }
+    .entry-body h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 32px 0 12px; line-height: 1.3; }
+    .entry-body ul { margin: 0 0 20px 20px; padding: 0; }
+    .entry-body ul li { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 8px; }
+    .entry-body a { color: var(--red); text-decoration: none; }
+    .entry-body a:hover { color: var(--red-deep); text-decoration: underline; }
+    .entry-body em { font-style: italic; }
+    .entry-body strong { font-weight: 700; }
+    .entry-img { width: 100%; border-radius: 6px; margin: 28px 0; display: block; object-fit: cover; max-height: 400px; }
+    .entry-img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+    .entry-img-pair img { width: 100%; border-radius: 6px; object-fit: cover; height: 280px; }
+    .entry-img-caption { font-size: 12px; color: var(--mid); text-align: center; margin-top: 6px; }
+    .back-link { display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: var(--red); text-decoration: none; margin-bottom: 16px; transition: color 0.15s; }
+    .back-link::before { content: '← '; margin-right: 2px; }
+    .back-link:hover { color: var(--red-deep); }
+    footer { text-align: center; padding: 0 32px 32px; }
+    footer img { max-width: 960px; width: 100%; display: block; margin: 0 auto; }
+    @media (max-width: 720px) { nav { padding: 0 20px; } .nav-search input { width: 160px; } .entry-header { padding: 72px 20px 28px; } .entry-body-wrap { padding: 28px 20px 24px; } .entry-img-pair { grid-template-columns: 1fr; } .entry-img-pair img { height: 200px; } footer { padding: 0 20px 24px; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-home" href="../index.html">Back home</a>
+    <div class="nav-search">
+      <input type="text" placeholder="Search entries…" autocomplete="off" spellcheck="false" />
+    </div>
+  </nav>
+
+  <div class="entry-header">
+    <div class="entry-header-inner">
+      <div class="entry-header-top">
+        <span class="card-meta">21 May 2026</span>
+      </div>
+      <h1 class="entry-title">Creativity, Codes &amp; Constraints</h1>
+    </div>
+  </div>
+
+  <div class="entry-body-wrap">
+    <div class="entry-body">
+
+      <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+        <source src="../images/lough_animation.mp4" type="video/mp4" />
+      </video>
+      <p>A few years ago I worked on an ad for The National Lottery. It was built around a brilliant organisation called Lough Ree Access for All, a group who built an accessible boat so that everyone, regardless of ability, could get out on the water and experience the lough.</p>
+      <p>When you're making an ad for a charity or a third-party cause, the emotional angles are everywhere. The people who built it. The service users. The challenges that were overcome. The volunteers. The challenge isn't finding the emotion. It's deciding which emotion to follow, and how to tell a complete story in 40 seconds while making sure the brand still gets noticed.</p>
+      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin:28px 0;">
+        <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube.com/embed/SUCXzv0y7AE?si=yar2HA3_Zf694Kgs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <p>I've been listening to Adam Morgan's podcast <a href="https://podcasts.apple.com/gb/podcast/the-magic-of-aardman-with-magda-osinska/id1707821202?i=1000768498442" target="_blank" rel="noopener noreferrer"><em>Let's Make This More Interesting</em></a> recently. A conversation with Magda Osinska from Aardman stuck with me. She talked about the challenge and the thrill of working within constraints: the stop-motion process, the tiny sets, the physical limitations of the craft. But they make it work. And they make it work beautifully. Maybe it's the constraints that keep the work focused to complete the job it's meant to do.</p>
+      <p>The Lough Ree ad was packed with the emotion of a real tightly knit community, but carefully crafted. We had a charming voiceover from a key member of the team. We selected the frames with the most joy from service users out on the water. It was also well-branded, because it needed to be. It was all wrapped up and presented clearly by the National Lottery. The logo early, the key funding message at the end, and the brand track running throughout.</p>
+      <p>We tested it with System 1 at the time. It scored 5.6 stars. That's genuinely rare. Around 1% of ads ever reach that level. The emotional intensity was rated exceptional. Brand fluency hit 92%. Participants felt pleased for others. Uplifted.</p>
+      <p>A key character. An unfolding story. A clear sense of place. Well-branded.</p>
+      <p>Creativity and codes, co-existing.</p>
+
+    </div>
+
+    <a class="back-link" href="../index.html">Back home</a>
+  </div>
+
+  <footer>
+    <picture>
+      <source media="(max-width: 720px)" srcset="images/SJC_section_June26.png" />
+      <img src="../images/SJC_footer_June26.png" alt="stephenjcleary" />
+    </picture>
+  </footer>
+
+</body>
+</html>

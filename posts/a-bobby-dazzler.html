@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Bobby Dazzler — stephenjcleary</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HLCJ1PDQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5HLCJ1PDQK');
+  </script>
+  <style>
+    :root {
+      --cream:       #EDE0C4;
+      --cream-light: #F7F2EA;
+      --red:         #C8102E;
+      --red-deep:    #A00E24;
+      --dark:        #1C1C1C;
+      --mid:         #5C5247;
+      --font:        'Outfit', 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--cream-light);
+      color: var(--dark);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    nav {
+      background: transparent;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+
+    .nav-home {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(237, 224, 196, 0.7);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-home:hover { color: var(--cream); }
+    .nav-home::before { content: '← '; }
+
+    .nav-search {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-search input {
+      background: #2e2e2e;
+      border: 1px solid rgba(237, 224, 196, 0.25);
+      border-radius: 4px;
+      color: #ffffff;
+      -webkit-text-fill-color: #ffffff;
+      caret-color: #ffffff;
+      font-family: var(--font);
+      font-size: 13px;
+      padding: 6px 14px;
+      width: 220px;
+      outline: none;
+      position: relative;
+      z-index: 101;
+      transition: border-color 0.15s, width 0.2s;
+    }
+
+    .nav-search input:focus { border-color: rgba(237, 224, 196, 0.6); width: 280px; }
+    .nav-search input::placeholder { color: rgba(237, 224, 196, 0.4); }
+
+    .entry-header {
+      background: var(--dark);
+      padding: 80px 32px 36px;
+      border-bottom: 3px solid var(--red);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .entry-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+
+    .entry-header::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 72%;
+      transform: translate(-50%, -44%);
+      width: 500px;
+      height: 240px;
+      background: radial-gradient(ellipse at center, rgba(200,16,46,0.35) 0%, rgba(200,16,46,0.14) 40%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .entry-header-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .entry-header-top { margin-bottom: 16px; }
+
+    .card-meta {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--mid);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .entry-title {
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 700;
+      color: var(--cream-light);
+      line-height: 1.2;
+    }
+
+    .entry-body-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 32px 24px;
+    }
+
+    .entry-body p { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 20px; }
+    .entry-body h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 32px 0 12px; line-height: 1.3; }
+    .entry-body ul { margin: 0 0 20px 20px; padding: 0; }
+    .entry-body ul li { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 8px; }
+    .entry-body a { color: var(--red); text-decoration: none; }
+    .entry-body a:hover { color: var(--red-deep); text-decoration: underline; }
+    .entry-body em { font-style: italic; }
+    .entry-body strong { font-weight: 700; }
+
+    .entry-img {
+      width: 100%;
+      border-radius: 6px;
+      margin: 28px 0;
+      display: block;
+      object-fit: cover;
+      max-height: 400px;
+    }
+
+    .entry-img-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .entry-img-pair img {
+      width: 100%;
+      border-radius: 6px;
+      object-fit: cover;
+      height: 280px;
+    }
+
+    .entry-img-caption { font-size: 12px; color: var(--mid); text-align: center; margin-top: 6px; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      text-decoration: none;
+      margin-bottom: 16px;
+      transition: color 0.15s;
+    }
+
+    .back-link::before { content: '← '; margin-right: 2px; }
+    .back-link:hover { color: var(--red-deep); }
+
+    footer { text-align: center; padding: 0 32px 32px; }
+    footer img { max-width: 960px; width: 100%; display: block; margin: 0 auto; }
+
+    @media (max-width: 720px) {
+      nav { padding: 0 20px; }
+      .nav-search input { width: 160px; }
+      .entry-header { padding: 72px 20px 28px; }
+      .entry-body-wrap { padding: 28px 20px 24px; }
+      .entry-img-pair { grid-template-columns: 1fr; }
+      .entry-img-pair img { height: 200px; }
+      footer { padding: 0 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-home" href="../index.html">Back home</a>
+    <div class="nav-search">
+      <input type="text" placeholder="Search entries…" autocomplete="off" spellcheck="false" />
+    </div>
+  </nav>
+
+  <div class="entry-header">
+    <div class="entry-header-inner">
+      <div class="entry-header-top">
+        <span class="card-meta">2 Jul 2026</span>
+      </div>
+      <h1 class="entry-title">A Bobby Dazzler</h1>
+    </div>
+  </div>
+
+  <div class="entry-body-wrap">
+    <div class="entry-body">
+
+      <img src="../images/Firmino_still.png" alt="Roberto Firmino at adidas HQ during the 2015 content shoot" class="entry-img" />
+      <p>A young Brazilian forward playing at Hoffenheim named Roberto Firmino visited adidas HQ one summer's day in 2015. He was tipped for a big move that summer.</p>
+      <p>It was becoming more important that athletes create content to boost their profiles beyond the pitch.</p>
+      <p>I was tasked with creating a lo-fi social content shoot for Firmino's visit. It would be filmed around the adidas campus, and I believe one of his first content shoots with a brand. He was all very new to this.</p>
+      <img src="../images/Firmino_SJC.jpg" alt="Roberto Firmino at adidas HQ campus" class="entry-img" />
+      <p>We shot three pieces of content. One of them stood out and went viral across the football industry. But not at the time of posting.</p>
+      <p>Firmino wasn't widely known at this point. But one thing his YouTube highlights revealed was a playful bit of showmanship he liked to do. The "no-look". He would pass or shoot while looking the other way, throwing off or "dunking" on his opponents.</p>
+      <p>That was going to be our insight for developing the concepts.</p>
+      <p>We went to the basketball court on campus and shot this piece of content:</p>
+      <video controls style="width:60%;border-radius:6px;margin:28px auto;display:block;">
+        <source src="../images/Firmino_vid.mp4" type="video/mp4" />
+      </video>
+      <p>It had hundreds of thousands of views on Vine when it went live.</p>
+      <p>But then, shortly after, he signed for Liverpool. We used this video as a tactic to include the brand in the conversation about the big move.</p>
+      <p>It started spreading. Millions of views on Vine. The tweet was being shared by the large football media. Sky Sports used the clip with credit to adidas Football.</p>
+      <img src="../images/Firmino_media.png" alt="Sky Sports and football media sharing the Firmino adidas Vine clip" class="entry-img" />
+      <p>For me, this is why it worked:</p>
+      <p><strong>1. A surprising skill</strong><br>We didn't invent the trick shot content piece, it's been done many times before. Many times they clearly look fake. But this one looks real. Is it real? I will neither confirm nor deny.</p>
+      <p><strong>2. Video length</strong><br>Most social content barely gets past 2 seconds. This one is short. Really short. 6 seconds. This was the nature of Vine. It trained us so well on capturing attention early and making interesting things.</p>
+      <p><strong>3. A hook</strong><br>It starts with Firmino really tight on frame, "pressing play". He steps back. Something is going to happen.</p>
+      <p><strong>4. Brightness</strong><br>Bright visuals tend to stand out in the feed. A nice blue sky, sunny day, colourful court.</p>
+      <p><strong>5. Fan emotion</strong><br>Firmino signs for Liverpool and he's fairly unknown to the masses. Many fans will go to YouTube and look for highlight reels to see the player they are getting. Liverpool fans were getting a Brazilian player doing an incredible trick shot. That's worth sharing with other fans.</p>
+      <p><strong>A word on branding.</strong><br>The brand is not so prominent here. That's the only thing I would change if I was to do it again. We are leaning quite heavily on people noticing the brand from the post author, but the more the video gets shared I feel you lose this over time. You can see in the media screengrabs above, the brand isn't mentioned. The ball and clothing is the obvious choice to get contextual branding in early.</p>
+      <p>Bobby Firmino went on to be a club legend at Liverpool and brought out the no-look a number of times.</p>
+      <p>A slam dunk of a signing.</p>
+
+    </div>
+
+    <a class="back-link" href="../index.html">Back home</a>
+  </div>
+
+  <footer>
+    <picture>
+      <source media="(max-width: 720px)" srcset="images/SJC_section_June26.png" />
+      <img src="../images/SJC_footer_June26.png" alt="stephenjcleary" />
+    </picture>
+  </footer>
+
+</body>
+</html>

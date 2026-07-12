@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Seaside Walk and CEPs — stephenjcleary</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HLCJ1PDQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5HLCJ1PDQK');
+  </script>
+  <style>
+    :root {
+      --cream:       #EDE0C4;
+      --cream-light: #F7F2EA;
+      --red:         #C8102E;
+      --red-deep:    #A00E24;
+      --dark:        #1C1C1C;
+      --mid:         #5C5247;
+      --font:        'Outfit', 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--cream-light);
+      color: var(--dark);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    nav {
+      background: transparent;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+
+    .nav-home {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(237, 224, 196, 0.7);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-home:hover {
+      color: var(--cream);
+    }
+
+    .nav-home::before {
+      content: '← ';
+    }
+
+    .nav-search {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-search input {
+      background: #2e2e2e;
+      border: 1px solid rgba(237, 224, 196, 0.25);
+      border-radius: 4px;
+      color: #ffffff;
+      -webkit-text-fill-color: #ffffff;
+      caret-color: #ffffff;
+      font-family: var(--font);
+      font-size: 13px;
+      padding: 6px 14px;
+      width: 220px;
+      outline: none;
+      position: relative;
+      z-index: 101;
+      transition: border-color 0.15s, width 0.2s;
+    }
+
+    .nav-search input:focus {
+      border-color: rgba(237, 224, 196, 0.6);
+      width: 280px;
+    }
+
+    .nav-search input::placeholder {
+      color: rgba(237, 224, 196, 0.4);
+    }
+
+    /* ── Entry Header ── */
+    .entry-header {
+      background: var(--dark);
+      padding: 80px 32px 36px;
+      border-bottom: 3px solid var(--red);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .entry-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+
+    .entry-header::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 72%;
+      transform: translate(-50%, -44%);
+      width: 500px;
+      height: 240px;
+      background: radial-gradient(ellipse at center,
+        rgba(200,16,46,0.35) 0%,
+        rgba(200,16,46,0.14) 40%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+
+    .entry-header-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .entry-header-top {
+      margin-bottom: 16px;
+    }
+
+    .card-meta {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--mid);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .entry-title {
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 700;
+      color: var(--cream-light);
+      line-height: 1.2;
+    }
+
+    /* ── Entry Body ── */
+    .entry-body-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 32px 24px;
+    }
+
+    .entry-body p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+
+    .entry-body h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 32px 0 12px;
+      line-height: 1.3;
+    }
+
+    .entry-body ul {
+      margin: 0 0 20px 20px;
+      padding: 0;
+    }
+
+    .entry-body ul li {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .entry-body a {
+      color: var(--red);
+      text-decoration: none;
+    }
+
+    .entry-body a:hover {
+      color: var(--red-deep);
+      text-decoration: underline;
+    }
+
+    .entry-body em {
+      font-style: italic;
+    }
+
+    .entry-body strong {
+      font-weight: 700;
+    }
+
+    /* ── Entry images ── */
+    .entry-img {
+      width: 100%;
+      border-radius: 6px;
+      margin: 28px 0;
+      display: block;
+      object-fit: cover;
+      max-height: 400px;
+    }
+
+    .entry-img-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .entry-img-pair img {
+      width: 100%;
+      border-radius: 6px;
+      object-fit: cover;
+      height: 280px;
+    }
+
+    .entry-img-caption {
+      font-size: 12px;
+      color: var(--mid);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    /* ── Slideshow ── */
+    .slideshow {
+      margin: 28px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #1C1C1C;
+    }
+
+    .slideshow-track {
+      position: relative;
+    }
+
+    .slideshow-slide {
+      width: 100%;
+      display: none;
+      border-radius: 0;
+      margin: 0;
+    }
+
+    .slideshow-slide.active {
+      display: block;
+    }
+
+    .slideshow-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #1C1C1C;
+    }
+
+    .slideshow-btn {
+      background: none;
+      border: none;
+      color: var(--cream);
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 8px;
+      transition: color 0.15s;
+    }
+
+    .slideshow-btn:hover {
+      color: var(--red);
+    }
+
+    .slideshow-counter {
+      font-size: 12px;
+      color: var(--mid);
+    }
+
+    /* ── Footer ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      text-decoration: none;
+      margin-bottom: 16px;
+      transition: color 0.15s;
+    }
+
+    .back-link::before {
+      content: '← ';
+      margin-right: 2px;
+    }
+
+    .back-link:hover {
+      color: var(--red-deep);
+    }
+
+    footer {
+      text-align: center;
+      padding: 0 32px 32px;
+    }
+
+    footer img {
+      max-width: 960px;
+      width: 100%;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      nav {
+        padding: 0 20px;
+      }
+
+      .nav-search input {
+        width: 160px;
+      }
+
+      .entry-header {
+        padding: 72px 20px 28px;
+      }
+
+      .entry-body-wrap {
+        padding: 28px 20px 24px;
+      }
+
+      .entry-img-pair {
+        grid-template-columns: 1fr;
+      }
+
+      .entry-img-pair img {
+        height: 200px;
+      }
+
+      footer {
+        padding: 0 20px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-home" href="../index.html">Back home</a>
+    <div class="nav-search">
+      <input type="text" placeholder="Search entries…" autocomplete="off" spellcheck="false" />
+    </div>
+  </nav>
+
+  <!-- Entry Header -->
+  <div class="entry-header">
+    <div class="entry-header-inner">
+      <div class="entry-header-top">
+        <span class="card-meta">7 Jul 2026</span>
+      </div>
+      <h1 class="entry-title">A Seaside Walk and CEPs</h1>
+    </div>
+  </div>
+
+  <!-- Entry Body -->
+  <div class="entry-body-wrap">
+    <div class="entry-body">
+
+      <img src="../images/Twister_SJC.png" alt="SJC figurine standing on a sunny beach holding a Twister ice pop" class="entry-img" />
+      <p>It's so hot outside. I was out for a walk along the coast road between Malahide and Portmarnock. It's a lovely walk.</p>
+      <p>A bus pulled up alongside me with a T-side ad for a Twister ice pop. On a hot day like that, it looked delicious.</p>
+      <img src="../images/Twister_bus.jpg" alt="Twister ice pop T-side bus ad" class="entry-img" />
+      <p>The ad itself was really simple. Good use of product in available spacing. Fun and bright colourful branded graphics. And the ad is running during the summer in particularly hot weather.</p>
+      <p>One of my favourite summer themed ads is a Guinness one. It's the combination of simplicity and product display.</p>
+      <img src="../images/Guinness_ad.png" alt="Guinness summer ad" class="entry-img" />
+      <p>The main reason why I think the Twister ad works is that it's potentially focused on a Category Entry Point.</p>
+      <p>Category Entry Points are the cues that trigger the category and maybe your brand coming to mind when you are buying. Jenni Romaniuk is the master of this theory. Her outstanding book "Better Brand Health" is a must-read.</p>
+      <p>I imagine the HB team might look at a CEP like: "When I want a cold sweet treat on a summer's day." Next time someone feels the heat and is looking for a cold sweet treat, will that brand come to mind?</p>
+      <p>Picking, researching and measuring your own Category Entry Points is a key part of understanding your brand's mental availability.</p>
+      <p>At the National Lottery we have worked on our own Category Entry Points. A recent Scratch Card category campaign which I managed aims to grow consideration of:</p>
+      <p>"When you want a small treat for yourself/someone else"</p>
+      <p>CEPs can be used within your advertising, like we have done with a Christmas sales campaign the past few years. The "Millionaire Raffle" is presented as a great Christmas gift for when you want to put a gift inside a card. Tickets have sold out every year since the campaign with this advertising began.</p>
+      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin:28px 0;border-radius:6px;">
+        <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube.com/embed/r7xd7Z8NWvk?si=x-jFwgmjHakyWThZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <p>Finding your own CEPs starts with a search across the seven W categories. Why, when, where, while, with whom, with what, hoW feeling. This could be done through internal panels selected across the business, from secondary research and from customers themselves. Then pick the strongest of those options to go into some quantitative analysis.</p>
+      <p>You can also use AI to develop this longlist. There are CEP generators publicly available and it's pretty easy to make your own. Here is one I made which can be used as a guiding tool to narrow the selection and work alongside your research.</p>
+      <img src="../images/CEP_Builder1.png" alt="CEP Builder tool — category input" class="entry-img" />
+      <p>It allows the users to enter a category, and then optional fields for their market and targeting.</p>
+      <img src="../images/CEP_Builder2.png" alt="CEP Builder tool — market and targeting fields" class="entry-img" />
+      <p>From that list you can then select which ones are the most relevant based on, as Jenni Romaniuk advises, the three C's: Commonality, Credibility and Competitiveness.</p>
+      <img src="../images/CEP_Builder3.png" alt="CEP Builder tool — selecting by the three C's" class="entry-img" />
+      <p>It's worth stressing again, this is one of a few methods to generate a longlist of CEP options. Proper qual is needed to shorten and then select the final list of CEPs you would focus on.</p>
+      <p>Ok. I'm closing the laptop now. I'm off for an ice pop.</p>
+
+    </div>
+
+    <a class="back-link" href="../index.html">Back home</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <picture>
+      <source media="(max-width: 720px)" srcset="images/SJC_section_June26.png" />
+      <img src="../images/SJC_footer_June26.png" alt="stephenjcleary" />
+    </picture>
+  </footer>
+
+</body>
+</html>

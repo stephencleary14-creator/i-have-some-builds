@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exploring Brand Positioning with Derek Zoolander — stephenjcleary</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HLCJ1PDQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5HLCJ1PDQK');
+  </script>
+  <style>
+    :root { --cream: #EDE0C4; --cream-light: #F7F2EA; --red: #C8102E; --red-deep: #A00E24; --dark: #1C1C1C; --mid: #5C5247; --font: 'Outfit', 'Segoe UI', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--cream-light); color: var(--dark); font-size: 16px; line-height: 1.6; }
+    nav { background: transparent; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: absolute; top: 0; left: 0; right: 0; z-index: 100; }
+    .nav-home { font-size: 13px; font-weight: 600; color: rgba(237, 224, 196, 0.7); text-decoration: none; transition: color 0.15s; }
+    .nav-home:hover { color: var(--cream); }
+    .nav-home::before { content: '← '; }
+    .nav-search { position: relative; display: flex; align-items: center; }
+    .nav-search input { background: #2e2e2e; border: 1px solid rgba(237, 224, 196, 0.25); border-radius: 4px; color: #ffffff; -webkit-text-fill-color: #ffffff; caret-color: #ffffff; font-family: var(--font); font-size: 13px; padding: 6px 14px; width: 220px; outline: none; position: relative; z-index: 101; transition: border-color 0.15s, width 0.2s; }
+    .nav-search input:focus { border-color: rgba(237, 224, 196, 0.6); width: 280px; }
+    .nav-search input::placeholder { color: rgba(237, 224, 196, 0.4); }
+    .entry-header { background: var(--dark); padding: 80px 32px 36px; border-bottom: 3px solid var(--red); position: relative; overflow: hidden; }
+    .entry-header::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px); background-size: 22px 22px; pointer-events: none; }
+    .entry-header::after { content: ''; position: absolute; top: 50%; left: 72%; transform: translate(-50%, -44%); width: 500px; height: 240px; background: radial-gradient(ellipse at center, rgba(200,16,46,0.35) 0%, rgba(200,16,46,0.14) 40%, transparent 70%); pointer-events: none; }
+    .entry-header-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+    .entry-header-top { margin-bottom: 16px; }
+    .card-meta { font-size: 11px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em; }
+    .entry-title { font-size: clamp(22px, 4vw, 36px); font-weight: 700; color: var(--cream-light); line-height: 1.2; }
+    .entry-body-wrap { max-width: 720px; margin: 0 auto; padding: 40px 32px 24px; }
+    .entry-body p { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 20px; }
+    .entry-body h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 32px 0 12px; line-height: 1.3; }
+    .entry-body ul { margin: 0 0 20px 20px; padding: 0; }
+    .entry-body ul li { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 8px; }
+    .entry-body a { color: var(--red); text-decoration: none; }
+    .entry-body a:hover { color: var(--red-deep); text-decoration: underline; }
+    .entry-body em { font-style: italic; }
+    .entry-body strong { font-weight: 700; }
+    .entry-img { width: 100%; border-radius: 6px; margin: 28px 0; display: block; object-fit: cover; max-height: 400px; }
+    .entry-img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+    .entry-img-pair img { width: 100%; border-radius: 6px; object-fit: cover; height: 280px; }
+    .entry-img-caption { font-size: 12px; color: var(--mid); text-align: center; margin-top: 6px; }
+    .back-link { display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: var(--red); text-decoration: none; margin-bottom: 16px; transition: color 0.15s; }
+    .back-link::before { content: '← '; margin-right: 2px; }
+    .back-link:hover { color: var(--red-deep); }
+    footer { text-align: center; padding: 0 32px 32px; }
+    footer img { max-width: 960px; width: 100%; display: block; margin: 0 auto; }
+    @media (max-width: 720px) { nav { padding: 0 20px; } .nav-search input { width: 160px; } .entry-header { padding: 72px 20px 28px; } .entry-body-wrap { padding: 28px 20px 24px; } .entry-img-pair { grid-template-columns: 1fr; } .entry-img-pair img { height: 200px; } footer { padding: 0 20px 24px; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-home" href="../index.html">Back home</a>
+    <div class="nav-search">
+      <input type="text" placeholder="Search entries…" autocomplete="off" spellcheck="false" />
+    </div>
+  </nav>
+
+  <div class="entry-header">
+    <div class="entry-header-inner">
+      <div class="entry-header-top">
+        <span class="card-meta">29 May 2026</span>
+      </div>
+      <h1 class="entry-title">Exploring Brand Positioning with Derek Zoolander</h1>
+    </div>
+  </div>
+
+  <div class="entry-body-wrap">
+    <div class="entry-body">
+
+      <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+        <source src="../images/Blue_Steel.mp4" type="video/mp4" />
+      </video>
+      <p>There's a scene in Zoolander where Derek, at his lowest point, finds himself staring into a puddle on the street. He looks at his reflection and asks the only question that seems to matter in that moment: <em>Who am I?</em></p>
+      <p>Then his tiny phone rings. He answers: "God?"</p>
+      <p>Derek found Magnum after some runway drama and all was well in the end. But the question "Who am I?" is one I've been thinking about when it comes to brand management.</p>
+      <p>A brand can have a beautifully written DNA statement. A clear purpose. A set of associations it wants to own. But what does the consumer actually think? And does that match?</p>
+      <p>As part of my MiniMBA in Brand Management I've been looking at exactly this: the gap between what a brand says it is and what people actually associate with it. So I built a simple tool to explore it.</p>
+      <img src="../images/BrandDNA1.png" alt="Brand DNA tool — search interface" class="entry-img" />
+      <p>You search any brand and Gemini AI analyses it. It starts with the brand's stated DNA, pulled from corporate websites and owned channels.</p>
+      <img src="../images/BrandDNA5.png" alt="Brand DNA tool — stated purpose statement" class="entry-img" />
+      <p>Then it finds five associations linked to that brand and scores each one based on online conversation, reviews and social media. A breakdown for each is given.</p>
+      <img src="../images/BrandDNA4.png" alt="Brand DNA tool — association scoring" class="entry-img" />
+      <p>It also surfaces positive and negative word associations from across the web.</p>
+      <p>You can go further. Type in a competitor and the tool will analyse how Brand B scores on the associations that matter to Brand A.</p>
+      <img src="../images/BrandDNA6.png" alt="Brand DNA tool — competitor comparison" class="entry-img" />
+      <p>Finally, there's a Brand Experience section. Paste in the TrustPilot page for the brand and the top five themes are surfaced, along with the sentiment attached to each.</p>
+      <img src="../images/BrandDNA7.png" alt="Brand DNA tool — brand experience themes from TrustPilot" class="entry-img" />
+      <p>Now, this isn't a substitute for real research. It won't give you consumer profiles, explain why people buy or walk away, or surface the real pain points underneath the numbers. That work is harder and you still need it.</p>
+      <p>But as a topline sense-check, a way for a brand to ask itself whether its stated positioning is landing the way it intends, it's a useful place to start.</p>
+      <p>At the very least, it might stop a brand from staring too long at its own reflection.</p>
+      <p><em>Who am I?</em></p>
+      <p>It's worth asking.</p>
+
+    </div>
+
+    <a class="back-link" href="../index.html">Back home</a>
+  </div>
+
+  <footer>
+    <picture>
+      <source media="(max-width: 720px)" srcset="images/SJC_section_June26.png" />
+      <img src="../images/SJC_footer_June26.png" alt="stephenjcleary" />
+    </picture>
+  </footer>
+
+</body>
+</html>
