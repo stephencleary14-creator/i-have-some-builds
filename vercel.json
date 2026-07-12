@@ -1,5 +1,8 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/posts/:slug", "destination": "/:slug", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/:slug", "destination": "/posts/:slug" }
   ]
