@@ -2674,8 +2674,10 @@
     document.getElementById('featured-meta').textContent = featured.meta;
     document.getElementById('featured-title').textContent = featured.title;
     document.getElementById('featured-excerpt').textContent = featuredExcerpt;
-    document.querySelector('#featured-thumb img').src = featured.photo;
-    document.querySelector('#featured-thumb img').alt = featured.photoAlt || '';
+    const featuredImg = document.querySelector('#featured-thumb img');
+    featuredImg.src = featured.photo;
+    featuredImg.alt = featured.photoAlt || '';
+    featuredImg.classList.toggle('thumb-contain', !featured.photo);
     document.querySelector('#featured-thumb .thumb-icon').innerHTML = featured.icon;
     if (featured.photoBg) document.getElementById('featured-thumb').style.background = featured.photoBg;
     document.getElementById('featured-card').onclick = () => location.href = slugMap[0];
