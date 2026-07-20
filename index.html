@@ -1450,6 +1450,55 @@
 
     const entries = [
       {
+        icon: icons.trophy,
+        photo: '',
+        photoAlt: '',
+        meta: '20 Jul 2026',
+        title: 'A Social Ad Machine',
+        body: `
+          <img src="images/meta_header.png" alt="Meta Ads Machine header" class="entry-img" />
+          <p>Spain are deservedly World Cup champions then. It wasn't an all-timer of a Final, but the best team won.</p>
+          <p>What was so impressive about Spain was their coordination. When they played France in the Semi-Final it felt like a bunch of individuals in blue against a team playing in unison. In possession their movement and passing exhausted the opposition. When defending they pressed with intensity and kept a solid structure, only conceding one goal. Any subs that came on slotted in seamlessly.</p>
+          <p>They were a well-oiled machine.</p>
+          <p>Over the last while I have been working on my own Meta Ads Machine with a workflow which creates multiple variations of social static ads and gets them live as an ad campaign with paid spend. All through Claude.</p>
+          <h3>How it works</h3>
+          <p>I tested the Ads Machine out with an ad campaign ahead of the Final for my World Cup game <a href="/the-13-year-itch">"I Could Have Scored That!"</a>, which I built ahead of the tournament kick-off. It does the following:</p>
+          <ul>
+            <li>Creates variations of an ad; changing layout, headline and heading.</li>
+            <li>Makes a Creative Review HTML page where I can Approve / Reject the ads. I approved 30 variations for this campaign.</li>
+            <li>Connects to the Meta API and manages the setup of an ad campaign on Meta's Ads Manager. I told it the budget, campaign length and targeting.</li>
+            <li>Connects to GA4 to ensure all ads use a UTM which can be tracked for traffic sources and on site performance.</li>
+            <li>Builds a dashboard HTML page for me to review performance across Meta channels and Website.</li>
+          </ul>
+          <p>I ran a 4 day campaign and put €10 towards the ads. I let Meta decide how to best serve them.</p>
+          <h3>My biggest learning</h3>
+          <p>What became clear was the importance of teaching Claude what good looks like. It knows my personal brand style guide. But the trouble was making things look good. I tried a few different ways of describing what I wanted in the creative layout. I typed out the elements that make up an ad, such as headline, image, CTA. While the brand colours were right, it just looked awful. Elements were overlapping and spacing was off.</p>
+          <p>I ended up making a couple of versions myself briefly on Canva. I shared them with Claude and explained this is what good looks like and most importantly, why. That was the light bulb moment. From there, Claude recreated the layouts I had made and applied its own variations of headlines and subheadings. I also asked it to make its own layouts based on the ones I had shared. They worked quite well.</p>
+          <img src="images/meta_30ads.png" alt="30 approved ad variations" class="entry-img" />
+          <h3>Getting live</h3>
+          <p>Once the creative workflow was sorted it was time to go live. Claude did this fairly quickly once I got the Meta API hooked up and channels connected through the Meta Business Centre. All 30 ads were uploaded with accompanying captions. That process will be seamless next time I want to get a campaign out.</p>
+          <p>We were live.</p>
+          <p>To my surprise, the ad that performed the best in terms of clicks was the layout which Claude made. All of the headlines were written by Claude.</p>
+          <img src="images/meta_best.png" alt="Best performing ad" class="entry-img" style="max-height:320px;width:auto;margin-left:auto;margin-right:auto;" />
+          <div class="slideshow" id="slideshow-metadashboard">
+            <div class="slideshow-track">
+              <img src="images/meta_dashboard1.png" alt="Campaign dashboard — overview" class="slideshow-slide" style="margin:0;border-radius:0;" />
+              <img src="images/meta_dashboard2.png" alt="Campaign dashboard — Meta performance" class="slideshow-slide" style="margin:0;border-radius:0;" />
+              <img src="images/meta_dashboard3.png" alt="Campaign dashboard — website performance" class="slideshow-slide" style="margin:0;border-radius:0;" />
+            </div>
+            <div class="slideshow-controls">
+              <button class="slideshow-btn" data-slideshow="slideshow-metadashboard" data-dir="-1">&#8592;</button>
+              <span class="slideshow-counter" id="slideshow-metadashboard-counter">1 / 3</span>
+              <button class="slideshow-btn" data-slideshow="slideshow-metadashboard" data-dir="1">&#8594;</button>
+            </div>
+          </div>
+          <h3>The final workflow</h3>
+          <p>Here is the final workflow. It's important to add that human checks are baked in throughout. The creative review allows me to decide which will be used. The campaign setup requires me to dictate budget and targeting. No ads go live until I have reviewed the final setup on Ads Manager and confirmed I am happy to proceed.</p>
+          <p>Just like Spain, we were now a well-oiled machine.</p>
+          <img src="images/meta_workflow.png" alt="The final Meta Ads Machine workflow" class="entry-img" />
+        `
+      },
+      {
         icon: icons.iceLolly,
         photo: 'images/Twister_SJC.png',
         photoAlt: 'SJC figurine standing on a sunny beach holding a Twister ice pop',
@@ -2572,6 +2621,12 @@
     function slideshowNext(id) { slideshowGo(id, 1); }
     function slideshowPrev(id) { slideshowGo(id, -1); }
 
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('[data-slideshow]');
+      if (!btn) return;
+      slideshowGo(btn.dataset.slideshow, parseInt(btn.dataset.dir, 10));
+    });
+
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         closeEntry();
@@ -2582,6 +2637,7 @@
 
     // ── Slug map — title → filename ──
     const slugMap = [
+      'posts/a-social-ad-machine.html',
       'posts/a-seaside-walk-and-ceps.html',
       'posts/a-bobby-dazzler.html',
       'posts/the-content-atelier.html',
