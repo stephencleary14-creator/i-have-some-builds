@@ -151,7 +151,6 @@
     /* ── HERO ─────────────────────────────────────────── */
     .hero {
       position: relative;
-      min-height: 100vh;
       display: flex;
       align-items: flex-start;
       justify-content: center;
@@ -1282,6 +1281,7 @@
         width: auto !important;
         transition: none !important;
       }
+      .hero { min-height: 0; height: auto; }
       .hero-content { padding-top: 120px; }
       .hero-bg { inset: 0; }
       .nav-links { display: none; flex-direction: column; gap: 0; }
@@ -1392,60 +1392,24 @@
     gap: 24px;
     font-family: 'Barlow', sans-serif;
   }
-
-  #password-gate img {
-    height: 64px;
-    margin-bottom: 8px;
-  }
-
-  #password-gate p {
-    font-size: 14px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-  }
-
+  #password-gate img { height: 64px; margin-bottom: 8px; }
+  #password-gate p { font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
   #password-gate input {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    color: #fff;
-    font-family: 'Barlow', sans-serif;
-    font-size: 18px;
-    letter-spacing: 0.2em;
-    text-align: center;
-    padding: 14px 24px;
-    border-radius: 6px;
-    outline: none;
-    width: 260px;
-    transition: border-color 0.2s;
+    background: #1a1a1a; border: 1px solid #333; color: #fff;
+    font-family: 'Barlow', sans-serif; font-size: 18px; letter-spacing: 0.2em;
+    text-align: center; padding: 14px 24px; border-radius: 6px;
+    outline: none; width: 260px; transition: border-color 0.2s;
   }
-
   #password-gate input:focus { border-color: #F2A61D; }
-
   #password-gate button {
-    background: #F2A61D;
-    color: #0D0D0D;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 17px;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border: none;
-    padding: 14px 40px;
-    border-radius: 6px;
-    cursor: pointer;
-    width: 260px;
-    transition: background 0.2s;
+    background: #F2A61D; color: #0D0D0D;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 17px;
+    font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    border: none; padding: 14px 40px; border-radius: 6px;
+    cursor: pointer; width: 260px; transition: background 0.2s;
   }
-
   #password-gate button:hover { background: #e09810; }
-
-  #password-gate .gate-error {
-    font-size: 13px;
-    color: #e05555;
-    letter-spacing: 0.08em;
-    min-height: 18px;
-  }
+  #password-gate .gate-error { font-size: 13px; color: #e05555; letter-spacing: 0.08em; min-height: 18px; }
   </style>
 </head>
 <body>
@@ -1458,17 +1422,10 @@
     <button onclick="checkPassword()">Enter</button>
     <span class="gate-error" id="gate-error"></span>
   </div>
-
   <script>
-    (function() {
-      if (sessionStorage.getItem('soc-auth') === '1') {
-        document.getElementById('password-gate').style.display = 'none';
-      }
-    })();
-
+    (function() { if (sessionStorage.getItem('soc-auth') === '1') document.getElementById('password-gate').style.display = 'none'; })();
     function checkPassword() {
-      const val = document.getElementById('gate-input').value;
-      if (val === 'SOC2026') {
+      if (document.getElementById('gate-input').value === 'SOC2026') {
         sessionStorage.setItem('soc-auth', '1');
         document.getElementById('password-gate').style.display = 'none';
       } else {
