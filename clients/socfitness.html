@@ -1283,6 +1283,7 @@
       }
       .hero { min-height: 0; height: auto; }
       .hero-content { padding-top: 120px; }
+      .hero-headline { font-size: clamp(36px, 9vw, 64px); }
       .hero-bg { inset: 0; }
       .nav-links { display: none; flex-direction: column; gap: 0; }
       .nav-links.open {
@@ -1373,18 +1374,14 @@
     }
 
     @media (max-width: 480px) {
-      .hero-headline { font-size: 52px; }
+      .hero-headline { font-size: 40px; }
       .hero-stats { flex-direction: column; align-items: center; gap: 12px; }
       .hero-stat-divider { display: none; }
       .footer-top { grid-template-columns: 1fr; }
       .footer-brand { grid-column: auto; }
     }
   /* ── PASSWORD GATE ── */
-  #password-gate {
-    position: fixed; inset: 0; background: #0D0D0D; z-index: 9999;
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 24px; font-family: 'Barlow', sans-serif;
-  }
+  #password-gate { position: fixed; inset: 0; background: #0D0D0D; z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px; font-family: 'Barlow', sans-serif; }
   #password-gate img { height: 64px; margin-bottom: 8px; }
   #password-gate p { font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
   #password-gate input { background: #1a1a1a; border: 1px solid #333; color: #fff; font-family: 'Barlow', sans-serif; font-size: 18px; letter-spacing: 0.2em; text-align: center; padding: 14px 24px; border-radius: 6px; outline: none; width: 260px; }
