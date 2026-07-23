@@ -1381,16 +1381,9 @@
     }
   /* ── PASSWORD GATE ── */
   #password-gate {
-    position: fixed;
-    inset: 0;
-    background: #0D0D0D;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 24px;
-    font-family: 'Barlow', sans-serif;
+    position: fixed; inset: 0; background: #0D0D0D; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 24px; font-family: 'Barlow', sans-serif;
   }
   #password-gate img { height: 64px; margin-bottom: 8px; }
   #password-gate p { font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
@@ -1402,11 +1395,9 @@
   }
   #password-gate input:focus { border-color: #F2A61D; }
   #password-gate button {
-    background: #F2A61D; color: #0D0D0D;
-    font-family: 'Barlow Condensed', sans-serif; font-size: 17px;
-    font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
-    border: none; padding: 14px 40px; border-radius: 6px;
-    cursor: pointer; width: 260px; transition: background 0.2s;
+    background: #F2A61D; color: #0D0D0D; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    border: none; padding: 14px 40px; border-radius: 6px; cursor: pointer; width: 260px;
   }
   #password-gate button:hover { background: #e09810; }
   #password-gate .gate-error { font-size: 13px; color: #e05555; letter-spacing: 0.08em; min-height: 18px; }
@@ -1414,7 +1405,6 @@
 </head>
 <body>
 
-  <!-- PASSWORD GATE -->
   <div id="password-gate">
     <img src="./socfitness-assets/SOC_logo.png" alt="SOC Fitness" />
     <p>Enter password to view</p>
@@ -1710,17 +1700,17 @@
   <section class="newsletter-section">
     <div class="newsletter-inner">
       <div class="newsletter-text">
-        <div class="section-label reveal">Stay Sharp</div>
-        <h2 class="section-title reveal reveal-delay-1">Get the GAA<br><span>Edge</span></h2>
+        <div class="section-label reveal">Free Download</div>
+        <h2 class="section-title reveal reveal-delay-1">Shane's <span>4-Week</span><br>Pre-Season Plan</h2>
         <p class="newsletter-sub reveal reveal-delay-2">
-          Weekly training insights, nutrition tips, and programming ideas — written specifically for GAA players. No spam, just useful content that helps you perform.
+          The exact training framework Shane uses with his GAA athletes in the 4 weeks before a season starts. Strength, conditioning and recovery — all mapped to your match calendar. Free, no strings.
         </p>
       </div>
       <div class="newsletter-form reveal reveal-delay-2">
         <input class="newsletter-input" type="text" placeholder="Your Name" />
         <input class="newsletter-input" type="email" placeholder="Your Email Address" />
-        <button class="newsletter-btn">Subscribe — It's Free</button>
-        <p class="newsletter-disclaimer">No spam. Unsubscribe anytime. Your details are never shared.</p>
+        <button class="newsletter-btn">Send Me the Plan →</button>
+        <p class="newsletter-disclaimer">Sent straight to your inbox. No spam, unsubscribe anytime.</p>
       </div>
     </div>
   </section>
@@ -1762,20 +1752,9 @@
       </div>
 
       <form class="contact-form reveal reveal-delay-1" onsubmit="handleSubmit(event)">
-        <div class="form-row">
-          <input class="form-input" type="text" placeholder="First Name" required />
-          <input class="form-input" type="text" placeholder="Last Name" required />
-        </div>
-        <input class="form-input" type="email" placeholder="Email Address" required />
-        <input class="form-input" type="tel" placeholder="Phone Number (optional)" />
-        <select class="form-select">
-          <option value="" disabled selected>I'm interested in...</option>
-          <option>1:1 Personal Training</option>
-          <option>Online Coaching</option>
-          <option>Small Group Training</option>
-          <option>Not sure — tell me more</option>
-        </select>
-        <textarea class="form-input" placeholder="Tell Shane about your sport, position, and what you're aiming for this season..." rows="5"></textarea>
+        <input class="form-input" type="text" placeholder="Your Name" required />
+        <input class="form-input" type="email" placeholder="Your Email Address" required />
+        <textarea class="form-input" placeholder="Tell Shane about your sport, your position, and what you're trying to achieve this season..." rows="6"></textarea>
         <button class="form-submit" type="submit">Send Message →</button>
       </form>
     </div>
