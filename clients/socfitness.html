@@ -1394,11 +1394,12 @@
     <span class="gate-error" id="gate-error"></span>
   </div>
   <script>
-    (function() { if (sessionStorage.getItem('soc-auth') === '1') document.getElementById('password-gate').style.display = 'none'; })();
+    (function() { if (sessionStorage.getItem('soc-auth') === '1') { document.getElementById('password-gate').style.display = 'none'; window.scrollTo(0, 0); } })();
     function checkPassword() {
       if (document.getElementById('gate-input').value === 'SOC2026') {
         sessionStorage.setItem('soc-auth', '1');
         document.getElementById('password-gate').style.display = 'none';
+        window.scrollTo(0, 0);
       } else {
         document.getElementById('gate-error').textContent = 'Incorrect password. Try again.';
         document.getElementById('gate-input').value = '';
