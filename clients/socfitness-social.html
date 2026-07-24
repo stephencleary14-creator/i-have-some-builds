@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOC Fitness — Social Media Templates</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0D0D0D; --white: #FFFFFF;
+      --blue: #2F6DB5; --gold: #F2A61D;
+      --dark: #1A1A1A; --muted: #888888;
+    }
+    body { background: #111; color: var(--white); font-family: 'Barlow', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* ── PASSWORD GATE ── */
+    #password-gate { position: fixed; inset: 0; background: var(--black); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; }
+    #password-gate img { height: 60px; margin-bottom: 8px; }
+    #password-gate p { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    #password-gate input { background: #1a1a1a; border: 1px solid #333; color: #fff; font-size: 16px; letter-spacing: 0.2em; text-align: center; padding: 13px 24px; border-radius: 6px; outline: none; width: 260px; font-family: 'Barlow', sans-serif; }
+    #password-gate input:focus { border-color: var(--gold); }
+    #password-gate button { background: var(--gold); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; border: none; padding: 13px 40px; border-radius: 6px; cursor: pointer; width: 260px; }
+    #password-gate button:hover { background: #e09810; }
+    #password-gate .gate-error { font-size: 12px; color: #e05555; min-height: 16px; }
+
+    /* ── HEADER ── */
+    .portal-header { background: var(--black); padding: 0 48px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .portal-header img { height: 36px; }
+    .portal-header-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+    .gold-rule { height: 4px; background: var(--gold); }
+
+    /* ── BODY ── */
+    .page-body { flex: 1; padding: 48px 48px 80px; max-width: 1100px; margin: 0 auto; width: 100%; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; margin-bottom: 40px; transition: color 0.2s; }
+    .back-link:hover { color: var(--gold); }
+
+    .page-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .page-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 36px; text-transform: uppercase; color: var(--white); margin-bottom: 8px; }
+    .page-sub { font-size: 13px; color: var(--muted); margin-bottom: 48px; }
+
+    /* ── SECTION ── */
+    .section { margin-bottom: 56px; }
+    .section-header { margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #222; }
+    .section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+    .section-sub { font-size: 12px; color: #555; }
+    .section-sub span { color: var(--blue); }
+
+    /* ── TEMPLATE GRID ── */
+    .template-row { margin-bottom: 32px; }
+    .row-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: #555; margin-bottom: 12px; }
+    .template-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .template-grid.three-col { grid-template-columns: repeat(3, 1fr); }
+
+    .template-card { background: var(--black); border: 1px solid #222; border-radius: 6px; overflow: hidden; transition: border-color 0.2s; }
+    .template-card:hover { border-color: #444; }
+
+    .template-thumb { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; background: #0d0d0d; }
+    .template-thumb.stories { aspect-ratio: 9/16; }
+
+    .template-info { padding: 12px 14px; }
+    .template-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--white); margin-bottom: 8px; }
+    .template-download { display: inline-flex; align-items: center; gap: 5px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: color 0.2s; }
+    .template-download:hover { color: #e09810; }
+
+    /* ── FOOTER ── */
+    .portal-footer { padding: 24px 48px; border-top: 1px solid #1a1a1a; text-align: center; }
+    .portal-footer p { font-size: 11px; color: #444; letter-spacing: 0.06em; }
+    .portal-footer span { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .page-body { padding: 32px 20px 64px; }
+      .portal-header { padding: 0 20px; }
+      .template-grid { grid-template-columns: repeat(2, 1fr); }
+      .template-grid.three-col { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .template-grid { grid-template-columns: 1fr; }
+      .template-grid.three-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PASSWORD GATE -->
+  <div id="password-gate">
+    <img src="./socfitness-assets/SOC_logo.png" alt="SOC Fitness" />
+    <p>Client Portal — Enter Password</p>
+    <input type="password" id="gate-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPassword()" autofocus />
+    <button onclick="checkPassword()">Enter</button>
+    <span class="gate-error" id="gate-error"></span>
+  </div>
+
+  <!-- HEADER -->
+  <header class="portal-header">
+    <img src="./socfitness-assets/SOC_logo.png" alt="SOC Fitness" />
+    <div class="portal-header-label">Client Portal</div>
+  </header>
+  <div class="gold-rule"></div>
+
+  <!-- BODY -->
+  <main class="page-body">
+
+    <a class="back-link" href="./socfitness.html">&larr; Back to Portal</a>
+
+    <div class="page-label">Deliverable 02</div>
+    <h1 class="page-title">Social Media Templates</h1>
+    <p class="page-sub">14 branded templates ready to use. Click Download on any template to save the PNG to your device.</p>
+
+    <!-- ── FEED 4:5 ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Feed Post &mdash; 4&times;5</div>
+        <div class="section-sub">Instagram &amp; Facebook Feed &middot; <span>1080 &times; 1350px</span></div>
+      </div>
+
+      <div class="template-row">
+        <div class="row-label">Base Templates</div>
+        <div class="template-grid three-col">
+          <div class="template-card">
+            <img class="template-thumb" src="./socfitness-assets/soc-social-templates/Feed_4x5/Base/feed_4x5_base_A_black_logo-top-left.png" alt="Base A" />
+            <div class="template-info">
+              <div class="template-name">Base &mdash; Logo Top Left</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Feed_4x5/Base/feed_4x5_base_A_black_logo-top-left.png" download>Download &darr;</a>
+            </div>
+          </div>
+          <div class="template-card">
+            <img class="template-thumb" src="./socfitness-assets/soc-social-templates/Feed_4x5/Base/feed_4x5_base_B_black_logo-top-right.png" alt="Base B" />
+            <div class="template-info">
+              <div class="template-name">Base &mdash; Logo Top Right</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Feed_4x5/Base/feed_4x5_base_B_black_logo-top-right.png" download>Download &darr;</a>
+            </div>
+          </div>
+          <div class="template-card">
+            <img class="template-thumb" src="./socfitness-assets/soc-social-templates/Feed_4x5/Base/feed_4x5_base_C_darkgrey_logo-bottom-left.png" alt="Base C" />
+            <div class="template-info">
+              <div class="template-name">Base &mdash; Logo Bottom Left</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Feed_4x5/Base/feed_4x5_base_C_darkgrey_logo-bottom-left.png" download>Download &darr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="template-row">
+        <div class="row-label">Headline Templates</div>
+        <div class="template-grid">
+          <div class="template-card">
+            <img class="template-thumb" src="./socfitness-assets/soc-social-templates/Feed_4x5/Headline/feed_4x5_headline_client-spotlight.png" alt="Client Spotlight" />
+            <div class="template-info">
+              <div class="template-name">Client Spotlight</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Feed_4x5/Headline/feed_4x5_headline_client-spotlight.png" download>Download &darr;</a>
+            </div>
+          </div>
+          <div class="template-card">
+            <img class="template-thumb" src="./socfitness-assets/soc-social-templates/Feed_4x5/Headline/feed_4x5_headline_training-tip.png" alt="Training Tip" />
+            <div class="template-info">
+              <div class="template-name">Training Tip</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Feed_4x5/Headline/feed_4x5_headline_training-tip.png" download>Download &darr;</a>
+            </div>
+          </div>
+          <div class="template-card">
+            <img class="template-thumb" src="./socfitness-assets/soc-social-templates/Feed_4x5/Headline/feed_4x5_headline_match-day.png" alt="Match Day" />
+            <div class="template-info">
+              <div class="template-name">Match Day</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Feed_4x5/Headline/feed_4x5_headline_match-day.png" download>Download &darr;</a>
+            </div>
+          </div>
+          <div class="template-card">
+            <img class="template-thumb" src="./socfitness-assets/soc-social-templates/Feed_4x5/Headline/feed_4x5_headline_new-post.png" alt="New Post" />
+            <div class="template-info">
+              <div class="template-name">New Post</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Feed_4x5/Headline/feed_4x5_headline_new-post.png" download>Download &darr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STORIES 9:16 ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Stories / Reels &mdash; 9&times;16</div>
+        <div class="section-sub">Instagram Stories, Reels &amp; TikTok &middot; <span>1080 &times; 1920px</span></div>
+      </div>
+
+      <div class="template-row">
+        <div class="row-label">Base Templates</div>
+        <div class="template-grid three-col">
+          <div class="template-card">
+            <img class="template-thumb stories" src="./socfitness-assets/soc-social-templates/Stories_9x16/Base/stories_9x16_base_A_black_logo-top-left.png" alt="Stories Base A" />
+            <div class="template-info">
+              <div class="template-name">Base &mdash; Logo Top Left</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Stories_9x16/Base/stories_9x16_base_A_black_logo-top-left.png" download>Download &darr;</a>
+            </div>
+          </div>
+          <div class="template-card">
+            <img class="template-thumb stories" src="./socfitness-assets/soc-social-templates/Stories_9x16/Base/stories_9x16_base_B_black_logo-top-centre.png" alt="Stories Base B" />
+            <div class="template-info">
+              <div class="template-name">Base &mdash; Logo Top Centre</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Stories_9x16/Base/stories_9x16_base_B_black_logo-top-centre.png" download>Download &darr;</a>
+            </div>
+          </div>
+          <div class="template-card">
+            <img class="template-thumb stories" src="./socfitness-assets/soc-social-templates/Stories_9x16/Base/stories_9x16_base_C_darkgrey_logo-bottom.png" alt="Stories Base C" />
+            <div class="template-info">
+              <div class="template-name">Base &mdash; Logo Bottom Centre</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Stories_9x16/Base/stories_9x16_base_C_darkgrey_logo-bottom.png" download>Download &darr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="template-row">
+        <div class="row-label">Headline Templates</div>
+        <div class="template-grid">
+          <div class="template-card">
+            <img class="template-thumb stories" src="./socfitness-assets/soc-social-templates/Stories_9x16/Headline/stories_9x16_headline_client-spotlight.png" alt="Client Spotlight" />
+            <div class="template-info">
+              <div class="template-name">Client Spotlight</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Stories_9x16/Headline/stories_9x16_headline_client-spotlight.png" download>Download &darr;</a>
+            </div>
+          </div>
+          <div class="template-card">
+            <img class="template-thumb stories" src="./socfitness-assets/soc-social-templates/Stories_9x16/Headline/stories_9x16_headline_training-tip.png" alt="Training Tip" />
+            <div class="template-info">
+              <div class="template-name">Training Tip</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Stories_9x16/Headline/stories_9x16_headline_training-tip.png" download>Download &darr;</a>
+            </div>
+          </div>
+          <div class="template-card">
+            <img class="template-thumb stories" src="./socfitness-assets/soc-social-templates/Stories_9x16/Headline/stories_9x16_headline_match-day.png" alt="Match Day" />
+            <div class="template-info">
+              <div class="template-name">Match Day</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Stories_9x16/Headline/stories_9x16_headline_match-day.png" download>Download &darr;</a>
+            </div>
+          </div>
+          <div class="template-card">
+            <img class="template-thumb stories" src="./socfitness-assets/soc-social-templates/Stories_9x16/Headline/stories_9x16_headline_new-post.png" alt="New Post" />
+            <div class="template-info">
+              <div class="template-name">New Post</div>
+              <a class="template-download" href="./socfitness-assets/soc-social-templates/Stories_9x16/Headline/stories_9x16_headline_new-post.png" download>Download &darr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="portal-footer">
+    <p>Prepared by <span>Stephen Cleary</span> &middot; Find The 10</p>
+  </footer>
+
+  <script>
+    (function() {
+      if (sessionStorage.getItem('soc-auth') === '1') {
+        document.getElementById('password-gate').style.display = 'none';
+        window.scrollTo(0, 0);
+      }
+    })();
+    function checkPassword() {
+      if (document.getElementById('gate-input').value === 'SOC2026') {
+        sessionStorage.setItem('soc-auth', '1');
+        document.getElementById('password-gate').style.display = 'none';
+        window.scrollTo(0, 0);
+      } else {
+        document.getElementById('gate-error').textContent = 'Incorrect password. Try again.';
+        document.getElementById('gate-input').value = '';
+        document.getElementById('gate-input').focus();
+      }
+    }
+  </script>
+</body>
+</html>
