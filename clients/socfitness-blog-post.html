@@ -322,19 +322,20 @@
           // Update page title
           document.title = `${f.title} — SOC Fitness`;
 
-          // Cover image — try inline fields first, then includes lookup
+          // Cover image
           const imgId    = f.coverImage?.sys?.id;
           const imgAsset = imgId ? assets[imgId] : null;
           const imgFileUrl = imgAsset?.fields?.file?.url;
           const hero = document.getElementById('post-hero');
+          const heroContent = document.getElementById('post-hero-content');
+
           if (imgFileUrl) {
             const imgUrl = 'https:' + imgFileUrl + '?w=1400';
-            const img = document.createElement('img');
-            img.src = imgUrl;
-            img.className = 'post-hero-img';
-            img.alt = f.title;
             hero.classList.add('has-image');
-            hero.prepend(img);
+            // Set as background image — avoids z-index/absolute positioning issues
+            hero.style.backgroundImage = `url('${imgUrl}')`;
+            hero.style.backgroundSize = 'cover';
+            hero.style.backgroundPosition = 'center';
           }
 
           // Date
