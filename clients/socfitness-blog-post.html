@@ -34,6 +34,9 @@
       display: flex;
       align-items: flex-end;
     }
+    .post-hero.has-image {
+      min-height: 420px;
+    }
     .post-hero-img {
       position: absolute;
       inset: 0;
@@ -41,23 +44,26 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      z-index: 0;
     }
     .post-hero-gradient {
       position: absolute;
       inset: 0;
       background: linear-gradient(135deg, #0D0D0D 0%, #1a2a1a 40%, #2F6DB5 100%);
+      z-index: 1;
     }
     .post-hero-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(to top, rgba(13,13,13,0.95) 0%, rgba(13,13,13,0.4) 60%, transparent 100%);
+      z-index: 2;
     }
     .post-hero-content {
       position: relative;
       width: 100%;
       max-width: 860px;
       padding: 48px 48px;
-      z-index: 1;
+      z-index: 3;
     }
     .post-category {
       display: inline-block;
@@ -319,16 +325,15 @@
           // Cover image — try inline fields first, then includes lookup
           const imgId    = f.coverImage?.sys?.id;
           const imgAsset = imgId ? assets[imgId] : null;
-          const imgFileUrl = f.coverImage?.fields?.file?.url        // inline (resolved)
-                          || imgAsset?.fields?.file?.url;           // includes lookup
+          const imgFileUrl = imgAsset?.fields?.file?.url;
+          const hero = document.getElementById('post-hero');
           if (imgFileUrl) {
-            const imgUrl = 'https:' + imgFileUrl + '?w=1400&h=840&fit=fill';
-            const hero = document.getElementById('post-hero');
-            hero.style.minHeight = '420px';
+            const imgUrl = 'https:' + imgFileUrl + '?w=1400';
             const img = document.createElement('img');
             img.src = imgUrl;
             img.className = 'post-hero-img';
             img.alt = f.title;
+            hero.classList.add('has-image');
             hero.prepend(img);
           }
 
