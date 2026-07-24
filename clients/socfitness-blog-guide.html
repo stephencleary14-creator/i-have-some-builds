@@ -278,6 +278,24 @@
         <div class="image-spec">
           <div class="image-spec-title">Ideal Size</div>
           <div class="image-spec-dim">1200 × 630px</div>
+          <!-- Landscape shape diagram -->
+          <div style="margin-bottom: 14px;">
+            <svg width="100%" viewBox="0 0 160 84" xmlns="http://www.w3.org/2000/svg" style="display:block; max-width: 160px;">
+              <rect x="1" y="1" width="158" height="82" rx="4" fill="#1a1a1a" stroke="#F2A61D" stroke-width="1.5"/>
+              <line x1="1" y1="1" x2="159" y2="83" stroke="#F2A61D" stroke-width="0.75" stroke-dasharray="3 3" opacity="0.3"/>
+              <line x1="159" y1="1" x2="1" y2="83" stroke="#F2A61D" stroke-width="0.75" stroke-dasharray="3 3" opacity="0.3"/>
+              <!-- Width arrow -->
+              <line x1="12" y1="74" x2="148" y2="74" stroke="#F2A61D" stroke-width="1"/>
+              <polygon points="12,71 12,77 6,74" fill="#F2A61D"/>
+              <polygon points="148,71 148,77 154,74" fill="#F2A61D"/>
+              <text x="80" y="71" text-anchor="middle" font-family="Barlow,sans-serif" font-size="8" fill="#F2A61D">1200px wide</text>
+              <!-- Height arrow -->
+              <line x1="148" y1="10" x2="148" y2="64" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+              <polygon points="145,10 151,10 148,4" fill="rgba(255,255,255,0.4)"/>
+              <polygon points="145,64 151,64 148,70" fill="rgba(255,255,255,0.4)"/>
+              <text x="144" y="40" text-anchor="middle" font-family="Barlow,sans-serif" font-size="7" fill="rgba(255,255,255,0.4)" transform="rotate(-90,144,40)">630px</text>
+            </svg>
+          </div>
           <ul class="image-spec-list">
             <li>Landscape / wide crop — never portrait</li>
             <li>JPG format, under 2MB</li>
@@ -288,6 +306,24 @@
         <div class="image-spec">
           <div class="image-spec-title">Minimum Size</div>
           <div class="image-spec-dim">800 × 420px</div>
+          <!-- Landscape shape diagram (slightly smaller to imply minimum) -->
+          <div style="margin-bottom: 14px;">
+            <svg width="100%" viewBox="0 0 160 84" xmlns="http://www.w3.org/2000/svg" style="display:block; max-width: 160px;">
+              <rect x="1" y="1" width="158" height="82" rx="4" fill="#1a1a1a" stroke="#555" stroke-width="1.5" stroke-dasharray="5 3"/>
+              <line x1="1" y1="1" x2="159" y2="83" stroke="#555" stroke-width="0.75" stroke-dasharray="3 3" opacity="0.4"/>
+              <line x1="159" y1="1" x2="1" y2="83" stroke="#555" stroke-width="0.75" stroke-dasharray="3 3" opacity="0.4"/>
+              <!-- Width arrow -->
+              <line x1="12" y1="74" x2="148" y2="74" stroke="#888" stroke-width="1"/>
+              <polygon points="12,71 12,77 6,74" fill="#888"/>
+              <polygon points="148,71 148,77 154,74" fill="#888"/>
+              <text x="80" y="71" text-anchor="middle" font-family="Barlow,sans-serif" font-size="8" fill="#888">800px wide</text>
+              <!-- Height arrow -->
+              <line x1="148" y1="10" x2="148" y2="64" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+              <polygon points="145,10 151,10 148,4" fill="rgba(255,255,255,0.25)"/>
+              <polygon points="145,64 151,64 148,70" fill="rgba(255,255,255,0.25)"/>
+              <text x="144" y="40" text-anchor="middle" font-family="Barlow,sans-serif" font-size="7" fill="rgba(255,255,255,0.25)" transform="rotate(-90,144,40)">420px</text>
+            </svg>
+          </div>
           <ul class="image-spec-list">
             <li>Don't go smaller than this</li>
             <li>Small images look blurry on desktop</li>
