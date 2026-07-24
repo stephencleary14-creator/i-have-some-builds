@@ -1374,39 +1374,10 @@
       .footer-top { grid-template-columns: 1fr; }
       .footer-brand { grid-column: auto; }
     }
-  #password-gate { position: fixed; inset: 0; background: #0D0D0D; z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px; font-family: 'Barlow', sans-serif; }
-  #password-gate img { height: 64px; margin-bottom: 8px; }
-  #password-gate p { font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
-  #password-gate input { background: #1a1a1a; border: 1px solid #333; color: #fff; font-size: 18px; letter-spacing: 0.2em; text-align: center; padding: 14px 24px; border-radius: 6px; outline: none; width: 260px; }
-  #password-gate input:focus { border-color: #F2A61D; }
-  #password-gate button { background: #F2A61D; color: #0D0D0D; font-size: 17px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; border: none; padding: 14px 40px; border-radius: 6px; cursor: pointer; width: 260px; }
-  #password-gate button:hover { background: #e09810; }
-  #password-gate .gate-error { font-size: 13px; color: #e05555; min-height: 18px; }
   </style>
 </head>
 <body>
 
-  <div id="password-gate">
-    <img src="./socfitness-assets/SOC_logo.png" alt="SOC Fitness" />
-    <p>Enter password to view</p>
-    <input type="password" id="gate-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPassword()" autofocus />
-    <button onclick="checkPassword()">Enter</button>
-    <span class="gate-error" id="gate-error"></span>
-  </div>
-  <script>
-    (function() { if (sessionStorage.getItem('soc-auth') === '1') { document.getElementById('password-gate').style.display = 'none'; window.scrollTo(0, 0); } })();
-    function checkPassword() {
-      if (document.getElementById('gate-input').value === 'SOC2026') {
-        sessionStorage.setItem('soc-auth', '1');
-        document.getElementById('password-gate').style.display = 'none';
-        window.scrollTo(0, 0);
-      } else {
-        document.getElementById('gate-error').textContent = 'Incorrect password. Try again.';
-        document.getElementById('gate-input').value = '';
-        document.getElementById('gate-input').focus();
-      }
-    }
-  </script>
   <!-- ═══════════════════════════════════════════════ -->
   <!-- NAV -->
   <!-- ═══════════════════════════════════════════════ -->
@@ -1621,50 +1592,7 @@
       </div>
 
       <div class="blog-grid" id="carousel-blog">
-        <div class="blog-card reveal">
-          <div class="blog-card-image">
-            <div class="blog-card-image-inner blog-img-1"></div>
-            <div class="blog-img-overlay"></div>
-            <div class="blog-img-icon">💪</div>
-            <span class="blog-card-tag">Strength</span>
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-card-meta">6 min read · Training</div>
-            <div class="blog-card-title">Build Match-Day Strength</div>
-            <p class="blog-card-excerpt">The gym work that actually transfers to the pitch. How to structure your strength blocks around the GAA season without burning out before championship.</p>
-            <a href="#" class="blog-read-more">Read Article →</a>
-          </div>
-        </div>
-
-        <div class="blog-card reveal reveal-delay-1">
-          <div class="blog-card-image">
-            <div class="blog-card-image-inner blog-img-2"></div>
-            <div class="blog-img-overlay"></div>
-            <div class="blog-img-icon">🥗</div>
-            <span class="blog-card-tag" style="background:var(--blue);color:var(--white)">Nutrition</span>
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-card-meta">5 min read · Nutrition</div>
-            <div class="blog-card-title">Fuel Your Performance</div>
-            <p class="blog-card-excerpt">GAA players have different energy demands to other athletes. What to eat, when to eat it, and how to fuel two sessions and a match weekend without running empty.</p>
-            <a href="#" class="blog-read-more">Read Article →</a>
-          </div>
-        </div>
-
-        <div class="blog-card reveal reveal-delay-2">
-          <div class="blog-card-image">
-            <div class="blog-card-image-inner blog-img-3"></div>
-            <div class="blog-img-overlay"></div>
-            <div class="blog-img-icon">🔄</div>
-            <span class="blog-card-tag">Recovery</span>
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-card-meta">4 min read · Recovery</div>
-            <div class="blog-card-title">Recover Like an Athlete</div>
-            <p class="blog-card-excerpt">The session after the session. Recovery isn't passive — it's a skill. What elite GAA players do in the 48 hours after a game to come back stronger every week.</p>
-            <a href="#" class="blog-read-more">Read Article →</a>
-          </div>
-        </div>
+        <!-- Populated by Contentful -->
       </div>
       <div class="carousel-hint" id="hint-blog">
         <div class="carousel-hint-arrow left"><svg viewBox="0 0 24 24"><path d="M10 6l-1.4 1.4L13.2 12l-4.6 4.6L10 18l6-6z"/></svg></div>
@@ -1933,6 +1861,77 @@
 
     initAllCarousels();
     window.addEventListener('resize', initAllCarousels);
+
+    // ── CONTENTFUL BLOG ─────────────────────────────
+    (async function loadBlog() {
+      const SPACE  = '2ua0u0uuc2c3';
+      const TOKEN  = 'ynQSkE7aXiRHGExiueEFZWAqaUEjKMzOE9t32nzFuvE';
+      const URL    = `https://cdn.contentful.com/spaces/${SPACE}/entries?content_type=blogPost&order=-fields.publishedDate&limit=3&include=1&access_token=${TOKEN}`;
+
+      const grid = document.getElementById('carousel-blog');
+      const gradients = [
+        'linear-gradient(135deg,#0D0D0D 0%,#1a2a1a 40%,#2F6DB5 100%)',
+        'linear-gradient(135deg,#1a1200 0%,#3a2800 40%,#F2A61D 100%)',
+        'linear-gradient(135deg,#0a0a18 0%,#1a1a2a 40%,#2F6DB5 80%,#F2A61D 100%)'
+      ];
+
+      try {
+        const res  = await fetch(URL);
+        const data = await res.json();
+        const assets = {};
+        (data.includes?.Asset || []).forEach(a => { assets[a.sys.id] = a; });
+
+        if (!data.items || data.items.length === 0) {
+          grid.innerHTML = '<p style="color:#888;grid-column:1/-1;text-align:center;padding:40px 0;">No posts yet — check back soon.</p>';
+          return;
+        }
+
+        grid.innerHTML = data.items.map((item, i) => {
+          const f = item.fields;
+          const slug     = f.slug || '';
+          const title    = f.title || '';
+          const excerpt  = f.excerpt || '';
+          const category = f.category || 'Article';
+          const date     = f.publishedDate ? new Date(f.publishedDate).toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' }) : '';
+          const imgId    = f.coverImage?.sys?.id;
+          const imgAsset = imgId ? assets[imgId] : null;
+          const imgUrl   = imgAsset ? 'https:' + imgAsset.fields.file.url + '?w=800&h=440&fit=fill' : null;
+
+          const imageHtml = imgUrl
+            ? `<img src="${imgUrl}" alt="${title}" style="width:100%;height:100%;object-fit:cover;display:block;" />`
+            : `<div style="width:100%;height:100%;background:${gradients[i % 3]};"></div>
+               <div class="blog-img-overlay"></div>`;
+
+          const delayClass = i === 1 ? ' reveal-delay-1' : i === 2 ? ' reveal-delay-2' : '';
+
+          return `
+            <div class="blog-card reveal${delayClass}" onclick="location.href='blog-post.html?slug=${slug}'">
+              <div class="blog-card-image">
+                <div class="blog-card-image-inner" style="position:absolute;inset:0;overflow:hidden;">
+                  ${imageHtml}
+                </div>
+                <span class="blog-card-tag">${category}</span>
+              </div>
+              <div class="blog-card-body">
+                <div class="blog-card-meta">${date}</div>
+                <div class="blog-card-title">${title}</div>
+                <p class="blog-card-excerpt">${excerpt}</p>
+                <a href="blog-post.html?slug=${slug}" class="blog-read-more">Read Article →</a>
+              </div>
+            </div>`;
+        }).join('');
+
+        // Re-init carousels and scroll reveals after dynamic render
+        initAllCarousels();
+        document.querySelectorAll('.reveal').forEach(el => {
+          if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
+        });
+
+      } catch(e) {
+        console.error('Contentful fetch failed:', e);
+        grid.innerHTML = '<p style="color:#888;grid-column:1/-1;text-align:center;padding:40px 0;">Could not load articles right now.</p>';
+      }
+    })();
 
     // ── SMOOTH SCROLL OFFSET FOR FIXED NAV ──────────
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
