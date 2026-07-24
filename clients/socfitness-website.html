@@ -1902,10 +1902,8 @@
             : `<div style="width:100%;height:100%;background:${gradients[i % 3]};"></div>
                <div class="blog-img-overlay"></div>`;
 
-          const delayClass = i === 1 ? ' reveal-delay-1' : i === 2 ? ' reveal-delay-2' : '';
-
           return `
-            <div class="blog-card reveal${delayClass}" onclick="location.href='./socfitness-blog-post.html?slug=${slug}'">
+            <div class="blog-card" onclick="location.href='./socfitness-blog-post.html?slug=${slug}'">
               <div class="blog-card-image">
                 <div class="blog-card-image-inner" style="position:absolute;inset:0;overflow:hidden;">
                   ${imageHtml}
@@ -1921,11 +1919,10 @@
             </div>`;
         }).join('');
 
-        // Re-init carousels and scroll reveals after dynamic render
+        // Re-init carousels after cards are injected
         initAllCarousels();
-        document.querySelectorAll('.reveal').forEach(el => {
-          if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
-        });
+        // Blog cards are always visible by the time fetch completes — no reveal needed
+        grid.querySelectorAll('.blog-card').forEach(el => el.style.opacity = '1');
 
       } catch(e) {
         console.error('Contentful fetch failed:', e);
