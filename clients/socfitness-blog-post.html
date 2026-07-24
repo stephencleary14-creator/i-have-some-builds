@@ -240,7 +240,7 @@
     } else {
       (async function() {
         try {
-          const url = `https://cdn.contentful.com/spaces/${SPACE}/entries?content_type=blogPost&fields.slug=${encodeURIComponent(slug)}&limit=1&include=1&access_token=${TOKEN}`;
+          const url = `https://cdn.contentful.com/spaces/${SPACE}/entries?content_type=blogPost&fields.slug=${encodeURIComponent(slug)}&limit=1&include=2&access_token=${TOKEN}`;
           const res  = await fetch(url);
           const data = await res.json();
 
@@ -257,11 +257,13 @@
           // Update page title
           document.title = `${f.title} — SOC Fitness`;
 
-          // Cover image
+          // Cover image — try inline fields first, then includes lookup
           const imgId    = f.coverImage?.sys?.id;
           const imgAsset = imgId ? assets[imgId] : null;
-          if (imgAsset) {
-            const imgUrl = 'https:' + imgAsset.fields.file.url + '?w=1400&h=840&fit=fill';
+          const imgFileUrl = f.coverImage?.fields?.file?.url        // inline (resolved)
+                          || imgAsset?.fields?.file?.url;           // includes lookup
+          if (imgFileUrl) {
+            const imgUrl = 'https:' + imgFileUrl + '?w=1400&h=840&fit=fill';
             const img = document.createElement('img');
             img.src = imgUrl;
             img.className = 'post-hero-img';
