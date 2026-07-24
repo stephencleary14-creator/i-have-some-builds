@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The SOC Playbook — SOC Fitness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0D0D0D; --white: #FFFFFF;
+      --blue: #2F6DB5; --gold: #F2A61D;
+      --dark: #1A1A1A; --mid: #333333; --muted: #888888;
+      --font-head: 'Barlow Condensed', sans-serif;
+      --font-body: 'Barlow', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: var(--font-body); font-size: 16px; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* ── HEADER ── */
+    .site-header { background: var(--black); border-bottom: 4px solid var(--gold); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .site-header img { height: 36px; }
+    .site-header a { font-family: var(--font-head); font-weight: 800; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
+    .site-header a:hover { color: #e09810; }
+
+    /* ── PAGE HEADER ── */
+    .page-heading {
+      background: var(--dark);
+      border-bottom: 1px solid #222;
+      padding: 56px 48px 48px;
+    }
+    .page-heading-inner { max-width: 1200px; margin: 0 auto; }
+    .page-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 56px;
+      text-transform: uppercase;
+      line-height: 0.95;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+    .page-title span { color: var(--gold); }
+    .page-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    /* ── MAIN ── */
+    .page-body {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 64px 48px 96px;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: #222; }
+
+    /* ── ARTICLE CARDS ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .article-card {
+      background: var(--dark);
+      border: 1px solid #222;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .article-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+
+    .card-image {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .article-card:hover .card-image img { transform: scale(1.05); }
+    .card-image-fallback {
+      width: 100%;
+      height: 100%;
+    }
+    .card-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--gold);
+      color: var(--black);
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 3px;
+    }
+    .card-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-meta {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .card-title {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+    .card-excerpt {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 16px;
+    }
+    .card-link {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(242,166,29,0.3);
+      padding-bottom: 2px;
+      align-self: flex-start;
+      transition: border-color 0.2s;
+    }
+    .card-link:hover { border-color: var(--gold); }
+
+    /* ── CATEGORY LISTS ── */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .category-col {
+      border-top: 3px solid var(--gold);
+      padding-top: 20px;
+    }
+
+    .category-name {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .category-list { list-style: none; }
+    .category-list li {
+      border-bottom: 1px solid #1e1e1e;
+    }
+    .category-list li:last-child { border-bottom: none; }
+    .category-list a {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 0;
+      text-decoration: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+      line-height: 1.4;
+      transition: color 0.2s;
+    }
+    .category-list a:hover { color: var(--white); }
+    .category-list a::before {
+      content: '→';
+      color: var(--gold);
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .category-list .post-date {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    /* ── LOADING / EMPTY ── */
+    .state-msg {
+      text-align: center;
+      padding: 60px 0;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      grid-column: 1 / -1;
+    }
+
+    /* ── FOOTER ── */
+    .footer { background: #080808; border-top: 1px solid #1a1a1a; padding: 64px 60px 32px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-gold-bar { width: 100%; height: 3px; background: var(--gold); margin-bottom: 48px; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 48px; border-bottom: 1px solid #1a1a1a; margin-bottom: 32px; }
+    .footer-brand img { height: 60px; margin-bottom: 20px; }
+    .footer-brand p { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 280px; }
+    .footer-col-title { font-family: var(--font-head); font-size: 16px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-social { display: flex; gap: 12px; margin-top: 4px; }
+    .social-link { width: 40px; height: 40px; background: var(--dark); border: 1px solid #2a2a2a; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--muted); text-decoration: none; font-size: 16px; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+    .social-link:hover { background: var(--gold); border-color: var(--gold); color: var(--black); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .footer-copyright { font-size: 13px; color: #555; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .categories-grid { grid-template-columns: repeat(2, 1fr); }
+      .page-body { padding: 48px 24px 64px; }
+      .page-heading { padding: 40px 24px 36px; }
+      .site-header { padding: 0 24px; }
+      .page-title { font-size: 40px; }
+      .footer { padding: 48px 24px 24px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .footer-brand { grid-column: span 2; }
+    }
+    @media (max-width: 600px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .categories-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: auto; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <img src="./socfitness-assets/SOC_logo.png" alt="SOC Fitness" />
+    <a href="./socfitness-website.html">← Back to Website</a>
+  </header>
+
+  <!-- PAGE HEADING -->
+  <div class="page-heading">
+    <div class="page-heading-inner">
+      <div class="page-label">SOC Fitness</div>
+      <h1 class="page-title">The SOC <span>Playbook</span></h1>
+      <p class="page-sub">Training insights, performance coaching and GAA-specific advice from Shane at SOC Fitness.</p>
+    </div>
+  </div>
+
+  <!-- MAIN BODY -->
+  <main class="page-body">
+
+    <!-- LATEST ARTICLES -->
+    <div class="section-label">Latest Articles</div>
+    <div class="cards-grid" id="cards-grid">
+      <div class="state-msg">Loading articles...</div>
+    </div>
+
+    <!-- BY CATEGORY -->
+    <div class="section-label">Browse by Category</div>
+    <div class="categories-grid" id="categories-grid">
+      <div class="state-msg">Loading...</div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-gold-bar"></div>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="./socfitness-assets/SOC_logo.png" alt="SOC Fitness" />
+          <p>GAA Performance Coaching for athletes who refuse to leave potential on the pitch. Built for Gaelic Football and Hurling players at every level.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Services</div>
+          <ul class="footer-links">
+            <li><a href="./socfitness-website.html#services">1:1 Personal Training</a></li>
+            <li><a href="./socfitness-website.html#services">Online Coaching</a></li>
+            <li><a href="./socfitness-website.html#services">Small Group Training</a></li>
+            <li><a href="./socfitness-website.html#contact">Get a Programme</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Info</div>
+          <ul class="footer-links">
+            <li><a href="./socfitness-website.html#how">How We Work</a></li>
+            <li><a href="./socfitness-website.html#testimonials">Testimonials</a></li>
+            <li><a href="./socfitness-website.html#blog">The Playbook</a></li>
+            <li><a href="./socfitness-website.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Follow SOC</div>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="TikTok">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.31 6.31 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.52V6.77a4.85 4.85 0 01-1.02-.08z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 SOC Fitness. All rights reserved. GAA Performance Coaching.</p>
+        <p class="footer-copyright">Built for athletes who refuse to settle.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const SPACE = '2ua0u0uuc2c3';
+    const TOKEN = 'ynQSkE7aXiRHGExiueEFZWAqaUEjKMzOE9t32nzFuvE';
+    const gradients = [
+      'linear-gradient(135deg,#0D0D0D 0%,#1a2a1a 40%,#2F6DB5 100%)',
+      'linear-gradient(135deg,#1a1200 0%,#3a2800 40%,#F2A61D 100%)',
+      'linear-gradient(135deg,#0a0a18 0%,#1a1a2a 40%,#2F6DB5 80%,#F2A61D 100%)',
+      'linear-gradient(135deg,#0D0D0D 0%,#2a1a1a 40%,#8B2020 100%)',
+      'linear-gradient(135deg,#0a1a0a 0%,#1a3a1a 40%,#2F6DB5 100%)',
+      'linear-gradient(135deg,#1a0a1a 0%,#2a1a2a 40%,#F2A61D 100%)',
+    ];
+
+    (async function() {
+      const cardsGrid = document.getElementById('cards-grid');
+      const catsGrid  = document.getElementById('categories-grid');
+
+      try {
+        // Fetch latest 50 to cover cards + category grouping in one call
+        const url = `https://cdn.contentful.com/spaces/${SPACE}/entries?content_type=blogPost&order=-fields.publishedDate&limit=50&include=1&access_token=${TOKEN}`;
+        const res  = await fetch(url);
+        const data = await res.json();
+
+        if (!data.items || data.items.length === 0) {
+          cardsGrid.innerHTML = '<div class="state-msg">No articles published yet — check back soon.</div>';
+          catsGrid.innerHTML  = '';
+          return;
+        }
+
+        // Build asset lookup
+        const assets = {};
+        (data.includes?.Asset || []).forEach(a => { assets[a.sys.id] = a; });
+
+        // ── LATEST 6 CARDS ──────────────────────────────
+        const latest = data.items.slice(0, 6);
+        cardsGrid.innerHTML = latest.map((item, i) => {
+          const f        = item.fields;
+          const slug     = f.slug || '';
+          const title    = f.title || '';
+          const excerpt  = f.excerpt || '';
+          const category = f.category || 'Article';
+          const date     = f.publishedDate ? new Date(f.publishedDate).toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' }) : '';
+          const imgId    = f.coverImage?.sys?.id;
+          const imgAsset = imgId ? assets[imgId] : null;
+          const imgUrl   = imgAsset ? 'https:' + imgAsset.fields.file.url + '?w=800&h=400&fit=fill' : null;
+
+          const imageHtml = imgUrl
+            ? `<img src="${imgUrl}" alt="${title}" />`
+            : `<div class="card-image-fallback" style="background:${gradients[i % gradients.length]};"></div>`;
+
+          return `
+            <div class="article-card" onclick="location.href='./socfitness-blog-post.html?slug=${slug}'">
+              <div class="card-image">
+                ${imageHtml}
+                <span class="card-tag">${category}</span>
+              </div>
+              <div class="card-body">
+                <div class="card-meta">${date}</div>
+                <div class="card-title">${title}</div>
+                <p class="card-excerpt">${excerpt}</p>
+                <a href="./socfitness-blog-post.html?slug=${slug}" class="card-link">Read Article →</a>
+              </div>
+            </div>`;
+        }).join('');
+
+        // ── BY CATEGORY ─────────────────────────────────
+        // Group all posts by category, take top 3 per category
+        const categoryMap = {};
+        data.items.forEach(item => {
+          const f   = item.fields;
+          const cat = f.category || 'General';
+          if (!categoryMap[cat]) categoryMap[cat] = [];
+          if (categoryMap[cat].length < 3) categoryMap[cat].push(item);
+        });
+
+        const categories = Object.keys(categoryMap);
+        if (categories.length === 0) {
+          catsGrid.innerHTML = '';
+          return;
+        }
+
+        catsGrid.innerHTML = categories.map(cat => {
+          const posts = categoryMap[cat];
+          const listItems = posts.map(item => {
+            const f    = item.fields;
+            const slug = f.slug || '';
+            const date = f.publishedDate ? new Date(f.publishedDate).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }) : '';
+            return `
+              <li>
+                <a href="./socfitness-blog-post.html?slug=${slug}">
+                  <span>${f.title}</span>
+                  ${date ? `<span class="post-date">${date}</span>` : ''}
+                </a>
+              </li>`;
+          }).join('');
+
+          return `
+            <div class="category-col">
+              <div class="category-name">${cat}</div>
+              <ul class="category-list">${listItems}</ul>
+            </div>`;
+        }).join('');
+
+      } catch(e) {
+        console.error(e);
+        cardsGrid.innerHTML = '<div class="state-msg">Could not load articles right now.</div>';
+        catsGrid.innerHTML  = '';
+      }
+    })();
+  </script>
+</body>
+</html>
