@@ -1059,6 +1059,89 @@
       text-transform: uppercase;
       color: var(--gold);
     }
+
+    /* ── MOBILE ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      /* Header */
+      .sg-header {
+        padding: 28px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .sg-header-logo img { height: 48px; }
+      .sg-header-meta { text-align: left; }
+      .sg-header-meta h1 { font-size: 24px; }
+
+      /* Nav — horizontal scroll */
+      .sg-nav {
+        padding: 0 20px;
+        gap: 20px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .sg-nav::-webkit-scrollbar { display: none; }
+      .sg-nav a { white-space: nowrap; font-size: 12px; }
+
+      /* Sections */
+      .sg-section { padding: 48px 20px; }
+      .sg-section-number { font-size: 40px; }
+      .sg-section-title { font-size: 28px; }
+
+      /* All grids → single column */
+      .colour-grid,
+      .logo-grid,
+      .voice-grid,
+      .photo-grid,
+      .photo-principles,
+      .component-grid,
+      .voice-dos-donts,
+      .social-format-grid,
+      .template-type-grid,
+      .design-rule-grid { grid-template-columns: 1fr; }
+
+      /* Typography specimens */
+      .specimen-hero { font-size: 48px; }
+      .specimen-display { font-size: 36px; }
+      .specimen-heading { font-size: 26px; }
+      .type-specimen { padding: 24px; }
+      .type-weight-row { grid-template-columns: repeat(2, 1fr); }
+
+      /* Logo section */
+      .logo-usage-card { padding: 32px 24px; }
+
+      /* Clear space block */
+      .clearspace { flex-direction: column; gap: 32px; }
+
+      /* Format canvas row — stack canvas above rules */
+      .format-canvas-row { flex-direction: column; align-items: flex-start; }
+
+      /* Clearspace block */
+      .clearspace-block { flex-direction: column !important; gap: 28px !important; padding: 24px !important; }
+
+      /* Component cards */
+      .component-card { padding: 24px; }
+      .component-card[style*="grid-column"] { grid-column: span 1 !important; }
+
+      /* Logo two-files explainer */
+      .logo-files-grid { grid-template-columns: 1fr !important; }
+
+      /* Headline variants — 2-col on mobile */
+      .headline-variants-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+      /* Footer */
+      .sg-footer {
+        padding: 24px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      /* Inline style grids (social section) */
+      [style*="grid-template-columns: repeat(4"] { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; }
+      [style*="grid-template-columns: 1fr 1fr"] { display: grid !important; grid-template-columns: 1fr !important; }
+    }
   </style>
 </head>
 <body>
@@ -1235,7 +1318,7 @@
     <div style="background:var(--dark-grey); border:1px solid #2a2a2a; border-radius:8px; padding:24px 32px; margin-bottom:32px; display:flex; gap:48px; align-items:flex-start;">
       <div style="flex:1;">
         <div class="type-label" style="margin-bottom:12px;">Two Logo Files</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+        <div class="logo-files-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
           <div>
             <div style="font-family:var(--font-head); font-size:15px; font-weight:700; text-transform:uppercase; color:var(--gold); letter-spacing:0.06em; margin-bottom:6px;">SOC_logo.png — Transparent</div>
             <div style="font-size:13px; color:#bbb; line-height:1.6;">White wordmark + shield on a transparent background. Used in the website navigation bar, social media template overlays, and anywhere the background colour provides sufficient contrast. Requires a dark (or solid colour) background behind it.</div>
@@ -1282,7 +1365,7 @@
       </div>
     </div>
 
-    <div style="margin-top:32px; background:var(--dark-grey); border:1px solid #2a2a2a; border-radius:8px; padding:36px; display:flex; align-items:flex-start; gap:48px;">
+    <div class="clearspace-block" style="margin-top:32px; background:var(--dark-grey); border:1px solid #2a2a2a; border-radius:8px; padding:36px; display:flex; align-items:flex-start; gap:48px;">
       <div style="position:relative; padding:30px; border:1px dashed #444; border-radius:4px; flex-shrink:0;">
         <div style="position:absolute; top:-20px; left:0; font-size:11px; color:var(--gold); font-family:var(--font-body); font-weight:600; letter-spacing:0.1em; white-space:nowrap;">Clear space = ½ logo height on all sides</div>
         <img src="./SOC_logo.png" alt="" style="height:70px; display:block;" />
@@ -1612,7 +1695,7 @@
     <div style="margin-bottom:16px;">
       <div class="type-label">Headline Variants — Content Types</div>
     </div>
-    <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; margin-bottom:40px;">
+    <div class="headline-variants-grid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; margin-bottom:40px;">
       <div style="background:var(--black); border:1px solid #2a2a2a; border-radius:6px; padding:20px;">
         <div style="font-family:var(--font-head); font-size:22px; font-weight:900; text-transform:uppercase; line-height:0.9; color:var(--white); margin-bottom:10px;"><span style="color:var(--gold);">CLIENT</span><br>SPOTLIGHT</div>
         <div style="font-size:12px; color:#666; line-height:1.5;">Athlete testimonials and results posts. Gold on "CLIENT" — the key achievement word.</div>
