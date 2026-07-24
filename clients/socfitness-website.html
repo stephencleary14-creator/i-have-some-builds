@@ -619,70 +619,62 @@
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 0;
     }
 
     .testimonial-card {
-      background: var(--mid-grey);
-      border: 1px solid #3a3a3a;
-      border-radius: 8px;
-      padding: 36px 28px;
+      padding: 32px 36px 32px 28px;
+      border-left: 3px solid var(--gold);
       position: relative;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-left: 1px;
     }
 
-    .testimonial-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 24px 48px rgba(0,0,0,0.45);
+    .testimonial-card + .testimonial-card {
+      border-left: 3px solid #2a2a2a;
+      margin-left: 0;
     }
 
-    .testimonial-quote-mark {
-      font-family: Georgia, serif;
-      font-size: 72px;
-      line-height: 0.6;
-      color: var(--gold);
-      opacity: 0.25;
-      margin-bottom: 16px;
-      display: block;
+    .testimonial-card:first-child {
+      border-left: 3px solid var(--gold);
     }
 
     .testimonial-stars {
       display: flex;
-      gap: 4px;
-      margin-bottom: 20px;
+      gap: 3px;
+      margin-bottom: 16px;
     }
 
     .star {
-      width: 16px;
-      height: 16px;
+      width: 13px;
+      height: 13px;
       background: var(--gold);
       clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
     }
 
     .testimonial-text {
-      font-size: 16px;
+      font-size: 15px;
       color: rgba(255,255,255,0.82);
-      line-height: 1.7;
-      margin-bottom: 28px;
+      line-height: 1.75;
+      margin-bottom: 24px;
       font-style: italic;
     }
 
     .testimonial-author {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .testimonial-avatar {
-      width: 44px;
-      height: 44px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: var(--blue);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-head);
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 800;
       color: var(--white);
       flex-shrink: 0;
@@ -690,16 +682,16 @@
 
     .testimonial-name {
       font-family: var(--font-head);
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--white);
       line-height: 1.2;
     }
 
     .testimonial-role {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--light-grey);
       letter-spacing: 0.06em;
     }
@@ -828,6 +820,41 @@
       color: rgba(255,255,255,0.6);
       line-height: 1.65;
       margin-bottom: 20px;
+    }
+
+    .blog-mobile-label {
+      display: none;
+    }
+    .blog-mobile-footer {
+      display: none;
+    }
+    #blog-grid-mobile {
+      display: none;
+    }
+
+    .latest-article-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--gold);
+      color: var(--black);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 12px 5px 8px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    .latest-article-badge::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--black);
+      opacity: 0.5;
     }
 
     .blog-read-more {
@@ -1300,6 +1327,9 @@
       .about-photo img { height: 320px; }
       .services-grid { grid-template-columns: 1fr; }
       .testimonials-header { flex-direction: column; align-items: flex-start; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonial-card { border-left: 3px solid var(--gold) !important; padding: 28px 20px; }
+      .testimonial-card + .testimonial-card { border-top: 1px solid #2a2a2a; margin-top: 0; }
       .blog-header { flex-direction: column; align-items: flex-start; }
 
       /* Carousels */
@@ -1325,39 +1355,14 @@
       }
       .pillar:last-child { margin-right: 0; }
 
-      .testimonials-grid {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: 0;
-      }
-      .testimonials-grid::-webkit-scrollbar { display: none; }
-      .testimonial-card {
-        scroll-snap-align: start;
-        flex-shrink: 0;
-        width: 85vw;
-        margin-right: 12px;
-      }
-      .testimonial-card:last-child { margin-right: 0; }
 
-      .blog-grid {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: 0;
-      }
-      .blog-grid::-webkit-scrollbar { display: none; }
-      .blog-card {
-        scroll-snap-align: start;
-        flex-shrink: 0;
-        width: 85vw;
-        margin-right: 12px;
-      }
-      .blog-card:last-child { margin-right: 0; }
+      #blog-grid-desktop { display: none; }
+      #blog-grid-mobile { display: grid; grid-template-columns: 1fr; }
+      #blog-grid-mobile .blog-card { width: 100%; margin-right: 0; }
+      .blog-header-cta { display: none; }
+      .blog-header { margin-bottom: 20px; }
+      .blog-mobile-label { display: block; }
+      .blog-mobile-footer { display: flex; justify-content: flex-start; margin-top: 24px; }
       .newsletter-section { padding: 64px 24px; }
       .newsletter-inner { grid-template-columns: 1fr; gap: 40px; }
       .contact-inner { grid-template-columns: 1fr; gap: 48px; }
@@ -1373,6 +1378,7 @@
       .hero-stat-divider { display: none; }
       .footer-top { grid-template-columns: 1fr; }
       .footer-brand { grid-column: auto; }
+      .footer-nav-col { display: none; }
     }
   </style>
 </head>
@@ -1523,13 +1529,12 @@
         </p>
       </div>
 
-      <div class="testimonials-grid" id="carousel-testimonials">
+      <div class="testimonials-grid">
         <div class="testimonial-card reveal">
-          <span class="testimonial-quote-mark">"</span>
           <div class="testimonial-stars">
             <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
           </div>
-          <p class="testimonial-text">Shane completely transformed how I approach gym work as a GAA player. I'm faster, stronger and way more durable than I was last season.</p>
+          <p class="testimonial-text">"Shane completely transformed how I approach gym work as a GAA player. I'm faster, stronger and way more durable than I was last season."</p>
           <div class="testimonial-author">
             <div class="testimonial-avatar">CM</div>
             <div>
@@ -1540,11 +1545,10 @@
         </div>
 
         <div class="testimonial-card reveal reveal-delay-1">
-          <span class="testimonial-quote-mark">"</span>
           <div class="testimonial-stars">
             <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
           </div>
-          <p class="testimonial-text">The online coaching is elite. I get a programme built around my match schedule and it actually works.</p>
+          <p class="testimonial-text">"The online coaching is elite. I get a programme built around my match schedule and it actually works."</p>
           <div class="testimonial-author">
             <div class="testimonial-avatar">AD</div>
             <div>
@@ -1555,11 +1559,10 @@
         </div>
 
         <div class="testimonial-card reveal reveal-delay-2">
-          <span class="testimonial-quote-mark">"</span>
           <div class="testimonial-stars">
             <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
           </div>
-          <p class="testimonial-text">Best investment I made for my game. Shane knows GAA, knows strength training, and knows how to get the best out of you.</p>
+          <p class="testimonial-text">"Best investment I made for my game. Shane knows GAA, knows strength training, and knows how to get the best out of you."</p>
           <div class="testimonial-author">
             <div class="testimonial-avatar">DK</div>
             <div>
@@ -1569,12 +1572,6 @@
           </div>
         </div>
       </div>
-      <div class="carousel-hint" id="hint-testimonials">
-        <div class="carousel-hint-arrow left"><svg viewBox="0 0 24 24"><path d="M10 6l-1.4 1.4L13.2 12l-4.6 4.6L10 18l6-6z"/></svg></div>
-        <span>Swipe to explore</span>
-        <div class="carousel-hint-arrow right"><svg viewBox="0 0 24 24"><path d="M10 6l-1.4 1.4L13.2 12l-4.6 4.6L10 18l6-6z"/></svg></div>
-      </div>
-      <div class="carousel-dots" id="dots-testimonials"></div>
     </div>
   </section>
 
@@ -1588,18 +1585,24 @@
           <div class="section-label reveal">Performance Insights</div>
           <h2 class="section-title reveal reveal-delay-1">The SOC <span>Playbook</span></h2>
         </div>
-        <a href="./socfitness-blog.html" class="btn-outline reveal" style="white-space:nowrap;">View All Articles</a>
+        <a href="./socfitness-blog.html" class="btn-outline reveal blog-header-cta" style="white-space:nowrap;">View All Articles</a>
       </div>
 
-      <div class="blog-grid" id="carousel-blog">
+      <!-- Desktop: 3-card grid -->
+      <div class="blog-grid" id="blog-grid-desktop">
         <!-- Populated by Contentful -->
       </div>
-      <div class="carousel-hint" id="hint-blog">
-        <div class="carousel-hint-arrow left"><svg viewBox="0 0 24 24"><path d="M10 6l-1.4 1.4L13.2 12l-4.6 4.6L10 18l6-6z"/></svg></div>
-        <span>Swipe to explore</span>
-        <div class="carousel-hint-arrow right"><svg viewBox="0 0 24 24"><path d="M10 6l-1.4 1.4L13.2 12l-4.6 4.6L10 18l6-6z"/></svg></div>
+
+      <!-- Mobile: latest article only -->
+      <div class="blog-mobile-label">
+        <div class="latest-article-badge">Latest Article</div>
       </div>
-      <div class="carousel-dots" id="dots-blog"></div>
+      <div class="blog-grid" id="blog-grid-mobile">
+        <!-- Populated by Contentful (1 card on mobile) -->
+      </div>
+      <div class="blog-mobile-footer">
+        <a href="./socfitness-blog.html" class="btn-outline" style="white-space:nowrap;">View All Articles</a>
+      </div>
     </div>
   </section>
 
@@ -1681,7 +1684,7 @@
           <p>GAA Performance Coaching for athletes who refuse to leave potential on the pitch. Built for Gaelic Football and Hurling players at every level.</p>
         </div>
 
-        <div>
+        <div class="footer-nav-col">
           <div class="footer-col-title">Services</div>
           <ul class="footer-links">
             <li><a href="#services">1:1 Personal Training</a></li>
@@ -1691,7 +1694,7 @@
           </ul>
         </div>
 
-        <div>
+        <div class="footer-nav-col">
           <div class="footer-col-title">Info</div>
           <ul class="footer-links">
             <li><a href="#how">How We Work</a></li>
@@ -1868,7 +1871,6 @@
       const TOKEN  = 'ynQSkE7aXiRHGExiueEFZWAqaUEjKMzOE9t32nzFuvE';
       const URL    = `https://cdn.contentful.com/spaces/${SPACE}/entries?content_type=blogPost&order=-fields.publishedDate&limit=3&include=1&access_token=${TOKEN}`;
 
-      const grid = document.getElementById('carousel-blog');
       const gradients = [
         'linear-gradient(135deg,#0D0D0D 0%,#1a2a1a 40%,#2F6DB5 100%)',
         'linear-gradient(135deg,#1a1200 0%,#3a2800 40%,#F2A61D 100%)',
@@ -1882,11 +1884,11 @@
         (data.includes?.Asset || []).forEach(a => { assets[a.sys.id] = a; });
 
         if (!data.items || data.items.length === 0) {
-          grid.innerHTML = '<p style="color:#888;grid-column:1/-1;text-align:center;padding:40px 0;">No posts yet — check back soon.</p>';
+          document.getElementById('blog-grid-desktop').innerHTML = '<p style="color:#888;grid-column:1/-1;text-align:center;padding:40px 0;">No posts yet — check back soon.</p>';
           return;
         }
 
-        grid.innerHTML = data.items.map((item, i) => {
+        const makeCard = (item, i) => {
           const f = item.fields;
           const slug     = f.slug || '';
           const title    = f.title || '';
@@ -1896,14 +1898,12 @@
           const imgId    = f.coverImage?.sys?.id;
           const imgAsset = imgId ? assets[imgId] : null;
           const imgUrl   = imgAsset ? 'https:' + imgAsset.fields.file.url + '?w=800&h=440&fit=fill' : null;
-
           const imageHtml = imgUrl
             ? `<img src="${imgUrl}" alt="${title}" style="width:100%;height:100%;object-fit:cover;display:block;" />`
             : `<div style="width:100%;height:100%;background:${gradients[i % 3]};"></div>
                <div class="blog-img-overlay"></div>`;
-
           return `
-            <div class="blog-card" onclick="location.href='./socfitness-blog-post.html?slug=${slug}'">
+            <div class="blog-card" onclick="location.href='./socfitness-blog-post.html?slug=${slug}'" style="opacity:1;">
               <div class="blog-card-image">
                 <div class="blog-card-image-inner" style="position:absolute;inset:0;overflow:hidden;">
                   ${imageHtml}
@@ -1917,16 +1917,19 @@
                 <a href="./socfitness-blog-post.html?slug=${slug}" class="blog-read-more">Read Article →</a>
               </div>
             </div>`;
-        }).join('');
+        };
 
-        // Re-init carousels after cards are injected
-        initAllCarousels();
-        // Blog cards are always visible by the time fetch completes — no reveal needed
-        grid.querySelectorAll('.blog-card').forEach(el => el.style.opacity = '1');
+        // Desktop: 3 cards
+        const desktopGrid = document.getElementById('blog-grid-desktop');
+        desktopGrid.innerHTML = data.items.map((item, i) => makeCard(item, i)).join('');
+
+        // Mobile: latest 1 card only
+        const mobileGrid = document.getElementById('blog-grid-mobile');
+        mobileGrid.innerHTML = makeCard(data.items[0], 0);
 
       } catch(e) {
         console.error('Contentful fetch failed:', e);
-        grid.innerHTML = '<p style="color:#888;grid-column:1/-1;text-align:center;padding:40px 0;">Could not load articles right now.</p>';
+        document.getElementById('blog-grid-desktop').innerHTML = '<p style="color:#888;grid-column:1/-1;text-align:center;padding:40px 0;">Could not load articles right now.</p>';
       }
     })();
 
