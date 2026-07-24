@@ -40,6 +40,7 @@
     /* ── CARDS ── */
     .cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
     .cards-grid .card:last-child:nth-child(odd) { grid-column: 1 / -1; max-width: calc(50% - 12px); }
+    @media (max-width: 700px) { .cards-grid .card:last-child:nth-child(odd) { max-width: 100%; } }
 
     .card { background: var(--black); border: 1px solid #222; border-left: 4px solid var(--gold); border-radius: 0 8px 8px 0; padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 0; transition: border-color 0.2s; }
     .card:hover { border-color: var(--gold); border-left-color: var(--gold); }
