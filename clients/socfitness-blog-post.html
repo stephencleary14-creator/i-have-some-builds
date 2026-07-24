@@ -242,6 +242,7 @@
   <!-- BODY -->
   <main class="post-body">
     <a href="./socfitness-website.html#blog" class="post-back">← Back to The Playbook</a>
+    <img id="post-cover-img" src="" alt="" style="display:none; width:100%; max-height:480px; object-fit:cover; border-radius:8px; margin-bottom:40px;" />
     <div class="post-content" id="post-content"></div>
   </main>
 
@@ -326,16 +327,11 @@
           const imgId    = f.coverImage?.sys?.id;
           const imgAsset = imgId ? assets[imgId] : null;
           const imgFileUrl = imgAsset?.fields?.file?.url;
-          const hero = document.getElementById('post-hero');
-          const heroContent = document.getElementById('post-hero-content');
-
           if (imgFileUrl) {
-            const imgUrl = 'https:' + imgFileUrl + '?w=1400';
-            hero.classList.add('has-image');
-            // Set as background image — avoids z-index/absolute positioning issues
-            hero.style.backgroundImage = `url('${imgUrl}')`;
-            hero.style.backgroundSize = 'cover';
-            hero.style.backgroundPosition = 'center';
+            const coverImg = document.getElementById('post-cover-img');
+            coverImg.src = 'https:' + imgFileUrl + '?w=1200';
+            coverImg.alt = f.title;
+            coverImg.style.display = 'block';
           }
 
           // Date
