@@ -5,5 +5,14 @@
   ],
   "rewrites": [
     { "source": "/:slug", "destination": "/posts/:slug" }
+  ],
+  "headers": [
+    {
+      "source": "/clients/socfitness-assets/soc-growth-plan.pdf",
+      "headers": [
+        { "key": "Content-Type", "value": "application/pdf" },
+        { "key": "Content-Disposition", "value": "attachment; filename=\"SOC-Fitness-Online-Growth-Plan.pdf\"" }
+      ]
+    }
   ]
 }
