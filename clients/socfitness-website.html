@@ -1905,7 +1905,7 @@
           const delayClass = i === 1 ? ' reveal-delay-1' : i === 2 ? ' reveal-delay-2' : '';
 
           return `
-            <div class="blog-card reveal${delayClass}" onclick="location.href='blog-post.html?slug=${slug}'">
+            <div class="blog-card reveal${delayClass}" onclick="location.href='./socfitness-blog-post.html?slug=${slug}'">
               <div class="blog-card-image">
                 <div class="blog-card-image-inner" style="position:absolute;inset:0;overflow:hidden;">
                   ${imageHtml}
@@ -1916,7 +1916,7 @@
                 <div class="blog-card-meta">${date}</div>
                 <div class="blog-card-title">${title}</div>
                 <p class="blog-card-excerpt">${excerpt}</p>
-                <a href="blog-post.html?slug=${slug}" class="blog-read-more">Read Article →</a>
+                <a href="./socfitness-blog-post.html?slug=${slug}" class="blog-read-more">Read Article →</a>
               </div>
             </div>`;
         }).join('');
