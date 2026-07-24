@@ -38,7 +38,7 @@
     .welcome-sub { font-size: 14px; color: var(--muted); margin-bottom: 52px; }
 
     /* ── CARDS ── */
-    .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
 
     .card { background: var(--black); border: 1px solid #222; border-left: 4px solid var(--gold); border-radius: 0 8px 8px 0; padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 0; transition: border-color 0.2s; }
     .card:hover { border-color: var(--gold); border-left-color: var(--gold); }
@@ -65,11 +65,15 @@
     .portal-footer span { color: var(--gold); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
+    @media (max-width: 700px) {
       .cards-grid { grid-template-columns: 1fr; }
       .portal-body { padding: 40px 24px 64px; }
       .portal-header { padding: 0 24px; }
       .welcome-title { font-size: 32px; }
+    }
+    @media (min-width: 701px) and (max-width: 900px) {
+      .portal-body { padding: 40px 24px 64px; }
+      .portal-header { padding: 0 24px; }
     }
   </style>
 </head>
@@ -131,6 +135,17 @@
           <a class="card-cta" href="./socfitness-assets/soc-growth-plan.html" target="_blank">View Plan &rarr;</a>
           <div class="card-divider"></div>
           <a class="card-cta card-cta-secondary" href="./socfitness-assets/soc-growth-plan.pdf" download>Download PDF &darr;</a>
+        </div>
+      </div>
+
+      <!-- CARD 4: BRAND STYLE GUIDE -->
+      <div class="card">
+        <div class="card-num">Deliverable 04</div>
+        <div class="card-title">Brand Style Guide</div>
+        <div class="card-desc">Your complete brand identity system &mdash; colour palette, typography, logo usage rules, brand voice, photography direction, UI components, and social media template guidelines.</div>
+        <span class="card-status status-complete">Complete</span>
+        <div class="card-actions">
+          <a class="card-cta" href="./socfitness-assets/soc-brand-guide.html" target="_blank">View Style Guide &rarr;</a>
         </div>
       </div>
 

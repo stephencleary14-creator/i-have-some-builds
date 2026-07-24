@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOC Fitness — Brand Style Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:     #0D0D0D;
+      --white:     #FFFFFF;
+      --blue:      #2F6DB5;
+      --gold:      #F2A61D;
+      --dark-grey: #1A1A1A;
+      --mid-grey:  #333333;
+      --light-grey:#888888;
+      --font-head: 'Barlow Condensed', sans-serif;
+      --font-body: 'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ────────────────────────────────────── */
+    .sg-header {
+      background: var(--dark-grey);
+      border-bottom: 3px solid var(--gold);
+      padding: 48px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .sg-header-logo img {
+      height: 80px;
+      display: block;
+    }
+
+    .sg-header-meta {
+      text-align: right;
+    }
+
+    .sg-header-meta .label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .sg-header-meta h1 {
+      font-family: var(--font-head);
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .sg-header-meta p {
+      font-size: 14px;
+      color: var(--light-grey);
+      margin-top: 6px;
+    }
+
+    /* ── NAV ────────────────────────────────────────── */
+    .sg-nav {
+      background: var(--mid-grey);
+      padding: 0 64px;
+      display: flex;
+      gap: 32px;
+      border-bottom: 1px solid #444;
+    }
+
+    .sg-nav a {
+      display: block;
+      padding: 14px 0;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light-grey);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .sg-nav a:hover {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ── SECTIONS ───────────────────────────────────── */
+    .sg-section {
+      padding: 80px 64px;
+      border-bottom: 1px solid #222;
+    }
+
+    .sg-section:last-child { border-bottom: none; }
+
+    .sg-section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    .sg-section-number {
+      font-family: var(--font-head);
+      font-size: 64px;
+      font-weight: 900;
+      color: #222;
+      line-height: 1;
+      min-width: 48px;
+    }
+
+    .sg-section-title {
+      font-family: var(--font-head);
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .sg-section-title span {
+      color: var(--gold);
+    }
+
+    /* ── COLOURS ─────────────────────────────────────── */
+    .colour-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .colour-card {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #2a2a2a;
+    }
+
+    .colour-swatch {
+      height: 120px;
+      position: relative;
+    }
+
+    .colour-swatch.primary-badge::after {
+      content: 'PRIMARY';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-family: var(--font-body);
+    }
+
+    .colour-info {
+      background: var(--dark-grey);
+      padding: 20px;
+    }
+
+    .colour-name {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .colour-hex {
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .colour-usage {
+      font-size: 13px;
+      color: var(--light-grey);
+      line-height: 1.5;
+    }
+
+    /* ── TYPOGRAPHY ──────────────────────────────────── */
+    .type-specimen {
+      background: var(--dark-grey);
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 40px;
+      margin-bottom: 24px;
+    }
+
+    .type-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .type-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #333;
+    }
+
+    .type-meta {
+      font-size: 12px;
+      color: var(--light-grey);
+      margin-top: 8px;
+      font-family: var(--font-body);
+      font-weight: 400;
+    }
+
+    .specimen-hero {
+      font-family: var(--font-head);
+      font-size: 80px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      line-height: 0.9;
+      color: var(--white);
+    }
+
+    .specimen-display {
+      font-family: var(--font-head);
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .specimen-heading {
+      font-family: var(--font-head);
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .specimen-subheading {
+      font-family: var(--font-head);
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .specimen-body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 400;
+      color: #ccc;
+      line-height: 1.7;
+      max-width: 680px;
+    }
+
+    .specimen-small {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--light-grey);
+    }
+
+    .type-weight-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .weight-card {
+      background: var(--dark-grey);
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 28px 24px;
+    }
+
+    .weight-display {
+      font-family: var(--font-head);
+      font-size: 48px;
+      line-height: 1;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .weight-name {
+      font-size: 12px;
+      color: var(--light-grey);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── LOGO USAGE ──────────────────────────────────── */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .logo-usage-card {
+      border-radius: 8px;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .logo-usage-card.dark-bg {
+      background: var(--black);
+      border: 1px solid #2a2a2a;
+    }
+
+    .logo-usage-card.light-bg {
+      background: #F0EFE9;
+    }
+
+    .logo-usage-card.blue-bg {
+      background: var(--blue);
+    }
+
+    .logo-usage-card.grey-bg {
+      background: var(--mid-grey);
+      border: 1px solid #444;
+    }
+
+    .logo-usage-card img {
+      height: 100px;
+      object-fit: contain;
+    }
+
+    .logo-usage-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .logo-clearspace {
+      background: var(--dark-grey);
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 48px;
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 64px;
+    }
+
+    .clearspace-demo {
+      position: relative;
+      padding: 32px;
+      border: 1px dashed #444;
+      border-radius: 4px;
+      display: inline-flex;
+    }
+
+    .clearspace-demo::before {
+      content: 'Clear space = logo height × 0.5';
+      position: absolute;
+      top: -22px;
+      left: 0;
+      font-size: 11px;
+      color: var(--gold);
+      font-family: var(--font-body);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+    }
+
+    .clearspace-demo img {
+      height: 70px;
+    }
+
+    .clearspace-rules {
+      flex: 1;
+    }
+
+    .clearspace-rules h3 {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .clearspace-rules ul {
+      list-style: none;
+    }
+
+    .clearspace-rules li {
+      font-size: 14px;
+      color: #bbb;
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .clearspace-rules li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    /* ── BRAND VOICE ─────────────────────────────────── */
+    .voice-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    .voice-card {
+      background: var(--dark-grey);
+      border: 1px solid #2a2a2a;
+      border-top: 3px solid var(--gold);
+      border-radius: 8px;
+      padding: 28px 24px;
+    }
+
+    .voice-word {
+      font-family: var(--font-head);
+      font-size: 28px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .voice-desc {
+      font-size: 13px;
+      color: var(--light-grey);
+      line-height: 1.6;
+    }
+
+    .voice-dos-donts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .dos-card, .donts-card {
+      background: var(--dark-grey);
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 28px;
+    }
+
+    .dos-card { border-top: 3px solid #2FB55A; }
+    .donts-card { border-top: 3px solid #E53E3E; }
+
+    .dos-card h4 { color: #2FB55A; }
+    .donts-card h4 { color: #E53E3E; }
+
+    .dos-card h4, .donts-card h4 {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+
+    .dos-card ul, .donts-card ul {
+      list-style: none;
+    }
+
+    .dos-card li, .donts-card li {
+      font-size: 14px;
+      color: #bbb;
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .dos-card li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #2FB55A;
+      font-size: 12px;
+    }
+
+    .donts-card li::before {
+      content: '✕';
+      position: absolute;
+      left: 0;
+      color: #E53E3E;
+      font-size: 12px;
+    }
+
+    /* ── PHOTOGRAPHY ─────────────────────────────────── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .photo-card {
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-card-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      padding: 24px 20px 16px;
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .photo-principles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .principle-card {
+      background: var(--dark-grey);
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    .principle-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gold);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      font-size: 20px;
+    }
+
+    .principle-title {
+      font-family: var(--font-head);
+      font-size: 17px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .principle-desc {
+      font-size: 13px;
+      color: var(--light-grey);
+      line-height: 1.6;
+    }
+
+    /* ── UI COMPONENTS ───────────────────────────────── */
+    .component-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .component-card {
+      background: var(--dark-grey);
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 36px;
+    }
+
+    .component-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .comp-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: var(--gold);
+      color: var(--black);
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background: #e09810;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 13px 30px;
+      border: 2px solid var(--white);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .btn-blue {
+      background: var(--blue);
+      color: var(--white);
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn-blue:hover {
+      background: #2560a0;
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--gold);
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 13px 30px;
+      border: 2px solid var(--gold);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      display: inline-block;
+    }
+
+    .btn-ghost:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    /* Nav link style */
+    .nav-link-demo {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 2px;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+
+    .nav-link-demo:hover {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* Form inputs */
+    .input-demo {
+      background: #111;
+      border: 1px solid #3a3a3a;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 15px;
+      padding: 12px 16px;
+      border-radius: 4px;
+      width: 100%;
+      margin-bottom: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-demo:focus {
+      border-color: var(--gold);
+    }
+
+    .input-demo::placeholder {
+      color: #666;
+    }
+
+    /* Card */
+    .card-demo {
+      background: var(--mid-grey);
+      border: 1px solid #3a3a3a;
+      border-radius: 8px;
+      padding: 24px;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: default;
+    }
+
+    .card-demo:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .card-demo-tag {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .card-demo-title {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .card-demo-body {
+      font-size: 14px;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: var(--font-body);
+    }
+
+    .badge-gold { background: rgba(242,166,29,0.15); color: var(--gold); border: 1px solid var(--gold); }
+    .badge-blue { background: rgba(47,109,181,0.15); color: var(--blue); border: 1px solid var(--blue); }
+    .badge-white { background: rgba(255,255,255,0.1); color: var(--white); border: 1px solid rgba(255,255,255,0.3); }
+
+    /* Inline link */
+    .link-demo {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(242,166,29,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .link-demo:hover { border-color: var(--gold); }
+
+    /* Stat display */
+    .stat-row {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-head);
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--light-grey);
+      margin-top: 4px;
+    }
+
+    /* Divider */
+    .gold-divider {
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+      margin: 20px 0;
+    }
+
+    /* ── SOCIAL MEDIA ───────────────────────────────────── */
+    .social-format-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    .format-card {
+      background: var(--dark-grey);
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 32px;
+    }
+
+    .format-card-title {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .format-card-sub {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .format-canvas-row {
+      display: flex;
+      gap: 20px;
+      align-items: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .format-canvas {
+      background: var(--black);
+      border: 1px solid #333;
+      border-radius: 4px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .format-canvas-label {
+      font-size: 11px;
+      color: #666;
+      text-align: center;
+      margin-top: 6px;
+      letter-spacing: 0.06em;
+    }
+
+    .safe-zone-line {
+      position: absolute;
+      background: rgba(242,166,29,0.25);
+      border: 1px dashed rgba(242,166,29,0.5);
+    }
+
+    .format-rules {
+      list-style: none;
+      margin-top: 16px;
+    }
+
+    .format-rules li {
+      font-size: 13px;
+      color: #bbb;
+      padding: 6px 0;
+      padding-left: 18px;
+      position: relative;
+      border-bottom: 1px solid #2a2a2a;
+      line-height: 1.5;
+    }
+
+    .format-rules li:last-child { border-bottom: none; }
+
+    .format-rules li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    .template-type-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .template-type-card {
+      background: var(--dark-grey);
+      border: 1px solid #2a2a2a;
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 24px;
+    }
+
+    .template-type-name {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .template-type-desc {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    .social-design-rules {
+      background: var(--dark-grey);
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 32px;
+    }
+
+    .design-rule-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .design-rule-card {
+      border-top: 2px solid var(--gold);
+      padding-top: 16px;
+    }
+
+    .design-rule-title {
+      font-family: var(--font-head);
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .design-rule-body {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    .sg-footer {
+      background: var(--dark-grey);
+      border-top: 1px solid #222;
+      padding: 32px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sg-footer img { height: 40px; }
+
+    .sg-footer p {
+      font-size: 12px;
+      color: var(--light-grey);
+      letter-spacing: 0.06em;
+    }
+
+    .version-tag {
+      background: var(--mid-grey);
+      border: 1px solid #444;
+      border-radius: 4px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="sg-header">
+    <div class="sg-header-logo">
+      <img src="./SOC_logo.png" alt="SOC Fitness Logo" />
+    </div>
+    <div class="sg-header-meta">
+      <p class="label">Brand Identity System</p>
+      <h1>Brand Style Guide</h1>
+      <p>GAA Performance Coaching · Version 1.1 · 2026</p>
+    </div>
+  </header>
+
+  <!-- ── NAV ── -->
+  <nav class="sg-nav">
+    <a href="#colours">Colours</a>
+    <a href="#typography">Typography</a>
+    <a href="#logo">Logo Usage</a>
+    <a href="#voice">Brand Voice</a>
+    <a href="#photography">Photography</a>
+    <a href="#components">UI Components</a>
+    <a href="#social">Social Media</a>
+  </nav>
+
+  <!-- ── 1. COLOUR PALETTE ── -->
+  <section class="sg-section" id="colours">
+    <div class="sg-section-header">
+      <span class="sg-section-number">01</span>
+      <h2 class="sg-section-title">Colour <span>Palette</span></h2>
+    </div>
+
+    <div class="colour-grid">
+      <div class="colour-card">
+        <div class="colour-swatch primary-badge" style="background:#F2A61D;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Gold / Amber</div>
+          <div class="colour-hex">#F2A61D</div>
+          <div class="colour-usage">Primary accent. Used for CTAs, one highlighted keyword per headline, stat figures, gold rule bars, and section label text. The defining colour of the brand — energy and achievement. Never use on more than one word per headline.</div>
+        </div>
+      </div>
+
+      <div class="colour-card">
+        <div class="colour-swatch primary-badge" style="background:#0D0D0D;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Black</div>
+          <div class="colour-hex">#0D0D0D</div>
+          <div class="colour-usage">Primary background. Communicates the intensity and professionalism of elite athletic training. Used for page backgrounds and the logo field.</div>
+        </div>
+      </div>
+
+      <div class="colour-card">
+        <div class="colour-swatch" style="background:#2F6DB5;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Blue</div>
+          <div class="colour-hex">#2F6DB5</div>
+          <div class="colour-usage">Secondary accent. Drawn from the GAA kit colour in brand photography. Used for section labels on the website, status badges (e.g. "In Review"), icon accents, and secondary UI elements. Blue supports and frames — it never competes with Gold for attention.</div>
+        </div>
+      </div>
+
+      <div class="colour-card">
+        <div class="colour-swatch" style="background:#FFFFFF;"></div>
+        <div class="colour-info">
+          <div class="colour-name">White</div>
+          <div class="colour-hex">#FFFFFF</div>
+          <div class="colour-usage">Primary text on dark backgrounds. Used for body copy, nav links, and secondary outlined buttons. Never use on light backgrounds.</div>
+        </div>
+      </div>
+
+      <div class="colour-card">
+        <div class="colour-swatch" style="background:#1A1A1A; border-bottom: 1px solid #333;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Dark Grey</div>
+          <div class="colour-hex">#1A1A1A</div>
+          <div class="colour-usage">Section backgrounds, card surfaces, and nav backdrops. Provides depth and layering against the primary black without jarring contrast.</div>
+        </div>
+      </div>
+
+      <div class="colour-card">
+        <div class="colour-swatch" style="background:#333333;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Mid Grey</div>
+          <div class="colour-hex">#333333</div>
+          <div class="colour-usage">Card backgrounds, dividers, and UI surfaces. The middle tier of the dark palette — used for interactive elements and hover states.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px; background:var(--dark-grey); border:1px solid #2a2a2a; border-radius:8px; padding:28px 32px;">
+      <div class="type-label">Colour Usage Ratio &amp; Role Rules</div>
+      <p style="font-size:14px; color:#aaa; line-height:1.7; max-width:700px;">
+        <strong style="color:var(--white);">60%</strong> Black / Dark Grey — backgrounds and page canvas.<br>
+        <strong style="color:var(--white);">30%</strong> White — primary text, icons, and supporting elements.<br>
+        <strong style="color:var(--gold);">10%</strong> Gold — accent, CTA, and brand highlights only. Never overuse gold — its power comes from restraint.<br><br>
+        <strong style="color:var(--gold);">Gold role:</strong> Headlines (one highlighted word only), CTAs, stat figures, gold rule bars, section label text, template top bar strip.<br>
+        <strong style="color:#2F6DB5;">Blue role:</strong> Website section labels, UI status badges, icon accents, secondary navigation elements. Blue supports; it never leads.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── 2. TYPOGRAPHY ── -->
+  <section class="sg-section" id="typography">
+    <div class="sg-section-header">
+      <span class="sg-section-number">02</span>
+      <h2 class="sg-section-title">Typo<span>graphy</span></h2>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-label">Hero Headline — Barlow Condensed Black 900</div>
+      <div class="specimen-hero">Train Like<br>an Athlete</div>
+      <div class="type-meta">Barlow Condensed · 900 Black · All Caps · Letter spacing 0.02em</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-label">Display Heading — Barlow Condensed ExtraBold 800</div>
+      <div class="specimen-display">GAA Performance Coaching</div>
+      <div class="type-meta">Barlow Condensed · 800 ExtraBold · All Caps · Letter spacing 0.03em</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-label">Section Heading — Barlow Condensed Bold 700</div>
+      <div class="specimen-heading">What Athletes Say About SOC Fitness</div>
+      <div class="type-meta">Barlow Condensed · 700 Bold · All Caps · Letter spacing 0.04em</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-label">Subheading / Accent Label — Barlow Condensed SemiBold 600</div>
+      <div class="specimen-subheading">Performance, Built Around You</div>
+      <div class="type-meta">Barlow Condensed · 600 SemiBold · All Caps · Gold colour · Letter spacing 0.05em</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-label">Body Copy — Barlow Regular 400</div>
+      <div class="specimen-body">SOC Fitness is built for GAA players who refuse to leave potential on the pitch. Whether you're in preseason or pushing for an All-Ireland, the programme is engineered around your match schedule, your position, and your goals. This is not generic gym programming. This is GAA performance, coached by someone who lives it.</div>
+      <div class="type-meta">Barlow · 400 Regular · 16px / 1.7 line-height · #CCCCCC</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-label">Label / Tag — Barlow SemiBold 600 Caps</div>
+      <div class="specimen-small">GAA Specialist · Personal Training · Online Coaching</div>
+      <div class="type-meta">Barlow · 600 SemiBold · 11–13px · Letter spacing 0.14–0.18em · Mid grey</div>
+    </div>
+
+    <div class="type-weight-row">
+      <div class="weight-card">
+        <div class="weight-display" style="font-weight:900;">SOC</div>
+        <div class="weight-name">Black · 900</div>
+      </div>
+      <div class="weight-card">
+        <div class="weight-display" style="font-weight:800;">SOC</div>
+        <div class="weight-name">ExtraBold · 800</div>
+      </div>
+      <div class="weight-card">
+        <div class="weight-display" style="font-weight:700;">SOC</div>
+        <div class="weight-name">Bold · 700</div>
+      </div>
+      <div class="weight-card">
+        <div class="weight-display" style="font-weight:600;">SOC</div>
+        <div class="weight-name">SemiBold · 600</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. LOGO USAGE ── -->
+  <section class="sg-section" id="logo">
+    <div class="sg-section-header">
+      <span class="sg-section-number">03</span>
+      <h2 class="sg-section-title">Logo <span>Usage</span></h2>
+    </div>
+
+    <!-- Logo files explained -->
+    <div style="background:var(--dark-grey); border:1px solid #2a2a2a; border-radius:8px; padding:24px 32px; margin-bottom:32px; display:flex; gap:48px; align-items:flex-start;">
+      <div style="flex:1;">
+        <div class="type-label" style="margin-bottom:12px;">Two Logo Files</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+          <div>
+            <div style="font-family:var(--font-head); font-size:15px; font-weight:700; text-transform:uppercase; color:var(--gold); letter-spacing:0.06em; margin-bottom:6px;">SOC_logo.png — Transparent</div>
+            <div style="font-size:13px; color:#bbb; line-height:1.6;">White wordmark + shield on a transparent background. Used in the website navigation bar, social media template overlays, and anywhere the background colour provides sufficient contrast. Requires a dark (or solid colour) background behind it.</div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-head); font-size:15px; font-weight:700; text-transform:uppercase; color:var(--gold); letter-spacing:0.06em; margin-bottom:6px;">SOC_logoRef.png — Black Field</div>
+            <div style="font-size:13px; color:#bbb; line-height:1.6;">Same mark on a solid black rectangle. Used for print documents, PDF exports, email headers, and any context where a transparent background cannot be guaranteed (e.g. white paper). The black field ensures consistent rendering across all outputs.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="logo-grid">
+      <div class="logo-usage-card dark-bg">
+        <img src="./SOC_logo.png" alt="SOC Fitness transparent logo on black" />
+        <div class="logo-usage-label" style="color:var(--gold);">
+          Primary — Transparent on Black<br>
+          <span style="color:#666; font-size:10px; font-weight:400; text-transform:none; letter-spacing:0;">SOC_logo.png. Preferred application for all digital use.</span>
+        </div>
+      </div>
+
+      <div class="logo-usage-card grey-bg">
+        <img src="./SOC_logo.png" alt="SOC Fitness transparent logo on dark grey" />
+        <div class="logo-usage-label" style="color:var(--white);">
+          Transparent on Dark Grey<br>
+          <span style="color:#aaa; font-size:10px; font-weight:400; text-transform:none; letter-spacing:0;">SOC_logo.png. Acceptable on any dark background.</span>
+        </div>
+      </div>
+
+      <div class="logo-usage-card light-bg">
+        <img src="./SOC_logoRef.png" alt="SOC Fitness black-field logo on light background" />
+        <div class="logo-usage-label" style="color:var(--black);">
+          Black Field on Light Backgrounds<br>
+          <span style="color:#555; font-size:10px; font-weight:400; text-transform:none; letter-spacing:0;">SOC_logoRef.png. Use when background is white or light.</span>
+        </div>
+      </div>
+
+      <div class="logo-usage-card blue-bg">
+        <img src="./SOC_logo.png" alt="SOC Fitness transparent logo on blue" />
+        <div class="logo-usage-label" style="color:var(--white);">
+          Transparent on Brand Blue<br>
+          <span style="color:rgba(255,255,255,0.6); font-size:10px; font-weight:400; text-transform:none; letter-spacing:0;">SOC_logo.png. Use sparingly — social headers, kit contexts.</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px; background:var(--dark-grey); border:1px solid #2a2a2a; border-radius:8px; padding:36px; display:flex; align-items:flex-start; gap:48px;">
+      <div style="position:relative; padding:30px; border:1px dashed #444; border-radius:4px; flex-shrink:0;">
+        <div style="position:absolute; top:-20px; left:0; font-size:11px; color:var(--gold); font-family:var(--font-body); font-weight:600; letter-spacing:0.1em; white-space:nowrap;">Clear space = ½ logo height on all sides</div>
+        <img src="./SOC_logo.png" alt="" style="height:70px; display:block;" />
+      </div>
+      <div style="flex:1;">
+        <h3 style="font-family:var(--font-head); font-size:22px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--white); margin-bottom:16px;">Clear Space &amp; Sizing Rules</h3>
+        <ul style="list-style:none;">
+          <li style="font-size:14px; color:#bbb; padding:7px 0; padding-left:20px; position:relative; border-bottom:1px solid #2a2a2a;">
+            <span style="position:absolute; left:0; color:var(--gold);">—</span>
+            Always maintain a minimum clear zone of half the logo height on all four sides.
+          </li>
+          <li style="font-size:14px; color:#bbb; padding:7px 0; padding-left:20px; position:relative; border-bottom:1px solid #2a2a2a;">
+            <span style="position:absolute; left:0; color:var(--gold);">—</span>
+            Minimum digital size: 80px tall. Never render smaller — the stripe detail and lettering will degrade.
+          </li>
+          <li style="font-size:14px; color:#bbb; padding:7px 0; padding-left:20px; position:relative; border-bottom:1px solid #2a2a2a;">
+            <span style="position:absolute; left:0; color:var(--gold);">—</span>
+            Do not stretch, rotate, recolour, or apply drop shadows to the logo.
+          </li>
+          <li style="font-size:14px; color:#bbb; padding:7px 0; padding-left:20px; position:relative;">
+            <span style="position:absolute; left:0; color:var(--gold);">—</span>
+            Do not place on a busy photograph without a sufficient dark overlay (minimum 50% black).
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. BRAND VOICE ── -->
+  <section class="sg-section" id="voice">
+    <div class="sg-section-header">
+      <span class="sg-section-number">04</span>
+      <h2 class="sg-section-title">Brand <span>Voice</span></h2>
+    </div>
+
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-word">Uncom&shy;promis&shy;ing</div>
+        <div class="voice-desc">We don't soften the message. High standards are non-negotiable — in training and in how we communicate.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-word">Athletic</div>
+        <div class="voice-desc">Every word earns its place. The voice is lean and purposeful — no waffle, no filler. Copy that moves like an athlete.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-word">Irish</div>
+        <div class="voice-desc">Rooted in GAA culture. The tone is familiar, direct, and proud — the language of the pitch and the dressing room.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-word">Expert</div>
+        <div class="voice-desc">We know GAA performance inside out. The voice is confident and credible — backed by results, not empty claims.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-word">Gritty</div>
+        <div class="voice-desc">We celebrate hard work and honest effort. The voice is real — no motivational poster clichés, just earned conviction.</div>
+      </div>
+    </div>
+
+    <div class="voice-dos-donts">
+      <div class="dos-card">
+        <h4>Do Say</h4>
+        <ul>
+          <li>Train Like an Athlete</li>
+          <li>Built for GAA Performance</li>
+          <li>Earn your edge in the gym</li>
+          <li>Strength that shows up on match day</li>
+          <li>No fluff. Just results.</li>
+          <li>Your position. Your programme. Your season.</li>
+        </ul>
+      </div>
+      <div class="donts-card">
+        <h4>Don't Say</h4>
+        <ul>
+          <li>Transform your body in 30 days</li>
+          <li>Are you beach-body ready?</li>
+          <li>Smash your goals</li>
+          <li>Fitness journey begins here</li>
+          <li>Level up your lifestyle</li>
+          <li>Feel amazing and look great</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. PHOTOGRAPHY ── -->
+  <section class="sg-section" id="photography">
+    <div class="sg-section-header">
+      <span class="sg-section-number">05</span>
+      <h2 class="sg-section-title">Photo<span>graphy</span></h2>
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-card">
+        <img src="./SOC_photo1.png" alt="Shane coaching a GAA athlete barbell squat" />
+        <div class="photo-card-label">Coaching in Action — Gym Environment</div>
+      </div>
+      <div class="photo-card">
+        <img src="./SOC_photo2.jpg" alt="GAA footballer mid-kick on pitch" />
+        <div class="photo-card-label">On-Pitch Athletic Performance</div>
+      </div>
+    </div>
+
+    <div class="photo-principles">
+      <div class="principle-card">
+        <div class="principle-icon">⚡</div>
+        <div class="principle-title">Real Athletes, Real Moments</div>
+        <div class="principle-desc">No stock photography. Every image shows real GAA athletes in genuine training or match scenarios. Authenticity is non-negotiable.</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">🏟</div>
+        <div class="principle-title">GAA Context</div>
+        <div class="principle-desc">Photography should anchor the brand in GAA. Pitches, club kits, Croke Park — the visual world of the GAA player.</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">🎞</div>
+        <div class="principle-title">Cinematic & Moody</div>
+        <div class="principle-desc">Dark treatment, high contrast, gritty feel. Avoid bright, clean, wellness-brand aesthetics. This is performance, not lifestyle.</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">💪</div>
+        <div class="principle-title">Show the Work</div>
+        <div class="principle-desc">Images should capture effort — a barbell under load, a sprint, a tackle. Show the training, not the result photo.</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">📐</div>
+        <div class="principle-title">Dark Overlay on Backgrounds</div>
+        <div class="principle-desc">When photos are used as backgrounds (hero, section dividers), apply a minimum 50% black overlay to ensure text legibility and brand consistency.</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-icon">🎨</div>
+        <div class="principle-title">Brand Colour Alignment</div>
+        <div class="principle-desc">Preferred photography features athletes in blue and gold — the SOC kit colours. This reinforces brand coherence across all touchpoints.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. UI COMPONENTS ── -->
+  <section class="sg-section" id="components">
+    <div class="sg-section-header">
+      <span class="sg-section-number">06</span>
+      <h2 class="sg-section-title">UI <span>Components</span></h2>
+    </div>
+
+    <div class="component-grid">
+
+      <div class="component-card">
+        <div class="component-label">Buttons</div>
+        <div class="comp-row">
+          <button class="btn-primary">Get a Programme</button>
+          <button class="btn-secondary">Learn More</button>
+        </div>
+        <div class="comp-row">
+          <button class="btn-blue">View Services</button>
+          <button class="btn-ghost">Sign In</button>
+        </div>
+        <div class="gold-divider"></div>
+        <p style="font-size:13px; color:#888; line-height:1.6;">
+          <strong style="color:var(--white);">Gold / Black</strong> — Primary CTA. One per view.<br>
+          <strong style="color:var(--white);">White outline</strong> — Secondary action.<br>
+          <strong style="color:var(--white);">Blue</strong> — Tertiary or supporting action.<br>
+          <strong style="color:var(--white);">Gold outline</strong> — Ghost/alternate accent CTA.
+        </p>
+      </div>
+
+      <div class="component-card">
+        <div class="component-label">Badges &amp; Tags</div>
+        <div class="comp-row" style="margin-bottom:24px;">
+          <span class="badge badge-gold">GAA Specialist</span>
+          <span class="badge badge-blue">Online Coaching</span>
+          <span class="badge badge-white">Personal Training</span>
+        </div>
+        <div class="component-label">Navigation Links</div>
+        <div class="comp-row">
+          <a href="#" class="nav-link-demo">Services</a>
+          <a href="#" class="nav-link-demo">Testimonials</a>
+          <a href="#" class="nav-link-demo">Contact</a>
+        </div>
+        <div class="component-label" style="margin-top:20px;">Inline Link</div>
+        <p style="font-size:15px; color:#bbb;">Learn more about <a href="#" class="link-demo">SOC performance methodology</a> and how it works.</p>
+      </div>
+
+      <div class="component-card">
+        <div class="component-label">Form Inputs</div>
+        <input class="input-demo" type="text" placeholder="Full Name" />
+        <input class="input-demo" type="email" placeholder="Email Address" />
+        <textarea class="input-demo" rows="3" placeholder="Your message..." style="resize:none;"></textarea>
+        <button class="btn-primary" style="width:100%; margin-top:4px;">Send Message</button>
+      </div>
+
+      <div class="component-card">
+        <div class="component-label">Service Card (hover to preview lift effect)</div>
+        <div class="card-demo">
+          <div class="card-demo-tag">1:1 Personal Training</div>
+          <div class="card-demo-title">Elite Coaching, In Person</div>
+          <div class="card-demo-body">One coach, one athlete, one goal. Your programme is built around your position, your schedule, and your standards.</div>
+          <div style="margin-top:16px;">
+            <a href="#" class="link-demo">Learn more</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-card" style="grid-column: span 2;">
+        <div class="component-label">Stat Display</div>
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Athletes Coached</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Years GAA Specialist</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Bespoke Programming</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">GAA</div>
+            <div class="stat-label">Only Focus</div>
+          </div>
+        </div>
+        <div class="gold-divider" style="margin-top:24px;"></div>
+        <p style="font-size:13px; color:#888; margin-top:12px;">Stat figures use Barlow Condensed Black 900 in Gold. Labels use Barlow SemiBold in mid-grey, small caps.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 7. SOCIAL MEDIA TEMPLATES ── -->
+  <section class="sg-section" id="social">
+    <div class="sg-section-header">
+      <span class="sg-section-number">07</span>
+      <h2 class="sg-section-title">Social Media <span>Templates</span></h2>
+    </div>
+
+    <!-- FORMAT SPECS -->
+    <div class="social-format-grid">
+
+      <!-- FEED 4:5 -->
+      <div class="format-card">
+        <div class="format-card-title">Feed Post — 4:5</div>
+        <div class="format-card-sub">1080 × 1350 px · Instagram / Facebook Feed</div>
+        <div class="format-canvas-row">
+          <!-- scaled canvas: 1080x1350 → 80x100 -->
+          <div>
+            <div class="format-canvas" style="width:80px; height:100px;">
+              <!-- gold top bar -->
+              <div style="position:absolute; top:0; left:0; right:0; height:7px; background:var(--gold);"></div>
+              <!-- safe zone box -->
+              <div class="safe-zone-line" style="top:7px; left:2px; right:2px; bottom:5px;"></div>
+              <!-- logo placeholder top-left -->
+              <div style="position:absolute; top:14px; left:4px; background:rgba(242,166,29,0.3); width:22px; height:10px; border-radius:1px;"></div>
+              <!-- headline placeholder -->
+              <div style="position:absolute; top:40px; left:4px; right:4px;">
+                <div style="background:#333; height:8px; border-radius:1px; margin-bottom:4px;"></div>
+                <div style="background:#222; height:6px; border-radius:1px; width:70%;"></div>
+              </div>
+            </div>
+            <div class="format-canvas-label">1080 × 1350</div>
+          </div>
+          <div style="flex:1;">
+            <ul class="format-rules">
+              <li>Gold 10px bar anchored to top edge — always present, all templates</li>
+              <li>Logo safe zone: 28px inset from all edges</li>
+              <li>Logo never placed within 28px of any edge</li>
+              <li>Background: always <strong style="color:var(--white);">#0D0D0D</strong> black — not dark grey</li>
+              <li>Headline font: Barlow Condensed 900, uppercase, line-height 0.9</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- STORIES 9:16 -->
+      <div class="format-card">
+        <div class="format-card-title">Stories / Reels — 9:16</div>
+        <div class="format-card-sub">1080 × 1920 px · Instagram / Facebook Stories &amp; Reels</div>
+        <div class="format-canvas-row">
+          <!-- scaled canvas: 1080x1920 → 56x100 -->
+          <div>
+            <div class="format-canvas" style="width:56px; height:100px;">
+              <!-- gold top bar -->
+              <div style="position:absolute; top:0; left:0; right:0; height:5px; background:var(--gold);"></div>
+              <!-- top UI safe zone (200px = ~10%) -->
+              <div style="position:absolute; top:5px; left:0; right:0; height:10px; background:rgba(255,255,255,0.04); border-bottom:1px dashed rgba(242,166,29,0.4);"></div>
+              <!-- bottom UI safe zone (300px = ~16%) -->
+              <div style="position:absolute; bottom:0; left:0; right:0; height:16px; background:rgba(255,255,255,0.04); border-top:1px dashed rgba(242,166,29,0.4);"></div>
+              <!-- logo placeholder -->
+              <div style="position:absolute; top:18px; left:4px; background:rgba(242,166,29,0.3); width:18px; height:8px; border-radius:1px;"></div>
+              <!-- headline placeholder -->
+              <div style="position:absolute; top:38px; left:4px; right:4px;">
+                <div style="background:#333; height:7px; border-radius:1px; margin-bottom:3px;"></div>
+                <div style="background:#222; height:5px; border-radius:1px; width:80%;"></div>
+              </div>
+            </div>
+            <div class="format-canvas-label">1080 × 1920</div>
+          </div>
+          <div style="flex:1;">
+            <ul class="format-rules">
+              <li>Gold 10px bar anchored to top edge — always present, all templates</li>
+              <li>Top safe zone: 200px — Instagram profile icon + notification area</li>
+              <li>Bottom safe zone: 300px — Instagram action bar (like, comment, share)</li>
+              <li>Logo must sit within the safe zone — not in either UI exclusion zone</li>
+              <li>Background: always <strong style="color:var(--white);">#0D0D0D</strong> black — not dark grey</li>
+              <li>Headline font: Barlow Condensed 900, 68px, uppercase, line-height 0.9</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEMPLATE TYPES -->
+    <div style="margin-bottom:16px;">
+      <div class="type-label">Template Types</div>
+    </div>
+    <div class="template-type-grid">
+      <div class="template-type-card">
+        <div class="template-type-name">Base Templates</div>
+        <div class="template-type-desc">Logo-only. Three position variants per format — A (logo top-left), B (logo top-right / top-centre), C (logo bottom-left / bottom). Used as blank branded canvases for photography overlays or content where the visual is the hero.</div>
+      </div>
+      <div class="template-type-card">
+        <div class="template-type-name">Headline Templates</div>
+        <div class="template-type-desc">Four content variants per format — Client Spotlight, Training Tip, Match Day, New Post. Large headline in Barlow Condensed 900, one keyword highlighted in Gold. Designed for regular social content cadence.</div>
+      </div>
+    </div>
+
+    <!-- CONTENT VARIANTS -->
+    <div style="margin-bottom:16px;">
+      <div class="type-label">Headline Variants — Content Types</div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; margin-bottom:40px;">
+      <div style="background:var(--black); border:1px solid #2a2a2a; border-radius:6px; padding:20px;">
+        <div style="font-family:var(--font-head); font-size:22px; font-weight:900; text-transform:uppercase; line-height:0.9; color:var(--white); margin-bottom:10px;"><span style="color:var(--gold);">CLIENT</span><br>SPOTLIGHT</div>
+        <div style="font-size:12px; color:#666; line-height:1.5;">Athlete testimonials and results posts. Gold on "CLIENT" — the key achievement word.</div>
+      </div>
+      <div style="background:var(--black); border:1px solid #2a2a2a; border-radius:6px; padding:20px;">
+        <div style="font-family:var(--font-head); font-size:22px; font-weight:900; text-transform:uppercase; line-height:0.9; color:var(--white); margin-bottom:10px;">TRAINING<br><span style="color:var(--gold);">TIP</span></div>
+        <div style="font-size:12px; color:#666; line-height:1.5;">Quick coaching advice, technique cues, weekly focus areas. Gold on "TIP" — the value word.</div>
+      </div>
+      <div style="background:var(--black); border:1px solid #2a2a2a; border-radius:6px; padding:20px;">
+        <div style="font-family:var(--font-head); font-size:22px; font-weight:900; text-transform:uppercase; line-height:0.9; color:var(--white); margin-bottom:10px;"><span style="color:var(--gold);">MATCH</span><br>DAY</div>
+        <div style="font-size:12px; color:#666; line-height:1.5;">Game-day motivation, match recaps, performance highlights. Gold on "MATCH" — the event word.</div>
+      </div>
+      <div style="background:var(--black); border:1px solid #2a2a2a; border-radius:6px; padding:20px;">
+        <div style="font-family:var(--font-head); font-size:22px; font-weight:900; text-transform:uppercase; line-height:0.9; color:var(--white); margin-bottom:10px;"><span style="color:var(--gold);">NEW</span><br>POST</div>
+        <div style="font-size:12px; color:#666; line-height:1.5;">Blog announcements, new content drops, programme launches. Gold on "NEW" — the attention word.</div>
+      </div>
+    </div>
+
+    <!-- DESIGN RULES -->
+    <div class="social-design-rules">
+      <div class="type-label">Universal Design Rules</div>
+      <div class="design-rule-grid">
+        <div class="design-rule-card">
+          <div class="design-rule-title">Background — Black Only</div>
+          <div class="design-rule-body">All templates use <strong style="color:var(--white);">#0D0D0D</strong> as background. Dark grey (#1A1A1A) is reserved for website sections and cards — never for social template backgrounds.</div>
+        </div>
+        <div class="design-rule-card">
+          <div class="design-rule-title">Gold — One Word Only</div>
+          <div class="design-rule-body">Gold highlights exactly one complete keyword per headline. Never mid-word (no splitting across a line break). Never the final word of a negative phrase. Gold on the word that carries the most meaning.</div>
+        </div>
+        <div class="design-rule-card">
+          <div class="design-rule-title">Top Bar — Always Present</div>
+          <div class="design-rule-body">A 10px gold bar anchored to the top edge appears on every template, base and headline. It is the primary brand anchor — the first element a viewer reads as SOC Fitness.</div>
+        </div>
+        <div class="design-rule-card">
+          <div class="design-rule-title">Logo — Within Safe Zones</div>
+          <div class="design-rule-body">Feed: 28px minimum inset from all edges. Stories: logo must sit below the 200px top UI zone and above the 300px bottom UI zone. Instagram's own UI must never overlap the logo.</div>
+        </div>
+        <div class="design-rule-card">
+          <div class="design-rule-title">No Additional Text</div>
+          <div class="design-rule-body">Headline templates carry the logo and the headline — nothing else. No "SOC FITNESS" wordmark repeated in type (the logo handles that), no straplines, no URLs on the template itself.</div>
+        </div>
+        <div class="design-rule-card">
+          <div class="design-rule-title">File — Transparent Logo</div>
+          <div class="design-rule-body">Always use <strong style="color:var(--white);">SOC_logo.png</strong> (transparent) on social media templates. The black background provides the contrast; the black-field version (SOC_logoRef.png) would create a visible rectangle on the template.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="sg-footer">
+    <img src="./SOC_logo.png" alt="SOC Fitness" />
+    <p>SOC Fitness Brand Style Guide · Version 1.1 · 2026. All rights reserved.</p>
+    <span class="version-tag">v1.1</span>
+  </footer>
+
+</body>
+</html>
