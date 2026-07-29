@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bundee Aki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --forest:     #0D0D0D;   /* night sky — primary dark */
+      --forest-mid: #1A4731;   /* connacht forest — brand primary */
+      --forest-lit: #2E7D52;   /* fern — lighter green for surfaces */
+      --cream:      #F4F0E6;   /* off-white / cream */
+      --cream-dim:  #E6E0D0;   /* dimmer cream for borders */
+      --gold:       #C9A84C;   /* pacific sun — warm gold accent */
+      --gold-light: #E8C97A;   /* warm gold hover */
+      --red:        #9B1C2E;   /* lions red — prestige accent */
+      --near-black: #0A0F0C;   /* near-black for type */
+      --muted:      #8A9E92;   /* muted green-grey */
+      --white:      #FFFFFF;
+
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+      --nav-h: 72px;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--forest);
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
+
+    /* ─── REDUCED MOTION ─────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      transition: background 300ms var(--ease-out), backdrop-filter 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
+    }
+    .nav.scrolled {
+      background: rgba(10, 15, 12, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(201, 146, 42, 0.15);
+    }
+
+    .nav__logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: 0.12em;
+      color: var(--cream);
+      transition: color 150ms var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .nav__logo:hover { color: var(--gold); }
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+    .nav__link {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.8;
+      transition: opacity 150ms, color 150ms;
+      position: relative;
+    }
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0; right: 100%;
+      height: 1px;
+      background: var(--gold);
+      transition: right 200ms var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .nav__link:hover { opacity: 1; color: var(--gold-light); }
+      .nav__link:hover::after { right: 0; }
+    }
+
+    /* burger */
+    .nav__burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 28px;
+      padding: 4px 0;
+    }
+    .nav__burger span {
+      display: block;
+      height: 2px;
+      background: var(--cream);
+      border-radius: 2px;
+      transform-origin: center;
+      transition: transform 250ms var(--ease-out), opacity 200ms;
+    }
+    .nav__burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* mobile drawer */
+    .nav__mobile {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      background: rgba(10, 15, 12, 0.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 2rem 5% 3rem;
+      transform: translateY(-8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 300ms var(--ease-out), opacity 300ms var(--ease-out);
+      z-index: 99;
+      border-bottom: 1px solid rgba(201, 146, 42, 0.2);
+    }
+    .nav__mobile.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .nav__mobile-link {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2.5rem;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+      padding: 0.4rem 0;
+      transition: color 150ms, opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    .nav__mobile.open .nav__mobile-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .nav__mobile.open .nav__mobile-link:nth-child(1) { transition-delay: 60ms; }
+    .nav__mobile.open .nav__mobile-link:nth-child(2) { transition-delay: 100ms; }
+    .nav__mobile.open .nav__mobile-link:nth-child(3) { transition-delay: 140ms; }
+    .nav__mobile.open .nav__mobile-link:nth-child(4) { transition-delay: 180ms; }
+    @media (hover: hover) and (pointer: fine) {
+      .nav__mobile-link:hover { color: var(--gold); }
+    }
+
+    @media (max-width: 768px) {
+      .nav__links { display: none; }
+      .nav__burger { display: flex; }
+      .nav__mobile { display: block; }
+    }
+
+    /* ─── HERO ───────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background: var(--forest);
+      z-index: 0;
+    }
+    /* Subtle texture overlay */
+    .hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 80% at 70% 50%, rgba(36, 77, 53, 0.5) 0%, transparent 70%),
+        linear-gradient(135deg, rgba(10,15,12,0.9) 0%, rgba(14,35,24,0.6) 100%);
+    }
+
+    .hero__photo {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 52%;
+      background: var(--forest-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero__photo::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 40%;
+      background: linear-gradient(to right, var(--forest) 0%, transparent 100%);
+      z-index: 2;
+    }
+    .hero__photo::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 30%;
+      background: linear-gradient(to top, var(--forest) 0%, transparent 100%);
+      z-index: 2;
+    }
+    .hero__photo-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, #1A3A28 0%, #0E2318 60%, #0a1a10 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      position: relative;
+    }
+    .hero__photo-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,146,42,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,146,42,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .placeholder-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    .placeholder-label strong {
+      display: block;
+      color: var(--gold);
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .placeholder-icon {
+      width: 64px;
+      height: 64px;
+      border: 1.5px solid rgba(201,146,42,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .placeholder-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--gold);
+      fill: none;
+      opacity: 0.6;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: calc(var(--nav-h) + 4rem) 5% 6rem;
+      grid-column: 1;
+    }
+
+    .hero__eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero__headline {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3.75rem);
+      line-height: 1.15;
+      letter-spacing: 0.01em;
+      color: var(--cream);
+      margin-bottom: 1.75rem;
+    }
+    .hero__headline em {
+      color: var(--gold);
+      font-style: normal;
+    }
+    .hero__br {
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .hero__br { display: inline; }
+    }
+
+    .hero__sub {
+      font-size: 0.9rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--cream);
+      opacity: 0.65;
+      margin-bottom: 3rem;
+      line-height: 1.8;
+    }
+    .hero__sub strong {
+      font-weight: 500;
+      opacity: 1;
+      color: var(--cream);
+    }
+
+    .hero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--gold);
+      color: var(--near-black);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      align-self: flex-start;
+      transition: background 150ms, transform 150ms;
+    }
+    .hero__cta:active { transform: scale(0.97); }
+    @media (hover: hover) and (pointer: fine) {
+      .hero__cta:hover { background: var(--gold-light); }
+    }
+    .hero__cta svg {
+      width: 14px; height: 14px;
+      stroke: currentColor; fill: none;
+      transition: transform 200ms var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .hero__cta:hover svg { transform: translateX(4px); }
+    }
+
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .hero__photo {
+        width: 100%;
+        height: 65%;
+        top: auto;
+        bottom: 0;
+      }
+      .hero__photo::before {
+        width: 100%;
+        height: 55%;
+        top: 0;
+        bottom: auto;
+        background: linear-gradient(to bottom, var(--forest) 0%, transparent 100%);
+      }
+      .hero__photo::after {
+        height: 30%;
+      }
+      .hero__content {
+        position: relative;
+        z-index: 10;
+        padding-top: calc(var(--nav-h) + 1.5rem);
+        padding-bottom: 2rem;
+        grid-column: 1;
+        align-self: start;
+      }
+      .hero__headline { font-size: clamp(1.5rem, 6vw, 2.5rem); }
+    }
+
+    /* ─── SECTION SHARED ─────────────────────────────────────── */
+    .section {
+      padding: 5rem 5%;
+    }
+    @media (max-width: 768px) {
+      .section { padding: 3rem 5%; }
+      .contact { padding: 3rem 5%; }
+      .career__header { margin-bottom: 2.5rem; }
+      .community__header { margin-bottom: 1.5rem; }
+    }
+    .section--dark {
+      background: var(--near-black);
+    }
+    .section--mid {
+      background: var(--forest-mid);
+    }
+    .section--cream {
+      background: var(--cream);
+      color: var(--near-black);
+    }
+
+
+    .section__title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── SCROLL ANIMATION ───────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up.delay-1 { transition-delay: 40ms; }
+    .fade-up.delay-2 { transition-delay: 80ms; }
+    .fade-up.delay-3 { transition-delay: 120ms; }
+    .fade-up.delay-4 { transition-delay: 160ms; }
+    .fade-up.delay-5 { transition-delay: 160ms; }
+
+    /* ─── ABOUT ──────────────────────────────────────────────── */
+    .about {
+      background: var(--forest);
+    }
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .about__text {
+      padding-top: 0.5rem;
+    }
+    .about__title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin: 1rem 0 2rem;
+    }
+    .about__title span {
+      color: var(--gold);
+    }
+    .about__body {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--cream);
+      opacity: 0.8;
+    }
+    .about__body p + p {
+      margin-top: 1.25rem;
+    }
+    .about__pull {
+      font-family: 'Syne', sans-serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 1.35rem;
+      line-height: 1.5;
+      color: var(--cream);
+      margin: 2.5rem 0;
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--gold);
+    }
+
+    .about__image {
+      aspect-ratio: 3/4;
+      background: var(--forest-mid);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .about__image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,146,42,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,146,42,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .about__image-corner {
+      position: absolute;
+      width: 40px; height: 40px;
+      border-color: var(--gold);
+      border-style: solid;
+      opacity: 0.4;
+    }
+    .about__image-corner--tl { top: 16px; left: 16px; border-width: 1.5px 0 0 1.5px; }
+    .about__image-corner--tr { top: 16px; right: 16px; border-width: 1.5px 1.5px 0 0; }
+    .about__image-corner--bl { bottom: 16px; left: 16px; border-width: 0 0 1.5px 1.5px; }
+    .about__image-corner--br { bottom: 16px; right: 16px; border-width: 0 1.5px 1.5px 0; }
+
+    /* Stats */
+    .about__stats {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(201,146,42,0.15);
+      margin-top: 1rem;
+    }
+    .stat-card {
+      background: var(--forest-mid);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: background 200ms;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .stat-card:hover { background: var(--forest-lit); }
+    }
+    .stat-card__number {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 4rem;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: var(--gold);
+      display: block;
+    }
+    .stat-card__label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .about__grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about__image { aspect-ratio: 4/3; }
+      .about__stats { grid-column: 1; }
+    }
+    @media (max-width: 600px) {
+      .about__stats { grid-template-columns: 1fr; }
+      .stat-card { padding: 2rem; }
+    }
+
+    /* ─── CAREER / TIMELINE ──────────────────────────────────── */
+    .career {
+      background: var(--near-black);
+    }
+    .career__header {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+    }
+
+    /* horizontal desktop timeline */
+    .timeline {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .timeline__track {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      overflow-x: auto;
+      overflow-y: visible;
+      padding-top: 6px;
+      padding-bottom: 1rem;
+      scrollbar-width: none;
+    }
+    .timeline__track::-webkit-scrollbar { display: none; }
+    .timeline__line {
+      position: absolute;
+      top: 16px; left: 0; right: 0;
+      height: 1px;
+      background: rgba(201,146,42,0.2);
+    }
+
+    .timeline__node {
+      flex: 1;
+      min-width: 160px;
+      padding: 0 1rem;
+      position: relative;
+    }
+    .timeline__dot {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--forest-mid);
+      border: 2px solid var(--gold);
+      position: relative;
+      z-index: 2;
+      transition: background 200ms, transform 200ms var(--ease-out);
+      margin-bottom: 2rem;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .timeline__node:hover .timeline__dot {
+        background: var(--gold);
+        transform: scale(1.2);
+      }
+    }
+    .timeline__year {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      margin-bottom: 0.25rem;
+    }
+    .timeline__milestone {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    .timeline__desc {
+      font-size: 0.78rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    /* vertical on mobile */
+    @media (max-width: 768px) {
+      .timeline__track {
+        flex-direction: column;
+        gap: 0;
+        overflow-x: visible;
+      }
+      .timeline__line {
+        top: 0; bottom: 0;
+        left: 9px; right: auto;
+        width: 1px;
+        height: auto;
+      }
+      .timeline__node {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0 1.25rem;
+        min-width: 0;
+        flex: none;
+        width: 100%;
+        padding: 0 0 3rem 0;
+        align-items: start;
+      }
+      .timeline__dot {
+        width: 20px; height: 20px;
+        margin-bottom: 0;
+        margin-top: 3px;
+        flex-shrink: 0;
+        grid-column: 1;
+        grid-row: 1 / 4;
+        align-self: start;
+      }
+      .timeline__year { grid-column: 2; }
+      .timeline__milestone { grid-column: 2; }
+      .timeline__desc { grid-column: 2; }
+    }
+
+    /* ─── COMMUNITY ──────────────────────────────────────────── */
+    .community {
+      background: var(--forest);
+    }
+    .community__header {
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+    }
+    .community__intro {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--cream);
+      opacity: 0.75;
+      padding-top: 4rem;
+    }
+    .community__cards {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .community__card {
+      background: var(--forest-mid);
+      border: 1px solid rgba(201,146,42,0.1);
+      overflow: hidden;
+      transition: border-color 200ms, transform 200ms var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .community__card:hover {
+        border-color: rgba(201,146,42,0.35);
+        transform: translateY(-4px);
+      }
+    }
+    .community__card-image {
+      aspect-ratio: 4/3;
+      background: var(--forest-lit);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .community__card-image img {
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path 500ms var(--ease-out);
+      transition-delay: 100ms;
+    }
+    .community__card.fade-up.visible .community__card-image img {
+      clip-path: inset(0 0 0% 0);
+    }
+    .community__card-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,146,42,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,146,42,0.03) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .community__card-body {
+      padding: 1.75rem;
+    }
+    .community__card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      color: var(--cream);
+      margin-bottom: 0.75rem;
+    }
+    .community__card-text {
+      font-size: 0.82rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .community__header { grid-template-columns: 1fr; gap: 1.5rem; }
+      .community__intro { padding-top: 0; }
+      .community__cards { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+    @media (min-width: 600px) and (max-width: 900px) {
+      .community__cards { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ─── CONTACT ────────────────────────────────────────────── */
+    .contact {
+      background: var(--near-black);
+      padding: 5rem 5%;
+    }
+    .contact__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .contact__left {
+      padding-top: 0.5rem;
+    }
+    .contact__title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin: 1rem 0 1.5rem;
+    }
+    .contact__title span {
+      color: var(--gold);
+    }
+    .contact__body {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--cream);
+      opacity: 0.7;
+      margin-bottom: 2.5rem;
+    }
+    .contact__detail {
+      margin-bottom: 0.75rem;
+    }
+    .contact__detail-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.2rem;
+    }
+    .contact__detail-value {
+      font-size: 0.9rem;
+      color: var(--cream);
+      opacity: 0.8;
+    }
+
+    /* form */
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .form__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .form__field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form__label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form__input,
+    .form__textarea,
+    .form__select {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      padding: 0.85rem 1rem;
+      width: 100%;
+      outline: none;
+      transition: border-color 150ms ease, background 150ms ease, box-shadow 150ms ease;
+      border-radius: 0;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form__input::placeholder,
+    .form__textarea::placeholder {
+      color: rgba(244,240,230,0.25);
+    }
+    .form__input:focus,
+    .form__textarea:focus,
+    .form__select:focus {
+      border-color: var(--gold);
+      background: rgba(201,146,42,0.05);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
+    }
+    .form__textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    .form__select option {
+      background: var(--near-black);
+    }
+    .form__submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--gold);
+      color: var(--near-black);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 1.1rem 2.25rem;
+      align-self: flex-start;
+      transition: background 150ms, transform 150ms;
+      cursor: pointer;
+      border: none;
+    }
+    .form__submit:active { transform: scale(0.97); }
+    @media (hover: hover) and (pointer: fine) {
+      .form__submit:hover { background: var(--gold-light); }
+    }
+    .form__submit svg {
+      width: 14px; height: 14px;
+      stroke: currentColor; fill: none;
+      transition: transform 200ms var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .form__submit:hover svg { transform: translateX(4px); }
+    }
+
+    @media (max-width: 900px) {
+      .contact__inner { grid-template-columns: 1fr; gap: 3.5rem; }
+      .form__row { grid-template-columns: 1fr; }
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    .footer {
+      background: #070c09;
+      padding: 3rem 5%;
+      border-top: 1px solid rgba(201,146,42,0.12);
+    }
+    .footer__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .footer__logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: 0.12em;
+      color: var(--cream);
+      opacity: 0.6;
+    }
+    .footer__social {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer__social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 150ms;
+    }
+    .footer__social-link svg {
+      width: 16px; height: 16px;
+      stroke: currentColor; fill: none;
+      flex-shrink: 0;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .footer__social-link:hover { color: var(--gold); }
+    }
+    .footer__copy {
+      font-size: 0.65rem;
+      color: var(--muted);
+      opacity: 0.5;
+      letter-spacing: 0.06em;
+      width: 100%;
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    /* ─── SECTION MAX WIDTH WRAPPER ──────────────────────────── */
+    .inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ─── GOLD RULE DIVIDER ──────────────────────────────────── */
+    .gold-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin: 2rem 0;
+    }
+
+    /* partnership callout in contact */
+    .partnership-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: 1px solid rgba(201,146,42,0.3);
+      padding: 0.9rem 1.25rem;
+      margin-top: 2rem;
+    }
+    .partnership-badge__icon {
+      width: 32px; height: 32px;
+      background: rgba(201,146,42,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .partnership-badge__icon svg {
+      width: 14px; height: 14px;
+      stroke: var(--gold); fill: none;
+    }
+    .partnership-badge__text {
+      font-size: 0.72rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--cream);
+      opacity: 0.7;
+    }
+    .partnership-badge__text strong {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.1rem;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════════════ -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <a href="#hero" class="nav__logo">Bundee Aki</a>
+
+    <ul class="nav__links">
+      <li><a href="#about"     class="nav__link">About</a></li>
+      <li><a href="#career"    class="nav__link">Career</a></li>
+      <li><a href="#community" class="nav__link">Community</a></li>
+      <li><a href="#contact"   class="nav__link">Contact</a></li>
+    </ul>
+
+    <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav__mobile" id="mobile-menu" aria-hidden="true">
+    <a href="#about"     class="nav__mobile-link">About</a>
+    <a href="#career"    class="nav__mobile-link">Career</a>
+    <a href="#community" class="nav__mobile-link">Community</a>
+    <a href="#contact"   class="nav__mobile-link">Contact</a>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════ -->
+  <section class="hero" id="hero" aria-label="Hero">
+    <div class="hero__bg"></div>
+
+    <div class="hero__content">
+      <h1 class="hero__headline">
+        Everything that I have<span class="hero__br"> </span>is by the Grace of God.<br>
+        <em>Thank You Jesus.</em>
+      </h1>
+
+    </div>
+
+    <div class="hero__photo" aria-hidden="true">
+      <img src="Artwork/aki1.png" alt="Bundee Aki celebrating in Ireland jersey" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;" />
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       ABOUT
+  ════════════════════════════════════════════════ -->
+  <section class="section about" id="about" aria-labelledby="about-title">
+    <div class="about__grid">
+
+      <div class="about__text fade-up">
+        <h2 class="about__title" id="about-title">
+          Auckland Born.<br>
+          <span>Ireland Made.</span>
+        </h2>
+
+        <div class="about__body">
+          <p>
+            Bundee Aki grew up in Auckland, New Zealand, shaped by Samoan heritage, family, and the unforgiving demands of Southern Hemisphere rugby. He crossed the world to join Connacht in 2014, and what began as a professional move became something far deeper.
+          </p>
+          <blockquote class="about__pull">
+            "I love playing for Ireland, I love the people in Ireland. They've given nothing but love. I can only show it back with the way I play and the way I represent the country."
+          </blockquote>
+          <p>
+            After qualifying for Ireland through residency, Aki became one of the most trusted centres in the game. Physical, direct, and relentless with ball in hand. His selection for the British and Irish Lions in 2025 placed him among the elite of northern hemisphere rugby.
+          </p>
+          <p>
+            Off the pitch, Bundee is known for his warmth, his commitment to Connacht's community, and the cultural pride he brings to everything he does. He is a father, a leader, and a symbol of what it means to belong.
+          </p>
+        </div>
+      </div>
+
+      <div class="about__image fade-up delay-2" aria-label="Bundee Aki portrait">
+        <img src="Artwork/aki2.png" alt="Bundee Aki relaxed portrait, off-pitch" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;border-radius:8px;" />
+      </div>
+
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       CAREER TIMELINE
+  ════════════════════════════════════════════════ -->
+  <section class="section career" id="career" aria-labelledby="career-title">
+    <div class="career__header fade-up">
+      <h2 class="section__title" id="career-title">The Journey</h2>
+    </div>
+
+    <div class="timeline" role="list">
+      <div class="timeline__track">
+        <div class="timeline__line" aria-hidden="true"></div>
+
+        <div class="timeline__node fade-up delay-1" role="listitem">
+          <div class="timeline__dot" aria-hidden="true"></div>
+          <div class="timeline__year">2014</div>
+          <div class="timeline__milestone">Arrives at Connacht</div>
+          <div class="timeline__desc">Signs with Connacht Rugby, beginning a journey that would redefine his life and career.</div>
+        </div>
+
+        <div class="timeline__node fade-up delay-2" role="listitem">
+          <div class="timeline__dot" aria-hidden="true"></div>
+          <div class="timeline__year">2016</div>
+          <div class="timeline__milestone">PRO12 Champions</div>
+          <div class="timeline__desc">Part of the historic Connacht side that claimed their first-ever PRO12 title. A moment that defined a province.</div>
+        </div>
+
+        <div class="timeline__node fade-up delay-3" role="listitem">
+          <div class="timeline__dot" aria-hidden="true"></div>
+          <div class="timeline__year">2017</div>
+          <div class="timeline__milestone">Ireland Debut</div>
+          <div class="timeline__desc">Qualifies through residency and earns his first Ireland cap. The first of many appearances in green.</div>
+        </div>
+
+        <div class="timeline__node fade-up delay-4" role="listitem">
+          <div class="timeline__dot" aria-hidden="true"></div>
+          <div class="timeline__year">2018</div>
+          <div class="timeline__milestone">Grand Slam &amp; All Blacks</div>
+          <div class="timeline__desc">Part of the Ireland side that claimed the Six Nations Grand Slam and beat the All Blacks — the country he came from.</div>
+        </div>
+
+        <div class="timeline__node fade-up delay-5" role="listitem">
+          <div class="timeline__dot" aria-hidden="true"></div>
+          <div class="timeline__year">2019</div>
+          <div class="timeline__milestone">Rugby World Cup, Japan</div>
+          <div class="timeline__desc">Selected for Ireland's World Cup squad, cementing his place as one of the country's most important backs.</div>
+        </div>
+
+        <div class="timeline__node fade-up delay-5" role="listitem">
+          <div class="timeline__dot" style="background: var(--red);" aria-hidden="true"></div>
+          <div class="timeline__year" style="color: var(--red);">2025</div>
+          <div class="timeline__milestone">British &amp; Irish Lions</div>
+          <div class="timeline__desc">Selected for the Lions tour. The pinnacle of northern hemisphere rugby, and recognition of sustained excellence.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       COMMUNITY
+  ════════════════════════════════════════════════ -->
+  <section class="section community" id="community" aria-labelledby="community-title">
+    <div class="community__header">
+      <div class="fade-up">
+        <h2 class="section__title" id="community-title">What<br>He Stands For</h2>
+      </div>
+      <p class="community__intro fade-up delay-2">
+        Bundee Aki's impact stretches far beyond the rugby field. From nurturing youth talent in the west of Ireland to championing cultural identity, his values are woven into everything he does.
+      </p>
+    </div>
+
+    <div class="community__cards">
+
+      <div class="community__card fade-up delay-1">
+        <div class="community__card-image" role="img" aria-label="Bundee Aki with young rugby players">
+          <img src="Artwork/nextgen.jpeg" alt="Bundee Aki next generation community work" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" />
+        </div>
+        <div class="community__card-body">
+          <h3 class="community__card-title">The Next Generation</h3>
+          <p class="community__card-text">Bundee is a passionate advocate for grassroots rugby in Connacht and beyond. Visiting schools, coaching clinics, and showing young players what's possible.</p>
+        </div>
+      </div>
+
+      <div class="community__card fade-up delay-2">
+        <div class="community__card-image" role="img" aria-label="Bundee Aki Samoan heritage and roots">
+          <img src="Artwork/roots.png" alt="Bundee Aki roots and cultural pride" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" />
+        </div>
+        <div class="community__card-body">
+          <h3 class="community__card-title">Roots &amp; Pride</h3>
+          <p class="community__card-text">Samoan heritage runs deep. Bundee carries his roots with pride, bridging two cultures and showing that identity is never a boundary. It is a bridge.</p>
+        </div>
+      </div>
+
+      <div class="community__card fade-up delay-3">
+        <div class="community__card-image" role="img" aria-label="Bundee Aki family">
+          <img src="Artwork/fam.jpeg" alt="Bundee Aki family" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" />
+        </div>
+        <div class="community__card-body">
+          <h3 class="community__card-title">Built on Family</h3>
+          <p class="community__card-text">Family is the foundation. A devoted father and husband, Bundee's warmth and loyalty off the pitch mirrors the commitment he shows every Saturday.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       CONTACT / PARTNERSHIP
+  ════════════════════════════════════════════════ -->
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="contact__inner">
+
+      <div class="contact__left fade-up">
+        <h2 class="contact__title" id="contact-title">
+          Work with<br><span>Bundee</span>
+        </h2>
+        <div class="gold-rule"></div>
+        <p class="contact__body">
+          Bundee Aki is represented exclusively by Seven Eight Talent. He works with a select number of brand partners and public appearance opportunities each year — always aligned with his values and authentic to who he is.
+        </p>
+        <div class="contact__detail">
+          <p class="contact__detail-label">Management</p>
+          <p class="contact__detail-value">Seven Eight Talent</p>
+        </div>
+        <div class="contact__detail" style="margin-top:1rem;">
+          <p class="contact__detail-label">Enquiries</p>
+          <p class="contact__detail-value">hello@seveneighttalent.com</p>
+        </div>
+
+        <div class="partnership-badge" aria-label="Brand partnership information">
+          <div class="partnership-badge__icon">
+            <svg viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="partnership-badge__text">
+            <strong>Brand Partnerships</strong>
+            Sports · Lifestyle · Culture · Community<br>Available for campaigns, appearances &amp; ambassador roles
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-up delay-2">
+        <form class="form" novalidate aria-label="Partnership enquiry form">
+          <div class="form__row">
+            <div class="form__field">
+              <label class="form__label" for="f-name">First Name</label>
+              <input class="form__input" id="f-name" type="text" name="first_name" placeholder="Grace" autocomplete="given-name" />
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="f-surname">Last Name</label>
+              <input class="form__input" id="f-surname" type="text" name="last_name" placeholder="Murray" autocomplete="family-name" />
+            </div>
+          </div>
+
+          <div class="form__field">
+            <label class="form__label" for="f-email">Email Address</label>
+            <input class="form__input" id="f-email" type="email" name="email" placeholder="grace@yourcompany.com" autocomplete="email" />
+          </div>
+
+          <div class="form__field">
+            <label class="form__label" for="f-org">Organisation</label>
+            <input class="form__input" id="f-org" type="text" name="organisation" placeholder="Company or Agency" />
+          </div>
+
+          <div class="form__field">
+            <label class="form__label" for="f-type">Enquiry Type</label>
+            <select class="form__select" id="f-type" name="enquiry_type">
+              <option value="" disabled selected>Select an option</option>
+              <option value="brand-partnership">Brand Partnership</option>
+              <option value="ambassador">Ambassador Programme</option>
+              <option value="appearance">Personal Appearance</option>
+              <option value="media">Media Opportunity</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form__field">
+            <label class="form__label" for="f-message">Message</label>
+            <textarea class="form__textarea" id="f-message" name="message" placeholder="Tell us about the opportunity"></textarea>
+          </div>
+
+          <button type="submit" class="form__submit">
+            Send Enquiry
+            <svg viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+      <div class="footer__logo">Bundee Aki</div>
+
+      <nav class="footer__social" aria-label="Social media links">
+        <a href="https://www.instagram.com/bundeeaki/" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Bundee Aki on Instagram">
+          <svg viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+          Instagram
+        </a>
+        <a href="https://x.com/bundeeaki" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Bundee Aki on X">
+          <svg viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+            <path d="M4 4l16 16M20 4L4 20"/>
+          </svg>
+          X / Twitter
+        </a>
+      </nav>
+    </div>
+
+    <div class="footer__inner" style="margin-top:0;">
+      <p class="footer__copy">
+        &copy; 2025 Bundee Aki. Managed by Seven Eight Talent. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════
+       SCRIPT
+  ════════════════════════════════════════════════ -->
+  <script>
+    // ── NAV scroll behaviour ─────────────────────
+    const nav = document.getElementById('nav');
+    function onScroll() {
+      if (window.scrollY > 40) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // run on load
+
+    // ── Burger menu ──────────────────────────────
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    burger.addEventListener('click', () => {
+      const isOpen = burger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', isOpen);
+      burger.setAttribute('aria-expanded', String(isOpen));
+      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+    });
+
+    // Close mobile menu when a link is clicked
+    mobileMenu.querySelectorAll('.nav__mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        burger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+      });
+    });
+
+    // ── IntersectionObserver — scroll animations ─
+    const fadeEls = document.querySelectorAll('.fade-up');
+
+    // Check if user prefers reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      // Just make everything visible immediately
+      fadeEls.forEach(el => el.classList.add('visible'));
+    } else {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // Unobserve after animation plays — better perf
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      fadeEls.forEach(el => observer.observe(el));
+    }
+
+    // ── Form submit (no backend — prevent default) ─
+    document.querySelector('.form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('.form__submit');
+      const originalHTML = btn.innerHTML;
+
+      btn.innerHTML = 'Sent ✓';
+      btn.style.background = '#244D35';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.style.background = '';
+        btn.disabled = false;
+        this.reset();
+      }, 3000);
+    });
+
+    // ── Smooth-scroll nav links (belt & braces) ──
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

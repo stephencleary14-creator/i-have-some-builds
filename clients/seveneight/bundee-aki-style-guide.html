@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bundee Aki — Brand Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ===== SJC UI TOKENS (chrome only) ===== */
+  :root {
+    --cream: #EDE0C4;
+    --cream-light: #F7F2EA;
+    --red: #C8102E;
+    --dark: #1C1C1C;
+    --mid: #5C5247;
+
+    /* ===== BUNDEE AKI BRAND PALETTE ===== */
+    --ba-black:       #0D0D0D;   /* Night Sky — depth, power */
+    --ba-green:       #1A4731;   /* Connacht Forest — Irish belonging */
+    --ba-green-light: #2E7D52;   /* Fern — warmth, growth */
+    --ba-gold:        #C9A84C;   /* Pacific Sun — Samoan/Pacific roots */
+    --ba-gold-light:  #E8C97A;   /* Warm Gold — community, family */
+    --ba-red:         #9B1C2E;   /* Lions Red — elite honour, ambition */
+    --ba-cream:       #F0E8D5;   /* Off-White Ground — openness */
+    --ba-slate:       #3B4048;   /* Storm Slate — discipline, grit */
+
+    /* Typography */
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream-light);
+    color: var(--dark);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ===== NAVIGATION ===== */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--dark);
+    border-bottom: 3px solid var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 52px;
+  }
+
+  .nav-brand {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+
+  .nav-brand span {
+    color: var(--red);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.75rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--cream); }
+
+  /* ===== MAIN LAYOUT ===== */
+  main {
+    padding-top: 52px;
+  }
+
+  /* ===== SECTION SHARED ===== */
+  .section {
+    padding: 5rem 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--mid);
+    opacity: 0.4;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--dark);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ===== 1. COVER / HERO ===== */
+  #cover {
+    min-height: 100vh;
+    background: var(--ba-black);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0;
+  }
+
+  .cover-bg-stripe {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 42%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--ba-green) 0%, var(--ba-black) 70%);
+    opacity: 0.5;
+  }
+
+  .cover-gold-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--ba-gold), var(--ba-red), var(--ba-green));
+  }
+
+  .cover-number {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-60%);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(12rem, 25vw, 24rem);
+    line-height: 1;
+    color: white;
+    opacity: 0.03;
+    user-select: none;
+    letter-spacing: -0.05em;
+  }
+
+  .cover-content {
+    position: relative;
+    z-index: 2;
+    padding: 5rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: end;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .cover-left {}
+
+  .cover-clubs {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ba-gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .cover-name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    line-height: 0.9;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+
+  .cover-name .line2 {
+    color: var(--ba-gold);
+    display: block;
+    font-size: clamp(3.5rem, 9vw, 7rem);
+  }
+
+  .cover-position {
+    margin-top: 1.75rem;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .cover-position span {
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: rgba(255,255,255,0.3);
+  }
+
+  .cover-right {
+    padding-bottom: 0.5rem;
+  }
+
+  .cover-proposition {
+    font-family: var(--font-body);
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-style: italic;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 440px;
+    border-left: 2px solid var(--ba-gold);
+    padding-left: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .cover-flags {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .cover-flag-item {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cover-flag-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ba-gold);
+    opacity: 0.6;
+  }
+
+  .cover-footer-bar {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 1.25rem 2.5rem;
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .cover-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .cover-stat-num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .cover-stat-label {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ===== SECTION DIVIDERS ===== */
+  .divider {
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, var(--ba-green), var(--ba-gold), var(--ba-red));
+  }
+
+  /* ===== 2. BRAND ESSENCE ===== */
+  #brand-essence {
+    background: var(--cream-light);
+  }
+
+  .essence-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .essence-story {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    line-height: 1.75;
+    color: var(--mid);
+  }
+
+  .essence-story strong {
+    color: var(--dark);
+    font-weight: 500;
+  }
+
+  .essence-story p + p {
+    margin-top: 1.25rem;
+  }
+
+  .essence-values {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .value-card {
+    border-left: 3px solid var(--ba-green);
+    padding: 1.25rem 1.5rem;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+
+  .value-card.gold { border-color: var(--ba-gold); }
+  .value-card.red  { border-color: var(--ba-red); }
+  .value-card.slate { border-color: var(--ba-slate); }
+
+  .value-name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--dark);
+    margin-bottom: 0.35rem;
+  }
+
+  .value-desc {
+    font-size: 0.875rem;
+    color: var(--mid);
+    line-height: 1.55;
+  }
+
+  .story-timeline {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    position: relative;
+    padding-bottom: 1.75rem;
+  }
+
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 24px;
+    bottom: 0;
+    width: 1px;
+    background: rgba(0,0,0,0.1);
+  }
+
+  .timeline-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--ba-green);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .timeline-dot.gold { background: var(--ba-gold); }
+  .timeline-dot.red  { background: var(--ba-red); }
+
+  .timeline-year {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    display: block;
+    margin-bottom: 0.1rem;
+  }
+
+  .timeline-text {
+    font-size: 0.875rem;
+    color: var(--dark);
+    line-height: 1.5;
+  }
+
+  /* ===== 3. COLOUR PALETTE ===== */
+  #palette {
+    background: var(--dark);
+    color: var(--cream);
+  }
+
+  #palette .section-title { color: var(--cream); }
+  #palette .section-label { color: rgba(255,255,255,0.35); }
+  #palette .section-label::after { background: rgba(255,255,255,0.2); }
+
+  .palette-intro {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.5);
+    max-width: 600px;
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  .palette-group {
+    margin-bottom: 3rem;
+  }
+
+  .palette-group-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 1rem;
+  }
+
+  .palette-swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .swatch-block {
+    height: 100px;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+  }
+
+  .swatch-block.large { height: 140px; }
+
+  .swatch-info {
+    background: rgba(255,255,255,0.05);
+    border-radius: 0 0 4px 4px;
+    padding: 0.75rem 0.875rem;
+  }
+
+  .swatch-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.8);
+    display: block;
+  }
+
+  .swatch-hex {
+    font-family: 'Inter', monospace;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.4);
+    display: block;
+    margin: 0.1rem 0;
+  }
+
+  .swatch-usage {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.4;
+    margin-top: 0.25rem;
+  }
+
+  /* ===== 4. TYPOGRAPHY ===== */
+  #typography {
+    background: var(--cream-light);
+  }
+
+  .type-intro {
+    font-size: 1rem;
+    color: var(--mid);
+    max-width: 600px;
+    margin-bottom: 3rem;
+    line-height: 1.65;
+  }
+
+  .type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+  }
+
+  .font-specimen {
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .font-header {
+    background: var(--dark);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .font-header-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+
+  .font-header-role {
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ba-gold);
+  }
+
+  .font-body-section {
+    padding: 1.75rem;
+    background: #fff;
+  }
+
+  .type-display-ex {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--dark);
+    overflow: hidden;
+  }
+
+  .type-display-ex .accent { color: var(--ba-green); }
+
+  .type-weights {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .type-weight-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 0.5rem;
+  }
+
+  .type-weight-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(0,0,0,0.35);
+  }
+
+  .type-body-ex {
+    font-family: var(--font-body);
+    font-size: 0.925rem;
+    line-height: 1.65;
+    color: var(--mid);
+  }
+
+  .type-editorial-ex {
+    font-family: var(--font-body);
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--dark);
+  }
+
+  .type-rules {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 4px;
+    padding: 2rem;
+  }
+
+  .type-rules-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dark);
+    margin-bottom: 1.25rem;
+  }
+
+  .type-rule-row {
+    display: grid;
+    grid-template-columns: minmax(120px, 160px) 1fr 1fr;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-size: 0.8rem;
+  }
+
+  .type-rule-row:last-child { border-bottom: none; }
+
+  .type-rule-el {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--dark);
+  }
+
+  .type-rule-spec { color: var(--mid); }
+  .type-rule-use { color: rgba(0,0,0,0.4); font-size: 0.75rem; }
+
+  /* ===== 5. BRAND VOICE ===== */
+  #voice {
+    background: var(--ba-green);
+    color: var(--cream);
+  }
+
+  #voice .section-title { color: var(--cream); }
+  #voice .section-label { color: rgba(255,255,255,0.4); }
+  #voice .section-label::after { background: rgba(255,255,255,0.2); }
+
+  .voice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .voice-card {
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 1.75rem;
+  }
+
+  .voice-card-num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(255,255,255,0.08);
+    margin-bottom: 0.5rem;
+  }
+
+  .voice-card-name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ba-gold-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .voice-card-desc {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .voice-do-dont {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .voice-example {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    padding: 0.75rem;
+    border-radius: 3px;
+    font-style: italic;
+  }
+
+  .voice-example.do {
+    background: rgba(255,255,255,0.07);
+    border-left: 2px solid var(--ba-gold);
+    color: rgba(255,255,255,0.8);
+  }
+
+  .voice-example.dont {
+    background: rgba(0,0,0,0.2);
+    border-left: 2px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.35);
+    text-decoration-line: line-through;
+  }
+
+  .voice-example-label {
+    font-style: normal;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .voice-example.do .voice-example-label { color: var(--ba-gold); }
+  .voice-example.dont .voice-example-label { color: rgba(255,255,255,0.25); }
+
+  .voice-vocab {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .vocab-block-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ba-gold-light);
+    margin-bottom: 1rem;
+  }
+
+  .vocab-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .vocab-list li {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2rem;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .vocab-list.avoid li {
+    background: rgba(0,0,0,0.2);
+    color: rgba(255,255,255,0.25);
+    text-decoration: line-through;
+    border-color: rgba(255,255,255,0.05);
+  }
+
+  .voice-caption-box {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 2rem;
+  }
+
+  .voice-caption-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ba-gold);
+    margin-bottom: 1rem;
+  }
+
+  .voice-caption-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* ===== 6. VISUAL DIRECTION ===== */
+  #visual {
+    background: var(--cream-light);
+  }
+
+  .visual-principles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .principle-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .principle-num-bar {
+    background: var(--dark);
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .principle-num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: rgba(255,255,255,0.2);
+  }
+
+  .principle-tag {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ba-gold);
+  }
+
+  .principle-body {
+    padding: 1.5rem;
+  }
+
+  .principle-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--dark);
+    margin-bottom: 0.6rem;
+  }
+
+  .principle-desc {
+    font-size: 0.85rem;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  .photo-direction {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+
+  .photo-placeholder {
+    aspect-ratio: 3/4;
+    background: var(--ba-slate);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .photo-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%);
+  }
+
+  .photo-placeholder.green-tint::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 71, 49, 0.3);
+  }
+
+  .photo-placeholder.gold-tint::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(201, 168, 76, 0.15);
+  }
+
+  .photo-label {
+    position: relative;
+    z-index: 2;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.35;
+  }
+
+  .photo-label .sub {
+    display: block;
+    font-weight: 500;
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.45);
+    text-transform: none;
+    letter-spacing: 0.05em;
+    margin-top: 0.2rem;
+  }
+
+  .photo-direction-notes {
+    background: var(--dark);
+    color: var(--cream);
+    border-radius: 4px;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  .direction-col-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ba-gold);
+    margin-bottom: 1rem;
+  }
+
+  .direction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .direction-list li {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.45;
+  }
+
+  .direction-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: rgba(255,255,255,0.2);
+  }
+
+  .direction-list.avoid li::before { color: var(--ba-red); opacity: 0.5; }
+
+  /* ===== 7. LOGO / MARK ===== */
+  #logo {
+    background: var(--ba-black);
+    color: var(--cream);
+  }
+
+  #logo .section-title { color: var(--cream); }
+  #logo .section-label { color: rgba(255,255,255,0.3); }
+  #logo .section-label::after { background: rgba(255,255,255,0.15); }
+
+  .logo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  .logo-panel {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .logo-panel-header {
+    padding: 0.875rem 1.5rem;
+    background: rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo-panel-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .logo-panel-tag {
+    font-family: var(--font-display);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ba-gold);
+  }
+
+  .logo-display {
+    padding: 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 180px;
+  }
+
+  .logo-notes {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .logo-note-text {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.6;
+  }
+
+  /* Mark SVG */
+  .mark-svg {
+    width: 160px;
+    height: 160px;
+  }
+
+  /* Colour variations */
+  .logo-variations {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .logo-var {
+    border-radius: 4px;
+    padding: 1.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-var.on-dark { background: var(--ba-black); }
+  .logo-var.on-green { background: var(--ba-green); }
+  .logo-var.on-cream { background: var(--ba-cream); }
+  .logo-var.on-gold  { background: var(--ba-gold); }
+
+  .logo-var-label {
+    font-family: var(--font-display);
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    margin-top: 0.75rem;
+  }
+
+  .logo-var-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark);
+    border-top: 3px solid var(--red);
+    padding: 2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .footer-brand strong { color: var(--red); }
+
+  .footer-note {
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    nav { display: none; }
+    .cover-content { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+    .cover-footer-bar { padding: 1rem 1.5rem; gap: 1.5rem; }
+    .essence-grid { grid-template-columns: 1fr; }
+    .type-grid { grid-template-columns: 1fr; }
+    .voice-grid { grid-template-columns: 1fr; }
+    .visual-principles { grid-template-columns: 1fr; }
+    .photo-direction { grid-template-columns: repeat(2, 1fr); }
+    .logo-grid { grid-template-columns: 1fr; }
+    .logo-variations { grid-template-columns: repeat(2, 1fr); }
+    .voice-vocab { grid-template-columns: 1fr; }
+    .photo-direction-notes { grid-template-columns: 1fr; }
+    .type-rule-row { grid-template-columns: 100px 1fr; }
+    .type-rule-use { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .section { padding: 3rem 1.25rem; }
+    .cover-content { padding: 2.5rem 1.25rem; }
+    .cover-footer-bar { padding: 1rem 1.25rem; gap: 1rem; }
+    .cover-stat-num { font-size: 1.2rem; }
+    .photo-direction { grid-template-columns: 1fr; }
+    .logo-variations { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-brand">Bundee Aki <span>/ Brand Guide</span></div>
+  <ul class="nav-links">
+    <li><a href="#cover">Cover</a></li>
+    <li><a href="#brand-essence">Essence</a></li>
+    <li><a href="#palette">Palette</a></li>
+    <li><a href="#typography">Type</a></li>
+    <li><a href="#voice">Voice</a></li>
+    <li><a href="#visual">Visual</a></li>
+    <li><a href="#logo">Logo</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- ===== 1. COVER / HERO ===== -->
+  <section id="cover">
+    <div class="cover-bg-stripe"></div>
+    <div class="cover-gold-bar"></div>
+    <div class="cover-number">12</div>
+
+    <div class="cover-content">
+      <div class="cover-left">
+        <div class="cover-clubs">Ireland · Connacht · British &amp; Irish Lions</div>
+        <h1 class="cover-name">
+          Bundee
+          <span class="line2">Aki</span>
+        </h1>
+        <p class="cover-position">
+          <span></span>
+          Inside Centre &nbsp;·&nbsp; #12 &nbsp;·&nbsp; Born Auckland, 1990
+        </p>
+      </div>
+      <div class="cover-right">
+        <p class="cover-proposition">
+          "The man who crossed every ocean — and made the West of Ireland his home. Raw power, deep roots, and a warmth that fills any room."
+        </p>
+        <div class="cover-flags">
+          <div class="cover-flag-item"><div class="cover-flag-dot"></div> New Zealand</div>
+          <div class="cover-flag-item"><div class="cover-flag-dot"></div> Samoa</div>
+          <div class="cover-flag-item"><div class="cover-flag-dot"></div> Ireland</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-footer-bar">
+      <div class="cover-stat">
+        <span class="cover-stat-num">70+</span>
+        <span class="cover-stat-label">Ireland Caps</span>
+      </div>
+      <div class="cover-stat">
+        <span class="cover-stat-num">2×</span>
+        <span class="cover-stat-label">British &amp; Irish Lion</span>
+      </div>
+      <div class="cover-stat">
+        <span class="cover-stat-num">2016</span>
+        <span class="cover-stat-label">Pro12 Winner</span>
+      </div>
+      <div class="cover-stat">
+        <span class="cover-stat-num">2018</span>
+        <span class="cover-stat-label">Grand Slam</span>
+      </div>
+      <div class="cover-stat">
+        <span class="cover-stat-num">5</span>
+        <span class="cover-stat-label">Children</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== 2. BRAND ESSENCE ===== -->
+  <section id="brand-essence">
+    <div class="section">
+      <div class="section-label">02 — Brand Essence</div>
+      <h2 class="section-title">Who Is Bundee</h2>
+
+      <div class="essence-grid">
+        <div>
+          <div class="essence-story">
+            <p>Bundee Aki is one of the most compelling stories in modern rugby. <strong>Born in Otahuhu, South Auckland, to Samoan parents</strong>, he grew up in Manurewa — a tight-knit Pacific community where family, faith, and sport were everything. A natural across every sport, he was remembered at school as a "lovable rogue" with an outstandingly beautiful personality who hated being confined by four walls.</p>
+
+            <p>He came to Ireland in 2014, recruited by Pat Lam to join a Connacht side few expected to win anything. <strong>Within two seasons, he was player of the Pro12 tournament as Connacht lifted the title for the first time in their history.</strong> Galway adopted him. He adopted Galway. In the little town of Oranmore, locals named a pub booth after him — the Bundee Booth — and he became as much a part of the West's identity as the Burren or the Claddagh.</p>
+
+            <p>By 2017 he was eligible for Ireland. By 2018 he was a Grand Slam winner and part of the team that beat the All Blacks — the country he came from. In 2021 he toured with the Lions. In 2022, Andy Farrell made him captain against the Maori All Blacks in New Zealand. He choked up when he spoke about it. <strong>In 2025, aged 35, he became a two-time Lion</strong> — missing the birth of his fifth child to play in the first Test, and starting the series-winning match in Melbourne.</p>
+
+            <p>Off the pitch, he is known as an energiser — the player who changes the mood of any room. A devoted father of five, a keynote speaker on diversity and inclusion, a man who carries his Samoan roots and his Irish life with equal pride. His Instagram bio reads simply: <em>"Everything that I have is by the Grace of God."</em></p>
+          </div>
+
+          <div class="story-timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div>
+                <span class="timeline-year">1990 — Auckland</span>
+                <div class="timeline-text">Born in Otahuhu to Samoan parents, Hercules and Sautia. Raised in Manurewa, South Auckland. Named Bundellu after the doctor who delivered him.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot gold"></div>
+              <div>
+                <span class="timeline-year">2014 — Connacht</span>
+                <div class="timeline-text">Signed by Pat Lam. Within two seasons wins the Pro12 title — Connacht's first — and is named Player of the Tournament.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div>
+                <span class="timeline-year">2017–2018 — Ireland</span>
+                <div class="timeline-text">Qualifies through residency. Makes his Ireland debut vs South Africa. Becomes a Grand Slam winner and part of the historic All Blacks victory.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot red"></div>
+              <div>
+                <span class="timeline-year">2021 &amp; 2025 — Lions</span>
+                <div class="timeline-text">Becomes a two-time British &amp; Irish Lion. In 2025, starts the series-winning Test at 35 — the oldest man in the squad. Misses the birth of his fifth child to play.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="essence-values">
+          <div class="value-card">
+            <div class="value-name">Belonging Without Borders</div>
+            <div class="value-desc">Bundee's identity is plural and proudly so — Samoan roots, New Zealand upbringing, Irish heart. He doesn't dilute any of them. He shows that belonging is something you build, not something you're handed. This duality — the outsider who became the beating heart of a community — is the most powerful thing about his brand.</div>
+          </div>
+          <div class="value-card gold">
+            <div class="value-name">Force &amp; Warmth</div>
+            <div class="value-desc">On the pitch he is a wrecking ball — a 102kg inside centre who runs straight, tackles hard, and breaks gainlines through sheer physicality. Off it he is warm, funny, emotional, and generous. The contrast is not a contradiction — it is precisely what makes him compelling. Power without aggression. Intensity without coldness.</div>
+          </div>
+          <div class="value-card red">
+            <div class="value-name">Sacrifice &amp; Honour</div>
+            <div class="value-desc">The story of missing his fifth child's birth to take the field for the Lions captures everything about how Aki approaches duty. He plays every game with the understanding that the jersey means something — to his family, to the province, to the nation. Honour is not abstract for him. It is a daily decision.</div>
+          </div>
+          <div class="value-card slate">
+            <div class="value-name">Faith, Family, Community</div>
+            <div class="value-desc">His Instagram bio says it plainly: everything he has is by the grace of God. His Samoan upbringing centred on extended family and community — an ethos he brought wholesale to Galway. Five children. A pub booth named after him. A speaker platform built on inclusion. His community is always the frame.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== 3. COLOUR PALETTE ===== -->
+  <section id="palette">
+    <div class="section">
+      <div class="section-label">03 — Colour Palette</div>
+      <h2 class="section-title">Colour</h2>
+
+      <p class="palette-intro">The palette draws from three anchors: the <strong>deep greens of Connacht and the Irish West</strong>; the <strong>warm Pacific gold</strong> of Samoa and South Auckland; and the <strong>Lions red</strong> that marks the pinnacle of rugby honour. Together they tell Bundee's story without a single word.</p>
+
+      <div class="palette-group">
+        <div class="palette-group-label">Primary — Structural Colours</div>
+        <div class="palette-swatches">
+          <div class="swatch">
+            <div class="swatch-block large" style="background:#0D0D0D;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Night Sky</span>
+              <span class="swatch-hex">#0D0D0D</span>
+              <span class="swatch-usage">Primary dark background. Hero, editorial headers, text on light.</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block large" style="background:#1A4731;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Connacht Forest</span>
+              <span class="swatch-hex">#1A4731</span>
+              <span class="swatch-usage">Brand primary. Irish identity, section headers, dominant fills.</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block large" style="background:#C9A84C;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Pacific Sun</span>
+              <span class="swatch-hex">#C9A84C</span>
+              <span class="swatch-usage">Brand accent. Pacific/Samoan warmth. Highlight, rule lines, callouts.</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block large" style="background:#9B1C2E;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Lions Red</span>
+              <span class="swatch-hex">#9B1C2E</span>
+              <span class="swatch-usage">Prestige accent. Lions honour. Use sparingly — moments of peak impact only.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="palette-group">
+        <div class="palette-group-label">Secondary — Supporting Colours</div>
+        <div class="palette-swatches">
+          <div class="swatch">
+            <div class="swatch-block" style="background:#2E7D52;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Fern</span>
+              <span class="swatch-hex">#2E7D52</span>
+              <span class="swatch-usage">Lighter green for hover states, secondary backgrounds, buttons.</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block" style="background:#E8C97A;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Warm Gold</span>
+              <span class="swatch-hex">#E8C97A</span>
+              <span class="swatch-usage">Softer gold for body-level highlights, tint overlays on imagery.</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block" style="background:#3B4048;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Storm Slate</span>
+              <span class="swatch-hex">#3B4048</span>
+              <span class="swatch-usage">Mid-dark for cards, photo placeholders, secondary containers.</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block" style="background:#F0E8D5;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Off-White Ground</span>
+              <span class="swatch-hex">#F0E8D5</span>
+              <span class="swatch-usage">Light body backgrounds, white space sections. Never pure white.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== 4. TYPOGRAPHY ===== -->
+  <section id="typography">
+    <div class="section">
+      <div class="section-label">04 — Typography</div>
+      <h2 class="section-title">Typography</h2>
+
+      <p class="type-intro">Syne carries force and personality without defaulting to the condensed sports cliché. Its geometric letterforms have character — particularly at display weight — while Inter provides clean, readable support at body size. Together they position Bundee's brand as modern and distinctive, built for a career that extends beyond the pitch.</p>
+
+      <div class="type-grid">
+
+        <!-- LEFT: Syne specimen -->
+        <div class="font-specimen">
+          <div class="font-header">
+            <span class="font-header-name">Syne / Display &amp; Headlines</span>
+            <span class="font-header-role">Primary Typeface</span>
+          </div>
+          <div class="font-body-section">
+            <div class="type-display-ex" style="font-family:'Syne',sans-serif;font-weight:800;line-height:0.92;letter-spacing:-0.02em;color:var(--ba-green);">BUILT <span class="accent" style="color:var(--ba-gold);">FOR</span><br>THIS.</div>
+            <div class="type-weights">
+              <div class="type-weight-row">
+                <span style="font-family:'Syne',sans-serif;font-weight:400;font-size:1.05rem;color:var(--dark);">Syne Regular</span>
+                <span class="type-weight-label">400 Regular</span>
+              </div>
+              <div class="type-weight-row">
+                <span style="font-family:'Syne',sans-serif;font-weight:600;font-size:1.05rem;color:var(--dark);">Syne SemiBold</span>
+                <span class="type-weight-label">600 SemiBold</span>
+              </div>
+              <div class="type-weight-row">
+                <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;color:var(--dark);">Syne Bold</span>
+                <span class="type-weight-label">700 Bold</span>
+              </div>
+              <div class="type-weight-row">
+                <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--dark);">Syne ExtraBold</span>
+                <span class="type-weight-label">800 ExtraBold</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Inter + Usage note stacked -->
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+          <!-- Inter specimen -->
+          <div class="font-specimen">
+            <div class="font-header">
+              <span class="font-header-name">Inter / Body &amp; UI</span>
+              <span class="font-header-role">Secondary Typeface</span>
+            </div>
+            <div class="font-body-section">
+              <p class="type-body-ex" style="font-family:'Inter',sans-serif;font-weight:400;">From South Auckland to the Lions. Bundee Aki's story is one of belonging found rather than inherited — Irish by choice, Samoan by blood, defined by what he does when it matters most.</p>
+              <p style="margin-top:1rem;font-family:'Inter',sans-serif;font-weight:500;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);">Inside Centre · Ireland · Connacht · British &amp; Irish Lions</p>
+            </div>
+          </div>
+
+          <!-- Usage note -->
+          <div class="font-specimen">
+            <div class="font-header">
+              <span class="font-header-name">Usage</span>
+              <span class="font-header-role">When to Use Each</span>
+            </div>
+            <div class="font-body-section" style="display:flex;flex-direction:column;gap:0.85rem;">
+              <div>
+                <div class="type-weight-label" style="margin-bottom:0.3rem;">Syne — Display &amp; Identity</div>
+                <p style="font-size:0.82rem;color:var(--mid);line-height:1.55;">Hero headlines, campaign lines, section titles, stats, poster type, and all branded wordmarks. Use at weight 700 or above at display sizes.</p>
+              </div>
+              <div style="height:1px;background:rgba(0,0,0,0.06);"></div>
+              <div>
+                <div class="type-weight-label" style="margin-bottom:0.3rem;">Inter — Body &amp; Support</div>
+                <p style="font-size:0.82rem;color:var(--mid);line-height:1.55;">All running copy, captions, UI labels, form elements, and secondary text. Use Inter 400 for body, Inter 500 Medium for labels and caps.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Type scale table -->
+      <div class="type-rules">
+        <div class="type-rules-title">Type Scale</div>
+        <div class="type-rule-row">
+          <div class="type-rule-el">Hero Headline</div>
+          <div class="type-rule-spec">Syne ExtraBold 800 / 72–120px / tight tracking</div>
+          <div class="type-rule-use">Cover titles, poster headlines, campaign one-liners</div>
+        </div>
+        <div class="type-rule-row">
+          <div class="type-rule-el">Section Title</div>
+          <div class="type-rule-spec">Syne Bold 700 / 40–56px</div>
+          <div class="type-rule-use">Section headers in digital / print</div>
+        </div>
+        <div class="type-rule-row">
+          <div class="type-rule-el">Sub-Headline</div>
+          <div class="type-rule-spec">Syne SemiBold 600 / 20–28px / tracked</div>
+          <div class="type-rule-use">Card headers, callout labels</div>
+        </div>
+        <div class="type-rule-row">
+          <div class="type-rule-el">Pull Quote</div>
+          <div class="type-rule-spec">Syne Regular 400 Italic / 18–24px / 1.6 line-height</div>
+          <div class="type-rule-use">Athlete quotes, narrative highlights</div>
+        </div>
+        <div class="type-rule-row">
+          <div class="type-rule-el">Body Copy</div>
+          <div class="type-rule-spec">Inter Regular 400 / 15–17px / 1.65 line-height</div>
+          <div class="type-rule-use">Long-form narrative, biographies</div>
+        </div>
+        <div class="type-rule-row">
+          <div class="type-rule-el">Caption / Label</div>
+          <div class="type-rule-spec">Inter Medium 500 / 10–12px / All Caps / wide tracking</div>
+          <div class="type-rule-use">Photo captions, UI labels, stat labels</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== 5. BRAND VOICE ===== -->
+  <section id="voice">
+    <div class="section">
+      <div class="section-label">05 — Brand Voice</div>
+      <h2 class="section-title">Voice &amp; Tone</h2>
+
+      <div class="voice-grid">
+        <div class="voice-card">
+          <div class="voice-card-num">01</div>
+          <div class="voice-card-name">Direct &amp; Unfiltered</div>
+          <div class="voice-card-desc">Bundee speaks plainly. No PR polish, no hedging. When he is proud, you hear it. When something moves him, he shows it. His voice has the directness of someone raised where words matter because actions matter more. It is the opposite of corporate. It sounds like a man, not a brand.</div>
+          <div class="voice-do-dont">
+            <div class="voice-example do">
+              <span class="voice-example-label">Do</span>
+              "Didn't get the result we wanted. We know it. The work continues Monday. Always."
+            </div>
+            <div class="voice-example dont">
+              <span class="voice-example-label">Avoid</span>
+              "Following today's performance, we remain committed to our collective journey of continuous improvement."
+            </div>
+          </div>
+        </div>
+
+        <div class="voice-card">
+          <div class="voice-card-num">02</div>
+          <div class="voice-card-name">Warm &amp; Community-Led</div>
+          <div class="voice-card-desc">Every post, every interview, every public moment references other people — his family, his teammates, his province, his community. Bundee does not position himself alone. He is always inside a story that is bigger than himself. This generosity of spirit is one of his most distinguishing brand qualities.</div>
+          <div class="voice-do-dont">
+            <div class="voice-example do">
+              <span class="voice-example-label">Do</span>
+              "To every person in Galway who's made my family feel at home — this one's for you. Always."
+            </div>
+            <div class="voice-example dont">
+              <span class="voice-example-label">Avoid</span>
+              "Honoured to have delivered for the team and achieved this personal milestone."
+            </div>
+          </div>
+        </div>
+
+        <div class="voice-card">
+          <div class="voice-card-num">03</div>
+          <div class="voice-card-name">Grounded in Faith &amp; Gratitude</div>
+          <div class="voice-card-desc">His Samoan upbringing, his Christian faith, and his own improbable journey mean that gratitude is not a social media trope for Bundee — it is a lived orientation. The acknowledgement that luck, grace, and the people around him have shaped everything he has is always near the surface. This gives his voice a depth that most athlete accounts lack.</div>
+          <div class="voice-do-dont">
+            <div class="voice-example do">
+              <span class="voice-example-label">Do</span>
+              "Everything I have is by the grace of God. Every single day I get on that pitch, I know how lucky I am."
+            </div>
+            <div class="voice-example dont">
+              <span class="voice-example-label">Avoid</span>
+              "Hard work pays off. #Grind #NoExcuses #EarnIt"
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="voice-vocab">
+        <div>
+          <div class="vocab-block-title">Vocabulary to Use</div>
+          <ul class="vocab-list">
+            <li>Family</li>
+            <li>Grace</li>
+            <li>Privilege</li>
+            <li>Boys</li>
+            <li>Community</li>
+            <li>Province</li>
+            <li>Honour</li>
+            <li>Grateful</li>
+            <li>Proud</li>
+            <li>Work</li>
+            <li>Home</li>
+            <li>Together</li>
+            <li>Sacrifice</li>
+            <li>Heart</li>
+          </ul>
+        </div>
+        <div>
+          <div class="vocab-block-title">Vocabulary to Avoid</div>
+          <ul class="vocab-list avoid">
+            <li>Synergy</li>
+            <li>Journey (cliche)</li>
+            <li>Blessed (over-used)</li>
+            <li>Leverage</li>
+            <li>Brand values</li>
+            <li>Stakeholders</li>
+            <li>Monetise</li>
+            <li>Content creator</li>
+            <li>Hustle</li>
+            <li>GOAT</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="voice-caption-box">
+        <div class="voice-caption-label">Sample Social Caption — In Bundee's Voice</div>
+        <div class="voice-caption-text">
+          That's what it's about. Every session, every collision, every early morning. You do it for moments like that.<br><br>
+          Proud of every single one of the boys. This group never stops. Never. And the Aviva was something else tonight — you lot made that happen.<br><br>
+          Everything I have is by the grace of God. Thank you, Ireland. 🙏
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== 6. VISUAL DIRECTION ===== -->
+  <section id="visual">
+    <div class="section">
+      <div class="section-label">06 — Visual Direction</div>
+      <h2 class="section-title">Art Direction</h2>
+
+      <div class="visual-principles">
+        <div class="principle-card">
+          <div class="principle-num-bar">
+            <span class="principle-num">01</span>
+            <span class="principle-tag">Core Principle</span>
+          </div>
+          <div class="principle-body">
+            <div class="principle-title">Always Grounded</div>
+            <div class="principle-desc">Bundee's power comes from being rooted — in the turf, in Galway, in his family, in his heritage. Visuals should feel low to the ground. Low camera angles amplify his physicality. No float, no artifice. Every image should look like it could have been taken by someone who was actually there.</div>
+          </div>
+        </div>
+
+        <div class="principle-card">
+          <div class="principle-num-bar">
+            <span class="principle-num">02</span>
+            <span class="principle-tag">Core Principle</span>
+          </div>
+          <div class="principle-body">
+            <div class="principle-title">Real Moments Over Staged Shots</div>
+            <div class="principle-desc">The most powerful Bundee imagery is emotional and unguarded — choking up when he speaks about captaining Ireland in New Zealand; the look on his face after a test win; a quiet moment with his family. Seek documentary truthfulness over polished production. Authenticity is the product.</div>
+          </div>
+        </div>
+
+        <div class="principle-card">
+          <div class="principle-num-bar">
+            <span class="principle-num">03</span>
+            <span class="principle-tag">Core Principle</span>
+          </div>
+          <div class="principle-body">
+            <div class="principle-title">Community Always in Frame</div>
+            <div class="principle-desc">Even in solo portraiture, the community should be implied — through environment (Galway, Connacht Park, Samoan imagery), through context, or through the direct gaze that says "I am doing this for more than myself." Bundee is never alone in his story, and the imagery should reflect that.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="photo-direction">
+        <div class="photo-placeholder green-tint">
+          <div class="photo-label">
+            ACTION SHOT
+            <span class="sub">Low angle · High intensity · Gainline break · Motion blur on tacklers</span>
+          </div>
+        </div>
+        <div class="photo-placeholder">
+          <div class="photo-label">
+            PORTRAIT — JERSEY OFF
+            <span class="sub">Environmental · Galway / Connacht location · Natural light · Quiet authority</span>
+          </div>
+        </div>
+        <div class="photo-placeholder gold-tint">
+          <div class="photo-label">
+            COMMUNITY MOMENT
+            <span class="sub">Bundee with kids / fans / teammates · Unguarded · Warm light · Real emotion</span>
+          </div>
+        </div>
+        <div class="photo-placeholder" style="background:var(--ba-green);">
+          <div class="photo-label">
+            HERITAGE REFERENCE
+            <span class="sub">Samoan/Pacific cultural context · Family setting · Warm tones · Authentic</span>
+          </div>
+        </div>
+        <div class="photo-placeholder" style="background:#1a1a2e;">
+          <div class="photo-label">
+            LIONS / PRESTIGE MOMENT
+            <span class="sub">Dark, high-contrast · Red accent · Lions jersey · Weight and honour</span>
+          </div>
+        </div>
+        <div class="photo-placeholder" style="background:var(--ba-slate);">
+          <div class="photo-label">
+            POST-MATCH TUNNEL
+            <span class="sub">Raw, candid · Sweat and jersey · Unpolished · Human, not heroic</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="photo-direction-notes">
+        <div>
+          <div class="direction-col-title">Photography — Seek</div>
+          <ul class="direction-list">
+            <li>Low angles that emphasise physicality and presence</li>
+            <li>Available / natural light — warm golden tones where possible</li>
+            <li>Environmental portraits that place him in Galway or Connacht</li>
+            <li>Candid family and community moments, unposed</li>
+            <li>Post-match honesty — sweat, emotion, jersey loosened</li>
+            <li>Cultural markers: Samoan colour, Pacific warmth, Irish green</li>
+            <li>Eye contact that is direct and confident, never confrontational</li>
+          </ul>
+        </div>
+        <div>
+          <div class="direction-col-title">Photography — Avoid</div>
+          <ul class="direction-list avoid">
+            <li>High-gloss studio setups that feel removed from reality</li>
+            <li>Aggressive or purely intimidating poses — power with warmth always</li>
+            <li>Imagery that erases his Pacific identity or cultural background</li>
+            <li>Overly retouched or stylised edits — authenticity over aesthetics</li>
+            <li>Lone-wolf hero framing — always community-adjacent</li>
+            <li>Cold, desaturated colour grading — this brand runs warm</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== 7. LOGO / MARK ===== -->
+  <section id="logo">
+    <div class="section">
+      <div class="section-label">07 — Logo &amp; Mark</div>
+      <h2 class="section-title">Identity Concepts</h2>
+
+      <div class="logo-grid">
+
+        <!-- Wordmark -->
+        <div class="logo-panel">
+          <div class="logo-panel-header">
+            <span class="logo-panel-title">Wordmark Concept</span>
+            <span class="logo-panel-tag">Primary Identity</span>
+          </div>
+          <div class="logo-display" style="background:#111;padding:2rem 2.5rem;">
+            <div style="width:100%;">
+              <div style="display:flex;align-items:baseline;gap:0.5rem;flex-wrap:nowrap;">
+                <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.75rem,4vw,3rem);line-height:1;letter-spacing:-0.02em;color:#fff;text-transform:uppercase;white-space:nowrap;">BUNDEE</span>
+                <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(0.85rem,1.5vw,1.2rem);line-height:1;letter-spacing:0.14em;color:#C9A84C;text-transform:uppercase;white-space:nowrap;">AKI</span>
+              </div>
+              <div style="height:3px;background:#C9A84C;width:100%;margin-top:6px;"></div>
+            </div>
+          </div>
+          <div class="logo-notes">
+            <p class="logo-note-text">BUNDEE in white Syne ExtraBold at maximum weight. AKI in Pacific Sun gold at two-thirds the x-height, tracked wide. A gold rule bar below BUNDEE anchors the mark and references the accent colour. The surname subordinate but present — the nickname is the brand.</p>
+          </div>
+        </div>
+
+        <!-- Symbol / Mark -->
+        <div class="logo-panel">
+          <div class="logo-panel-header">
+            <span class="logo-panel-title">Symbol Mark</span>
+            <span class="logo-panel-tag">Icon / Monogram</span>
+          </div>
+          <div class="logo-display" style="background:#111;">
+            <svg class="mark-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+              <!-- Shield shape referencing Irish rugby + Pacific warrior -->
+              <path
+                d="M80 8 L148 36 L148 96 Q148 138 80 156 Q12 138 12 96 L12 36 Z"
+                fill="none"
+                stroke="#1A4731"
+                stroke-width="3"
+              />
+              <!-- Inner shield fill -->
+              <path
+                d="M80 18 L138 42 L138 94 Q138 130 80 146 Q22 130 22 94 L22 42 Z"
+                fill="#1A4731"
+              />
+              <!-- B initial — Syne ExtraBold -->
+              <text
+                x="80" y="112"
+                font-family="'Syne', sans-serif"
+                font-weight="800"
+                font-size="88"
+                fill="#FFFFFF"
+                text-anchor="middle"
+                dominant-baseline="auto"
+              >B</text>
+              <!-- Gold accent bar at shield base -->
+              <path
+                d="M48 130 Q80 146 112 130"
+                fill="none"
+                stroke="#C9A84C"
+                stroke-width="3"
+                stroke-linecap="round"
+              />
+              <!-- Three dots referencing Pacific/Samoan tattoo motif -->
+              <circle cx="62" cy="30" r="3" fill="#C9A84C" opacity="0.7"/>
+              <circle cx="80" cy="24" r="3" fill="#C9A84C" opacity="0.9"/>
+              <circle cx="98" cy="30" r="3" fill="#C9A84C" opacity="0.7"/>
+            </svg>
+          </div>
+          <div class="logo-notes">
+            <p class="logo-note-text">A shield form references Irish rugby heritage and the warrior tradition of Pacific Islander culture. The B initial in white Syne ExtraBold sits on a deep Connacht Forest green. Three Pacific Sun gold dots at the crest nod to Samoan tatau motifs. The gold arc at the base suggests both the Claddagh and the Pacific horizon. Concept only — requires type rendering in production.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colour variations -->
+      <div style="margin-bottom:1.5rem;">
+        <div class="section-label" style="color:rgba(255,255,255,0.3);">Wordmark Colour Applications</div>
+      </div>
+      <div class="logo-variations">
+        <div class="logo-var-wrapper">
+          <div class="logo-var on-dark">
+            <div style="display:flex;flex-direction:column;align-items:flex-start;">
+              <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.75rem;line-height:1;letter-spacing:-0.02em;color:#fff;text-transform:uppercase;">BUNDEE</span>
+              <div style="height:2px;background:#C9A84C;width:100%;margin-top:3px;"></div>
+            </div>
+          </div>
+          <div class="logo-var-label" style="color:rgba(255,255,255,0.3);">On Black</div>
+        </div>
+
+        <div class="logo-var-wrapper">
+          <div class="logo-var on-green">
+            <div style="display:flex;flex-direction:column;align-items:flex-start;">
+              <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.75rem;line-height:1;letter-spacing:-0.02em;color:#fff;text-transform:uppercase;">BUNDEE</span>
+              <div style="height:2px;background:#C9A84C;width:100%;margin-top:3px;"></div>
+            </div>
+          </div>
+          <div class="logo-var-label" style="color:rgba(255,255,255,0.3);">On Forest Green</div>
+        </div>
+
+        <div class="logo-var-wrapper">
+          <div class="logo-var on-cream">
+            <div style="display:flex;flex-direction:column;align-items:flex-start;">
+              <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.75rem;line-height:1;letter-spacing:-0.02em;color:#1A4731;text-transform:uppercase;">BUNDEE</span>
+              <div style="height:2px;background:#C9A84C;width:100%;margin-top:3px;"></div>
+            </div>
+          </div>
+          <div class="logo-var-label" style="color:rgba(0,0,0,0.3);">On Cream</div>
+        </div>
+
+        <div class="logo-var-wrapper">
+          <div class="logo-var on-gold">
+            <div style="display:flex;flex-direction:column;align-items:flex-start;">
+              <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.75rem;line-height:1;letter-spacing:-0.02em;color:#0D0D0D;text-transform:uppercase;">BUNDEE</span>
+              <div style="height:2px;background:#1A4731;width:100%;margin-top:3px;"></div>
+            </div>
+          </div>
+          <div class="logo-var-label" style="color:rgba(255,255,255,0.3);">On Pacific Sun</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">SevenEight Agency <strong>/ Bundee Aki</strong> Brand Style Guide</div>
+  <div class="footer-note">Confidential — Internal Use Only · v1.0 · July 2026</div>
+</footer>
+
+<script>
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        const offset = 60; // nav height
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Active nav state on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.style.color = link.getAttribute('href') === '#' + entry.target.id ? '#EDE0C4' : '#888';
+        });
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-52px 0px 0px 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
