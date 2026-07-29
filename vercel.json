@@ -4,7 +4,7 @@
     { "source": "/posts/:slug", "destination": "/:slug", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/:slug", "destination": "/posts/:slug" }
+    { "source": "/:slug((?!clients|api|images|posts|favicon).*)", "destination": "/posts/:slug" }
   ],
   "headers": [
     {
