@@ -422,37 +422,106 @@
 
     .about-photo img {
       width: 100%;
-      height: 520px;
+      height: 100%;
+      max-height: 560px;
+      min-height: 360px;
       object-fit: cover;
       object-position: top center;
     }
 
-    .about-text .section-body {
-      margin-bottom: 32px;
+    .about-inner {
+      align-items: start;
     }
 
-    .about-highlights {
+    .about-text {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-bottom: 36px;
     }
 
-    .about-highlight {
+    .about-text .section-label { margin-bottom: 10px; }
+    .about-text .section-title { margin-bottom: 16px; }
+    .about-text > p { margin-bottom: 0; }
+    .about-bottom { margin-top: auto; padding-top: 16px; }
+
+    .about-credentials {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .about-credential {
       display: flex;
       align-items: flex-start;
-      gap: 14px;
-      font-size: 15px;
+      gap: 10px;
+      font-size: 14px;
       color: rgba(255,255,255,0.75);
+      line-height: 1.4;
     }
 
     .about-highlight-icon {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       background: var(--blue);
       border-radius: 50%;
       flex-shrink: 0;
       margin-top: 2px;
+    }
+
+    /* Philosophy band */
+    .about-philosophy {
+      max-width: 1200px;
+      margin: 48px auto 0;
+      background: var(--mid-grey);
+      border: 1px solid #3a3a3a;
+      border-left: 3px solid var(--gold);
+      border-radius: 8px;
+      padding: 40px 48px;
+    }
+
+    .about-philosophy-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .about-philosophy-text {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .about-philosophy-text p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.75;
+    }
+
+    .about-philosophy-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .about-philosophy-quote {
+      font-family: var(--font-head);
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--gold);
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 900px) {
+      .about-philosophy { padding: 32px 24px; margin-top: 32px; }
+      .about-philosophy-inner { grid-template-columns: 1fr; gap: 28px; }
+      .about-philosophy-cta { align-items: flex-start; text-align: left; }
+      .about-philosophy-quote { white-space: normal; }
     }
 
     /* Services cards */
@@ -596,6 +665,60 @@
       border: 1px solid rgba(242,166,29,0.3);
       padding: 4px 12px;
       border-radius: 20px;
+    }
+
+    /* ── PROGRAMMES GRID ───────────────────────────── */
+    .programmes-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: #1a1a1a;
+      border: 1px solid #222;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .pillar-cta {
+      display: inline-block;
+      margin-top: 20px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(242,166,29,0.3);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+
+    .pillar-cta:hover { border-color: var(--gold); }
+
+    @media (max-width: 900px) {
+      .programmes-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 0;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+      }
+      .programmes-grid::-webkit-scrollbar { display: none; }
+      .programmes-grid .pillar {
+        scroll-snap-align: start;
+        flex-shrink: 0;
+        width: 85vw;
+        border: 1px solid #222;
+        border-radius: 12px;
+        margin-right: 12px;
+      }
+      .programmes-grid .pillar:last-child { margin-right: 0; }
     }
 
     /* ── TESTIMONIALS ───────────────────────────────── */
@@ -1324,7 +1447,7 @@
       .section { padding: 48px 24px; }
 
       .about-inner { grid-template-columns: 1fr; gap: 40px; }
-      .about-photo img { height: 320px; }
+      .about-photo img { height: 320px; min-height: 320px; }
       .services-grid { grid-template-columns: 1fr; }
       .testimonials-header { flex-direction: column; align-items: flex-start; }
       .testimonials-grid { grid-template-columns: 1fr; }
@@ -1417,11 +1540,11 @@
 
     <div class="hero-content">
       <h1 class="hero-headline reveal reveal-delay-1">
-        GAA Training<br>Doesn't Have to<br>Be Complicated.
+        GAA Training<br>Works Best When<br>It's <span>Simple.</span>
       </h1>
 
-      <p class="hero-sub reveal reveal-delay-2">
-        Less noise. More exercise. Shane gives GAA players clear and simple plans that actually work.
+      <p class="hero-sub reveal reveal-delay-2" style="max-width:720px;">
+        I give plans that get results. Consistency, structure and nailing the basics.
       </p>
 
       <div class="hero-ctas reveal reveal-delay-3">
@@ -1434,39 +1557,67 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════ -->
-  <!-- ABOUT + SERVICES -->
+  <!-- ABOUT -->
   <!-- ═══════════════════════════════════════════════ -->
   <section class="section about-section" id="services">
+
+    <!-- Row 1: photo + bio + credentials -->
     <div class="about-inner">
       <div class="about-photo reveal">
-        <img src="./socfitness-assets/SOC_photo2.jpg" alt="GAA athlete performance training" />
+        <img src="./socfitness-assets/SOC_photo2.jpg" alt="Shane O'Connor — SOC Fitness" />
       </div>
 
       <div class="about-text">
         <div class="section-label reveal">About SOC Fitness</div>
         <h2 class="section-title reveal reveal-delay-1">Train Like a<br><span>GAA Athlete</span></h2>
         <p class="section-body reveal reveal-delay-2">
-          SOC Fitness exists for one reason — to make GAA players stronger, faster, and more durable on the pitch. Every programme is built from the ground up around your sport, your position, and your season.
+          I'm Shane O'Connor, a strength and conditioning coach from Derry City. I studied Sport &amp; Exercise Science at university, completed my PT qualification, and I'm now studying an MSc in Performance Coaching.
         </p>
-        <div class="about-highlights reveal reveal-delay-2">
-          <div class="about-highlight">
-            <div class="about-highlight-icon"></div>
-            <span>GAA-specific strength and conditioning — not generic gym work</span>
-          </div>
-          <div class="about-highlight">
-            <div class="about-highlight-icon"></div>
-            <span>Programming that respects your match schedule and club demands</span>
-          </div>
-          <div class="about-highlight">
-            <div class="about-highlight-icon"></div>
-            <span>Coach with hands-on experience of the GAA environment</span>
-          </div>
-          <div class="about-highlight">
-            <div class="about-highlight-icon"></div>
-            <span>In-person, online and small group options to suit your life</span>
+        <div class="about-bottom">
+          <p class="section-body reveal reveal-delay-2" style="margin-bottom:20px;">
+            I've coached across club and county setups, from underage to senior.
+          </p>
+          <div class="about-credentials reveal reveal-delay-3">
+            <div class="about-credential">
+              <div class="about-highlight-icon"></div>
+              <span>BSc Sport &amp; Exercise Science</span>
+            </div>
+            <div class="about-credential">
+              <div class="about-highlight-icon"></div>
+              <span>PT Certified</span>
+            </div>
+            <div class="about-credential">
+              <div class="about-highlight-icon"></div>
+              <span>MSc Performance Coaching, Setanta College</span>
+            </div>
+            <div class="about-credential">
+              <div class="about-highlight-icon"></div>
+              <span>Derry City FC S&amp;C Placement</span>
+            </div>
+            <div class="about-credential">
+              <div class="about-highlight-icon"></div>
+              <span>Derry GAA S&amp;C Internship (U-15 &amp; 16)</span>
+            </div>
+            <div class="about-credential">
+              <div class="about-highlight-icon"></div>
+              <span>S&amp;C Coach, underage &amp; senior men's teams</span>
+            </div>
           </div>
         </div>
-        <a href="#contact" class="btn-gold reveal reveal-delay-3">Start Your Programme</a>
+      </div>
+    </div>
+
+    <!-- Row 2: philosophy band -->
+    <div class="about-philosophy reveal">
+      <div class="about-philosophy-inner">
+        <div class="about-philosophy-text">
+          <p>I've always had a strong interest in physical fitness and how gym work can improve performance on the pitch. While no exercise is ever truly sport-specific, I focus on choosing movements that give GAA players the best carryover to their game and the best return for their effort.</p>
+          <p>I don't believe results come from training seven days a week, they come from keeping training simple and trying to improve every session.</p>
+        </div>
+        <div class="about-philosophy-cta">
+          <p class="about-philosophy-quote">Train smarter<br>to perform better.</p>
+          <a href="#contact" class="btn-gold">Start Your Programme</a>
+        </div>
       </div>
     </div>
 
@@ -1478,31 +1629,53 @@
   <section class="section how-section" id="how">
     <div class="how-inner">
       <div class="how-header">
-        <div class="section-label reveal">The SOC Method</div>
-        <h2 class="section-title reveal reveal-delay-1">Performance,<br>Built Around <span>You</span></h2>
+        <div class="section-label reveal">Programmes &amp; Coaching</div>
+        <h2 class="section-title reveal reveal-delay-1">My <span>Programmes</span></h2>
+        <p class="section-body reveal reveal-delay-2" style="margin-top:16px;">Choose the format that fits your training, your schedule, and your goals.</p>
       </div>
 
-      <div class="how-pillars" id="carousel-how">
+      <div class="programmes-grid" id="carousel-how">
         <div class="pillar reveal">
           <div class="pillar-number">01</div>
-          <div class="pillar-icon">🎯</div>
-          <div class="pillar-title">1:1 Personal Training</div>
-          <div class="pillar-desc">Full coach attention. Every set, every session. Your programme is written for you and only you — built around your goals, your GAA demands, and your physical profile. No templates. No shortcuts.</div>
-          <span class="pillar-tag">In Person</span>
+          <div class="pillar-icon">🏋️</div>
+          <div class="pillar-title">GAA Hybrid<br>Pre-Season</div>
+          <div class="pillar-desc">A structured pre-season coaching programme for GAA players who want to arrive into team training stronger, fitter and better prepared. Combines in-person coaching with online support, giving you clear weekly training, accountability and progressions across strength, speed, conditioning and pitch-based preparation.</div>
+          <a href="#contact" class="pillar-cta">Find Out More →</a>
         </div>
         <div class="pillar reveal reveal-delay-1">
           <div class="pillar-number">02</div>
-          <div class="pillar-icon" style="background:var(--blue)">🌍</div>
-          <div class="pillar-title">Online Coaching</div>
-          <div class="pillar-desc">Structured programme delivery with weekly check-ins, video feedback, and ongoing communication. Distance doesn't dilute the quality — you get elite GAA coaching wherever you train.</div>
-          <span class="pillar-tag">Remote</span>
+          <div class="pillar-icon">📅</div>
+          <div class="pillar-title">GAA Hybrid<br>Off-Season</div>
+          <div class="pillar-desc">A 12-week hybrid programme for male and female GAA players who want coaching, structure and accountability during the off-season. Includes in-person sessions, fortnightly pitch work, app tracking, weekly check-ins, jump monitoring and practical nutritional guidance to build your physical base for the season ahead.</div>
+          <a href="#contact" class="pillar-cta">Find Out More →</a>
         </div>
         <div class="pillar reveal reveal-delay-2">
           <div class="pillar-number">03</div>
+          <div class="pillar-icon">📋</div>
+          <div class="pillar-title">GAA Pre-Season<br>Programme</div>
+          <div class="pillar-desc">A downloadable, self-guided pre-season programme for players who already train and want a clear plan to follow independently. Progressively builds strength, power, speed and conditioning so you move from general preparation into match-ready training at your own pace, with no coaching check-ins required.</div>
+          <a href="#contact" class="pillar-cta">Find Out More →</a>
+        </div>
+        <div class="pillar reveal reveal-delay-3">
+          <div class="pillar-number">04</div>
+          <div class="pillar-icon">💪</div>
+          <div class="pillar-title">GAA Off-Season<br>Programme</div>
+          <div class="pillar-desc">A standalone downloadable off-season plan for competent gym goers who want direction, progression and a weekly structure they can follow themselves. Covers gym sessions, pitch conditioning and off-feet conditioning, making it ideal for players who want to build strength and fitness without online coaching or check-ins.</div>
+          <a href="#contact" class="pillar-cta">Find Out More →</a>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-number">05</div>
+          <div class="pillar-icon" style="background:var(--blue)">🌍</div>
+          <div class="pillar-title">Online<br>Coaching</div>
+          <div class="pillar-desc">Structured programme delivery with weekly check-ins, video feedback and ongoing communication. Built around your schedule, your sport and your goals. You get quality coaching and clear direction wherever you train, with no need to be based locally.</div>
+          <a href="#contact" class="pillar-cta">Find Out More →</a>
+        </div>
+        <div class="pillar reveal reveal-delay-1">
+          <div class="pillar-number">06</div>
           <div class="pillar-icon">🔥</div>
-          <div class="pillar-title">Small Group PT</div>
-          <div class="pillar-desc">Groups of up to 6 athletes. Each athlete has their own programme — but you push each other harder. High intensity, competitive culture, and a community that understands the GAA grind.</div>
-          <span class="pillar-tag">Groups of 6</span>
+          <div class="pillar-title">Small<br>Group PT</div>
+          <div class="pillar-desc">Groups of up to 10 maximum. Train alongside like-minded people in a fun, structured environment focused on compound movements. A great way to build strength, mobility and fitness while staying accountable and pushing each other to improve every session.</div>
+          <a href="#contact" class="pillar-cta">Find Out More →</a>
         </div>
       </div>
       <div class="carousel-hint" id="hint-how">
@@ -1634,9 +1807,9 @@
     <div class="contact-inner">
       <div class="contact-text">
         <div class="section-label reveal">Get Started</div>
-        <h2 class="section-title reveal reveal-delay-1">Ready to<br><span>Level Up?</span></h2>
+        <h2 class="section-title reveal reveal-delay-1">Ready to<br><span>Get Locked In?</span></h2>
         <p class="section-body reveal reveal-delay-2">
-          Fill in the form and Shane will be in touch within 24 hours. Tell him about your sport, your goals, and what you're working towards. The first conversation is free.
+          Fill in the form and I will be in touch within 24 hours. Tell me about your sport, your goals, and what you're working towards.
         </p>
         <div class="contact-details reveal reveal-delay-3">
           <div class="contact-detail">
@@ -1681,13 +1854,13 @@
       <div class="footer-top">
         <div class="footer-brand">
           <img src="./socfitness-assets/SOC_logo.png" alt="SOC Fitness" />
-          <p>GAA Performance Coaching for athletes who refuse to leave potential on the pitch. Built for Gaelic Football and Hurling players at every level.</p>
+          <p>GAA Performance Coaching for players who are fed up of going through the motions and want to get a bit better every session. Train like an athlete.</p>
         </div>
 
         <div class="footer-nav-col">
           <div class="footer-col-title">Services</div>
           <ul class="footer-links">
-            <li><a href="#services">1:1 Personal Training</a></li>
+            <li><a href="#how">GAA Programmes</a></li>
             <li><a href="#services">Online Coaching</a></li>
             <li><a href="#services">Small Group Training</a></li>
             <li><a href="#contact">Get a Programme</a></li>
