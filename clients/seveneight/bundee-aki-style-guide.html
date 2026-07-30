@@ -901,59 +901,41 @@
     margin-bottom: 3rem;
   }
 
-  .photo-placeholder {
-    aspect-ratio: 3/4;
+  .photo-card {
     background: var(--ba-slate);
-    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px;
+    padding: 1.5rem 1.25rem 1.25rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 1.25rem;
-    position: relative;
-    overflow: hidden;
+    gap: 0.75rem;
   }
 
-  .photo-placeholder::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%);
+  .photo-card-icon {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
   }
 
-  .photo-placeholder.green-tint::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(26, 71, 49, 0.3);
+  .photo-card-icon svg {
+    width: 100%;
+    height: 100%;
   }
 
-  .photo-placeholder.gold-tint::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(201, 168, 76, 0.15);
-  }
-
-  .photo-label {
-    position: relative;
-    z-index: 2;
+  .photo-card-title {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     color: rgba(255,255,255,0.9);
-    line-height: 1.35;
   }
 
-  .photo-label .sub {
-    display: block;
-    font-weight: 500;
-    font-size: 0.6rem;
-    color: rgba(255,255,255,0.45);
-    text-transform: none;
-    letter-spacing: 0.05em;
-    margin-top: 0.2rem;
+  .photo-card-desc {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.55;
+    letter-spacing: 0.02em;
   }
 
   .photo-direction-notes {
@@ -1679,48 +1661,134 @@
       </div>
 
       <div class="photo-direction">
-        <div class="photo-placeholder" style="background:#111;">
-          <img src="https://images.unsplash.com/photo-1544298621-35a989e4e54a?w=600&q=80&fit=crop" alt="Rugby action" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;">
-          <div class="photo-label">
-            ACTION SHOT
-            <span class="sub">Low angle · High intensity · Gainline break · Motion blur on tacklers</span>
+
+        <!-- ACTION SHOT -->
+        <div class="photo-card">
+          <div class="photo-card-icon">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Rugby ball -->
+              <ellipse cx="36" cy="28" rx="10" ry="6" transform="rotate(-35 36 28)" stroke="#C9A84C" stroke-width="2" fill="none"/>
+              <line x1="30" y1="32" x2="42" y2="24" stroke="#C9A84C" stroke-width="1.5"/>
+              <!-- Player body running forward, leaning -->
+              <circle cx="20" cy="14" r="4" fill="#C9A84C"/>
+              <line x1="20" y1="18" x2="26" y2="30" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="26" y1="30" x2="18" y2="44" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="18" y1="44" x2="12" y2="54" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+              <line x1="18" y1="44" x2="26" y2="52" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+              <line x1="26" y1="30" x2="34" y2="26" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+              <!-- Motion lines -->
+              <line x1="8" y1="20" x2="2" y2="20" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+              <line x1="10" y1="28" x2="4" y2="28" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" opacity="0.25"/>
+              <line x1="9" y1="36" x2="3" y2="36" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" opacity="0.15"/>
+            </svg>
           </div>
+          <div class="photo-card-title">Action Shot</div>
+          <div class="photo-card-desc">Low angle · High intensity · Gainline break · Motion blur on tacklers</div>
         </div>
-        <div class="photo-placeholder" style="background:#111;">
-          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80&fit=crop" alt="Portrait natural light" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;">
-          <div class="photo-label">
-            PORTRAIT — JERSEY OFF
-            <span class="sub">Environmental · Galway / Connacht location · Natural light · Quiet authority</span>
+
+        <!-- PORTRAIT -->
+        <div class="photo-card">
+          <div class="photo-card-icon">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Head -->
+              <circle cx="32" cy="18" r="8" stroke="#C9A84C" stroke-width="2" fill="none"/>
+              <!-- Shoulders/body -->
+              <path d="M16 52 Q16 38 32 36 Q48 38 48 52" stroke="#C9A84C" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <!-- Sun rays — natural light -->
+              <line x1="54" y1="10" x2="58" y2="6" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+              <line x1="56" y1="14" x2="61" y2="12" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+              <line x1="54" y1="18" x2="59" y2="18" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+              <circle cx="52" cy="12" r="4" stroke="#C9A84C" stroke-width="1.5" fill="none" opacity="0.6"/>
+            </svg>
           </div>
+          <div class="photo-card-title">Portrait — Jersey Off</div>
+          <div class="photo-card-desc">Environmental · Galway / Connacht · Natural light · Quiet authority</div>
         </div>
-        <div class="photo-placeholder" style="background:#111;">
-          <img src="https://images.unsplash.com/photo-1529516548873-9ce57c8f155e?w=600&q=80&fit=crop" alt="Community moment" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.75;">
-          <div class="photo-label">
-            COMMUNITY MOMENT
-            <span class="sub">Bundee with kids / fans / teammates · Unguarded · Warm light · Real emotion</span>
+
+        <!-- COMMUNITY -->
+        <div class="photo-card">
+          <div class="photo-card-icon">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Large figure (Bundee) -->
+              <circle cx="32" cy="16" r="6" stroke="#C9A84C" stroke-width="2" fill="none"/>
+              <line x1="32" y1="22" x2="32" y2="40" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Arm around small figure -->
+              <line x1="32" y1="30" x2="44" y2="34" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+              <!-- Small figure (kid) -->
+              <circle cx="46" cy="30" r="4" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+              <line x1="46" y1="34" x2="46" y2="46" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+              <!-- Other small figure -->
+              <circle cx="20" cy="32" r="3.5" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+              <line x1="20" y1="35.5" x2="20" y2="46" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="32" y1="30" x2="22" y2="34" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+              <!-- Legs -->
+              <line x1="32" y1="40" x2="28" y2="52" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+              <line x1="32" y1="40" x2="36" y2="52" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+            </svg>
           </div>
+          <div class="photo-card-title">Community Moment</div>
+          <div class="photo-card-desc">With kids / fans / teammates · Unguarded · Warm light · Real emotion</div>
         </div>
-        <div class="photo-placeholder" style="background:#111;">
-          <img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=600&q=80&fit=crop" alt="Heritage warmth" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.75;">
-          <div class="photo-label">
-            HERITAGE REFERENCE
-            <span class="sub">Samoan/Pacific cultural context · Family setting · Warm tones · Authentic</span>
+
+        <!-- HERITAGE -->
+        <div class="photo-card">
+          <div class="photo-card-icon">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Pacific/Polynesian inspired wave pattern -->
+              <path d="M6 38 Q12 30 18 38 Q24 46 30 38 Q36 30 42 38 Q48 46 54 38 Q60 30 66 38" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M6 44 Q12 36 18 44 Q24 52 30 44 Q36 36 42 44 Q48 52 54 44" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+              <!-- Sun symbol -->
+              <circle cx="32" cy="20" r="7" stroke="#C9A84C" stroke-width="2" fill="none"/>
+              <line x1="32" y1="8" x2="32" y2="4" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="42" y1="11" x2="45" y2="8" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="44" y1="20" x2="48" y2="20" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="22" y1="11" x2="19" y2="8" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="20" y1="20" x2="16" y2="20" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
           </div>
+          <div class="photo-card-title">Heritage Reference</div>
+          <div class="photo-card-desc">Samoan / Pacific cultural context · Family setting · Warm tones · Authentic</div>
         </div>
-        <div class="photo-placeholder" style="background:#111;">
-          <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80&fit=crop" alt="Prestige high contrast" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.7;">
-          <div class="photo-label">
-            LIONS / PRESTIGE MOMENT
-            <span class="sub">Dark, high-contrast · Red accent · Lions jersey · Weight and honour</span>
+
+        <!-- LIONS -->
+        <div class="photo-card">
+          <div class="photo-card-icon">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Trophy / shield -->
+              <path d="M22 8 H42 V34 Q42 48 32 54 Q22 48 22 34 Z" stroke="#9B1C2E" stroke-width="2" fill="none"/>
+              <!-- Star inside -->
+              <polygon points="32,18 34,24 40,24 35,28 37,34 32,30 27,34 29,28 24,24 30,24" stroke="#9B1C2E" stroke-width="1.2" fill="none"/>
+              <!-- Lions crest hint — mane lines -->
+              <line x1="14" y1="14" x2="8" y2="10" stroke="#9B1C2E" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+              <line x1="14" y1="20" x2="7" y2="20" stroke="#9B1C2E" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+              <line x1="50" y1="14" x2="56" y2="10" stroke="#9B1C2E" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+              <line x1="50" y1="20" x2="57" y2="20" stroke="#9B1C2E" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+            </svg>
           </div>
+          <div class="photo-card-title">Lions / Prestige Moment</div>
+          <div class="photo-card-desc">Dark, high-contrast · Red accent · Lions jersey · Weight and honour</div>
         </div>
-        <div class="photo-placeholder" style="background:#111;">
-          <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&q=80&fit=crop" alt="Post match tunnel" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.75;">
-          <div class="photo-label">
-            POST-MATCH TUNNEL
-            <span class="sub">Raw, candid · Sweat and jersey · Unpolished · Human, not heroic</span>
+
+        <!-- POST-MATCH -->
+        <div class="photo-card">
+          <div class="photo-card-icon">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Tunnel arch -->
+              <path d="M8 56 L8 24 Q8 8 32 8 Q56 8 56 24 L56 56" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <!-- Light at end of tunnel -->
+              <ellipse cx="32" cy="32" rx="10" ry="14" fill="#C9A84C" opacity="0.08"/>
+              <ellipse cx="32" cy="32" rx="6" ry="9" fill="#C9A84C" opacity="0.1"/>
+              <!-- Player silhouette walking -->
+              <circle cx="32" cy="30" r="3.5" fill="#C9A84C" opacity="0.7"/>
+              <line x1="32" y1="33.5" x2="32" y2="44" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+              <line x1="32" y1="44" x2="28" y2="52" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+              <line x1="32" y1="44" x2="36" y2="52" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+            </svg>
           </div>
+          <div class="photo-card-title">Post-Match Tunnel</div>
+          <div class="photo-card-desc">Raw, candid · Sweat and jersey · Unpolished · Human, not heroic</div>
         </div>
+
       </div>
 
       <div class="photo-direction-notes">
