@@ -1075,60 +1075,6 @@
       color: rgba(255,255,255,0.5);
     }
 
-    /* ── KIT FORM OVERRIDES ──────────────────────────── */
-    /* Hide Kit's default header/description */
-    .formkit-form[data-uid="c99fdfce22"] .formkit-header,
-    .formkit-form[data-uid="c99fdfce22"] .formkit-subheader { display: none !important; }
-
-    /* Make background transparent */
-    .formkit-form[data-uid="c99fdfce22"] { background: transparent !important; box-shadow: none !important; }
-    .formkit-form[data-uid="c99fdfce22"] .formkit-column { background: transparent !important; padding: 0 !important; }
-    .formkit-form[data-uid="c99fdfce22"] [data-style="full"] { background: transparent !important; }
-
-    /* Input field */
-    .formkit-form[data-uid="c99fdfce22"] .formkit-input,
-    .formkit-form[data-uid="c99fdfce22"] input[type="email"],
-    .formkit-form[data-uid="c99fdfce22"] input[type="text"],
-    .formkit-form[data-uid="c99fdfce22"] input {
-      background: rgba(0,0,0,0.3) !important;
-      border: 1px solid rgba(255,255,255,0.4) !important;
-      color: #ffffff !important;
-      font-family: 'Barlow', sans-serif !important;
-      font-size: 16px !important;
-      border-radius: 4px !important;
-      padding: 14px 18px !important;
-    }
-    .formkit-form[data-uid="c99fdfce22"] input::placeholder,
-    .formkit-form[data-uid="c99fdfce22"] .formkit-input::placeholder { color: rgba(255,255,255,0.6) !important; }
-    .formkit-form[data-uid="c99fdfce22"] input:focus,
-    .formkit-form[data-uid="c99fdfce22"] .formkit-input:focus { border-color: #F2A61D !important; outline: none !important; }
-
-    /* Error message */
-    .formkit-form[data-uid="c99fdfce22"] .formkit-alert {
-      background: rgba(0,0,0,0.35) !important;
-      border: 1px solid rgba(255,255,255,0.3) !important;
-      color: #fff !important;
-      border-radius: 4px !important;
-    }
-
-    /* Submit button */
-    .formkit-form[data-uid="c99fdfce22"] .formkit-submit {
-      background: #F2A61D !important;
-      color: #0D0D0D !important;
-      font-family: 'Barlow Condensed', sans-serif !important;
-      font-weight: 800 !important;
-      font-size: 17px !important;
-      letter-spacing: 0.08em !important;
-      text-transform: uppercase !important;
-      border-radius: 4px !important;
-      border: none !important;
-      width: 100% !important;
-    }
-    .formkit-form[data-uid="c99fdfce22"] .formkit-submit:hover { background: #e09810 !important; }
-
-    /* Hide "Built with Kit" badge */
-    .formkit-form[data-uid="c99fdfce22"] .formkit-powered-by-convertkit-container { display: none !important; }
-
     /* ── CONTACT ─────────────────────────────────────── */
     .contact-section {
       background: var(--dark-grey);
@@ -1847,7 +1793,10 @@
         </p>
       </div>
       <div class="newsletter-form reveal reveal-delay-2">
-        <script async data-uid="c99fdfce22" src="https://socfitness.kit.com/c99fdfce22/index.js"></script>
+        <form action="https://app.kit.com/forms/9750150/subscriptions" method="post" id="kit-form">
+          <input class="newsletter-input" type="email" name="email_address" placeholder="Your Email Address" required />
+          <button class="newsletter-btn" type="submit">Send Me the Primer →</button>
+        </form>
         <p class="newsletter-disclaimer">Sent straight to your inbox. No spam, unsubscribe anytime.</p>
       </div>
     </div>
