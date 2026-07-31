@@ -1075,6 +1075,45 @@
       color: rgba(255,255,255,0.5);
     }
 
+    /* ── KIT FORM OVERRIDES ──────────────────────────── */
+    /* Hide Kit's default header/description */
+    .formkit-form[data-uid="c99fdfce22"] .formkit-header,
+    .formkit-form[data-uid="c99fdfce22"] .formkit-subheader { display: none !important; }
+
+    /* Make background transparent */
+    .formkit-form[data-uid="c99fdfce22"] { background: transparent !important; box-shadow: none !important; }
+    .formkit-form[data-uid="c99fdfce22"] .formkit-column { background: transparent !important; padding: 0 !important; }
+    .formkit-form[data-uid="c99fdfce22"] [data-style="full"] { background: transparent !important; }
+
+    /* Input field */
+    .formkit-form[data-uid="c99fdfce22"] .formkit-input {
+      background: rgba(0,0,0,0.25) !important;
+      border: 1px solid rgba(255,255,255,0.3) !important;
+      color: #fff !important;
+      font-family: 'Barlow', sans-serif !important;
+      font-size: 16px !important;
+      border-radius: 4px !important;
+    }
+    .formkit-form[data-uid="c99fdfce22"] .formkit-input::placeholder { color: rgba(255,255,255,0.55) !important; }
+
+    /* Submit button */
+    .formkit-form[data-uid="c99fdfce22"] .formkit-submit {
+      background: #F2A61D !important;
+      color: #0D0D0D !important;
+      font-family: 'Barlow Condensed', sans-serif !important;
+      font-weight: 800 !important;
+      font-size: 17px !important;
+      letter-spacing: 0.08em !important;
+      text-transform: uppercase !important;
+      border-radius: 4px !important;
+      border: none !important;
+      width: 100% !important;
+    }
+    .formkit-form[data-uid="c99fdfce22"] .formkit-submit:hover { background: #e09810 !important; }
+
+    /* Hide "Built with Kit" badge */
+    .formkit-form[data-uid="c99fdfce22"] .formkit-powered-by-convertkit-container { display: none !important; }
+
     /* ── CONTACT ─────────────────────────────────────── */
     .contact-section {
       background: var(--dark-grey);
