@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Is anyone listening? — stephenjcleary</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HLCJ1PDQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5HLCJ1PDQK');
+  </script>
+  <style>
+    :root { --cream: #EDE0C4; --cream-light: #F7F2EA; --red: #C8102E; --red-deep: #A00E24; --dark: #1C1C1C; --mid: #5C5247; --font: 'Outfit', 'Segoe UI', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--cream-light); color: var(--dark); font-size: 16px; line-height: 1.6; }
+    nav { background: transparent; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: absolute; top: 0; left: 0; right: 0; z-index: 100; }
+    .nav-home { font-size: 13px; font-weight: 600; color: rgba(237, 224, 196, 0.7); text-decoration: none; transition: color 0.15s; }
+    .nav-home:hover { color: var(--cream); }
+    .nav-home::before { content: '← '; }
+    .nav-search { position: relative; display: flex; align-items: center; }
+    .nav-search input { background: #2e2e2e; border: 1px solid rgba(237, 224, 196, 0.25); border-radius: 4px; color: #ffffff; -webkit-text-fill-color: #ffffff; caret-color: #ffffff; font-family: var(--font); font-size: 13px; padding: 6px 14px; width: 220px; outline: none; position: relative; z-index: 101; transition: border-color 0.15s, width 0.2s; }
+    .nav-search input:focus { border-color: rgba(237, 224, 196, 0.6); width: 280px; }
+    .nav-search input::placeholder { color: rgba(237, 224, 196, 0.4); }
+    .entry-header { background: var(--dark); padding: 80px 32px 36px; border-bottom: 3px solid var(--red); position: relative; overflow: hidden; }
+    .entry-header::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px); background-size: 22px 22px; pointer-events: none; }
+    .entry-header::after { content: ''; position: absolute; top: 50%; left: 72%; transform: translate(-50%, -44%); width: 500px; height: 240px; background: radial-gradient(ellipse at center, rgba(200,16,46,0.35) 0%, rgba(200,16,46,0.14) 40%, transparent 70%); pointer-events: none; }
+    .entry-header-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+    .entry-header-top { margin-bottom: 16px; }
+    .card-meta { font-size: 11px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em; }
+    .entry-title { font-size: clamp(22px, 4vw, 36px); font-weight: 700; color: var(--cream-light); line-height: 1.2; }
+    .entry-body-wrap { max-width: 720px; margin: 0 auto; padding: 40px 32px 24px; }
+    .entry-body p { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 20px; }
+    .entry-body h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 32px 0 12px; line-height: 1.3; }
+    .entry-body ul { margin: 0 0 20px 20px; padding: 0; }
+    .entry-body ul li { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 8px; }
+    .entry-body a { color: var(--red); text-decoration: none; }
+    .entry-body a:hover { color: var(--red-deep); text-decoration: underline; }
+    .entry-body em { font-style: italic; }
+    .entry-body strong { font-weight: 700; }
+    .entry-img { width: 100%; border-radius: 6px; margin: 28px 0; display: block; object-fit: cover; max-height: 480px; }
+    .entry-img-caption { font-size: 12px; color: var(--mid); text-align: center; margin-top: -18px; margin-bottom: 28px; }
+    .entry-img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+    .entry-img-pair img { width: 100%; border-radius: 6px; object-fit: cover; height: 280px; }
+    .back-link { display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: var(--red); text-decoration: none; margin-bottom: 16px; transition: color 0.15s; }
+    .back-link::before { content: '← '; margin-right: 2px; }
+    .back-link:hover { color: var(--red-deep); }
+    footer { text-align: center; padding: 0 32px 32px; }
+    footer img { max-width: 960px; width: 100%; display: block; margin: 0 auto; }
+    .entry-wordmark { font-size: 13px; font-weight: 700; color: #F7F2EA; letter-spacing: 0.01em; margin-bottom: 20px; }
+    .entry-wordmark span { color: #C8102E; }
+    @media (max-width: 720px) { nav { padding: 0 20px; } .nav-search input { width: 160px; } .entry-header { padding: 72px 20px 28px; } .entry-body-wrap { padding: 28px 20px 24px; } .entry-img-pair { grid-template-columns: 1fr; } .entry-img-pair img { height: 200px; } footer { padding: 0 20px 24px; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-home" href="../index.html">Back home</a>
+    <div class="nav-search">
+      <input type="text" placeholder="Search entries…" autocomplete="off" spellcheck="false" />
+    </div>
+  </nav>
+
+  <div class="entry-header">
+    <div class="entry-header-inner">
+      <p class="entry-wordmark">stephen<span>j</span>cleary</p>
+      <div class="entry-header-top">
+        <span class="card-meta">31 July 2026</span>
+      </div>
+      <h1 class="entry-title">Is anyone listening?</h1>
+    </div>
+  </div>
+
+  <div class="entry-body-wrap">
+    <div class="entry-body">
+
+      <img src="../images/figurine-stadium-listening.png" alt="SJC figurine on the pitch cupping ears toward the stands at night" class="entry-img" />
+
+      <p>I have a Research agent called Pele. A master historian. When I need to understand what a market is actually saying, what fans genuinely feel, or what's cutting through online right now, Pele is who I go to. Pele can do a <a href="exploring-brand-positioning-with-derek-zoolander.html">Brand DNA Audit based on web search</a>.</p>
+
+      <p>Recently I gave him a new skill. Social listening. He pulls intelligence from Reddit, TikTok, Instagram, X, YouTube, and the open web and turns it into something I can actually use.</p>
+
+      <p>In my time I've used various social listening tools like Sprinklr and Brandwatch. I could see how AI was being integrated to provide summaries on the stacks of data points it would provide. Now I have my own version albeit it's for a one month period.</p>
+
+      <h3>What the skill does</h3>
+
+      <p>The idea is straightforward. Most brands have some version of a brand tracker that tells them what consumers claim to believe about them. What they rarely have is a live read on what people are <em>actually</em> saying, unprompted, in their own words, right now. The social listening skill closes that gap.</p>
+
+      <p>Pele collects posts, threads, videos, and reels across every major platform, then synthesises them into a structured research report. The output is a dashboard that shows reach and volume, breaks down the sources, surfaces the strongest signals, and puts brand claims under pressure by comparing them directly against community reality.</p>
+
+      <img src="../images/listening1.png" alt="Social listening dashboard — reach and volume overview" class="entry-img" />
+
+      <p>For the test run I pointed him at adidasFootball. The numbers that came back were notable. 105 evidence items collected across all sources. 36.1 million video views on TikTok and Instagram combined, all organic, all unsponsored. 2.9 million likes and comments across platforms. 114,000 Reddit upvotes from 27 threads and over 11,000 comments.</p>
+
+      <p>That's a lot of signal. The question is what it means.</p>
+
+      <h3>What the market is actually saying</h3>
+
+      <p>The dashboard organises findings into named themes, each with a signal strength rating. For adidas the clearest story was Lamine Yamal. The F50 Hyperfast is adidas's lightest World Cup boot, and his LY304 signature sold out instantly. On TikTok, individual clips hit 700,000 views. The top organic comment on the sock-boot design was "I thought you were wearing socks" — 2,218 likes. That's free creative the brand never briefed.</p>
+
+      <img src="../images/listening2.png" alt="Social listening dashboard — what the market is actually saying" class="entry-img" />
+
+      <p>Club kit emotion was another strong signal, highest in LATAM and Africa. The Flamengo third jersey launch generated the highest single-post X engagement in the research window. Brazilian fans responded with raw emotional language, unprompted. "Perfeição em Adidas." That's not brand language. That's belonging.</p>
+
+      <p>Not everything was clean. The Three Stripes enlargement on kit shoulders is generating consistent criticism across Reddit and TikTok. "Too thick," "dominate the shoulder area," "make the collar look small." A Footy Headlines piece spread from editorial into community discussion. That's a tension worth watching.</p>
+
+      <h3>Claimed versus measured</h3>
+
+      <p>The section I find most useful is the Claimed vs Measured table. It takes each brand positioning claim and puts it next to what the community is actually saying. For adidas it showed performance credentials confirmed and amplified, club identity landing strongest in markets where football is identity rather than entertainment, and brand prestige under genuine pressure from the Germany-to-Nike story, which the community is framing as "end of an era."</p>
+
+      <img src="../images/listening3.png" alt="Social listening dashboard — claimed versus measured table" class="entry-img" />
+
+      <p>The gap between what a brand says and what people repeat back is where strategy lives. The table makes it visible in one read.</p>
+
+      <h3>Top performing content and signal confidence</h3>
+
+      <p>The dashboard also surfaces the top performing content by platform, views, and signal type. The F50 sock-boot optical illusion was the standout — 741,000 views and 65,200 likes, tagged as Organic Surprise. The Orlando Pirates unboxing drove 210,000 views on TikTok and 48,900 likes, tagged Club Identity. The @adidasfootball Flamengo post on X hit 2,099 likes with Owned LATAM.</p>
+
+      <img src="../images/listening4.png" alt="Social listening dashboard — top performing content and signal confidence" class="entry-img" />
+
+      <p>Signal confidence is broken down by theme too. Yamal and club kits score high. The Stripe debate and Germany situation are medium. Betting objection is low. That hierarchy matters when you're deciding where to focus.</p>
+
+      <h3>Why this is worth having</h3>
+
+      <p>Brand tracking tells you what people say when you ask them. Social listening tells you what they say when nobody's listening. These two things are not always the same, and the distance between them is genuinely interesting to a brand marketer.</p>
+
+      <p>The fans in the stands are always talking. You just have to know how to listen.</p>
+
+    </div>
+
+    <a class="back-link" href="../index.html">Back home</a>
+  </div>
+
+  <footer>
+    <picture>
+      <source media="(max-width: 720px)" srcset="../images/SJC_section_June26.png" />
+      <img src="../images/SJC_footer_June26.png" alt="stephenjcleary" />
+    </picture>
+  </footer>
+
+</body>
+</html>
