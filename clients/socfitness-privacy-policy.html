@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — SOC Fitness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:     #0D0D0D;
+      --white:     #FFFFFF;
+      --blue:      #2F6DB5;
+      --gold:      #F2A61D;
+      --dark-grey: #1A1A1A;
+      --mid-grey:  #333333;
+      --light-grey:#888888;
+      --font-head: 'Barlow Condensed', sans-serif;
+      --font-body: 'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: 80px;
+      padding: 0 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(13, 13, 13, 0.97);
+      box-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo img {
+      height: 48px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--black) !important;
+      font-family: var(--font-head) !important;
+      font-size: 15px !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.08em !important;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border-radius: 4px;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: #e09810 !important;
+      color: var(--black) !important;
+      transform: translateY(-2px);
+    }
+
+    /* Hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* ── HERO BAND ───────────────────────────────────── */
+    .policy-hero {
+      background: var(--dark-grey);
+      border-bottom: 1px solid #2a2a2a;
+      padding: 140px 60px 64px;
+      text-align: center;
+    }
+
+    .policy-hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .policy-hero-eyebrow::before,
+    .policy-hero-eyebrow::after {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    .policy-hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(42px, 7vw, 80px);
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      line-height: 0.95;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .policy-hero-sub {
+      font-size: 15px;
+      color: var(--light-grey);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── POLICY CONTENT ──────────────────────────────── */
+    .policy-body {
+      padding: 72px 24px 96px;
+    }
+
+    .policy-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .policy-section {
+      margin-bottom: 56px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .policy-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .policy-section-title {
+      font-family: var(--font-head);
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .policy-section-title::before {
+      content: '';
+      width: 3px;
+      height: 22px;
+      background: var(--gold);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .policy-section p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .policy-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .policy-section ul {
+      list-style: none;
+      margin: 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .policy-section ul li {
+      font-size: 16px;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.7;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .policy-section ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .policy-section a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(242,166,29,0.35);
+      transition: border-color 0.2s;
+    }
+
+    .policy-section a:hover {
+      border-color: var(--gold);
+    }
+
+    .policy-callout {
+      background: var(--dark-grey);
+      border: 1px solid #2a2a2a;
+      border-left: 3px solid var(--blue);
+      border-radius: 6px;
+      padding: 24px 28px;
+      margin: 24px 0;
+    }
+
+    .policy-callout p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 0 !important;
+      line-height: 1.7;
+    }
+
+    .policy-callout strong {
+      color: var(--white);
+    }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    .footer {
+      background: #080808;
+      border-top: 1px solid #1a1a1a;
+      padding: 64px 60px 32px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 60px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid #1a1a1a;
+      margin-bottom: 32px;
+    }
+
+    .footer-brand img {
+      height: 60px;
+      margin-bottom: 20px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      color: var(--light-grey);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: var(--light-grey);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: var(--dark-grey);
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-grey);
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .social-link:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--black);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .footer-copyright {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .footer-gold-bar {
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--blue) 50%, transparent 100%);
+      margin-bottom: 48px;
+    }
+
+    /* ── MEDIA QUERIES ──────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav {
+        height: 64px;
+        padding: 0 20px;
+      }
+
+      .nav-logo img { height: 36px; }
+
+      .nav-links { display: none; flex-direction: column; gap: 0; }
+      .nav-links.open {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(13,13,13,0.98);
+        padding: 100px 40px 40px;
+        z-index: 99;
+        gap: 0;
+      }
+      .nav-links li { border-bottom: 1px solid #222; }
+      .nav-links a { display: block; padding: 18px 0; font-size: 16px; }
+      .nav-cta { display: block; text-align: center; margin-top: 24px; }
+      .nav-hamburger { display: flex; z-index: 101; position: relative; }
+
+      .policy-hero { padding: 120px 24px 48px; }
+
+      .policy-body { padding: 48px 24px 72px; }
+
+      .footer { padding: 48px 24px 24px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .footer-brand { grid-column: span 2; }
+    }
+
+    @media (max-width: 480px) {
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: auto; }
+      .footer-nav-col { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- NAV -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <nav class="nav" id="main-nav">
+    <a href="./socfitness-website.html" class="nav-logo">
+      <img src="./socfitness-assets/SOC_logo.png" alt="SOC Fitness" />
+    </a>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="./socfitness-website.html#services">About</a></li>
+      <li><a href="./socfitness-website.html#how">How We Work</a></li>
+      <li><a href="./socfitness-website.html#testimonials">Testimonials</a></li>
+      <li><a href="./socfitness-website.html#contact">Contact</a></li>
+      <li><a href="./socfitness-website.html#contact" class="nav-cta">Get a Programme</a></li>
+    </ul>
+
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- HERO BAND -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="policy-hero">
+    <div class="policy-hero-eyebrow">SOC Fitness</div>
+    <h1>Privacy Policy</h1>
+    <p class="policy-hero-sub">Last updated: July 2026</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- POLICY CONTENT -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="policy-body">
+    <div class="policy-content">
+
+      <div class="policy-section">
+        <h2 class="policy-section-title">Who We Are</h2>
+        <p>SOC Fitness is a personal training and GAA performance coaching business operated by Shane O'Connor, based in Derry City, Northern Ireland.</p>
+        <p>Shane O'Connor is the data controller for all personal data collected through this website. This means he is responsible for deciding how your personal information is used and for keeping it safe.</p>
+        <div class="policy-callout">
+          <p><strong>Contact details</strong><br>
+          Shane O'Connor — SOC Fitness<br>
+          Derry City, Northern Ireland<br>
+          Email: <a href="mailto:shane@socfitness.ie">shane@socfitness.ie</a></p>
+        </div>
+        <p>If you have any questions about this privacy policy or how we handle your data, please get in touch at the email address above.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-section-title">What Data We Collect</h2>
+        <p>We only collect the personal information you actively give us. We do not collect sensitive personal data, financial information, or health records.</p>
+        <p>We collect:</p>
+        <ul>
+          <li><strong>Your name</strong> — when you fill in a contact or sign-up form on this site</li>
+          <li><strong>Your email address</strong> — when you fill in a contact or sign-up form on this site</li>
+        </ul>
+        <p>We do not collect payment card details, bank information, or any health or medical data through this website. No payment processing takes place on this site.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-section-title">Why We Collect It</h2>
+        <p>We collect your name and email address for the following purposes:</p>
+        <ul>
+          <li><strong>To respond to your enquiry.</strong> If you fill in the contact form, we use your name and email to reply to your message and discuss the right programme for you.</li>
+          <li><strong>To send you the resource you requested.</strong> If you sign up for the free training plan or any other lead magnet, we use your email to deliver it to your inbox.</li>
+          <li><strong>To send occasional training tips and updates.</strong> If you have opted in to our mailing list, we may send you training advice, programme updates, and relevant news from SOC Fitness. You can unsubscribe at any time.</li>
+        </ul>
+        <p>We will never use your data for purposes other than those listed above, and we will never sell your data to anyone.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-section-title">Legal Basis for Processing</h2>
+        <p>Under UK GDPR (as applied in Northern Ireland) and EU GDPR (as implemented in Ireland through the Data Protection Acts 1988–2018), we are required to have a lawful basis for processing your personal data. We rely on the following:</p>
+        <ul>
+          <li><strong>Legitimate interests</strong> — for responding to enquiries you send us through the contact form. It is in our legitimate interest as a business to reply to people who get in touch, and it is what you would reasonably expect when you submit a message.</li>
+          <li><strong>Consent</strong> — for adding you to our mailing list and sending you marketing emails, including training tips and programme updates. We only send these emails where you have actively opted in. You can withdraw your consent and unsubscribe at any time using the link in any email we send.</li>
+        </ul>
+        <p>We do not rely on consent for enquiry responses — if you contact us, we will reply. For everything else (newsletters, tips, lead magnets), consent is the basis and you are always in control.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-section-title">How Long We Keep Your Data</h2>
+        <p>We keep your data only for as long as it is needed:</p>
+        <ul>
+          <li><strong>Enquiry responses</strong> — we retain your name and email for as long as is reasonably necessary to handle your enquiry and follow up appropriately, typically no longer than 12 months from your last contact with us.</li>
+          <li><strong>Mailing list subscribers</strong> — we retain your data on our email list for as long as you remain subscribed. If you unsubscribe, your data will be removed from our active list. We may retain a suppression record (your email address only) to ensure we do not accidentally email you again.</li>
+        </ul>
+        <p>If you would like your data deleted sooner, just email us at <a href="mailto:shane@socfitness.ie">shane@socfitness.ie</a> and we will action your request promptly.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-section-title">Third Parties We Share Data With</h2>
+        <p>We share your data with one third-party service provider:</p>
+        <ul>
+          <li><strong>Kit (formerly ConvertKit)</strong> — our email marketing platform. When you sign up to our list or request a free resource, your name and email are stored in our Kit account and used to deliver your emails. Kit processes this data on our behalf as a data processor. You can read Kit's privacy policy at <a href="https://kit.com/privacy" target="_blank" rel="noopener noreferrer">kit.com/privacy</a>.</li>
+        </ul>
+        <p>We do not share your personal data with any other third parties, and we never sell your data to anyone for any reason.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-section-title">International Data Transfers</h2>
+        <p>Kit (formerly ConvertKit) is a US-based company, which means your name and email address may be processed on servers located in the United States.</p>
+        <p>Under both UK GDPR and EU GDPR, transfers of personal data to countries outside the UK and European Economic Area (EEA) must be protected by appropriate safeguards. Kit relies on Standard Contractual Clauses (SCCs) — legal agreements approved by data protection authorities — to ensure your data receives the same level of protection it would receive in the UK and EU.</p>
+        <p>Kit also participates in the EU-US Data Privacy Framework, which provides an additional compliance mechanism for data flows between the EU and the United States.</p>
+        <p>If you would like further information about the safeguards in place for international transfers, please contact us at <a href="mailto:shane@socfitness.ie">shane@socfitness.ie</a>.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-section-title">Your Rights</h2>
+        <p>Under UK GDPR and EU GDPR, you have the following rights in relation to your personal data:</p>
+        <ul>
+          <li><strong>Right of access</strong> — you can request a copy of the personal data we hold about you.</li>
+          <li><strong>Right to rectification</strong> — you can ask us to correct any inaccurate or incomplete data we hold.</li>
+          <li><strong>Right to erasure</strong> — you can ask us to delete your data. We will do so unless we are required to keep it by law.</li>
+          <li><strong>Right to restriction</strong> — you can ask us to restrict how we use your data in certain circumstances.</li>
+          <li><strong>Right to object</strong> — you can object to us processing your data on the basis of legitimate interests. We will stop unless we have compelling grounds to continue.</li>
+          <li><strong>Right to data portability</strong> — you can request your data in a structured, commonly-used, machine-readable format and have it transferred to another service provider where technically feasible.</li>
+          <li><strong>Right to withdraw consent</strong> — where we rely on your consent (e.g. for email marketing), you can withdraw it at any time. Withdrawing consent does not affect the lawfulness of any processing we carried out before you withdrew it. You can unsubscribe from any email we send by clicking the unsubscribe link at the bottom of the email.</li>
+        </ul>
+        <p>To exercise any of these rights, email us at <a href="mailto:shane@socfitness.ie">shane@socfitness.ie</a>. We will respond within one month as required by law.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-section-title">How to Complain</h2>
+        <p>If you are unhappy with how we have handled your personal data, please contact us first at <a href="mailto:shane@socfitness.ie">shane@socfitness.ie</a> and we will do our best to resolve it.</p>
+        <p>If you are not satisfied with our response, you have the right to complain to the relevant data protection supervisory authority:</p>
+        <ul>
+          <li><strong>In the UK (including Northern Ireland):</strong> The Information Commissioner's Office (ICO) — <a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer">ico.org.uk</a> — 0303 123 1113</li>
+          <li><strong>In Ireland:</strong> The Data Protection Commission (DPC) — <a href="https://www.dataprotection.ie" target="_blank" rel="noopener noreferrer">dataprotection.ie</a></li>
+        </ul>
+        <p>Because SOC Fitness operates across both jurisdictions — based in Northern Ireland but serving clients in the Republic of Ireland — both the ICO and the DPC are relevant supervisory authorities depending on where you are located.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-section-title">Cookies</h2>
+        <p>This website currently does not use tracking cookies, analytics cookies, or advertising cookies of any kind.</p>
+        <p>We do not use Google Analytics, Facebook Pixel, or any other third-party tracking technology on this site. No cookie consent banner is therefore required.</p>
+        <p>If we introduce cookies in the future, we will update this policy and add appropriate consent mechanisms before doing so.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-section-title">Changes to This Policy</h2>
+        <p>We may update this privacy policy from time to time — for example if we add new services, change the tools we use, or if data protection law changes. When we make significant changes, we will update the "Last updated" date at the top of this page.</p>
+        <p>We encourage you to review this policy periodically. Continued use of the website after any changes constitutes your acceptance of the updated policy.</p>
+        <p>This policy was last reviewed in July 2026.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- FOOTER -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-gold-bar"></div>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="./socfitness-assets/SOC_logo.png" alt="SOC Fitness" />
+          <p>GAA Performance Coaching for players who are fed up of going through the motions and want to get a bit better every session. Train like an athlete.</p>
+        </div>
+
+        <div class="footer-nav-col">
+          <div class="footer-col-title">Services</div>
+          <ul class="footer-links">
+            <li><a href="./socfitness-website.html#how">GAA Programmes</a></li>
+            <li><a href="./socfitness-website.html#services">Online Coaching</a></li>
+            <li><a href="./socfitness-website.html#services">Small Group Training</a></li>
+            <li><a href="./socfitness-website.html#contact">Get a Programme</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-col">
+          <div class="footer-col-title">Info</div>
+          <ul class="footer-links">
+            <li><a href="./socfitness-website.html#how">How We Work</a></li>
+            <li><a href="./socfitness-website.html#testimonials">Testimonials</a></li>
+            <li><a href="./socfitness-website.html#blog">The Playbook</a></li>
+            <li><a href="./socfitness-website.html#contact">Contact</a></li>
+            <li><a href="./socfitness-privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Follow SOC</div>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="TikTok">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.31 6.31 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.52V6.77a4.85 4.85 0 01-1.02-.08z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 SOC Fitness. All rights reserved. GAA Performance Coaching.</p>
+        <p class="footer-copyright">Built for athletes who refuse to settle.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SCRIPTS -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <script>
+    // ── MOBILE NAV ──────────────────────────────────
+    function toggleMenu() {
+      const links = document.getElementById('nav-links');
+      const ham = document.getElementById('hamburger');
+      links.classList.toggle('open');
+      ham.classList.toggle('open');
+    }
+
+    // Close mobile nav on link click
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('nav-links').classList.remove('open');
+        document.getElementById('hamburger').classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
