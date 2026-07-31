@@ -1086,15 +1086,21 @@
     .formkit-form[data-uid="c99fdfce22"] [data-style="full"] { background: transparent !important; }
 
     /* Input field */
-    .formkit-form[data-uid="c99fdfce22"] .formkit-input {
-      background: rgba(0,0,0,0.25) !important;
-      border: 1px solid rgba(255,255,255,0.3) !important;
-      color: #fff !important;
+    .formkit-form[data-uid="c99fdfce22"] .formkit-input,
+    .formkit-form[data-uid="c99fdfce22"] input[type="email"],
+    .formkit-form[data-uid="c99fdfce22"] input[type="text"],
+    .formkit-form[data-uid="c99fdfce22"] input {
+      background: rgba(0,0,0,0.3) !important;
+      border: 1px solid rgba(255,255,255,0.4) !important;
+      color: #ffffff !important;
       font-family: 'Barlow', sans-serif !important;
       font-size: 16px !important;
       border-radius: 4px !important;
+      padding: 14px 18px !important;
     }
-    .formkit-form[data-uid="c99fdfce22"] .formkit-input::placeholder { color: rgba(255,255,255,0.55) !important; }
+    .formkit-form[data-uid="c99fdfce22"] input::placeholder,
+    .formkit-form[data-uid="c99fdfce22"] .formkit-input::placeholder { color: rgba(255,255,255,0.6) !important; }
+    .formkit-form[data-uid="c99fdfce22"] input:focus,
     .formkit-form[data-uid="c99fdfce22"] .formkit-input:focus { border-color: #F2A61D !important; outline: none !important; }
 
     /* Error message */
