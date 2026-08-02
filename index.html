@@ -156,70 +156,37 @@
       position: relative;
     }
 
-    /* ── Page Header ── */
-    .page-header {
+    /* ── Hero: split panel — text left, video right ── */
+    .hero-outer {
       background: var(--dark);
-      padding: 76px 32px 16px;
       border-bottom: 3px solid var(--red);
       position: relative;
       overflow: hidden;
     }
 
-    /* Dot grid */
-    .page-header::before {
+    .hero-outer::before {
       content: '';
       position: absolute;
       inset: 0;
       background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px);
       background-size: 22px 22px;
       pointer-events: none;
+      z-index: 0;
     }
 
-    /* Red glow — right side */
-    .page-header::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 72%;
-      transform: translate(-50%, -44%);
-      width: 500px;
-      height: 240px;
-      background: radial-gradient(ellipse at center,
-        rgba(200,16,46,0.35) 0%,
-        rgba(200,16,46,0.14) 40%,
-        transparent 70%
-      );
-      pointer-events: none;
-    }
-
-    .page-header .container {
-      padding-bottom: 0;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 960px;
+      margin: 0 auto;
       position: relative;
       z-index: 1;
-      padding-right: 220px;
     }
 
-    .header-figurine-mobile {
-      display: none;
-    }
-
-    .mobile-bio-row {
-      display: none;
-    }
-
-    .header-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--red);
-      color: white;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      padding: 5px 11px;
-      border-radius: 4px;
-      margin-bottom: 12px;
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      padding: 76px 40px 40px 32px;
     }
 
     .page-title {
@@ -229,43 +196,15 @@
       letter-spacing: -0.02em;
       line-height: 1.1;
       text-shadow: 0 2px 14px rgba(0,0,0,0.45);
+      margin-bottom: 16px;
     }
 
-    /* ── Bio strip ── */
-    .bio-strip {
-      position: relative;
-    }
-
-    .bio-strip .container {
-      padding-top: 14px;
-      padding-bottom: 16px;
-    }
-
-    .bio-strip-inner {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 14px 32px 16px 32px;
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .bio-divider {
-      width: 1px;
-      height: 52px;
-      background: var(--cream);
-      flex-shrink: 0;
-    }
-
-    .bio-text {
-      /* Stop text before it reaches the figurine */
-      max-width: 440px;
-    }
-
-    .bio-text p {
+    .bio-line {
       font-size: 15px;
-      color: var(--mid);
+      color: rgba(237,224,196,0.65);
       line-height: 1.6;
+      max-width: 420px;
+      margin-bottom: 16px;
     }
 
     .bio-linkedin {
@@ -276,30 +215,41 @@
       font-weight: 600;
       color: var(--red);
       text-decoration: none;
-      margin-top: 6px;
       transition: color 0.15s;
     }
-
     .bio-linkedin:hover { color: var(--red-deep); }
     .bio-linkedin::after { content: '→'; }
 
-    /* ── Figurine ── */
-    .hero-figure {
+    .hero-video {
+      position: relative;
+      overflow: hidden;
+      margin-left: -40px;
+      margin-right: 32px;
+    }
+
+    .hero-video video {
       position: absolute;
-      /* Anchor to right edge of 720px container */
-      right: calc(50% - 360px);
-      top: auto;
-      bottom: -16px;
-      z-index: 10;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 75%;
+    }
+
+    .hero-video::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, var(--dark) 0%, rgba(28,28,28,0.3) 10%, transparent 25%),
+        linear-gradient(to left,  var(--dark) 0%, rgba(28,28,28,0.3) 10%, transparent 25%);
+      z-index: 2;
       pointer-events: none;
     }
 
-    .hero-figure img {
-      height: 340px;
-      width: auto;
-      object-fit: contain;
-      display: block;
-    }
+    /* Hide old elements */
+    .mobile-bio-row { display: none; }
+    .bio-strip { display: none; }
+    .hero-figure { display: none; }
 
     /* ── Layout ── */
     .container {
@@ -966,53 +916,36 @@
         padding: 0 20px;
       }
 
-      .page-header {
+      /* Mobile: 3-row grid — title / video / bio */
+      .hero-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+      }
+
+      .hero-text {
+        display: contents; /* lets children participate in grid directly */
+      }
+
+      .hero-title {
+        order: 1;
         padding: 72px 20px 16px;
       }
 
-      .bio-strip-inner {
-        padding: 16px 20px 20px 20px;
-        gap: 16px;
+      .hero-video {
+        order: 2;
+        height: 220px;
+        margin-left: 0;
+        margin-right: 0;
       }
 
-      .bio-text p {
-        max-width: 100%;
-        font-size: 15px;
-      }
-
-      /* Hide desktop elements on mobile */
-      .hero-figure {
+      /* No gradient on mobile */
+      .hero-video::before {
         display: none;
       }
 
-      .bio-strip {
-        display: none;
-      }
-
-      .page-header .container {
-        padding-left: 0;
-        padding-right: 0;
-      }
-
-      /* Option A — mobile bio row */
-      .mobile-bio-row {
-        display: flex;
-        align-items: flex-start;
-        gap: 16px;
-        padding: 16px 20px 20px;
-        background: var(--cream-light);
-        border-bottom: 1px solid var(--cream);
-      }
-
-      .mobile-bio-fig {
-        flex-shrink: 0;
-      }
-
-      .mobile-bio-fig img {
-        height: 140px;
-        width: auto;
-        display: block;
-        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+      .hero-bio {
+        order: 3;
+        padding: 16px 20px 28px;
       }
 
       .mobile-bio-text {
@@ -1064,49 +997,28 @@
     </div>
   </nav>
 
-  <!-- Hero: header + bio + figure -->
-  <div class="hero">
+  <!-- Hero: split panel — text left, video right -->
+  <div class="hero-outer">
+  <div class="hero-grid">
 
-    <!-- Page Header -->
-    <div class="page-header">
-      <div class="container">
-        <div class="header-tag">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-              <rect x="5" y="1" width="5" height="3" rx="1" fill="white" transform="rotate(45 5 1)"/>
-              <line x1="2" y1="10" x2="6.5" y2="5.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            Build Log
-          </div>
-          <h1 class="page-title">stephen<span style="color:var(--red);">j</span>cleary</h1>
+    <div class="hero-text">
+      <div class="hero-title">
+        <h1 class="page-title">stephen<span style="color:var(--red);">j</span>cleary</h1>
       </div>
-    </div>
-
-    <!-- Bio strip (desktop) -->
-    <div class="bio-strip">
-      <div class="container">
-        <div class="bio-text">
-          <p>Brand marketer with 14+ years experience. Global brand marketing at adidas Football, currently a brand manager at The National Lottery in Dublin. This blog is a record of what I'm building, learning, and figuring out along the way.</p>
-          <a class="bio-linkedin" href="https://www.linkedin.com/in/clearystephen/" target="_blank" rel="noopener">Connect on LinkedIn</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mobile bio row (Option A) -->
-    <div class="mobile-bio-row">
-      <div class="mobile-bio-fig">
-        <img src="images/SJC_headerMay.png" alt="Stephen Cleary Corinthian figurine" />
-      </div>
-      <div class="mobile-bio-text">
-        <p>Brand marketer with 14+ years experience. Global brand marketing at adidas, currently at The Irish National Lottery. This is a record of what I'm building, and learning along the way.</p>
+      <div class="hero-bio">
+        <p class="bio-line">Brand marketer with 14+ years experience. Global brand marketing at adidas Football, currently a brand manager at The National Lottery in Dublin. This blog is a record of what I'm building, learning, and figuring out along the way.</p>
         <a class="bio-linkedin" href="https://www.linkedin.com/in/clearystephen/" target="_blank" rel="noopener">Connect on LinkedIn</a>
       </div>
     </div>
 
-    <!-- Figurine straddling the header/bio boundary -->
-    <div class="hero-figure">
-      <img src="images/SJC_headerMay.png" alt="Stephen Cleary Corinthian figurine" />
+    <div class="hero-video">
+      <video autoplay muted loop playsinline preload="none" poster="images/SJC_headerMay.png">
+        <source src="images/header_vid_comp.mp4" type="video/mp4">
+        <source src="images/header_vid.mp4" type="video/mp4">
+      </video>
     </div>
 
+  </div>
   </div>
 
   <!-- Main Content -->
