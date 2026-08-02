@@ -51,8 +51,8 @@
     /* ── Slideshow ── */
     .slideshow { margin: 28px 0; border-radius: 8px; overflow: hidden; background: #1C1C1C; }
     .slideshow-track { position: relative; }
-    .slideshow-slide { width: 100%; display: none; border-radius: 0; margin: 0; }
-    .slideshow-slide.active { display: block; }
+    .slideshow-slide { width: 100%; border-radius: 0; margin: 0; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 200ms ease-out; pointer-events: none; }
+    .slideshow-slide.active { opacity: 1; position: relative; pointer-events: auto; }
     .slideshow-controls { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #1C1C1C; }
     .slideshow-btn { background: none; border: none; color: var(--cream); font-family: var(--font); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 8px; transition: color 0.15s; }
     .slideshow-btn:hover { color: var(--red); }
