@@ -479,160 +479,6 @@
       flex: 1;
     }
 
-    /* ── Full Entry Overlay ── */
-    .overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(28, 28, 28, 0.7);
-      z-index: 200;
-      overflow-y: auto;
-      padding: 48px 24px;
-      opacity: 0;
-      transition: opacity 250ms ease-out;
-    }
-
-    .overlay.open {
-      display: block;
-    }
-
-    .overlay.open.visible {
-      opacity: 1;
-    }
-
-    .overlay.open.visible .entry-panel {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .entry-panel {
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 250ms ease-out, transform 250ms ease-out;
-    }
-
-    .overlay.closing {
-      opacity: 0;
-    }
-
-    .overlay.closing .entry-panel {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-
-    .entry-panel {
-      background: var(--cream-light);
-      max-width: 720px;
-      margin: 0 auto;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-    }
-
-    .entry-header {
-      background: var(--dark);
-      padding: 36px 40px 32px;
-      border-bottom: 3px solid var(--red);
-    }
-
-    .entry-header-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-
-    .entry-header-top .card-meta {
-      margin-bottom: 0;
-    }
-
-    .entry-close-top {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--red);
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-family: var(--font);
-      transition: color 0.15s;
-      flex-shrink: 0;
-    }
-
-    .entry-close-top:hover {
-      color: var(--red-deep);
-    }
-
-    .entry-header .card-meta {
-      color: var(--mid);
-      margin-bottom: 10px;
-    }
-
-    .entry-title {
-      font-size: clamp(22px, 4vw, 32px);
-      font-weight: 700;
-      color: var(--cream-light);
-      line-height: 1.2;
-    }
-
-    .entry-body {
-      padding: 40px 40px 48px;
-    }
-
-    .entry-body p {
-      font-size: 16px;
-      line-height: 1.75;
-      color: var(--dark);
-      margin-bottom: 20px;
-    }
-
-    .entry-body ul {
-      margin: 0 0 20px 20px;
-      padding: 0;
-    }
-
-    .entry-body ul li {
-      font-size: 16px;
-      line-height: 1.75;
-      color: var(--dark);
-      margin-bottom: 8px;
-    }
-
-    .entry-body .img-placeholder {
-      width: 100%;
-      height: 240px;
-      border-radius: 6px;
-      margin: 28px 0;
-    }
-
-    .entry-body .video-placeholder {
-      width: 100%;
-      height: 240px;
-      border-radius: 6px;
-      margin: 28px 0;
-    }
-
-    .entry-close {
-      display: block;
-      margin: 0 40px 32px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--red);
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 0;
-      font-family: var(--font);
-      text-align: left;
-      transition: color 0.15s;
-    }
-
-    .entry-close:hover {
-      color: var(--red-deep);
-    }
-
-    .entry-close::before {
-      content: '← ';
-    }
 
     /* ── Entry images ── */
     .entry-img {
@@ -1115,7 +961,7 @@
     <!-- Latest -->
     <section>
       <p class="section-label">Latest</p>
-      <div class="card featured-card" onclick="openEntry(0)" id="featured-card">
+      <div class="card featured-card" id="featured-card">
         <div id="featured-thumb" class="featured-image">
           <img src="images/ChatGPT_Image_Apr_24__2026__08_09_16_AM-removebg-preview.png" alt="ChatGPT-generated Corinthian figurine of Stephen Cleary" class="thumb-contain" />
           <div class="thumb-icon"></div>
@@ -1167,20 +1013,6 @@
     </div>
   </div>
 
-  <!-- Full Entry Overlay -->
-  <div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
-    <div class="entry-panel" id="entry-panel">
-      <div class="entry-header">
-        <div class="entry-header-top">
-          <p class="card-meta" id="entry-meta"></p>
-          <button class="entry-close-top" onclick="closeEntry()">Close ✕</button>
-        </div>
-        <h1 class="entry-title" id="entry-title"></h1>
-      </div>
-      <div class="entry-body" id="entry-body"></div>
-      <button class="entry-close" onclick="closeEntry()">Back to all entries</button>
-    </div>
-  </div>
 
   <script>
     // SVG icons: bold geometric, red (#C8102E) on cream (#EDE0C4)
@@ -2565,55 +2397,6 @@
       },
     ];
 
-    let _entryOpenTime = null;
-    let _entryOpenTitle = null;
-
-    function openEntry(index) {
-      const entry = entries[index];
-      document.getElementById('entry-meta').innerHTML = entry.meta;
-      document.getElementById('entry-title').textContent = entry.title;
-      document.getElementById('entry-body').innerHTML = entry.body;
-      const overlay = document.getElementById('overlay');
-      overlay.classList.remove('closing');
-      overlay.classList.add('open');
-      overlay.scrollTop = 0;
-      document.body.style.overflow = 'hidden';
-      requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('visible')));
-      setTimeout(() => {
-        document.querySelectorAll('.slideshow').forEach(el => slideshowInit(el.id));
-      }, 50);
-      _entryOpenTime = Date.now();
-      _entryOpenTitle = entry.title;
-      gtag('event', 'entry_open', { entry_title: entry.title });
-    }
-
-    function closeEntry() {
-      if (_entryOpenTime && _entryOpenTitle) {
-        const seconds = Math.round((Date.now() - _entryOpenTime) / 1000);
-        gtag('event', 'entry_dwell', { entry_title: _entryOpenTitle, seconds_read: seconds });
-        _entryOpenTime = null;
-        _entryOpenTitle = null;
-      }
-      const overlay = document.getElementById('overlay');
-      overlay.classList.add('closing');
-      overlay.classList.remove('visible');
-      setTimeout(() => {
-        overlay.classList.remove('open', 'closing');
-        if (entryOpenedFromList) {
-          entryOpenedFromList = false;
-          document.querySelector('.entry-close').textContent = 'Back to all entries';
-          openAllEntries();
-        } else {
-          document.body.style.overflow = '';
-        }
-      }, 220);
-    }
-
-    function handleOverlayClick(e) {
-      if (e.target === document.getElementById('overlay')) {
-        closeEntry();
-      }
-    }
 
     // Slideshow
     const slideshowState = {};
@@ -2649,7 +2432,6 @@
 
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
-        closeEntry();
         closeAllEntries();
         closeSearch();
       }
@@ -2769,14 +2551,6 @@
 
     function handleAllEntriesClick(e) {
       if (e.target === document.getElementById('all-entries-overlay')) closeAllEntries();
-    }
-
-    let entryOpenedFromList = false;
-
-    function openEntryFromAll(index) {
-      closeAllEntries();
-      entryOpenedFromList = true;
-      openEntry(index);
     }
 
     // ── Search ──
