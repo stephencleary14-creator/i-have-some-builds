@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>An ode to LFC's Google partnership — stephenjcleary</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HLCJ1PDQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5HLCJ1PDQK');
+  </script>
+  <style>
+    :root { --cream: #EDE0C4; --cream-light: #F7F2EA; --red: #C8102E; --red-deep: #A00E24; --dark: #1C1C1C; --mid: #5C5247; --font: 'Outfit', 'Segoe UI', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--cream-light); color: var(--dark); font-size: 16px; line-height: 1.6; }
+    nav { background: transparent; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: absolute; top: 0; left: 0; right: 0; z-index: 100; }
+    .nav-home { font-size: 13px; font-weight: 600; color: rgba(237, 224, 196, 0.7); text-decoration: none; transition: color 0.15s; }
+    .nav-home:hover { color: var(--cream); }
+    .nav-home::before { content: '← '; }
+    .nav-search { position: relative; display: flex; align-items: center; }
+    .nav-search input { background: #2e2e2e; border: 1px solid rgba(237, 224, 196, 0.25); border-radius: 4px; color: #ffffff; -webkit-text-fill-color: #ffffff; caret-color: #ffffff; font-family: var(--font); font-size: 13px; padding: 6px 14px; width: 220px; outline: none; position: relative; z-index: 101; transition: border-color 0.15s, width 0.2s; }
+    .nav-search input:focus { border-color: rgba(237, 224, 196, 0.6); width: 280px; }
+    .nav-search input::placeholder { color: rgba(237, 224, 196, 0.4); }
+    .entry-header { background: var(--dark); padding: 80px 32px 36px; border-bottom: 3px solid var(--red); position: relative; overflow: hidden; }
+    .entry-header::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px); background-size: 22px 22px; pointer-events: none; }
+    .entry-header::after { content: ''; position: absolute; top: 50%; left: 72%; transform: translate(-50%, -44%); width: 500px; height: 240px; background: radial-gradient(ellipse at center, rgba(200,16,46,0.35) 0%, rgba(200,16,46,0.14) 40%, transparent 70%); pointer-events: none; }
+    .entry-header-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+    .entry-header-top { margin-bottom: 16px; }
+    .card-meta { font-size: 11px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em; }
+    .entry-title { font-size: clamp(22px, 4vw, 36px); font-weight: 700; color: var(--cream-light); line-height: 1.2; }
+    .entry-body-wrap { max-width: 720px; margin: 0 auto; padding: 40px 32px 24px; }
+    .entry-body p { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 20px; }
+    .entry-body h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 32px 0 12px; line-height: 1.3; }
+    .entry-body ul { margin: 0 0 20px 20px; padding: 0; }
+    .entry-body ul li { font-size: 16px; line-height: 1.75; color: var(--dark); margin-bottom: 8px; }
+    .entry-body a { color: var(--red); text-decoration: none; }
+    .entry-body a:hover { color: var(--red-deep); text-decoration: underline; }
+    .entry-body em { font-style: italic; }
+    .entry-body strong { font-weight: 700; }
+    .entry-img { width: 100%; border-radius: 6px; margin: 28px 0; display: block; object-fit: cover; max-height: 480px; }
+    .entry-img-caption { font-size: 12px; color: var(--mid); text-align: center; margin-top: -18px; margin-bottom: 28px; }
+    .shorts-wrap { display: flex; justify-content: center; margin: 32px 0; }
+    .shorts-wrap iframe { border-radius: 12px; border: none; width: 340px; height: 605px; max-width: 100%; }
+    .shorts-caption { font-size: 12px; color: var(--mid); text-align: center; margin-top: 8px; margin-bottom: 28px; }
+    .back-link { display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: var(--red); text-decoration: none; margin-bottom: 16px; transition: color 0.15s; }
+    .back-link::before { content: '← '; margin-right: 2px; }
+    .back-link:hover { color: var(--red-deep); }
+    footer { text-align: center; padding: 0 32px 32px; }
+    footer img { max-width: 960px; width: 100%; display: block; margin: 0 auto; }
+    .entry-wordmark { font-size: 13px; font-weight: 700; color: #F7F2EA; letter-spacing: 0.01em; margin-bottom: 20px; }
+    .entry-wordmark span { color: #C8102E; }
+    @media (max-width: 720px) {
+      nav { padding: 0 20px; }
+      .nav-search input { width: 160px; }
+      .entry-header { padding: 72px 20px 28px; }
+      .entry-body-wrap { padding: 28px 20px 24px; }
+      .shorts-wrap iframe { width: 100%; height: 520px; }
+      footer { padding: 0 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-home" href="../index.html">Back home</a>
+    <div class="nav-search">
+      <input type="text" placeholder="Search entries…" autocomplete="off" spellcheck="false" />
+    </div>
+  </nav>
+
+  <div class="entry-header">
+    <div class="entry-header-inner">
+      <p class="entry-wordmark">stephen<span>j</span>cleary</p>
+      <div class="entry-header-top">
+        <span class="card-meta">14 August 2026</span>
+      </div>
+      <h1 class="entry-title">An ode to LFC's Google partnership</h1>
+    </div>
+  </div>
+
+  <div class="entry-body-wrap">
+    <div class="entry-body">
+
+      <img src="../images/SJC-LFC2.png" alt="" class="entry-img" />
+
+      <p>This week, Liverpool FC owners FSG sold a 30% stake in the club to a consortium including Jeff Bezos, at a club valuation of around £5.5 billion. That number doesn't happen by accident. Part of the case for that valuation is commercial. And part of what makes Liverpool commercially attractive is something most clubs would struggle to replicate: the most engaged fanbase in the Premier League, by some distance.</p>
+
+      <p>Last season, Liverpool FC passed one billion social media engagements. That's across Facebook, Instagram, TikTok, YouTube and X. They finished 200 million engagements ahead of the nearest rival. 13.3 billion video views across all platforms. The only Premier League club to pass 500 million views by March 2025. A fanbase that is genuinely paying attention, and a content team that has figured out how to keep them there.</p>
+
+      <p>Sponsors notice this. And the smart ones build campaigns that deserve the audience rather than just borrow it.</p>
+
+      <h3>The Pixel partnership</h3>
+
+      <p>Google Pixel has been Liverpool's official mobile phone partner since 2023. What makes the partnership worth writing about is the content.</p>
+
+      <p>The best campaigns here have one thing in common: they walk straight into the middle of the conversation fans are already having.</p>
+
+      <p>Traditionally, a sponsor sends their creative agency in for a contractual shoot day. This feels different. It feels like the LFC content team made it, with Google alongside them in the planning rather than directing from the front. They know what works for their audience. That's what makes it feel like a genuine partnership.</p>
+
+      <h3>The sketch content</h3>
+
+      <p>When Florian Wirtz signed for Liverpool last summer, the tabloids ran a story. Would he want Mac Allister's number 10? Mac Allister said no. Wirtz denied it. The story ran for days.</p>
+
+      <p>Then Liverpool and Google made an ad.</p>
+
+      <p>Mac Allister walks up to Wirtz: "Flo, this is the number 10 you wanted, right? Google Pixel 10." Wirtz takes the phone, they snap a selfie. The whole transfer window's worth of speculation, resolved in fifteen seconds by a product.</p>
+
+      <div class="shorts-wrap">
+        <iframe src="https://www.youtube.com/embed/Zx4eJTWao4E" title="Liverpool FC x Google Pixel — Mac Allister and Wirtz" allowfullscreen></iframe>
+      </div>
+      <p class="shorts-caption">Mac Allister and Wirtz settle the debate.</p>
+
+      <p>This summer, Salah left Liverpool. The number 11 shirt question immediately opened up. This week, Liverpool posted "The 11? Everyone wants it" featuring Isak, Frimpong and Gravenberch. The Pixel 11 launched on August 12.</p>
+
+      <div class="shorts-wrap">
+        <iframe src="https://www.youtube.com/embed/rrlQ7BS7138" title="Liverpool FC x Google Pixel — The 11? Everyone wants it" allowfullscreen></iframe>
+      </div>
+      <p class="shorts-caption">Isak, Frimpong and Gravenberch. The number 11. The Pixel 11.</p>
+
+      <h3>The polished content</h3>
+
+      <p>Not everything in this partnership is sketch comedy. In April, Liverpool released a 58-second Google Pixel ad featuring Federico Chiesa. It blended Italian pride with Scouse culture, included an AI-generated "Scouse pizza," and had fans calling for Chiesa to win an Oscar. Comments sections were full of people saying it was the greatest ad of all time.</p>
+
+      <div class="shorts-wrap">
+        <iframe src="https://www.youtube.com/embed/A8cepT3vme4" title="Liverpool FC x Google Pixel — Federico Chiesa" allowfullscreen></iframe>
+      </div>
+      <p class="shorts-caption">Federico Chiesa. Italian pride. Scouse culture. Oscar-worthy, apparently.</p>
+
+      <p>Chiesa had been a popular figure. Fans were already warm toward him. The creative leaned into that warmth. The result felt like something made for the club's own fans.</p>
+
+      <h3>What it measured</h3>
+
+      <p>When Salah scored the title-winning goal last year and took a selfie at the Kop with a Pixel phone, YouGov Sports measured what followed. £1.1 million in net sponsorship value from a single on-pitch moment. Liverpool's own accounts drove 34% of that figure. Brand opinion of Google Pixel among Liverpool fans went up 10% the day after.</p>
+
+      <img src="../images/Salah-Google.png" alt="" class="entry-img" />
+
+      <p>The debate about whether the selfie was planned generated another wave of coverage. FourFourTwo said it might be "the best Google Pixel advert ever." The fact that people were asking the question meant they were talking about the phone.</p>
+
+      <p>The partnership was shortlisted at the Leaders in Sport Awards for "Collaborating to Bring Fans Closer to the Game."</p>
+
+      <h3>What this says about sponsorship</h3>
+
+      <p>A fanbase of a billion engagements is only valuable to a sponsor if the content earns those engagements. Liverpool's commercial success is built on a content team that understands its audience well enough to make things they actually want to watch. Google Pixel found a way to be part of that.</p>
+
+      <p>The shirt number mechanic is clever. But the reason it works is simpler: the content is good, the timing is right, and the audience is already paying attention.</p>
+
+      <p>That's a hard thing to engineer. Liverpool have done it.</p>
+
+      <p>Now please make some transfer signings.</p>
+
+    </div>
+
+    <a class="back-link" href="../index.html">Back home</a>
+  </div>
+
+  <footer>
+    <picture>
+      <source media="(max-width: 720px)" srcset="../images/SJC_section_June26.png" />
+      <img src="../images/SJC_footer_June26.png" alt="stephenjcleary" />
+    </picture>
+  </footer>
+
+</body>
+</html>
