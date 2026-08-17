@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Goal! A Celebration of Distinctive Brand Assets — stephenjcleary</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HLCJ1PDQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5HLCJ1PDQK');
+  </script>
+  <style>
+    :root {
+      --cream:       #EDE0C4;
+      --cream-light: #F7F2EA;
+      --red:         #C8102E;
+      --red-deep:    #A00E24;
+      --dark:        #1C1C1C;
+      --mid:         #5C5247;
+      --font:        'Outfit', 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--cream-light);
+      color: var(--dark);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    nav {
+      background: transparent;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+
+    .nav-home {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(237, 224, 196, 0.7);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-home:hover {
+      color: var(--cream);
+    }
+
+    .nav-home::before {
+      content: '← ';
+    }
+
+    .nav-search {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-search input {
+      background: #2e2e2e;
+      border: 1px solid rgba(237, 224, 196, 0.25);
+      border-radius: 4px;
+      color: #ffffff;
+      -webkit-text-fill-color: #ffffff;
+      caret-color: #ffffff;
+      font-family: var(--font);
+      font-size: 13px;
+      padding: 6px 14px;
+      width: 220px;
+      outline: none;
+      position: relative;
+      z-index: 101;
+      transition: border-color 0.15s, width 0.2s;
+    }
+
+    .nav-search input:focus {
+      border-color: rgba(237, 224, 196, 0.6);
+      width: 280px;
+    }
+
+    .nav-search input::placeholder {
+      color: rgba(237, 224, 196, 0.4);
+    }
+
+    /* ── Entry Header ── */
+    .entry-header {
+      background: var(--dark);
+      padding: 80px 32px 36px;
+      border-bottom: 3px solid var(--red);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .entry-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+
+    .entry-header::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 72%;
+      transform: translate(-50%, -44%);
+      width: 500px;
+      height: 240px;
+      background: radial-gradient(ellipse at center,
+        rgba(200,16,46,0.35) 0%,
+        rgba(200,16,46,0.14) 40%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+
+    .entry-header-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .entry-header-top {
+      margin-bottom: 16px;
+    }
+
+    .card-meta {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--mid);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .entry-title {
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 700;
+      color: var(--cream-light);
+      line-height: 1.2;
+    }
+
+    /* ── Entry Body ── */
+    .entry-body-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 32px 24px;
+    }
+
+    .entry-body p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+
+    .entry-body h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 32px 0 12px;
+      line-height: 1.3;
+    }
+
+    .entry-body ul {
+      margin: 0 0 20px 20px;
+      padding: 0;
+    }
+
+    .entry-body ul li {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .entry-body a {
+      color: var(--red);
+      text-decoration: none;
+    }
+
+    .entry-body a:hover {
+      color: var(--red-deep);
+      text-decoration: underline;
+    }
+
+    .entry-body em {
+      font-style: italic;
+    }
+
+    .entry-body strong {
+      font-weight: 700;
+    }
+
+    /* ── Entry images ── */
+    .entry-img {
+      width: 100%;
+      border-radius: 6px;
+      margin: 28px 0;
+      display: block;
+      object-fit: cover;
+      max-height: 400px;
+    }
+
+    .entry-img-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .entry-img-pair img {
+      width: 100%;
+      border-radius: 6px;
+      object-fit: cover;
+      height: 280px;
+    }
+
+    .entry-img-caption {
+      font-size: 12px;
+      color: var(--mid);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    /* ── Footer ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      text-decoration: none;
+      margin-bottom: 16px;
+      transition: color 0.15s;
+    }
+
+    .back-link::before {
+      content: '← ';
+      margin-right: 2px;
+    }
+
+    .back-link:hover {
+      color: var(--red-deep);
+    }
+
+    footer {
+      text-align: center;
+      padding: 0 32px 32px;
+    }
+
+    footer img {
+      max-width: 960px;
+      width: 100%;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      nav {
+        padding: 0 20px;
+      }
+
+      .nav-search input {
+        width: 160px;
+      }
+
+      .entry-header {
+        padding: 72px 20px 28px;
+      }
+
+      .entry-body-wrap {
+        padding: 28px 20px 24px;
+      }
+
+      .entry-img-pair {
+        grid-template-columns: 1fr;
+      }
+
+      .entry-img-pair img {
+        height: 200px;
+      }
+
+      footer {
+        padding: 0 20px 24px;
+      }
+    }
+
+    .entry-wordmark {
+      font-size: 13px;
+      font-weight: 700;
+      color: #F7F2EA;
+      letter-spacing: 0.01em;
+      margin-bottom: 20px;
+    }
+    .entry-wordmark span { color: #C8102E; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-home" href="../index.html">Back home</a>
+    <div class="nav-search">
+      <input type="text" placeholder="Search entries…" autocomplete="off" spellcheck="false" />
+    </div>
+  </nav>
+
+  <!-- Entry Header -->
+  <div class="entry-header">
+    <div class="entry-header-inner">
+      <p class="entry-wordmark">stephen<span>j</span>cleary</p>
+      <div class="entry-header-top">
+        <span class="card-meta">17 Aug 2026</span>
+      </div>
+      <h1 class="entry-title">Goal! A Celebration of Distinctive Brand Assets</h1>
+    </div>
+  </div>
+
+  <!-- Entry Body -->
+  <div class="entry-body-wrap">
+    <div class="entry-body">
+
+      <img src="../images/goal-celebration-figurine.png" alt="SJC figurine celebrating with fists raised beside a corner flag on a sunny football pitch, confetti falling" class="entry-img" />
+
+      <p>The Premier League season starts this weekend. Cole Palmer will want to have a better season and score early. I hope he doesn't, but if he does, he'll pull the cold face. Hands up, fingers splayed, expression blank. And the crowd will go wild for an asset he didn't even invent.</p>
+
+      <p>Jenni Romaniuk's work in <em>Building Distinctive Brand Assets</em> lays the foundation. An asset isn't special because it's creative or clever. It's special because it's been consistently linked to one brand in memory, to the point where seeing it triggers the brand without any other cue. A gesture. A colour. A sound. A shape. The asset does the work so the rest of the communication doesn't have to.</p>
+
+      <p>Just a bit of fun, but football celebrations offer some learnings about this. Here are six Premier League player celebrations that illustrate the principles.</p>
+
+      <h3>Palmer v Rogers — Ownership beats invention</h3>
+
+      <img src="../images/palmer-rogers.png" alt="Morgan Rogers and Cole Palmer both doing the cold face celebration" class="entry-img" />
+
+      <p>Morgan Rogers did the cold face first. Cole Palmer owns it. He's even trademarked it. The trademark is remarkable because it makes explicit what brand building is really doing anyway, staking a claim on a signal in the minds of an audience.</p>
+
+      <p>Rogers has a legitimate claim on being first. Palmer has the asset. Those are two different things, and the gap between them is built from repetition, from cultural timing, and from a breakout season that put Palmer in front of millions of people at exactly the right moment. Distinctiveness is not about originating something. It's about building the link until no one else can credibly make the same claim.</p>
+
+      <h3>Klinsmann — Fame</h3>
+
+      <img src="../images/jurgen.png" alt="Jürgen Klinsmann diving in celebration for Tottenham Hotspur" class="entry-img" />
+
+      <p>Jürgen Klinsmann's diving celebration at Tottenham in 1994 was one of the great pieces of footballing self-awareness. He'd been accused of diving. So when he scored his first goal, he threw himself to the ground in an exaggerated dive and grinned at the crowd. His teammates piled on. The crowd loved it.</p>
+
+      <p>It became famous. Widely replicated. Teammates did it with him. Other players did it in other games. Pundits referenced it for years.</p>
+
+      <p>That is the fame dimension of a distinctive asset. Klinsmann's celebration crossed out of football and into broader culture. People who barely followed the Premier League knew it. That kind of reach is what builds mental availability, the sort that doesn't require the audience to already be interested in you.</p>
+
+      <h3>Crouch — Uniqueness</h3>
+
+      <img src="../images/crouch.png" alt="Peter Crouch doing the robot celebration" class="entry-img" />
+
+      <p>Peter Crouch scored his first England goal against Hungary in 2006 and celebrated by doing the robot. A six-foot-seven centre forward, arms stiff, moving like a malfunctioning vending machine, in front of 50,000 people at Old Trafford. It was completely his own, completely committed, and completely bizarre.</p>
+
+      <p>The robot became a shorthand for Crouch himself well beyond football. The Peter Crouch Podcast uses an image of it. So did the Amazon Prime documentary, <em>That Peter Crouch Film</em>. Show someone a still of the celebration and there's no ambiguity. That's the uniqueness dimension. No one else has done it, or could do it without it being an imitation. It belongs to him in a way that is almost impossible to dilute.</p>
+
+      <p>Uniqueness means you cannot be confused with anyone else. Most brands underestimate how much distinctiveness they're giving away to competitors by being too similar.</p>
+
+      <h3>Ronaldo — The sweet spot</h3>
+
+      <img src="../images/ronaldo.png" alt="Cristiano Ronaldo performing the SIUU celebration" class="entry-img" />
+
+      <p>The SIUU is famous and unique. That is the combination you are building toward.</p>
+
+      <p>Ronaldo scores. He jumps. He spins. He lands with his arms out and screams SIUU at the top of his lungs. He has done this hundreds of times, in the same way, without variation. And the crowd now does it before he does. Stadiums around the world perform the asset on his behalf, which is the highest expression of what a distinctive asset can achieve.</p>
+
+      <p>He got there through repetition. The consistency is not boring to the audience. It's the thing they come for.</p>
+
+      <h3>Sturridge — Throwing shapes</h3>
+
+      <img src="../images/sturridge.png" alt="Daniel Sturridge throwing shapes in his signature celebration for Liverpool" class="entry-img" />
+
+      <p>Daniel Sturridge's celebration was a sequence of loose, fluid arm movements that looked improvised every time but were completely his. Throwing shapes in the most literal sense. The problem is, most people who try to recreate it cannot. It looks simple and it isn't. There's a specific rhythm to it that is just bizarre enough to be unmistakable and just complex enough to resist imitation.</p>
+
+      <p>Brands often edit out the strange or awkward in pursuit of professionalism. What Sturridge's celebration shows is that the distinctive thing and the strange thing are frequently the same thing. The shapes were not elegant. They were entirely him. Sometimes go for the fun and bizarre.</p>
+
+      <h3>Lewis-Skelly — Don't borrow a rival's signal</h3>
+
+      <img src="../images/lewis.png" alt="Myles Lewis-Skelly sitting cross-legged in Haaland's meditation pose after scoring for Arsenal" class="entry-img" />
+
+      <p>Myles Lewis-Skelly scored against Manchester City in February 2025 and celebrated by sitting cross-legged on the pitch in a meditation pose. Haaland's pose. The one Haaland does after almost every City goal, the one that's become one of the most recognisable goal celebrations in the world.</p>
+
+      <p>The intent was probably humorous. A bit of needle against the opposition. But the effect is to spend your moment building someone else's asset. Everyone watching associated the image with Haaland. Lewis-Skelly handed City a free piece of brand reinforcement in a match Arsenal won.</p>
+
+      <p>This happens in marketing constantly. A brand borrows a competitor's codes because those codes are culturally famous and feel like a shortcut to relevance. The shortcut leads straight to the competition's memory structures.</p>
+
+      <p>The framework from Romaniuk's research comes back to two dimensions: how unique is the asset, and how famous is it. Klinsmann sits high on fame. Crouch sits high on uniqueness. Ronaldo is the rare case that scores on both. Palmer is building toward that space right now, one cold face at a time.</p>
+
+      <p>The Premier League season kicks off this weekend. I'm hoping we see plenty of Liverpool celebrations.</p>
+
+    </div>
+
+    <a class="back-link" href="../index.html">Back home</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <picture>
+      <source media="(max-width: 720px)" srcset="../images/SJC_section_June26.png" />
+      <img src="../images/SJC_footer_June26.png" alt="stephenjcleary" />
+    </picture>
+  </footer>
+
+</body>
+</html>
