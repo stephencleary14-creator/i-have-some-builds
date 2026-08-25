@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bundee Aki — Brand Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #EDE0C4;
+    --cream-light: #F7F2EA;
+    --red: #C8102E;
+    --dark: #1C1C1C;
+    --mid: #5C5247;
+    --font: 'Outfit', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--cream-light);
+    color: var(--dark);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 48px 40px 64px;
+  }
+
+  /* HEADER */
+  .header {
+    border-top: 4px solid var(--red);
+    padding-top: 28px;
+    margin-bottom: 32px;
+  }
+
+  .header-eyebrow {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .header-sub {
+    font-size: 0.82rem;
+    color: var(--mid);
+    font-weight: 400;
+  }
+
+  /* PROTOTYPE BANNER */
+  .prototype-banner {
+    background: #FEF3C7;
+    border: 1.5px solid #FDE68A;
+    border-left: 4px solid #D97706;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 44px;
+  }
+
+  .prototype-banner-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #92400E;
+    margin-bottom: 10px;
+  }
+
+  .prototype-banner h3 {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #78350F;
+    margin-bottom: 8px;
+  }
+
+  .prototype-banner p {
+    font-size: 0.82rem;
+    color: #92400E;
+    line-height: 1.6;
+  }
+
+  .prototype-missing-list {
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .prototype-missing-list li {
+    font-size: 0.8rem;
+    color: #92400E;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .prototype-missing-list li::before {
+    content: '!';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #D97706;
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 44px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .section-num {
+    width: 32px;
+    height: 32px;
+    background: var(--red);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .section-title-block h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 2px;
+  }
+
+  .section-title-block p {
+    font-size: 0.75rem;
+    color: var(--mid);
+    font-weight: 400;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--cream);
+    margin-bottom: 20px;
+  }
+
+  /* FINDINGS */
+  .finding {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--cream);
+  }
+
+  .finding:last-child {
+    border-bottom: none;
+  }
+
+  .finding-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--red);
+    margin-top: 8px;
+    flex-shrink: 0;
+  }
+
+  .finding-text strong {
+    display: block;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 4px;
+    font-size: 0.92rem;
+  }
+
+  .finding-text p {
+    font-size: 0.84rem;
+    color: var(--mid);
+    line-height: 1.55;
+  }
+
+  /* RESEARCH WORKFLOW */
+  .research-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: 24px;
+    margin-left: -40px;
+    margin-right: -40px;
+    position: relative;
+  }
+
+  .flow-step-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .flow-step {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    padding: 16px 14px;
+    position: relative;
+    text-align: center;
+  }
+
+  .flow-step.flow-incomplete {
+    background: #FEF3C7;
+    border: 1.5px solid #FDE68A;
+  }
+
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
+
+  .flow-arrow svg {
+    display: block;
+  }
+
+  .flow-icon {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  .flow-step-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .flow-step.flow-incomplete .flow-step-label {
+    color: #78350F;
+  }
+
+  .flow-step-desc {
+    font-size: 0.68rem;
+    color: var(--mid);
+    line-height: 1.4;
+  }
+
+  .flow-step.flow-incomplete .flow-step-desc {
+    color: #92400E;
+  }
+
+  .flow-step-output {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--red);
+    background: #FEE2E2;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+
+  .flow-step-output.output-incomplete {
+    background: #FDE68A;
+    color: #78350F;
+  }
+
+  .flow-final {
+    background: var(--dark);
+  }
+
+  .flow-final .flow-step-label {
+    color: var(--cream);
+  }
+
+  .flow-final .flow-step-desc {
+    color: #9C8E7E;
+  }
+
+  .flow-final .flow-step-output {
+    background: var(--red);
+    color: white;
+  }
+
+  /* STRATEGY BLOCK */
+  .strategy-block {
+    background: var(--cream);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+
+  .strategy-block-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .strategy-block h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 10px;
+  }
+
+  .strategy-block p {
+    font-size: 0.84rem;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  .positioning-line {
+    background: white;
+    border-left: 3px solid var(--red);
+    padding: 12px 16px;
+    margin: 14px 0 0;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--dark);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .strategy-note {
+    background: #FEF3C7;
+    border-left: 3px solid #D97706;
+    border-radius: 0 4px 4px 0;
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 0.76rem;
+    color: #92400E;
+    line-height: 1.5;
+  }
+
+  /* TACTICS */
+  .tactic-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tactic-card {
+    background: white;
+    border-radius: 8px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .tactic-num {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--cream);
+    background: var(--dark);
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .tactic-body h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .tactic-body p {
+    font-size: 0.82rem;
+    color: var(--mid);
+    line-height: 1.55;
+  }
+
+  .priority-tag {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin-bottom: 6px;
+  }
+
+  .priority-now { background: #FEE2E2; color: var(--red); }
+  .priority-60 { background: #EDE0C4; color: var(--mid); }
+  .priority-90 { background: #E5E7EB; color: #374151; }
+  .priority-hold { background: #FEF3C7; color: #92400E; }
+
+  /* ASSOCIATION GRID */
+  .assoc-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .assoc-item {
+    background: white;
+    border-radius: 6px;
+    padding: 10px 8px;
+    text-align: center;
+    border: 1.5px solid var(--cream);
+  }
+
+  .assoc-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .assoc-strength {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+  }
+
+  .assoc-h { background: #D1FAE5; color: #065F46; }
+  .assoc-m { background: #EDE0C4; color: var(--mid); }
+  .assoc-l { background: #FEE2E2; color: #991B1B; }
+
+  /* PERCEPTION MAP */
+  .perception-map {
+    background: white;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    border: 1.5px solid var(--cream);
+  }
+
+  .perception-map-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 14px;
+  }
+
+  .perception-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+
+  .perception-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .perception-axis-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--dark);
+    width: 160px;
+    flex-shrink: 0;
+  }
+
+  .perception-bar-bg {
+    flex: 1;
+    height: 8px;
+    background: var(--cream);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .perception-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--red);
+  }
+
+  .perception-score {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--dark);
+    width: 40px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .perception-note {
+    font-size: 0.72rem;
+    color: var(--mid);
+    flex-shrink: 0;
+    width: 160px;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--cream);
+    font-size: 0.72rem;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { padding: 32px; }
+    .section-tactics { page-break-before: always; }
+    .finding { page-break-inside: avoid; }
+    .strategy-block { page-break-inside: avoid; }
+    .tactic-card { page-break-inside: avoid; }
+    .research-flow { page-break-inside: avoid; }
+    .prototype-banner { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-eyebrow">Brand Summary · August 2026</div>
+    <h1>Bundee Aki</h1>
+    <div class="header-sub">Research findings · Strategic direction · Recommended actions</div>
+  </div>
+
+  <!-- PROTOTYPE BANNER -->
+  <div class="prototype-banner">
+    <div class="prototype-banner-label">Prototype — Incomplete · Internal Review Only</div>
+    <h3>This document is based on external observation only.</h3>
+    <p>It has not yet incorporated a direct conversation with Bundee, input from his management team, or validation of associations with the people who know him best. Findings are directional hypotheses, not confirmed conclusions.</p>
+    <ul class="prototype-missing-list">
+      <li>No athlete interview has taken place. Bundee's own view of his brand, his ambitions, and his commercial priorities is not yet captured.</li>
+      <li>No management input from Grace or SevenEight. Commercial category priorities have not been confirmed. The discipline incident handling has not been discussed.</li>
+      <li>No inner circle input. Family members, teammates, and close contacts have not been consulted.</li>
+      <li>Brand associations have not been validated with anyone who knows Bundee directly. Everything here comes from public record, social media, and AI-simulated audience panels.</li>
+    </ul>
+    <p style="margin-top:12px;font-weight:600;">This document is for internal review only. Do not share with Bundee or his management until the missing inputs are gathered.</p>
+  </div>
+
+  <!-- SECTION 1 — RESEARCH -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title-block">
+        <h2>What the Research Tells Us</h2>
+        <p>Five sources, combined into one set of conclusions</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <!-- RESEARCH WORKFLOW -->
+    <div class="research-flow">
+
+      <div class="flow-step-wrap">
+        <span class="flow-step-output output-incomplete">Source 1</span>
+        <div class="flow-step flow-incomplete">
+          <div class="flow-icon">🎙️</div>
+          <div class="flow-step-label">Direct Conversation</div>
+          <div class="flow-step-desc">Not yet complete. No athlete interview has taken place.</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#C8102E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="flow-step-wrap">
+        <span class="flow-step-output">Source 2</span>
+        <div class="flow-step">
+          <div class="flow-icon">📰</div>
+          <div class="flow-step-label">Public Record</div>
+          <div class="flow-step-desc">Press coverage, athlete profiles, and media appearances reviewed</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#C8102E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="flow-step-wrap">
+        <span class="flow-step-output">Source 3</span>
+        <div class="flow-step">
+          <div class="flow-icon">📱</div>
+          <div class="flow-step-label">Your Own Channels</div>
+          <div class="flow-step-desc">Social media content reviewed across Instagram and other active platforms. Period: August 2025 to August 2026.</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#C8102E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="flow-step-wrap">
+        <span class="flow-step-output">Source 4</span>
+        <div class="flow-step">
+          <div class="flow-icon">🌐</div>
+          <div class="flow-step-label">Online Conversation</div>
+          <div class="flow-step-desc">30 days of mentions, comments, and brand conversation tracked across social</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#C8102E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="flow-step-wrap">
+        <span class="flow-step-output">Source 5</span>
+        <div class="flow-step">
+          <div class="flow-icon">🗣️</div>
+          <div class="flow-step-label">Synthetic Audience Panel</div>
+          <div class="flow-step-desc">10 AI-simulated audience types asked to rate Bundee's brand. Directional, not real survey data.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FINDINGS -->
+    <div class="finding">
+      <div class="finding-dot"></div>
+      <div class="finding-text">
+        <strong>The story exists. The infrastructure to carry it does not.</strong>
+        <p>Bundee has six active brand partnerships and a compelling personal narrative, but 55% of his posts are paid ads and his personal voice is almost entirely absent. This is an activation problem, not a brand problem.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-dot"></div>
+      <div class="finding-text">
+        <strong>The Outsider story is his most powerful asset and the most underused.</strong>
+        <p>Outsider scored highest in the research, near-unanimous. A New Zealand-born Samoan who became an Irish international and Lions tourist is a genuinely distinctive life story. It has never been told in his own voice on his own channels.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-dot"></div>
+      <div class="finding-text">
+        <strong>Family man is the financial services unlock. The market has already validated it.</strong>
+        <p>Family values is the only association where the full FS decision chain agreed positively in the research. The commercial market has already tested the brief: Avonmore, Samsung, and IKEA have all paid for it. The Avonmore reel hit 932,000 plays. Financial services is the natural next step.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-dot"></div>
+      <div class="finding-text">
+        <strong>He is the most credible multicultural bridge in Irish sport. No brand has activated it.</strong>
+        <p>Samoan roots, New Zealand upbringing, Irish international: his dual heritage resonates with first-generation Irish audiences in a way no other Irish rugby figure can replicate. The opportunity is unoccupied.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-dot"></div>
+      <div class="finding-text">
+        <strong>The discipline incident has a clock attached to it.</strong>
+        <p>Board-friendly scored lowest of all ten associations. An 18 to 24 month window of clean public record is the practical minimum before a serious FS conversation becomes realistic. That clock is already running. It shapes which categories to pursue first, not whether to pursue commercial activity at all.</p>
+      </div>
+    </div>
+
+    <!-- ASSOCIATION RATINGS -->
+    <div style="margin-top: 24px;">
+      <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--mid);margin-bottom:12px;">Association Ratings — AI-Simulated Panel (Directional Only)</div>
+      <div class="assoc-grid">
+        <div class="assoc-item">
+          <div class="assoc-label">Outsider</div>
+          <span class="assoc-strength assoc-h">High</span>
+        </div>
+        <div class="assoc-item">
+          <div class="assoc-label">Authentic</div>
+          <span class="assoc-strength assoc-h">High</span>
+        </div>
+        <div class="assoc-item">
+          <div class="assoc-label">Fearless</div>
+          <span class="assoc-strength assoc-h">High</span>
+        </div>
+        <div class="assoc-item">
+          <div class="assoc-label">Family Man</div>
+          <span class="assoc-strength assoc-h">High</span>
+        </div>
+        <div class="assoc-item">
+          <div class="assoc-label">Friendly</div>
+          <span class="assoc-strength assoc-h">High</span>
+        </div>
+        <div class="assoc-item">
+          <div class="assoc-label">Irish</div>
+          <span class="assoc-strength assoc-h">High</span>
+        </div>
+        <div class="assoc-item">
+          <div class="assoc-label">Inspirational</div>
+          <span class="assoc-strength assoc-m">Mid</span>
+        </div>
+        <div class="assoc-item">
+          <div class="assoc-label">Trustworthy</div>
+          <span class="assoc-strength assoc-m">Mid</span>
+        </div>
+        <div class="assoc-item">
+          <div class="assoc-label">Mature</div>
+          <span class="assoc-strength assoc-m">Mid</span>
+        </div>
+        <div class="assoc-item">
+          <div class="assoc-label">Board-Friendly</div>
+          <span class="assoc-strength assoc-l">Low</span>
+        </div>
+      </div>
+      <p style="font-size:0.72rem;color:var(--mid);line-height:1.5;">These ratings come from an AI-simulated panel of 10 audience types. They are directional hypotheses only. They have not been validated with real buyers, real fans, or anyone who knows Bundee directly. Do not treat them as confirmed brand associations.</p>
+    </div>
+
+    <!-- PERCEPTION MAP -->
+    <div class="perception-map" style="margin-top:20px;">
+      <div class="perception-map-label">Perception Map — Where the Research Places Him (Directional)</div>
+      <div class="perception-row">
+        <div class="perception-axis-label">Authenticity</div>
+        <div class="perception-bar-bg">
+          <div class="perception-bar-fill" style="width:71%;"></div>
+        </div>
+        <div class="perception-score">5.0 / 7</div>
+        <div class="perception-note">Right of centre. Perceived as genuine.</div>
+      </div>
+      <div class="perception-row">
+        <div class="perception-axis-label">Commercial Readiness</div>
+        <div class="perception-bar-bg">
+          <div class="perception-bar-fill" style="width:44%;background:#D97706;"></div>
+        </div>
+        <div class="perception-score">3.1 / 7</div>
+        <div class="perception-note">Below centre. Reputational risk cited.</div>
+      </div>
+      <p style="font-size:0.72rem;color:var(--mid);margin-top:12px;line-height:1.5;">Perception map produced from AI-simulated panel data. Not a real survey. Scores should be treated as directional indicators, not definitive measurements.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 2 — STRATEGY -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title-block">
+        <h2>The Strategic Approach</h2>
+        <p>Two tracks running simultaneously: commercial now, brand building in parallel</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="strategy-block">
+      <div class="strategy-block-label">Track 1 — Commercial (now)</div>
+      <h3>Own the Fearless Outsider space in the energy and performance category</h3>
+      <p>Fearless and Outsider rated highest in the research, near-unanimous across all persona types. Both map naturally onto the energy and performance category. The World Cup 2027 cycle is a live activation window. Brands in this space (Lucozade Sport, Kinetica, Myprotein, Optimum Nutrition) are planning ambassador rosters now. The brief writes itself: a centre who came from outside the expected pathway and refused to leave.</p>
+      <div class="strategy-note">Based on prototype research only. Category priorities and specific brand targets must be confirmed with management before any outreach begins.</div>
+    </div>
+
+    <div class="strategy-block">
+      <div class="strategy-block-label">Track 2 — Brand Building (in parallel, starting now)</div>
+      <h3>Build the brand codes now. The financial services window opens in 18 to 24 months.</h3>
+      <p>Track 2 runs alongside Track 1 from day one, not after it. Financial services is the highest-value category available to a family-facing Irish personality, and the family man positioning is already commercially proven: Avonmore, Samsung, and IKEA have all paid for it. The discipline clock sets the timeline: 18 to 24 months of clean public record before a boardroom conversation becomes realistic. The content built for Track 1 today is the evidence base an FS buyer will scroll through in 2028.</p>
+
+      <div style="margin-top:16px;">
+        <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:10px;">Brand DNA</div>
+        <p style="font-size:0.84rem;color:var(--dark);font-weight:500;line-height:1.5;margin-bottom:14px;">The outsider who crossed the world, put down roots in Ireland, and became essential — to Connacht, to Ireland, to his family.</p>
+        <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:10px;">Brand Codes — To Be Defined</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span style="font-size:0.75rem;font-weight:600;color:var(--dark);background:white;border:1.5px solid var(--cream);border-radius:4px;padding:5px 10px;">Logo / personal mark</span>
+          <span style="font-size:0.75rem;font-weight:600;color:var(--dark);background:white;border:1.5px solid var(--cream);border-radius:4px;padding:5px 10px;">Signature colour</span>
+          <span style="font-size:0.75rem;font-weight:600;color:var(--dark);background:white;border:1.5px solid var(--cream);border-radius:4px;padding:5px 10px;">Typography</span>
+          <span style="font-size:0.75rem;font-weight:600;color:var(--dark);background:white;border:1.5px solid var(--cream);border-radius:4px;padding:5px 10px;">Slogan — "Play fearless. Every time." (proposed)</span>
+          <span style="font-size:0.75rem;font-weight:600;color:var(--dark);background:white;border:1.5px solid var(--cream);border-radius:4px;padding:5px 10px;">Content format / visual style</span>
+          <span style="font-size:0.75rem;font-weight:600;color:var(--dark);background:white;border:1.5px solid var(--cream);border-radius:4px;padding:5px 10px;">Pacific Island visual language</span>
+        </div>
+        <p style="font-size:0.72rem;color:var(--mid);margin-top:10px;line-height:1.5;">None of these have been formalised. Defining them is a core deliverable of Wave 1 — to be agreed with Bundee and SevenEight before any brand-building activity begins.</p>
+      </div>
+
+      <div class="strategy-note" style="margin-top:14px;">Based on prototype research only. The discipline incident and its commercial implications have not been discussed with management. The 18 to 24 month timeline is a research hypothesis, not a confirmed industry standard.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 — TACTICS -->
+  <div class="section section-tactics">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title-block">
+        <h2>Recommended Actions</h2>
+        <p>Eight tactics, in priority order : owned content, earned media, community, and commercial</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="tactic-list">
+
+      <div class="tactic-card">
+        <div class="tactic-num">1</div>
+        <div class="tactic-body">
+          <div class="priority-tag priority-now">Start now — time-sensitive</div>
+          <h4>The Outsider Series — Chapter 1: Samoa</h4>
+          <p>The Samoa visit is a live news hook that will fade. Build Chapter 1 now: a long-form Instagram carousel in Bundee's own words, his own photographs, one clear narrative thread. The full series follows the arc: Samoa, Galway arrival, Lions call-up, Baby Aine. It is the most powerful asset in his commercial portfolio and entirely absent from his channels.</p>
+        </div>
+      </div>
+
+      <div class="tactic-card">
+        <div class="tactic-num">2</div>
+        <div class="tactic-body">
+          <div class="priority-tag priority-now">Start now</div>
+          <h4>Social content infrastructure — three times per week</h4>
+          <p>The most cited commercial blocker in the research. Bundee has six active brand deals, 208,000 followers, and almost no personal voice between the ads. Three post types per week: Performance (match-day, training), Family and Community (unforced personal content), Identity (Outsider Series, heritage, values). No dead periods between rugby news cycles.</p>
+        </div>
+      </div>
+
+      <div class="tactic-card">
+        <div class="tactic-num">3</div>
+        <div class="tactic-body">
+          <div class="priority-tag priority-now">This week</div>
+          <h4>PR and editorial — place the Samoa story now</h4>
+          <p>Pitch specific story angles to sports desks while the news peg is live: the Samoa reconnection, the Outsider who became definitively Irish, the Lions test played the day his wife gave birth in a car park. Primary targets: Irish Times, Sunday Times Sport, Irish Examiner, Off The Ball.</p>
+        </div>
+      </div>
+
+      <div class="tactic-card">
+        <div class="tactic-num">4</div>
+        <div class="tactic-body">
+          <div class="priority-tag priority-60">Ongoing</div>
+          <h4>Community — local roots and Pacific Island heritage</h4>
+          <p>Bundee has been in Galway for over a decade. That should be visible. Youth rugby visits, school appearances, and local club connections build the community proof that makes the family man positioning credible, and they cost almost nothing to document and publish. Alongside that, visible engagement with the Pacific Island community in Ireland is a distinct angle no other Irish rugby figure can claim. Rooted in Connacht, proud of where he came from: these two threads are the foundation the financial services positioning needs.</p>
+        </div>
+      </div>
+
+      <div class="tactic-card">
+        <div class="tactic-num">5</div>
+        <div class="tactic-body">
+          <div class="priority-tag priority-now">Next 30 days</div>
+          <h4>TikTok launch</h4>
+          <p>Bundee has almost no TikTok presence. Fan-created content generated 49,809 views in one month without his involvement. The Judeinthehat reel (14,505 likes, no paid support) proves the format: Bundee unscripted is more compelling than Bundee scripted. Two posts per week. Short, warm, direct to camera. Launch before the Connacht season starts.</p>
+        </div>
+      </div>
+
+      <div class="tactic-card">
+        <div class="tactic-num">6</div>
+        <div class="tactic-body">
+          <div class="priority-tag priority-60">Next 60 days</div>
+          <h4>Podcast appearances</h4>
+          <p>Bundee is a strong podcast guest: warm, candid, a life story that is compelling audio. Before the first appearance, he needs a fixed four-minute narrative: New Zealand, Samoa, Galway, Ireland, Lions, five kids, faith. Target shows: Off The Ball, Second Captains, The High Performance podcast. One well-matched appearance creates more reach than months of social content.</p>
+        </div>
+      </div>
+
+      <div class="tactic-card">
+        <div class="tactic-num">7</div>
+        <div class="tactic-body">
+          <div class="priority-tag priority-90">Next 90 days</div>
+          <h4>RTÉ documentary pitch</h4>
+          <p>Pitch RTÉ Sport on a short documentary built around the Outsider arc. The Lions tour and Baby Aine story combined with the Samoa visit creates a natural two-act structure. This story is broadcast-ready in a way few Irish rugby personalities can offer. The Samoa visit makes the pitch timely now.</p>
+        </div>
+      </div>
+
+      <div class="tactic-card">
+        <div class="tactic-num">8</div>
+        <div class="tactic-body">
+          <div class="priority-tag priority-90">Next 90 days</div>
+          <h4>Anchor partnership case study</h4>
+          <p>Structure the next commercial partnership to produce a publishable case study: content metrics captured, campaign documented, brief summary published at the end of the contract. One case study with real results removes the biggest single objection every future brand buyer will raise. Avonmore may already be a candidate if the relationship allows it.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Prepared August 2026 · Prototype · For internal review only · Not for sharing with Bundee Aki or SevenEight management until missing inputs are gathered</p>
+  </div>
+
+</div>
+</body>
+</html>
