@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mobile Header Options</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:       #EDE0C4;
+      --cream-light: #F7F2EA;
+      --red:         #C8102E;
+      --red-deep:    #A00E24;
+      --dark:        #1C1C1C;
+      --mid:         #5C5247;
+      --font:        'Outfit', 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: #e8e0d0;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      align-items: center;
+    }
+
+    h2 {
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    /* Simulate a phone width */
+    .phone {
+      width: 390px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+      background: var(--cream-light);
+    }
+
+    /* Shared tag style */
+    .header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--red);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .page-title {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--cream-light);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .page-title span { color: var(--red); }
+
+    .dot-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+
+    .bio-text p {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    .bio-link {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      margin-top: 6px;
+    }
+
+    /* Fake nav bar */
+    .nav {
+      background: transparent;
+      height: 48px;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+    }
+
+    /* ── OPTION A ── Stack: title top, figurine+bio row below */
+    .option-a .page-header {
+      background: var(--dark);
+      padding: 56px 20px 20px;
+      border-bottom: 3px solid var(--red);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .option-a .header-bottom-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 0;
+      margin-top: 16px;
+      background: var(--cream-light);
+      margin: 16px -20px -3px;
+      padding: 16px 20px 20px;
+      border-top: none;
+    }
+
+    .option-a .header-bottom-row {
+      align-items: flex-start;
+    }
+
+    .option-a .header-bottom-row .fig {
+      flex-shrink: 0;
+      margin-right: 16px;
+    }
+
+    .option-a .header-bottom-row .fig img {
+      height: 140px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    }
+
+    .option-a .header-bottom-row .bio-text p {
+      font-size: 13px;
+    }
+
+    /* ── OPTION B ── Figurine centred above title */
+    .option-b .page-header {
+      background: var(--dark);
+      padding: 56px 20px 24px;
+      border-bottom: 3px solid var(--red);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .option-b .page-header .fig img {
+      height: 160px;
+      width: auto;
+      display: block;
+      margin: 0 auto 20px;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.35));
+    }
+
+    .option-b .bio-strip {
+      padding: 16px 20px 20px;
+      background: var(--cream-light);
+      text-align: left;
+    }
+
+    /* ── OPTION C ── Split card: text left, figurine right */
+    .option-c .page-header {
+      background: var(--dark);
+      border-bottom: 3px solid var(--red);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .option-c .header-left {
+      flex: 1;
+      padding: 56px 20px 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .option-c .header-right {
+      width: 140px;
+      flex-shrink: 0;
+      background: rgba(200,16,46,0.12);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 0;
+      border-left: 1px solid rgba(200,16,46,0.25);
+    }
+
+    .option-c .header-right img {
+      height: 190px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+    }
+
+    .option-c .bio-strip {
+      padding: 16px 20px 20px;
+      background: var(--cream-light);
+    }
+
+    /* Shared mock content below header */
+    .mock-content {
+      padding: 16px 20px;
+      background: var(--cream-light);
+    }
+
+    .mock-card {
+      background: white;
+      border-radius: 8px;
+      padding: 14px;
+      border-top: 3px solid var(--red);
+    }
+
+    .mock-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 8px;
+    }
+
+    .mock-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .mock-excerpt {
+      font-size: 12px;
+      color: var(--mid);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- OPTION A -->
+  <div>
+    <h2>Option A — Title top, figurine + bio row below</h2>
+    <div class="phone option-a">
+      <div class="page-header">
+        <div class="dot-grid"></div>
+        <div class="header-tag">Build Log</div>
+        <div class="page-title">stephen<span>j</span>cleary</div>
+        <div class="header-bottom-row">
+          <div class="fig">
+            <img src="../images/ChatGPT_Image_Apr_24__2026__08_09_16_AM-removebg-preview.png" alt="figurine" />
+          </div>
+          <div class="bio-text">
+            <p>Brand marketer with 13+ years experience. Global brand marketing at adidas Football, currently at The National Lottery.</p>
+            <a class="bio-link" href="#">Connect on LinkedIn →</a>
+          </div>
+        </div>
+      </div>
+      <div class="mock-content">
+        <div class="mock-label">Latest</div>
+        <div class="mock-card">
+          <div class="mock-title">I made a brand mascot</div>
+          <div class="mock-excerpt">I follow Jenni Romaniuk's work on Distinctive Brand Assets closely. At the National Lottery we built and measured them properly...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION B -->
+  <div>
+    <h2>Option B — Figurine centred, title below</h2>
+    <div class="phone option-b">
+      <div class="page-header">
+        <div class="dot-grid"></div>
+        <div class="fig">
+          <img src="../images/ChatGPT_Image_Apr_24__2026__08_09_16_AM-removebg-preview.png" alt="figurine" />
+        </div>
+        <div class="header-tag">Build Log</div>
+        <div class="page-title">stephen<span>j</span>cleary</div>
+      </div>
+      <div class="bio-strip">
+        <div class="bio-text">
+          <p>Brand marketer with 13+ years experience. Global brand marketing at adidas Football, currently at The National Lottery.</p>
+          <a class="bio-link" href="#">Connect on LinkedIn →</a>
+        </div>
+      </div>
+      <div class="mock-content">
+        <div class="mock-label">Latest</div>
+        <div class="mock-card">
+          <div class="mock-title">I made a brand mascot</div>
+          <div class="mock-excerpt">I follow Jenni Romaniuk's work on Distinctive Brand Assets closely. At the National Lottery we built and measured them properly...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION C -->
+  <div>
+    <h2>Option C — Split card, text left / figurine right</h2>
+    <div class="phone option-c">
+      <div class="page-header">
+        <div class="dot-grid"></div>
+        <div class="header-left">
+          <div class="header-tag">Build Log</div>
+          <div class="page-title">stephen<span>j</span>cleary</div>
+        </div>
+        <div class="header-right">
+          <img src="../images/ChatGPT_Image_Apr_24__2026__08_09_16_AM-removebg-preview.png" alt="figurine" />
+        </div>
+      </div>
+      <div class="bio-strip">
+        <div class="bio-text">
+          <p>Brand marketer with 13+ years experience. Global brand marketing at adidas Football, currently at The National Lottery.</p>
+          <a class="bio-link" href="#">Connect on LinkedIn →</a>
+        </div>
+      </div>
+      <div class="mock-content">
+        <div class="mock-label">Latest</div>
+        <div class="mock-card">
+          <div class="mock-title">I made a brand mascot</div>
+          <div class="mock-excerpt">I follow Jenni Romaniuk's work on Distinctive Brand Assets closely. At the National Lottery we built and measured them properly...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

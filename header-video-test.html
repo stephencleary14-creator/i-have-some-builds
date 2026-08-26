@@ -1,0 +1,2862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>stephenjcleary</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HLCJ1PDQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5HLCJ1PDQK');
+  </script>
+  <style>
+    :root {
+      --cream:       #EDE0C4;
+      --cream-light: #F7F2EA;
+      --red:         #C8102E;
+      --red-deep:    #A00E24;
+      --dark:        #1C1C1C;
+      --mid:         #5C5247;
+      --font:        'Outfit', 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--cream-light);
+      color: var(--dark);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    nav {
+      background: transparent;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 56px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+
+    .nav-search {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-search input {
+      background: #2e2e2e;
+      border: 1px solid rgba(237, 224, 196, 0.25);
+      border-radius: 4px;
+      color: #ffffff;
+      -webkit-text-fill-color: #ffffff;
+      caret-color: #ffffff;
+      font-family: var(--font);
+      font-size: 13px;
+      padding: 6px 14px;
+      width: 220px;
+      outline: none;
+      position: relative;
+      z-index: 101;
+      transition: border-color 0.15s, width 0.2s;
+    }
+
+    .nav-search input:focus {
+      border-color: rgba(237, 224, 196, 0.6);
+      width: 280px;
+    }
+
+    .nav-search input:-webkit-autofill {
+      -webkit-text-fill-color: #ffffff;
+      -webkit-box-shadow: 0 0 0px 1000px #2e2e2e inset;
+    }
+
+    .nav-search input::placeholder {
+      color: rgba(237, 224, 196, 0.4);
+    }
+
+.search-results {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 340px;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      overflow: hidden;
+      z-index: 200;
+    }
+
+    .search-results.visible {
+      display: block;
+    }
+
+    .search-result-item {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--cream);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .search-result-item:last-child {
+      border-bottom: none;
+    }
+
+    .search-result-item:hover {
+      background: var(--cream-light);
+    }
+
+    .search-result-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 3px;
+    }
+
+    .search-result-snippet {
+      font-size: 12px;
+      color: var(--mid);
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .search-result-snippet mark {
+      background: #fde68a;
+      color: var(--dark);
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+
+    .search-no-results {
+      padding: 16px;
+      font-size: 13px;
+      color: var(--mid);
+      text-align: center;
+    }
+
+    /* ── Hero — full-bleed dark bg, grid constrained to content width ── */
+    .hero-outer {
+      background: var(--dark);
+      border-bottom: 3px solid var(--red);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dot grid — full bleed behind everything */
+    .hero-outer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 960px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Text panel ── */
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      padding: 76px 40px 40px 32px;
+    }
+
+    .header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--red);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .page-title {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      color: var(--cream-light);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.45);
+      margin-bottom: 16px;
+    }
+
+    .bio-line {
+      font-size: 15px;
+      color: rgba(237,224,196,0.65);
+      line-height: 1.6;
+      max-width: 420px;
+      margin-bottom: 16px;
+    }
+
+    .bio-linkedin {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .bio-linkedin:hover { color: var(--red-deep); }
+    .bio-linkedin::after { content: '→'; }
+
+    /* ── Video panel ── */
+    .hero-video {
+      position: relative;
+      overflow: hidden;
+      /* Extend left so the fade overlaps the text panel boundary */
+      margin-left: -40px;
+      margin-right: 32px;
+    }
+
+    .hero-video video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 75%;
+    }
+
+    /* Fade both edges — soft and spread so more video is visible */
+    .hero-video::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, var(--dark) 0%, rgba(28,28,28,0.3) 10%, transparent 25%),
+        linear-gradient(to left,  var(--dark) 0%, rgba(28,28,28,0.3) 10%, transparent 25%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Hide old elements */
+    .mobile-bio-row { display: none; }
+    .bio-strip { display: none; }
+    .hero-figure { display: none; }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 32px 0;
+    }
+
+    section {
+      margin-top: 28px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--mid);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* ── Cards shared ── */
+    .card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .card-meta {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--mid);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .card-excerpt {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .card-read {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.15s;
+    }
+
+    .card-read:hover {
+      color: var(--red-deep);
+    }
+
+    .card-read::after {
+      content: '→';
+    }
+
+    /* ── Image / Video placeholders ── */
+    .img-placeholder {
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--mid);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+
+    .video-placeholder {
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--cream-light);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-top: 14px solid transparent;
+      border-bottom: 14px solid transparent;
+      border-left: 22px solid var(--red);
+      margin-left: 4px;
+    }
+
+    /* ── Featured Card ── */
+    .featured-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 3px solid var(--red);
+    }
+
+    .featured-image {
+      height: 280px;
+      min-height: 280px;
+      max-height: 280px;
+      overflow: hidden;
+      position: relative;
+      background: #1C1C1C;
+    }
+
+    .featured-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .featured-image img.thumb-contain {
+      object-fit: contain;
+      background: #1C1C1C;
+      padding: 24px;
+    }
+
+    .featured-image .thumb-icon {
+      display: none;
+    }
+
+    .featured-body {
+      padding: 36px 36px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .featured-body .card-title {
+      font-size: 24px;
+    }
+
+    .featured-body .card-excerpt {
+      font-size: 15px;
+    }
+
+    /* ── Archive Grid ── */
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .archive-card {
+      border-top: 3px solid var(--cream);
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+    }
+
+    .archive-card:hover {
+      border-top-color: var(--red);
+    }
+
+    .archive-image {
+      height: 160px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .archive-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .archive-image .thumb-icon {
+      display: none;
+    }
+
+    .archive-body {
+      padding: 20px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .archive-body .card-title {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .archive-body .card-excerpt {
+      flex: 1;
+    }
+
+    /* ── Full Entry Overlay ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 28, 28, 0.7);
+      z-index: 200;
+      overflow-y: auto;
+      padding: 48px 24px;
+    }
+
+    .overlay.open {
+      display: block;
+    }
+
+    .entry-panel {
+      background: var(--cream-light);
+      max-width: 720px;
+      margin: 0 auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    .entry-header {
+      background: var(--dark);
+      padding: 36px 40px 32px;
+      border-bottom: 3px solid var(--red);
+    }
+
+    .entry-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .entry-header-top .card-meta {
+      margin-bottom: 0;
+    }
+
+    .entry-close-top {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      transition: color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .entry-close-top:hover {
+      color: var(--red-deep);
+    }
+
+    .entry-header .card-meta {
+      color: var(--mid);
+      margin-bottom: 10px;
+    }
+
+    .entry-title {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 700;
+      color: var(--cream-light);
+      line-height: 1.2;
+    }
+
+    .entry-body {
+      padding: 40px 40px 48px;
+    }
+
+    .entry-body p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+
+    .entry-body ul {
+      margin: 0 0 20px 20px;
+      padding: 0;
+    }
+
+    .entry-body ul li {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .entry-body .img-placeholder {
+      width: 100%;
+      height: 240px;
+      border-radius: 6px;
+      margin: 28px 0;
+    }
+
+    .entry-body .video-placeholder {
+      width: 100%;
+      height: 240px;
+      border-radius: 6px;
+      margin: 28px 0;
+    }
+
+    .entry-close {
+      display: block;
+      margin: 0 40px 32px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: var(--font);
+      text-align: left;
+      transition: color 0.15s;
+    }
+
+    .entry-close:hover {
+      color: var(--red-deep);
+    }
+
+    .entry-close::before {
+      content: '← ';
+    }
+
+    /* ── Entry images ── */
+    .entry-img {
+      width: 100%;
+      border-radius: 6px;
+      margin: 28px 0;
+      display: block;
+      object-fit: cover;
+      max-height: 400px;
+    }
+
+    .entry-img-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .entry-img-pair img {
+      width: 100%;
+      border-radius: 6px;
+      object-fit: cover;
+      height: 280px;
+    }
+
+    .entry-img-caption {
+      font-size: 12px;
+      color: var(--mid);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    /* ── Slideshow ── */
+    .slideshow {
+      margin: 28px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #1C1C1C;
+    }
+
+    .slideshow-track {
+      position: relative;
+    }
+
+    .slideshow-slide {
+      width: 100%;
+      display: none;
+      border-radius: 0;
+      margin: 0;
+    }
+
+    .slideshow-slide.active {
+      display: block;
+    }
+
+    .slideshow-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 12px 16px;
+      background: #1C1C1C;
+    }
+
+    .slideshow-btn {
+      background: none;
+      border: 1px solid rgba(237,224,196,0.3);
+      color: #EDE0C4;
+      border-radius: 4px;
+      width: 32px;
+      height: 32px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .slideshow-btn:hover {
+      border-color: #C8102E;
+      background: rgba(200,16,46,0.1);
+      color: #EDE0C4;
+    }
+
+    .slideshow-counter {
+      font-size: 13px;
+      color: rgba(237,224,196,0.5);
+      min-width: 40px;
+      text-align: center;
+    }
+
+    /* ── Colour swatches ── */
+    .swatch-row {
+      display: flex;
+      gap: 12px;
+      margin: 28px 0;
+      flex-wrap: wrap;
+    }
+
+    .swatch-block {
+      flex: 1;
+      min-width: 80px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .swatch-block-colour {
+      height: 64px;
+    }
+
+    .swatch-block-label {
+      background: white;
+      padding: 6px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--dark);
+      text-align: center;
+    }
+
+    /* ── View All Button ── */
+    .view-all-btn {
+      display: block;
+      width: 100%;
+      padding: 18px;
+      background: white;
+      border: 1px solid var(--cream);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--dark);
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .view-all-btn:hover {
+      background: var(--cream-light);
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    /* ── All Entries Overlay ── */
+    .all-entries-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 28, 28, 0.7);
+      z-index: 200;
+      overflow-y: auto;
+      padding: 100px 24px 48px;
+    }
+
+    .all-entries-overlay.open {
+      display: block;
+    }
+
+    .all-entries-panel {
+      background: var(--cream-light);
+      max-width: 720px;
+      margin: 0 auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    .all-entries-header {
+      background: var(--dark);
+      padding: 28px 40px;
+      border-bottom: 3px solid var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .all-entries-header h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cream-light);
+    }
+
+    .all-entries-close {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      transition: color 0.15s;
+    }
+
+    .all-entries-close:hover {
+      color: var(--red-deep);
+    }
+
+    .all-entries-list {
+      padding: 8px 0;
+    }
+
+    .all-entries-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 40px;
+      border-bottom: 1px solid var(--cream);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .all-entries-row:last-child {
+      border-bottom: none;
+    }
+
+    .all-entries-row:hover {
+      background: var(--cream);
+    }
+
+    .all-entries-row:hover .all-entries-title {
+      color: var(--red);
+    }
+
+    .all-entries-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--dark);
+      transition: color 0.1s;
+    }
+
+    .all-entries-date {
+      font-size: 12px;
+      color: var(--mid);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 32px 32px;
+    }
+    footer img {
+      max-width: 960px;
+      width: 100%;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      .featured-card {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-image {
+        height: 80px;
+        min-height: 0;
+        background: var(--cream);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .featured-image img {
+        display: none;
+      }
+
+      .featured-image .thumb-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+      }
+
+      .featured-image .thumb-icon svg {
+        width: 72px;
+        height: auto;
+      }
+
+      .archive-image {
+        height: 64px;
+        background: var(--cream);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .archive-image img {
+        display: none;
+      }
+
+      .archive-image .thumb-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+      }
+
+      .archive-image .thumb-icon svg {
+        width: 56px;
+        height: auto;
+      }
+
+      .featured-body {
+        padding: 24px;
+      }
+
+      .archive-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 0 20px 0;
+      }
+
+      nav {
+        padding: 0 20px;
+      }
+
+      /* Mobile: 3-row grid — title / video / bio */
+      .hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+      }
+
+      .hero-text {
+        display: contents;
+      }
+
+      .hero-title {
+        order: 1;
+        padding: 72px 20px 16px;
+      }
+
+      .hero-video {
+        order: 2;
+        height: 220px;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      /* No gradient on mobile */
+      .hero-video::before {
+        display: none;
+      }
+
+      .hero-bio {
+        order: 3;
+        padding: 16px 20px 28px;
+      }
+
+      .page-subtitle {
+        font-size: clamp(13px, 3.5vw, 15px);
+        white-space: nowrap;
+      }
+
+      .entry-header {
+        padding: 28px 24px 24px;
+      }
+
+      .entry-body {
+        padding: 28px 24px 36px;
+      }
+
+      .entry-close {
+        margin: 0 24px 24px;
+      }
+
+      footer {
+        padding: 16px 20px 0;
+      }
+    }
+
+    @media (max-width: 960px) and (min-width: 721px) {
+      .archive-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* ── Option B: Video behind, text overlaid left ── */
+    .option-label {
+      background: #333;
+      color: #aaa;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      text-align: center;
+    }
+
+    .hero-b-outer {
+      background: var(--dark);
+      border-bottom: 3px solid var(--red);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dot grid */
+    .hero-b-outer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Video: right 65% of viewport, text has clear left 35% */
+    .hero-b-video {
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 65%;
+      overflow: hidden;
+    }
+
+    .hero-b-video video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+    }
+
+    /* Gradient: covers left 35% solid dark, then fades into video */
+    .hero-b-video::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, var(--dark) 0%, rgba(28,28,28,0.9) 25%, rgba(28,28,28,0.3) 50%, transparent 70%),
+        linear-gradient(to left,  var(--dark) 0%, rgba(28,28,28,0.3) 8%, transparent 20%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Text in normal flow — drives the height of the outer div */
+    .hero-b {
+      max-width: 960px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-b-text {
+      padding: 76px 0 40px 32px;
+      width: 38%;
+    }
+
+    @media (max-width: 720px) {
+      .hero-b-video {
+        width: 100%;
+        top: auto;
+        bottom: 0;
+        height: 200px;
+      }
+
+      .hero-b-video::before {
+        background: linear-gradient(to bottom, var(--dark) 0%, transparent 40%);
+      }
+
+      .hero-b-text {
+        padding: 72px 20px 28px;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-search">
+      <input type="text" id="nav-search-input" placeholder="Search entries…" autocomplete="off" spellcheck="false" />
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </nav>
+
+  <!-- Option label -->
+  <div class="option-label">Option A — Split panel</div>
+
+  <!-- Hero: split panel — text left, video right -->
+  <div class="hero-outer">
+  <div class="hero">
+
+    <!-- Text panel -->
+    <div class="hero-text">
+      <div class="hero-title">
+        <h1 class="page-title">stephen<span style="color:var(--red);">j</span>cleary</h1>
+      </div>
+      <div class="hero-bio">
+        <p class="bio-line">Brand marketer with 14+ years experience. Global brand marketing at adidas Football, currently a brand manager at The National Lottery in Dublin. This blog is a record of what I'm building, learning, and figuring out along the way.</p>
+        <a class="bio-linkedin" href="https://www.linkedin.com/in/clearystephen/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+      </div>
+    </div>
+
+    <!-- Video panel -->
+    <div class="hero-video">
+      <video autoplay muted loop playsinline preload="none" poster="images/SJC_headerMay.png">
+        <source src="images/header_vid_comp.mp4" type="video/mp4">
+        <source src="images/header_vid.mp4" type="video/mp4">
+      </video>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- Option label -->
+  <div class="option-label">Option B — Full-bleed video</div>
+
+  <!-- Hero B: video behind, text overlaid on left -->
+  <div class="hero-b-outer">
+    <div class="hero-b-video">
+      <video autoplay muted loop playsinline preload="none" poster="images/SJC_headerMay.png">
+        <source src="images/header_vid_comp.mp4" type="video/mp4">
+        <source src="images/header_vid.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-b">
+      <div class="hero-b-text">
+        <h1 class="page-title">stephen<span style="color:var(--red);">j</span>cleary</h1>
+        <p class="bio-line">Brand marketer with 14+ years experience. Global brand marketing at adidas Football, currently a brand manager at The National Lottery in Dublin. This blog is a record of what I'm building, learning, and figuring out along the way.</p>
+        <a class="bio-linkedin" href="https://www.linkedin.com/in/clearystephen/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+
+    <!-- Latest -->
+    <section>
+      <p class="section-label">Latest</p>
+      <div class="card featured-card" onclick="openEntry(0)" id="featured-card">
+        <div id="featured-thumb" class="featured-image">
+          <img src="images/ChatGPT_Image_Apr_24__2026__08_09_16_AM-removebg-preview.png" alt="ChatGPT-generated Corinthian figurine of Stephen Cleary" class="thumb-contain" />
+          <div class="thumb-icon"></div>
+        </div>
+        <div class="featured-body">
+          <p class="card-meta" id="featured-meta"></p>
+          <h2 class="card-title" id="featured-title"></h2>
+          <p class="card-excerpt" id="featured-excerpt"></p>
+          <a class="card-read" id="featured-read" href="#">Read entry</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer — used as separator between latest and archive -->
+  <footer>
+    <picture>
+      <source media="(max-width: 720px)" srcset="images/SJC_section_June26.png" />
+      <img src="images/SJC_footer_June26.png" alt="stephenjcleary" />
+    </picture>
+  </footer>
+
+  <div class="container">
+
+    <!-- Previous Entries -->
+    <section>
+      <p class="section-label">Previous Entries</p>
+      <div class="archive-grid" id="archive-grid"></div>
+    </section>
+
+    <!-- View All Button -->
+    <section>
+      <button class="view-all-btn" onclick="openAllEntries()">View all entries</button>
+    </section>
+
+    <div style="height: 48px;"></div>
+
+  </div>
+
+  <!-- All Entries Overlay -->
+  <div class="all-entries-overlay" id="all-entries-overlay" onclick="handleAllEntriesClick(event)">
+    <div class="all-entries-panel">
+      <div class="all-entries-header">
+        <h2>All Entries</h2>
+        <button class="all-entries-close" onclick="closeAllEntries()">Close ✕</button>
+      </div>
+      <div class="all-entries-list" id="all-entries-list"></div>
+    </div>
+  </div>
+
+  <!-- Full Entry Overlay -->
+  <div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+    <div class="entry-panel" id="entry-panel">
+      <div class="entry-header">
+        <div class="entry-header-top">
+          <p class="card-meta" id="entry-meta"></p>
+          <button class="entry-close-top" onclick="closeEntry()">Close ✕</button>
+        </div>
+        <h1 class="entry-title" id="entry-title"></h1>
+      </div>
+      <div class="entry-body" id="entry-body"></div>
+      <button class="entry-close" onclick="closeEntry()">Back to all entries</button>
+    </div>
+  </div>
+
+  <script>
+    // SVG icons: bold geometric, red (#C8102E) on cream (#EDE0C4)
+    const icons = {
+      trophy: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Cup body -->
+        <path d="M58 26 L102 26 L98 60 Q94 74 80 74 Q66 74 62 60 Z" fill="#C8102E"/>
+        <!-- Left handle -->
+        <path d="M58 32 Q40 32 42 46 Q44 58 62 58" stroke="#C8102E" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <!-- Right handle -->
+        <path d="M102 32 Q120 32 118 46 Q116 58 98 58" stroke="#C8102E" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <!-- Stem -->
+        <rect x="76" y="74" width="8" height="12" fill="#C8102E"/>
+        <!-- Base -->
+        <path d="M62 96 Q62 86 72 86 L88 86 Q98 86 98 96 Z" fill="#C8102E"/>
+        <!-- Confetti -->
+        <circle cx="40" cy="20" r="4" fill="#C8102E" opacity="0.55"/>
+        <circle cx="124" cy="18" r="4" fill="#C8102E" opacity="0.55"/>
+        <circle cx="30" cy="70" r="3.5" fill="#C8102E" opacity="0.4"/>
+        <circle cx="132" cy="68" r="3.5" fill="#C8102E" opacity="0.4"/>
+      </svg>`,
+      balanceScales: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Centre pole -->
+        <line x1="80" y1="28" x2="80" y2="96" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <!-- Base -->
+        <line x1="56" y1="96" x2="104" y2="96" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <!-- Beam -->
+        <line x1="28" y1="40" x2="132" y2="40" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <!-- Left chain -->
+        <line x1="36" y1="40" x2="36" y2="62" stroke="#C8102E" stroke-width="3" stroke-linecap="round"/>
+        <!-- Right chain -->
+        <line x1="124" y1="40" x2="124" y2="62" stroke="#C8102E" stroke-width="3" stroke-linecap="round"/>
+        <!-- Left pan -->
+        <path d="M18 62 Q36 70 54 62" stroke="#C8102E" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <!-- Right pan -->
+        <path d="M106 62 Q124 70 142 62" stroke="#C8102E" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <!-- Centre pivot dot -->
+        <circle cx="80" cy="40" r="5" fill="#C8102E"/>
+      </svg>`,
+      handshake: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Left arm -->
+        <path d="M10 75 Q30 65 55 62" stroke="#C8102E" stroke-width="7" stroke-linecap="round" fill="none"/>
+        <!-- Left hand fingers -->
+        <path d="M55 62 Q65 55 72 58 Q70 48 78 47 Q76 38 84 39 Q83 31 90 33 L95 50 Q100 45 104 50 L98 65" stroke="#C8102E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <!-- Right arm -->
+        <path d="M150 75 Q130 65 105 62" stroke="#C8102E" stroke-width="7" stroke-linecap="round" fill="none"/>
+        <!-- Right hand fingers -->
+        <path d="M105 62 Q95 55 88 58 Q90 48 82 47 Q84 38 76 39 Q77 31 70 33 L65 50 Q60 45 56 50 L62 65" stroke="#C8102E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <!-- Clasped centre -->
+        <ellipse cx="80" cy="62" rx="18" ry="10" fill="#C8102E" opacity="0.85"/>
+      </svg>`,
+      lough: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Water waves -->
+        <path d="M10 88 Q30 80 50 88 Q70 96 90 88 Q110 80 130 88 Q150 96 160 88" stroke="#C8102E" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M10 100 Q30 92 50 100 Q70 108 90 100 Q110 92 130 100 Q150 108 160 100" stroke="#C8102E" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
+        <!-- Boat hull -->
+        <path d="M30 82 L40 68 L120 68 L130 82 Z" fill="#C8102E"/>
+        <!-- Cabin -->
+        <rect x="60" y="50" width="44" height="20" rx="3" fill="#C8102E" opacity="0.75"/>
+        <!-- Cabin window -->
+        <rect x="68" y="55" width="12" height="10" rx="2" fill="#EDE0C4"/>
+        <rect x="86" y="55" width="12" height="10" rx="2" fill="#EDE0C4"/>
+      </svg>`,
+      socialCopy: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <rect x="36" y="28" width="88" height="54" rx="8" fill="#C8102E"/>
+        <polygon points="52,82 52,96 68,82" fill="#C8102E"/>
+        <rect x="50" y="41" width="60" height="6" rx="3" fill="#EDE0C4"/>
+        <rect x="50" y="53" width="44" height="6" rx="3" fill="#EDE0C4"/>
+        <rect x="50" y="65" width="52" height="6" rx="3" fill="#EDE0C4"/>
+      </svg>`,
+      attentionPt2: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <polyline points="20,80 40,80 55,45 65,65 75,35 85,60 95,50 110,70 125,60 140,70" stroke="#C8102E" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="95" y1="26" x2="95" y2="88" stroke="#C8102E" stroke-width="2.5" stroke-dasharray="5 4" opacity="0.55"/>
+        <circle cx="95" cy="50" r="6" fill="#C8102E"/>
+        <line x1="20" y1="88" x2="145" y2="88" stroke="#C8102E" stroke-width="2" opacity="0.25"/>
+      </svg>`,
+      attentionPt1: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <line x1="80" y1="84" x2="80" y2="36" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <polyline points="58,57 80,33 102,57" stroke="#C8102E" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="42" y="88" width="76" height="8" rx="4" fill="#C8102E"/>
+      </svg>`,
+      attentionPt3: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <rect x="24" y="22" width="112" height="22" rx="6" fill="#C8102E" opacity="0.15"/>
+        <rect x="32" y="28" width="68" height="6" rx="3" fill="#C8102E"/>
+        <circle cx="122" cy="33" r="7" fill="#C8102E"/>
+        <rect x="24" y="49" width="112" height="22" rx="6" fill="#C8102E" opacity="0.15"/>
+        <rect x="32" y="55" width="52" height="6" rx="3" fill="#C8102E"/>
+        <circle cx="122" cy="60" r="7" fill="#C8102E"/>
+        <rect x="24" y="76" width="112" height="22" rx="6" fill="#C8102E" opacity="0.15"/>
+        <rect x="32" y="82" width="60" height="6" rx="3" fill="#C8102E"/>
+        <circle cx="122" cy="87" r="7" fill="#C8102E"/>
+      </svg>`,
+      brandGuide: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <rect x="24" y="26" width="34" height="68" rx="6" fill="#C8102E"/>
+        <rect x="63" y="26" width="34" height="68" rx="6" fill="#A00E24"/>
+        <rect x="102" y="26" width="34" height="68" rx="6" fill="#1C1C1C"/>
+        <rect x="32" y="86" width="18" height="4" rx="2" fill="#EDE0C4" opacity="0.55"/>
+        <rect x="71" y="86" width="18" height="4" rx="2" fill="#EDE0C4" opacity="0.55"/>
+        <rect x="110" y="86" width="18" height="4" rx="2" fill="#EDE0C4" opacity="0.55"/>
+      </svg>`,
+      dinner: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Fork (left) -->
+        <line x1="57" y1="18" x2="57" y2="102" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <line x1="48" y1="18" x2="48" y2="48" stroke="#C8102E" stroke-width="4" stroke-linecap="round"/>
+        <line x1="66" y1="18" x2="66" y2="48" stroke="#C8102E" stroke-width="4" stroke-linecap="round"/>
+        <path d="M48 48 Q48 58 57 60 Q66 58 66 48" stroke="#C8102E" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- Knife (right) -->
+        <line x1="103" y1="18" x2="103" y2="102" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <path d="M103 18 Q118 28 118 50 Q118 62 103 65" stroke="#C8102E" stroke-width="4" fill="#C8102E" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>`,
+      fontFind: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <text x="18" y="98" font-family="Georgia, serif" font-size="90" font-weight="700" fill="#C8102E">A</text>
+        <text x="96" y="74" font-family="Arial, sans-serif" font-size="46" font-weight="700" fill="#1C1C1C" opacity="0.65">a</text>
+        <rect x="18" y="102" width="124" height="4" rx="2" fill="#C8102E"/>
+      </svg>`,
+      claudeDesign: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Slide / canvas shape -->
+        <rect x="22" y="30" width="116" height="72" rx="6" fill="#C8102E"/>
+        <!-- Screen glare line -->
+        <rect x="30" y="38" width="100" height="56" rx="4" fill="#EDE0C4" opacity="0.12"/>
+        <!-- Title bar lines -->
+        <rect x="34" y="46" width="48" height="7" rx="3.5" fill="#EDE0C4"/>
+        <rect x="34" y="58" width="32" height="5" rx="2.5" fill="#EDE0C4" opacity="0.55"/>
+        <!-- Small image placeholder box -->
+        <rect x="88" y="44" width="36" height="28" rx="4" fill="#EDE0C4" opacity="0.25"/>
+        <!-- Red accent bar bottom -->
+        <rect x="22" y="94" width="116" height="4" rx="2" fill="#A00E24"/>
+      </svg>`,
+      mascot: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Base -->
+        <ellipse cx="80" cy="98" rx="28" ry="7" fill="#C8102E"/>
+        <!-- Body -->
+        <rect x="65" y="62" width="30" height="32" rx="6" fill="#C8102E"/>
+        <!-- Head -->
+        <circle cx="80" cy="50" r="16" fill="#C8102E"/>
+        <!-- Arms -->
+        <line x1="65" y1="72" x2="48" y2="82" stroke="#C8102E" stroke-width="6" stroke-linecap="round"/>
+        <line x1="95" y1="72" x2="112" y2="82" stroke="#C8102E" stroke-width="6" stroke-linecap="round"/>
+        <!-- Face highlight -->
+        <circle cx="74" cy="47" r="4" fill="#EDE0C4" opacity="0.3"/>
+      </svg>`,
+      whyEnjoying: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Bulb globe -->
+        <path d="M80 22 C60 22 46 36 46 54 C46 66 53 76 63 82 L63 92 L97 92 L97 82 C107 76 114 66 114 54 C114 36 100 22 80 22 Z" fill="#C8102E"/>
+        <!-- Base rings -->
+        <rect x="63" y="93" width="34" height="6" rx="3" fill="#C8102E"/>
+        <rect x="66" y="101" width="28" height="5" rx="2.5" fill="#C8102E"/>
+        <!-- Highlight -->
+        <path d="M66 40 C66 36 70 32 76 30" stroke="#EDE0C4" stroke-width="4" stroke-linecap="round" opacity="0.55"/>
+      </svg>`,
+      fruit: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Fruit body (orange) -->
+        <circle cx="80" cy="68" r="36" fill="#C8102E"/>
+        <!-- Leaf -->
+        <path d="M80 32 Q92 18 106 22 Q96 34 80 32Z" fill="#C8102E" opacity="0.75"/>
+        <!-- Stem -->
+        <line x1="80" y1="32" x2="80" y2="42" stroke="#C8102E" stroke-width="4" stroke-linecap="round"/>
+        <!-- Highlight -->
+        <circle cx="66" cy="56" r="8" fill="#EDE0C4" opacity="0.2"/>
+      </svg>`,
+      fiveMin: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Clock face -->
+        <circle cx="80" cy="60" r="42" fill="#C8102E"/>
+        <circle cx="80" cy="60" r="36" fill="#EDE0C4"/>
+        <!-- Hour hand (12 o'clock) -->
+        <line x1="80" y1="60" x2="80" y2="32" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <!-- Minute hand (5 mins = 30deg from 12) -->
+        <line x1="80" y1="60" x2="80" y2="32" stroke="#C8102E" stroke-width="5" stroke-linecap="round" transform="rotate(30 80 60)"/>
+        <!-- Centre dot -->
+        <circle cx="80" cy="60" r="4" fill="#C8102E"/>
+      </svg>`,
+      brandDNA: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Mirror frame -->
+        <ellipse cx="80" cy="52" rx="30" ry="38" fill="#C8102E"/>
+        <ellipse cx="80" cy="52" rx="23" ry="31" fill="#EDE0C4"/>
+        <!-- Mirror handle -->
+        <rect x="74" y="88" width="12" height="22" rx="6" fill="#C8102E"/>
+        <!-- Reflection question mark -->
+        <text x="80" y="63" font-family="Outfit,Segoe UI,sans-serif" font-size="28" font-weight="700" fill="#C8102E" text-anchor="middle">?</text>
+      </svg>`,
+      fishingHook: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Rod -->
+        <line x1="28" y1="18" x2="118" y2="58" stroke="#C8102E" stroke-width="6" stroke-linecap="round"/>
+        <!-- Line from tip -->
+        <line x1="118" y1="58" x2="130" y2="95" stroke="#C8102E" stroke-width="2" stroke-linecap="round"/>
+        <!-- Hook -->
+        <path d="M130 95 Q142 95 142 108 Q142 118 130 118 L126 118" stroke="#C8102E" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- Reel -->
+        <circle cx="52" cy="36" r="10" stroke="#C8102E" stroke-width="4" fill="#EDE0C4"/>
+        <circle cx="52" cy="36" r="4" fill="#C8102E"/>
+      </svg>`,
+      dashboard: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Screen -->
+        <rect x="18" y="22" width="124" height="76" rx="6" fill="#C8102E"/>
+        <rect x="26" y="30" width="108" height="60" rx="4" fill="#EDE0C4" opacity="0.12"/>
+        <!-- Bar chart bars -->
+        <rect x="34" y="66" width="14" height="18" rx="2" fill="#EDE0C4"/>
+        <rect x="52" y="54" width="14" height="30" rx="2" fill="#EDE0C4"/>
+        <rect x="70" y="44" width="14" height="40" rx="2" fill="#EDE0C4"/>
+        <!-- Line graph -->
+        <polyline points="96,72 108,52 120,58 132,38" stroke="#EDE0C4" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="96" cy="72" r="3.5" fill="#EDE0C4"/>
+        <circle cx="108" cy="52" r="3.5" fill="#EDE0C4"/>
+        <circle cx="120" cy="58" r="3.5" fill="#EDE0C4"/>
+        <circle cx="132" cy="38" r="3.5" fill="#EDE0C4"/>
+        <!-- Stand -->
+        <rect x="72" y="98" width="16" height="6" rx="3" fill="#C8102E"/>
+        <rect x="56" y="104" width="48" height="5" rx="2.5" fill="#C8102E"/>
+      </svg>`,
+      basketball: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Ball -->
+        <circle cx="80" cy="60" r="38" fill="#C8102E"/>
+        <!-- Seam lines -->
+        <path d="M80 22 Q100 42 100 60 Q100 78 80 98" stroke="#EDE0C4" stroke-width="3" fill="none"/>
+        <path d="M80 22 Q60 42 60 60 Q60 78 80 98" stroke="#EDE0C4" stroke-width="3" fill="none"/>
+        <line x1="42" y1="60" x2="118" y2="60" stroke="#EDE0C4" stroke-width="3"/>
+      </svg>`,
+      scissors: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Pivot -->
+        <circle cx="80" cy="60" r="6" fill="#C8102E"/>
+        <!-- Top blade -->
+        <path d="M80 60 L28 22" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <!-- Bottom blade -->
+        <path d="M80 60 L28 98" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <!-- Top handle ring -->
+        <circle cx="22" cy="18" r="12" stroke="#C8102E" stroke-width="5" fill="none"/>
+        <!-- Bottom handle ring -->
+        <circle cx="22" cy="102" r="12" stroke="#C8102E" stroke-width="5" fill="none"/>
+        <!-- Cut line (fabric edge) -->
+        <line x1="110" y1="30" x2="148" y2="30" stroke="#C8102E" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 5"/>
+        <line x1="110" y1="90" x2="148" y2="90" stroke="#C8102E" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 5"/>
+      </svg>`,
+      iceLolly: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Lolly body — layered stripes (Twister style) -->
+        <rect x="56" y="18" width="48" height="64" rx="20" fill="#C8102E"/>
+        <rect x="56" y="18" width="48" height="20" rx="20" fill="#C8102E" opacity="0.6"/>
+        <rect x="56" y="34" width="48" height="14" rx="0" fill="#EDE0C4" opacity="0.35"/>
+        <rect x="56" y="50" width="48" height="14" rx="0" fill="#EDE0C4" opacity="0.35"/>
+        <!-- Drip -->
+        <path d="M88 80 Q92 88 90 94 Q88 98 86 94 Q84 88 88 80Z" fill="#C8102E" opacity="0.55"/>
+        <!-- Stick -->
+        <rect x="76" y="78" width="8" height="28" rx="4" fill="#C8102E" opacity="0.7"/>
+      </svg>`,
+    };
+
+    const entries = [
+      {
+        icon: icons.mascot,
+        photo: 'images/figurine-stadium-listening.png',
+        photoAlt: 'SJC figurine on a city rooftop surrounded by satellite dishes',
+        meta: '31 Jul 2026',
+        title: 'Is anyone listening?',
+        slug: 'posts/is-anyone-listening.html',
+        body: `
+          <p>I have a Research agent called Pele. A master historian. When I need to understand what a market is actually saying, what fans genuinely feel, or what's cutting through online right now, Pele is who I go to.</p>
+          <p>Recently I gave him a new skill. Social listening. He pulls intelligence from Reddit, TikTok, Instagram, X, YouTube, and the open web and turns it into something I can actually use.</p>
+          <p>In my time I've used various social listening tools like Sprinklr and Brandwatch. I could see how AI was being integrated to provide summaries on the stacks of data points it would provide. Now I have my own version albeit it's for a one month period.</p>
+        `
+      },
+      {
+        icon: icons.trophy,
+        photo: 'images/meta_header.png',
+        photoAlt: 'Meta Ads Machine',
+        meta: '20 Jul 2026',
+        title: 'A Social Ad Machine',
+        body: `
+          <img src="images/meta_header.png" alt="Meta Ads Machine header" class="entry-img" />
+          <p>Spain are deservedly World Cup champions then. It wasn't an all-timer of a Final, but the best team won.</p>
+          <p>What was so impressive about Spain was their coordination. When they played France in the Semi-Final it felt like a bunch of individuals in blue against a team playing in unison. In possession their movement and passing exhausted the opposition. When defending they pressed with intensity and kept a solid structure, only conceding one goal. Any subs that came on slotted in seamlessly.</p>
+          <p>They were a well-oiled machine.</p>
+          <p>Over the last while I have been working on my own Meta Ads Machine with a workflow which creates multiple variations of social static ads and gets them live as an ad campaign with paid spend. All through Claude.</p>
+          <h3>How it works</h3>
+          <p>I tested the Ads Machine out with an ad campaign ahead of the Final for my World Cup game <a href="/the-13-year-itch">"I Could Have Scored That!"</a>, which I built ahead of the tournament kick-off. It does the following:</p>
+          <ul>
+            <li>Creates variations of an ad; changing layout, headline and subheading.</li>
+            <li>Makes a Creative Review HTML page where I can Approve / Reject the ads. I approved 30 variations for this campaign.</li>
+            <li>Connects to the Meta API and manages the setup of an ad campaign on Meta's Ads Manager. I told it the budget, campaign length and targeting.</li>
+            <li>Connects to GA4 to ensure all ads use a UTM which can be tracked for traffic sources and on site performance.</li>
+            <li>Builds a dashboard HTML page for me to review performance across Meta channels and Website.</li>
+          </ul>
+          <p>I ran a 4 day campaign and put €10 towards the ads. I let Meta decide how to best serve them.</p>
+          <h3>My biggest learning</h3>
+          <p>What became clear was the importance of teaching Claude what good looks like. It knows my personal brand style guide. But the trouble was making things look good. I tried a few different ways of describing what I wanted in the creative layout. I typed out the elements that make up an ad, such as headline, image, CTA. While the brand colours were right, it just looked awful. Elements were overlapping and spacing was off.</p>
+          <p>I ended up making a couple of versions myself briefly on Canva. I shared them with Claude and explained this is what good looks like and most importantly, why. That was the light bulb moment. From there, Claude recreated the layouts I had made and applied its own variations of headlines and subheadings. I also asked it to make its own layouts based on the ones I had shared. They worked quite well.</p>
+          <img src="images/meta_30ads.png" alt="30 approved ad variations" class="entry-img" />
+          <h3>Getting live</h3>
+          <p>Once the creative workflow was sorted it was time to go live. Claude did this fairly quickly once I got the Meta API hooked up and channels connected through the Meta Business Centre. All 30 ads were uploaded with accompanying captions. That process will be seamless next time I want to get a campaign out.</p>
+          <p>We were live.</p>
+          <p>To my surprise, the ad that performed the best in terms of clicks was the layout which Claude made. All of the headlines were written by Claude.</p>
+          <img src="images/meta_best.png" alt="Best performing ad" class="entry-img" style="max-height:320px;width:auto;margin-left:auto;margin-right:auto;" />
+          <div class="slideshow" id="slideshow-metadashboard">
+            <div class="slideshow-track">
+              <img src="images/meta_dashboard1.png" alt="Campaign dashboard — overview" class="slideshow-slide" style="margin:0;border-radius:0;" />
+              <img src="images/meta_dashboard2.png" alt="Campaign dashboard — Meta performance" class="slideshow-slide" style="margin:0;border-radius:0;" />
+              <img src="images/meta_dashboard3.png" alt="Campaign dashboard — website performance" class="slideshow-slide" style="margin:0;border-radius:0;" />
+            </div>
+            <div class="slideshow-controls">
+              <button class="slideshow-btn" data-slideshow="slideshow-metadashboard" data-dir="-1">&#8592;</button>
+              <span class="slideshow-counter" id="slideshow-metadashboard-counter">1 / 3</span>
+              <button class="slideshow-btn" data-slideshow="slideshow-metadashboard" data-dir="1">&#8594;</button>
+            </div>
+          </div>
+          <h3>The final workflow</h3>
+          <p>Here is the final workflow. It's important to add that human checks are baked in throughout. The creative review allows me to decide which will be used. The campaign setup requires me to dictate budget and targeting. No ads go live until I have reviewed the final setup on Ads Manager and confirmed I am happy to proceed.</p>
+          <p>Just like Spain, we were now a well-oiled machine.</p>
+          <img src="images/meta_workflow.png" alt="The final Meta Ads Machine workflow" class="entry-img" />
+        `
+      },
+      {
+        icon: icons.iceLolly,
+        photo: 'images/Twister_SJC.png',
+        photoAlt: 'SJC figurine standing on a sunny beach holding a Twister ice pop',
+        meta: '7 Jul 2026',
+        title: 'A Seaside Walk and CEPs',
+        body: `
+          <img src="images/Twister_SJC.png" alt="SJC figurine standing on a sunny beach holding a Twister ice pop" class="entry-img" />
+          <p>It's so hot outside. I was out for a walk along the coast road between Malahide and Portmarnock. It's a lovely walk.</p>
+          <p>A bus pulled up alongside me with a T-side ad for a Twister ice pop. On a hot day like that, it looked delicious.</p>
+          <img src="images/Twister_bus.jpg" alt="Twister ice pop T-side bus ad" class="entry-img" />
+          <p>The ad itself was really simple. Good use of product in available spacing. Fun and bright colourful branded graphics. And the ad is running during the summer in particularly hot weather.</p>
+          <p>One of my favourite summer themed ads is a Guinness one. It's the combination of simplicity and product display.</p>
+          <img src="images/Guinness_ad.png" alt="Guinness summer ad" class="entry-img" />
+          <p>The main reason why I think the Twister ad works is that it's potentially focused on a Category Entry Point.</p>
+          <p>Category Entry Points are the cues that trigger the category and maybe your brand coming to mind when you are buying. Jenni Romaniuk is the master of this theory. Her outstanding book "Better Brand Health" is a must-read.</p>
+          <p>I imagine the HB team might look at a CEP like: "When I want a cold sweet treat on a summer's day." Next time someone feels the heat and is looking for a cold sweet treat, will that brand come to mind?</p>
+          <p>Picking, researching and measuring your own Category Entry Points is a key part of understanding your brand's mental availability.</p>
+          <p>At the National Lottery we have worked on our own Category Entry Points. A recent Scratch Card category campaign which I managed aims to grow consideration of:</p>
+          <p>"When you want a small treat for yourself/someone else"</p>
+          <p>CEPs can be used within your advertising, like we have done with a Christmas sales campaign the past few years. The "Millionaire Raffle" is presented as a great Christmas gift for when you want to put a gift inside a card. Tickets have sold out every year since the campaign with this advertising began.</p>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin:28px 0;border-radius:6px;">
+            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube.com/embed/r7xd7Z8NWvk?si=x-jFwgmjHakyWThZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <p>Finding your own CEPs starts with a search across the seven W categories. Why, when, where, while, with whom, with what, hoW feeling. This could be done through internal panels selected across the business, from secondary research and from customers themselves. Then pick the strongest of those options to go into some quantitative analysis.</p>
+          <p>You can also use AI to develop this longlist. There are CEP generators publicly available and it's pretty easy to make your own. Here is one I made which can be used as a guiding tool to narrow the selection and work alongside your research.</p>
+          <img src="images/CEP_Builder1.png" alt="CEP Builder tool — category input" class="entry-img" />
+          <p>It allows the users to enter a category, and then optional fields for their market and targeting.</p>
+          <img src="images/CEP_Builder2.png" alt="CEP Builder tool — market and targeting fields" class="entry-img" />
+          <p>From that list you can then select which ones are the most relevant based on, as Jenni Romaniuk advises, the three C's: Commonality, Credibility and Competitiveness.</p>
+          <img src="images/CEP_Builder3.png" alt="CEP Builder tool — selecting by the three C's" class="entry-img" />
+          <p>It's worth stressing again, this is one of a few methods to generate a longlist of CEP options. Proper qual is needed to shorten and then select the final list of CEPs you would focus on.</p>
+          <p>Ok. I'm closing the laptop now. I'm off for an ice pop.</p>
+        `
+      },
+      {
+        icon: icons.basketball,
+        photo: 'images/Firmino_still.png',
+        photoAlt: 'Roberto Firmino at adidas HQ during the 2015 content shoot',
+        meta: '2 Jul 2026',
+        title: 'A Bobby Dazzler',
+        body: `
+          <img src="images/Firmino_still.png" alt="Roberto Firmino at adidas HQ during the 2015 content shoot" class="entry-img" />
+          <p>A young Brazilian forward playing at Hoffenheim named Roberto Firmino visited adidas HQ one summer's day in 2015. He was tipped for a big move that summer.</p>
+          <p>It was becoming more important that athletes create content to boost their profiles beyond the pitch.</p>
+          <p>I was tasked with creating a lo-fi social content shoot for Firmino's visit. It would be filmed around the adidas campus, and I believe one of his first content shoots with a brand. He was all very new to this.</p>
+          <img src="images/Firmino_SJC.jpg" alt="Roberto Firmino at adidas HQ campus" class="entry-img" />
+          <p>We shot three pieces of content. One of them stood out and went viral across the football industry. But not at the time of posting.</p>
+          <p>Firmino wasn't widely known at this point. But one thing his YouTube highlights revealed was a playful bit of showmanship he liked to do. The "no-look". He would pass or shoot while looking the other way, throwing off or "dunking" on his opponents.</p>
+          <p>That was going to be our insight for developing the concepts.</p>
+          <p>We went to the basketball court on campus and shot this piece of content:</p>
+          <video controls style="width:60%;border-radius:6px;margin:28px auto;display:block;">
+            <source src="images/Firmino_vid.mp4" type="video/mp4" />
+          </video>
+          <p>It had hundreds of thousands of views on Vine when it went live.</p>
+          <p>But then, shortly after, he signed for Liverpool. We used this video as a tactic to include the brand in the conversation about the big move.</p>
+          <p>It started spreading. Millions of views on Vine. The tweet was being shared by the large football media. Sky Sports used the clip with credit to adidas Football.</p>
+          <img src="images/Firmino_media.png" alt="Sky Sports and football media sharing the Firmino adidas Vine clip" class="entry-img" />
+          <p>For me, this is why it worked:</p>
+          <p><strong>1. A surprising skill</strong><br>We didn't invent the trick shot content piece, it's been done many times before. Many times they clearly look fake. But this one looks real. Is it real? I will neither confirm nor deny.</p>
+          <p><strong>2. Video length</strong><br>Most social content barely gets past 2 seconds. This one is short. Really short. 6 seconds. This was the nature of Vine. It trained us so well on capturing attention early and making interesting things.</p>
+          <p><strong>3. A hook</strong><br>It starts with Firmino really tight on frame, "pressing play". He steps back. Something is going to happen.</p>
+          <p><strong>4. Brightness</strong><br>Bright visuals tend to stand out in the feed. A nice blue sky, sunny day, colourful court.</p>
+          <p><strong>5. Fan emotion</strong><br>Firmino signs for Liverpool and he's fairly unknown to the masses. Many fans will go to YouTube and look for highlight reels to see the player they are getting. Liverpool fans were getting a Brazilian player doing an incredible trick shot. That's worth sharing with other fans.</p>
+          <p><strong>A word on branding.</strong><br>The brand is not so prominent here. That's the only thing I would change if I was to do it again. We are leaning quite heavily on people noticing the brand from the post author, but the more the video gets shared I feel you lose this over time. You can see in the media screengrabs above, the brand isn't mentioned. The ball and clothing is the obvious choice to get contextual branding in early.</p>
+          <p>Bobby Firmino went on to be a club legend at Liverpool and brought out the no-look a number of times.</p>
+          <p>A slam dunk of a signing.</p>
+        `
+      },
+      {
+        icon: icons.scissors,
+        photo: 'images/SJC_tailor_pose.png',
+        photoAlt: 'SJC figurine standing at a miniature tailor\'s workshop, one hand on a tailor\'s dummy, the other holding scissors, bolts of fabric on shelves behind',
+        meta: '25 Jun 2026',
+        title: 'The Content Atelier',
+        body: `
+          <img src="images/SJC_tailor_pose.png" alt="SJC figurine standing at a miniature tailor's workshop" class="entry-img" />
+          <p>This one started with Paul Dervan. He wrote a great piece on his Substack, <a href="https://runwithfoxes.substack.com/p/ad-versioning-in-six-seconds" target="_blank" rel="noopener">Ad Versioning in Six Seconds</a>, about adapting creative across formats at speed. It made me want to try it myself.</p>
+          <p>I built a content formatter. You give it a hero animation and it reproduces it across six formats: social, email and web.</p>
+          <p>It took a while to get right. There was a fair bit of trial and error before the process felt clean. But here's where I landed:</p>
+          <ul>
+            <li>I make a basic animation on Canva and drop it into a folder. I point Claude at the folder.</li>
+            <li>Claude detects and cuts out the key elements from the animation: the figurine, a headline, a CTA and the website wordmark.</li>
+            <li>I'm shown the element files for review. I can Approve or give Feedback.</li>
+            <li>Once approved, Claude places each element into the format specs I defined. Each spec has its own rules around safe space, sizing and handling different headline lengths.</li>
+            <li>I'm presented with a review page. All six formats in one view, each one clickable to see in full.</li>
+          </ul>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/Content_Formatter_demo.mp4" type="video/mp4" />
+          </video>
+          <ul>
+            <li>I reply to say whether they're all Approved, or share Feedback on individual formats.</li>
+            <li>Once approved, a new folder is created with the exported PNG or GIF files. Done.</li>
+          </ul>
+          <p>I can already see how this saves time and money when producing performance marketing or repeatable content marketing assets. The brief goes in once. The formats come out right.</p>
+        `
+      },
+      {
+        icon: icons.dashboard,
+        photo: 'images/SJC_dashboard_pose.png',
+        photoAlt: 'SJC figurine standing in a futuristic science lab beside multiple holographic data screens, one hand on hip, one hand on chin',
+        meta: '19 Jun 2026',
+        title: 'A DIY Campaign Dashboard',
+        body: `
+          <img src="images/SJC_dashboard_pose.png" alt="SJC figurine standing in a futuristic science lab beside multiple holographic data screens" class="entry-img" />
+          <p>As a brand manager you need to be fairly organised. I do my best. But I still catch myself scouring through five different versions of a media plan, or trying to remember whether a creative has gone live. Everything exists somewhere. Nothing exists in one place.</p>
+          <p>So I built one.</p>
+          <p>This is a campaign dashboard. A single HTML file with no server, no build step, no spreadsheet. The whole thing runs in the browser and saves to local storage.</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/Campaign_Dashboard.mp4" type="video/mp4" />
+          </video>
+          <p>What makes it different to a fancy Excel spreadsheet is the interactive layer. You can upload a CSV file and it maps your media plan directly into the dashboard. Or add channels manually. In the Media tab you can filter by time period and see your Gantt flight schedule with a marker showing where you are today.</p>
+          <img src="images/Media_month.png" alt="Campaign dashboard media tab showing Gantt chart filtered by month" class="entry-img" />
+          <p>You can host a preview of creative in the Creative tab. Upload a screengrab and it attaches to the tactic card. There's also a Live tab that shows you which media channels and creative are running this week.</p>
+          <img src="images/Live_dashboard.png" alt="Campaign dashboard live tab showing active media and creative this week" class="entry-img" />
+          <p>The campaign itself is a fictional one, for my own website. Claude chose the media channels, budget splits and agencies. I'm sure dashboards like this exist out there, but it was useful to make my very own one in one evening.</p>
+          <p>Now, if someone could actually give me those budgets for my website that would be great.</p>
+        `
+      },
+      {
+        icon: icons.trophy,
+        photo: 'images/SJC_trophy.png',
+        photoAlt: 'SJC figurine holding a golden trophy aloft on a stadium pitch at night, fireworks and confetti behind',
+        meta: '12 Jun 2026',
+        title: 'The 13 Year Itch',
+        body: `
+          <img src="images/SJC_trophy.png" alt="SJC figurine holding a golden trophy aloft on a stadium pitch at night, fireworks and confetti behind" class="entry-img" />
+          <p>Around this time 13 years ago I started my professional career in Germany, at the adidas HQ, working on social in the global brand marketing football team. The stuff of dreams.</p>
+          <p>Back then social was all about reactive. We were looking ahead to the FIFA World Cup 2014 in Brazil. It was labelled the "real-time World Cup."</p>
+          <p>We worked on some really fun and impactful projects. We were posting on social using a large content bible, with the ability to speak to pretty much any adidas moment.</p>
+          <img src="images/JamesRod.jpeg" alt="adidas real-time social post featuring James Rodriguez" class="entry-img" style="object-fit: contain; max-height: 420px; background: var(--cream-light); padding: 24px;" />
+          <p>We had a Twitter account for the ball, Brazuca, with its very own fun personality. It met the players and celebs. Just like this one with Pharrell, which I photographed.</p>
+          <img src="images/pharrell.jpeg" alt="Pharrell Williams posing with the Brazuca match ball" class="entry-img" />
+          <p>Some of the moments we reacted to became international news. One time we verified whether a ball had crossed the line.</p>
+          <img src="images/brazuca.jpeg" alt="Brazuca Twitter post confirming the ball crossed the line" class="entry-img" style="object-fit: contain; max-height: 360px; background: var(--cream-light); padding: 24px;" />
+          <p>The work I was most proud of was our post-match moments which were illustrated in the brand campaign black and white style. They were made by a great crew of folks back in the UK designing them frame by frame, so we could post to Vine (remember Vine?!) as soon as possible after the match. At the end of the tournament we stitched them all together to recap the brilliant tournament it was.</p>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin:28px 0;">
+            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube.com/embed/ISREX2kSeQo?si=2UDkesuYKgbU_2KO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <p>Anyway, just as I arrived in 2013 I came with an idea. It was quite a lofty one. We would create an app. The app would be a game where we somehow recreate a goal that had just happened, in real-time, and let the player see if they could score it themselves. A bit like a real-time FIFA game. I had no idea how we'd even do that. The tech probably wasn't able then.</p>
+          <p>Nowadays these types of ideas are much more possible.</p>
+          <p>So I made this retro style game and named it like my idea back then: "I COULD HAVE SCORED THAT!". You have to try and score the goal from five legendary World Cup moments. Each level gets harder as you progress. Of course Ray Houghton is in there. Maradona's dribble against England is Level 5.</p>
+          <img src="images/ICHST_demo.png" alt="I Could Have Scored That! retro game screenshot" class="entry-img" />
+          <p>It's just a bit of fun. If you're reading this you can give it a go at <a href="https://stephenjcleary.com/worldcup" target="_blank" rel="noopener">stephenjcleary.com/worldcup</a>. Let me know how many attempts it takes you to complete!</p>
+        `
+      },
+      {
+        icon: icons.balanceScales,
+        photo: 'images/SJC_sciencelab.jpeg',
+        photoAlt: 'SJC figurine standing in a miniature science laboratory, hands on hips, studying a set of brass balance scales on the workbench',
+        meta: '5 Jun 2026',
+        title: 'Making an Attention Tester: Part 4',
+        body: `
+          <img src="images/SJC_sciencelab.jpeg" alt="SJC figurine in a science lab studying balance scales" class="entry-img" />
+          <p>Part 3 ended with a tool that could tell you three things about a social ad: is it interesting, is it well branded, and which platform suits it best. A reasonable summary. But the more I used it, the more I felt it was treating all ads the same. They're not.</p>
+          <p>In my last entry I wrote about the tension between hooking someone early and getting your brand in front of them early. I've been thinking about that balance ever since. A brand ad and a performance ad are doing fundamentally different jobs. Both useful. Very different purposes.</p>
+          <p>So Part 4 was about pulling those two things apart.</p>
+          <h3>Brand or Performance — the tool now asks</h3>
+          <p>Before you can run an analysis, the tool now asks you to declare what type of ad you're working with. Brand Marketing or Performance Marketing. That one choice changes everything that follows.</p>
+          <img src="images/Tester_choose.png" alt="Attention Tester ad type selector showing Brand Marketing and Performance Marketing options" class="entry-img" />
+          <h3>A smarter Creative Summary</h3>
+          <p>For brand ads, the Creative Interest section is now built on System1's research into what makes creative work emotionally resonant. Their work identifies a set of right-brain features that consistently outperform left-brain approaches in long-term brand building.</p>
+          <table style="width:100%;border-collapse:collapse;margin:24px 0;font-size:0.95rem;">
+            <thead>
+              <tr>
+                <th style="background:var(--red);color:#fff;padding:10px 14px;text-align:left;border-radius:6px 0 0 0;">Left Brain</th>
+                <th style="background:var(--red);color:#fff;padding:10px 14px;text-align:left;border-radius:0 6px 0 0;">Right Brain</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Flatness</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">A clear sense of place</td></tr>
+              <tr style="background:var(--cream-light);"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Abstracted product, feature, ingredient</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">One scene unfolding with progression</td></tr>
+              <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Abstracted body part (e.g. hands, mouth)</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Characters with agency (voice, movement, expression)</td></tr>
+              <tr style="background:var(--cream-light);"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Words obtrude during the ad</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Implicit, unspoken communication (knowing glances)</td></tr>
+              <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Voiceover</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Dialogue</td></tr>
+              <tr style="background:var(--cream-light);"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Monologue (e.g. testimonial)</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Distinctive accents</td></tr>
+              <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Adjectives used as nouns</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Play on words or subversion of language</td></tr>
+              <tr style="background:var(--cream-light);"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Freeze-frame effect</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Set in the past (costumes &amp; sets)</td></tr>
+              <tr style="background:#fff;"><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Audio repetition (metered prose, sound effects)</td><td style="padding:9px 14px;border-bottom:1px solid var(--cream);">Reference to cultural works (pastiche/parody)</td></tr>
+              <tr style="background:var(--cream-light);"><td style="padding:9px 14px;">Highly rhythmic soundtrack</td><td style="padding:9px 14px;">Music with melody</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.85rem;color:var(--mid);margin-top:-12px;margin-bottom:24px;">Source: Lemon, Orlando Wood, IPA, 2019</p>
+          <p>The tool checks for these features in the uploaded video and returns which are present and which are missing, with a summary verdict on creative strength.</p>
+          <p>For performance ads, the analysis shifts entirely. The tool looks for whether the ad has a clear message and a call to action. Less about story, more about signal.</p>
+          <h3>Branding — beyond just "does it appear?"</h3>
+          <p>Part 3 checked whether your Distinct Brand Asset appeared and at what point. Part 4 goes further. The tool now identifies the type of DBA and cross-references it against System1's hierarchy of assets most likely to be recalled.</p>
+          <img src="images/Tester_Brand.png" alt="Attention Tester branding section showing DBA type and effectiveness rating" class="entry-img" />
+          <p>A logo floating on screen for half a second is not the same as a fluent character built over years. The tool now makes that distinction.</p>
+          <h3>Platform Fit — actually fit for purpose</h3>
+          <p>The old platform scoring leaned too heavily on DBA timing and attention windows. Useful signals, but not the full picture. Different content suits different platforms for different reasons.</p>
+          <p>A brand ad heavy on text overlays with no dialogue is probably not your best TikTok candidate, even if it's short. A performance ad with a sharp product message and an on-screen CTA will land better on Meta than on Snapchat, where that approach tends to feel intrusive.</p>
+          <img src="images/Tester_performance.png" alt="Attention Tester platform fit section showing Good, Partial and Poor verdicts per platform" class="entry-img" />
+          <p>Part 4 rebuilds platform fit around what actually matters per ad type. Brand ads are assessed on creative quality, character, sound dependency, pacing, and how well the DBA works in that environment. Performance ads are assessed on thumb-stop quality, message clarity, product visibility, offer signals, and CTA presence.</p>
+          <p>Each platform gets its own verdict. Good, Partial, or Poor, with a reason specific to that combination of ad and platform.</p>
+          <p>Here is the demo of the Attention Tester with the above additions.</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/Tester_record.mp4" type="video/mp4" />
+          </video>
+        `
+      },
+      {
+        icon: icons.fishingHook,
+        photo: 'images/hook_fishing.png',
+        photoAlt: 'SJC figurine standing at the edge of water holding a bent fishing rod, leaning back mid-catch',
+        meta: '1 Jun 2026',
+        title: "The Struggle Is Real: Hook early or Brand early?",
+        body: `
+          <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+            <source src="images/20260601_114907_the-figurine-s-lower-hand-winds-the-reel.mp4" type="video/mp4" />
+          </video>
+          <p><em>Disclaimer: this entry might sound negative. Sorry to be a killjoy. I'm generally an optimistic person. In this entry are things I have learned which have helped me create more effective brand work online.</em></p>
+          <p>The struggle is real. When it comes to content, there are two things pulling in opposite directions:</p>
+          <ul>
+            <li>The need to hook viewers early — grab them before they swipe.</li>
+            <li>The need to be well branded — get the brand seen before they're gone.</li>
+          </ul>
+          <p><strong>"We need to hook the viewer to watch our content."</strong></p>
+          <p>I agree. People are distracted, swiping, and unfortunately so much content out there isn't watched beyond 2.5 seconds. So we have to do our best to get the viewer to watch as much as possible.</p>
+
+          <!-- Attention chart -->
+          <div style="background:#F7F2EA;border:1px solid #EDE0C4;border-radius:8px;padding:24px 24px 16px;margin:28px 0;font-family:'Outfit','Segoe UI',sans-serif;">
+            <p style="margin:0 0 20px;font-size:0.95rem;font-weight:700;color:#1C1C1C;line-height:1.4;">When ads don't meet the Attention-Memory Threshold<br>of 2.5 seconds, it's hard for memory to grow.</p>
+            <div style="position:relative;">
+              <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+                <text transform="rotate(-90,14,110)" x="14" y="110" text-anchor="middle" font-size="10" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif">Active Attention Seconds</text>
+                <text x="30" y="28"  font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">20</text>
+                <text x="30" y="82"  font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">15</text>
+                <text x="30" y="136" font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">10</text>
+                <text x="30" y="190" font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">5</text>
+                <text x="30" y="212" font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">0</text>
+                <line x1="34" y1="210" x2="598" y2="210" stroke="#EDE0C4" stroke-width="1"/>
+                <g fill="#1C1C1C" opacity="0.75">
+                  <rect x="35"  y="28"  width="6" height="182"/>
+                  <rect x="42"  y="55"  width="6" height="155"/>
+                  <rect x="49"  y="88"  width="6" height="122"/>
+                  <rect x="56"  y="115" width="6" height="95"/>
+                  <rect x="63"  y="136" width="6" height="74"/>
+                  <rect x="70"  y="152" width="6" height="58"/>
+                  <rect x="77"  y="163" width="6" height="47"/>
+                  <rect x="84"  y="171" width="6" height="39"/>
+                  <rect x="91"  y="177" width="6" height="33"/>
+                  <rect x="98"  y="181" width="6" height="29"/>
+                  <rect x="105" y="184" width="6" height="26"/>
+                  <rect x="112" y="186" width="6" height="24"/>
+                  <rect x="119" y="188" width="6" height="22"/>
+                  <rect x="126" y="189" width="6" height="21"/>
+                  <rect x="133" y="190" width="6" height="20"/>
+                  <rect x="140" y="191" width="6" height="19"/>
+                  <rect x="147" y="191" width="6" height="19"/>
+                  <rect x="154" y="192" width="6" height="18"/>
+                  <rect x="161" y="192" width="6" height="18"/>
+                  <rect x="168" y="193" width="6" height="17"/>
+                  <rect x="175" y="193" width="6" height="17"/>
+                  <rect x="182" y="194" width="6" height="16"/>
+                  <rect x="189" y="194" width="6" height="16"/>
+                  <rect x="196" y="195" width="6" height="15"/>
+                  <rect x="203" y="195" width="6" height="15"/>
+                  <rect x="210" y="196" width="6" height="14"/>
+                  <rect x="217" y="196" width="6" height="14"/>
+                  <rect x="224" y="197" width="6" height="13"/>
+                  <rect x="231" y="197" width="6" height="13"/>
+                  <rect x="238" y="197" width="6" height="13"/>
+                  <rect x="245" y="198" width="6" height="12"/>
+                  <rect x="252" y="198" width="6" height="12"/>
+                  <rect x="259" y="199" width="6" height="11"/>
+                  <rect x="266" y="199" width="6" height="11"/>
+                  <rect x="273" y="199" width="6" height="11"/>
+                  <rect x="280" y="200" width="6" height="10"/>
+                  <rect x="287" y="200" width="6" height="10"/>
+                  <rect x="294" y="200" width="6" height="10"/>
+                  <rect x="301" y="201" width="6" height="9"/>
+                  <rect x="308" y="201" width="6" height="9"/>
+                  <rect x="315" y="201" width="6" height="9"/>
+                  <rect x="322" y="202" width="6" height="8"/>
+                  <rect x="329" y="202" width="6" height="8"/>
+                  <rect x="336" y="202" width="6" height="8"/>
+                  <rect x="343" y="203" width="6" height="7"/>
+                  <rect x="350" y="203" width="6" height="7"/>
+                  <rect x="357" y="203" width="6" height="7"/>
+                  <rect x="364" y="204" width="6" height="6"/>
+                  <rect x="371" y="204" width="6" height="6"/>
+                  <rect x="378" y="204" width="6" height="6"/>
+                  <rect x="385" y="205" width="6" height="5"/>
+                  <rect x="392" y="205" width="6" height="5"/>
+                  <rect x="399" y="205" width="6" height="5"/>
+                  <rect x="406" y="206" width="6" height="4"/>
+                  <rect x="413" y="206" width="6" height="4"/>
+                  <rect x="420" y="206" width="6" height="4"/>
+                  <rect x="427" y="207" width="6" height="3"/>
+                  <rect x="434" y="207" width="6" height="3"/>
+                  <rect x="441" y="207" width="6" height="3"/>
+                  <rect x="448" y="208" width="6" height="2"/>
+                  <rect x="455" y="208" width="6" height="2"/>
+                  <rect x="462" y="208" width="6" height="2"/>
+                  <rect x="469" y="208" width="6" height="2"/>
+                  <rect x="476" y="209" width="6" height="1"/>
+                  <rect x="483" y="209" width="6" height="1"/>
+                  <rect x="490" y="209" width="6" height="1"/>
+                  <rect x="497" y="209" width="6" height="1"/>
+                  <rect x="504" y="209" width="6" height="1"/>
+                  <rect x="511" y="209" width="6" height="1"/>
+                  <rect x="518" y="209" width="6" height="1"/>
+                  <rect x="525" y="209" width="6" height="1"/>
+                  <rect x="532" y="210" width="6" height="0"/>
+                  <rect x="539" y="210" width="6" height="0"/>
+                  <rect x="546" y="210" width="6" height="0"/>
+                  <rect x="553" y="210" width="6" height="0"/>
+                  <rect x="560" y="210" width="6" height="0"/>
+                  <rect x="567" y="210" width="6" height="0"/>
+                  <rect x="574" y="210" width="6" height="0"/>
+                  <rect x="581" y="210" width="6" height="0"/>
+                </g>
+                <line x1="34" y1="187" x2="598" y2="187" stroke="#C8102E" stroke-width="2" stroke-dasharray="8,5"/>
+                <rect x="370" y="30" width="220" height="52" rx="4" fill="#1C1C1C"/>
+                <rect x="370" y="30" width="4" height="52" rx="2" fill="#C8102E"/>
+                <text x="490" y="52" text-anchor="middle" font-size="18" font-weight="700" fill="white" font-family="Outfit,Segoe UI,sans-serif">85% &lt;2.5 seconds</text>
+                <text x="490" y="72" text-anchor="middle" font-size="10" fill="#EDE0C4" font-family="Outfit,Segoe UI,sans-serif">130,000 ad views · 1,150 brands</text>
+                <line x1="370" y1="165" x2="390" y2="165" stroke="#C8102E" stroke-width="2" stroke-dasharray="6,4"/>
+                <text x="395" y="169" font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif">Attention-Memory Threshold</text>
+              </svg>
+            </div>
+            <p style="margin:8px 0 0;font-size:0.7rem;color:#5C5247;text-align:right;">© Amplified Intelligence</p>
+          </div>
+
+          <p><strong>"If we add branding they won't watch it."</strong></p>
+          <p>This is where it gets challenging. We need to hook the viewer, but if we slap a logo on it does it become less interesting? I'd agree slapping a logo early probably does make it less interesting. But if it's likely you're only going to get a few seconds of attention, then the brand must be present. System1 has done great work in showing the various types of Brand Assets which can be used within content so the brand is noticed and remembered.</p>
+          <!-- System1 DBA chart — recreated in brand style -->
+          <!--
+            Layout:
+              viewBox: 600 × 300
+              Label column: x 0–170 (right-aligned at x=168)
+              Chart area: x 170–592 (422px wide)
+              Data range: -40% to +210% (span = 250%)
+              Scale: 422 / 250 = 1.688px per 1%
+              Zero line: x = 170 + (40/250 × 422) = 170 + 67.5 = 237.5 ≈ 238
+              Bar for V%: x = 238 + V*1.688 (positive), width = V*1.688
+              Bar for -V%: width = V*1.688, x = 238 - width
+          -->
+          <div style="background:#F7F2EA;border:1px solid #EDE0C4;border-radius:8px;padding:24px 24px 16px;margin:28px 0;font-family:'Outfit','Segoe UI',sans-serif;">
+            <p style="margin:0 0 4px;font-size:0.95rem;font-weight:700;color:#1C1C1C;line-height:1.4;">Change in Brand Awareness Lift</p>
+            <p style="margin:0 0 20px;font-size:0.8rem;color:#5C5247;">If brand asset present in first 2 seconds</p>
+            <div style="position:relative;">
+              <!--
+                Labels right-aligned at x=118. Chart zero at x=210.
+                Scale: 1.688px per 1%. -33% bar: w=56, x=154 — 36px gap to label edge.
+              -->
+              <svg viewBox="0 0 600 286" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+
+                <!-- Zero line -->
+                <line x1="210" y1="4" x2="210" y2="274" stroke="#C8102E" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+                <!-- Grid: +50%=294, +100%=378, +150%=463, -25%=168 -->
+                <line x1="294" y1="4" x2="294" y2="274" stroke="#EDE0C4" stroke-width="0.75" stroke-dasharray="3,3"/>
+                <line x1="378" y1="4" x2="378" y2="274" stroke="#EDE0C4" stroke-width="0.75" stroke-dasharray="3,3"/>
+                <line x1="463" y1="4" x2="463" y2="274" stroke="#EDE0C4" stroke-width="0.75" stroke-dasharray="3,3"/>
+                <line x1="168" y1="4" x2="168" y2="274" stroke="#EDE0C4" stroke-width="0.75" stroke-dasharray="3,3"/>
+
+                <!-- Sonic Asset: 191% → w=322, x=210 -->
+                <text x="118" y="21" text-anchor="end" font-size="9.5" font-weight="600" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif">Sonic Asset</text>
+                <rect x="210" y="9" width="322" height="14" rx="2" fill="#C8102E"/>
+                <text x="536" y="20" font-size="8" font-weight="700" fill="#C8102E" font-family="Outfit,Segoe UI,sans-serif" dx="3">191%</text>
+
+                <!-- Logo in Context: 182% → w=307, x=210 -->
+                <text x="118" y="41" text-anchor="end" font-size="9.5" font-weight="600" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif">Logo in Context</text>
+                <rect x="210" y="29" width="307" height="14" rx="2" fill="#C8102E"/>
+                <text x="521" y="40" font-size="8" font-weight="700" fill="#C8102E" font-family="Outfit,Segoe UI,sans-serif" dx="3">182%</text>
+
+                <!-- Fluent Character: 57% → w=96, x=210 -->
+                <text x="118" y="61" text-anchor="end" font-size="9.5" font-weight="600" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif">Fluent Character</text>
+                <rect x="210" y="49" width="96" height="14" rx="2" fill="#C8102E" opacity="0.8"/>
+                <text x="310" y="60" font-size="8" font-weight="700" fill="#C8102E" font-family="Outfit,Segoe UI,sans-serif" dx="3">57%</text>
+
+                <!-- Jingle: 40% → w=68, x=210 -->
+                <text x="118" y="81" text-anchor="end" font-size="9.5" font-weight="600" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif">Jingle</text>
+                <rect x="210" y="69" width="68" height="14" rx="2" fill="#C8102E" opacity="0.75"/>
+                <text x="282" y="80" font-size="8" font-weight="700" fill="#C8102E" font-family="Outfit,Segoe UI,sans-serif" dx="3">40%</text>
+
+                <!-- Slogan: 27% → w=46, x=210 -->
+                <text x="118" y="101" text-anchor="end" font-size="9.5" font-weight="600" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif">Slogan</text>
+                <rect x="210" y="89" width="46" height="14" rx="2" fill="#C8102E" opacity="0.7"/>
+                <text x="260" y="100" font-size="8" font-weight="700" fill="#C8102E" font-family="Outfit,Segoe UI,sans-serif" dx="3">27%</text>
+
+                <!-- Product: 24% → w=41, x=210 -->
+                <text x="118" y="121" text-anchor="end" font-size="9.5" font-weight="600" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif">Product</text>
+                <rect x="210" y="109" width="41" height="14" rx="2" fill="#C8102E" opacity="0.65"/>
+                <text x="255" y="120" font-size="8" font-weight="700" fill="#C8102E" font-family="Outfit,Segoe UI,sans-serif" dx="3">24%</text>
+
+                <!-- Spoken Brand Name: 14% → w=24, x=210 -->
+                <text x="118" y="141" text-anchor="end" font-size="9.5" font-weight="600" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif">Spoken Brand Name</text>
+                <rect x="210" y="129" width="24" height="14" rx="2" fill="#C8102E" opacity="0.6"/>
+                <text x="238" y="140" font-size="8" font-weight="700" fill="#C8102E" font-family="Outfit,Segoe UI,sans-serif" dx="3">14%</text>
+
+                <!-- Brand Colors: 12% → w=20, x=210 -->
+                <text x="118" y="161" text-anchor="end" font-size="9.5" font-weight="600" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif">Brand Colors</text>
+                <rect x="210" y="149" width="20" height="14" rx="2" fill="#C8102E" opacity="0.55"/>
+                <text x="234" y="160" font-size="8" font-weight="700" fill="#C8102E" font-family="Outfit,Segoe UI,sans-serif" dx="3">12%</text>
+
+                <!-- Fluent Scenario: 1% → w=2, x=210 -->
+                <text x="118" y="181" text-anchor="end" font-size="9.5" font-weight="600" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif">Fluent Scenario</text>
+                <rect x="210" y="169" width="2" height="14" rx="1" fill="#C8102E" opacity="0.5"/>
+                <text x="216" y="180" font-size="8" font-weight="700" fill="#C8102E" font-family="Outfit,Segoe UI,sans-serif" dx="3">1%</text>
+
+                <!-- Celebrity: -7% → w=12, x=198 -->
+                <text x="118" y="201" text-anchor="end" font-size="9.5" font-weight="600" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif">Celebrity</text>
+                <rect x="198" y="189" width="12" height="14" rx="2" fill="#1C1C1C" opacity="0.45"/>
+                <text x="194" y="200" font-size="8" font-weight="700" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">-7%</text>
+
+                <!-- Written Brand Name: -15% → w=25, x=185 -->
+                <text x="118" y="221" text-anchor="end" font-size="9.5" font-weight="600" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif">Written Brand Name</text>
+                <rect x="185" y="209" width="25" height="14" rx="2" fill="#1C1C1C" opacity="0.45"/>
+                <text x="181" y="220" font-size="8" font-weight="700" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">-15%</text>
+
+                <!-- Logo: -30% → w=51, x=159 -->
+                <text x="118" y="241" text-anchor="end" font-size="9.5" font-weight="600" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif">Logo</text>
+                <rect x="159" y="229" width="51" height="14" rx="2" fill="#1C1C1C" opacity="0.45"/>
+                <text x="155" y="240" font-size="8" font-weight="700" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">-30%</text>
+
+                <!-- Brand Font: -33% → w=56, x=154 -->
+                <text x="118" y="261" text-anchor="end" font-size="9.5" font-weight="600" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif">Brand Font</text>
+                <rect x="154" y="249" width="56" height="14" rx="2" fill="#1C1C1C" opacity="0.45"/>
+                <text x="150" y="260" font-size="8" font-weight="700" fill="#1C1C1C" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">-33%</text>
+
+              </svg>
+            </div>
+            <p style="margin:8px 0 0;font-size:0.7rem;color:#5C5247;text-align:right;">© System1</p>
+          </div>
+          <p><strong>"If we hook them they'll watch the content."</strong></p>
+          <p>To some degree. It's likely a more interesting piece of content will be watched for slightly longer. It's pretty unlikely they'll watch it all. Amplified Intelligence has a theory called Attention Elasticity that I find useful when thinking about this. Each platform has a minimum and maximum level of attention you'd expect to get. A hook would be one way you might reach the upper level of attention on a platform. The size of brand or celebrities used might be another.</p>
+          <p><strong>"I watched a 5-minute piece of content the other day, why can't we do that?"</strong></p>
+          <p>When adidas posted their World Cup ad and it clocked in at 5 minutes, I was wondering if other brands would think long-form rules now apply. I think it really depends on which category you operate in. adidas Football is such a popular brand rooted in everyday life, and used celebrities and footballers in the ad. It has all the ingredients for hitting the top levels of attention, and probably smashing it beyond. But brands without that level of category interest should probably stick to the evidence. Most people try to ignore ads as much as possible.</p>
+          <p><strong>"So should we hook or brand early?"</strong></p>
+          <p>I'd go for both. Consider a hook that intrigues the viewer while using your distinctive brand assets as a central part of the content. Put the character central to the frame. Blast the brand track. Look at how the logo can be used within context rather than slapped on top of the video.</p>
+          <p>An example of this in action is a piece of content we made at the National Lottery to celebrate someone winning the EuroMillions Jackpot of €250 Million. It's interesting, well branded in context with the large cheque, and the camera flip at the start is a decent hook. We tested it with Amplified's AI tool and it was a smash hit in terms of expected attention levels.</p>
+          <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+            <source src="images/250_JP.mp4" type="video/mp4" />
+          </video>
+          <p>There are so many constraints. The fun is in making it work within them.</p>
+        `
+      },
+      {
+        icon: icons.brandDNA,
+        photo: 'images/SJC_runway_pose.png',
+        photoAlt: 'SJC figurine standing at the end of a fashion show runway with a pale light burst radiating behind',
+        meta: '29 May 2026',
+        title: "Exploring Brand Positioning with Derek Zoolander",
+        body: `
+          <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+            <source src="images/Blue_Steel.mp4" type="video/mp4" />
+          </video>
+          <p>There's a scene in Zoolander where Derek, at his lowest point, finds himself staring into a puddle on the street. He looks at his reflection and asks the only question that seems to matter in that moment: <em>Who am I?</em></p>
+          <p>Then his tiny phone rings. He answers: "God?"</p>
+          <p>Derek found Magnum after some runway drama and all was well in the end. But the question "Who am I?" is one I've been thinking about when it comes to brand management.</p>
+          <p>A brand can have a beautifully written DNA statement. A clear purpose. A set of associations it wants to own. But what does the consumer actually think? And does that match?</p>
+          <p>As part of my MiniMBA in Brand Management I've been looking at exactly this: the gap between what a brand says it is and what people actually associate with it. So I built a simple tool to explore it.</p>
+          <img src="images/BrandDNA1.png" alt="Brand DNA tool — search interface" class="entry-img" />
+          <p>You search any brand and Gemini AI analyses it. It starts with the brand's stated DNA, pulled from corporate websites and owned channels.</p>
+          <img src="images/BrandDNA5.png" alt="Brand DNA tool — stated purpose statement" class="entry-img" />
+          <p>Then it finds five associations linked to that brand and scores each one based on online conversation, reviews and social media. A breakdown for each is given.</p>
+          <img src="images/BrandDNA4.png" alt="Brand DNA tool — association scoring" class="entry-img" />
+          <p>It also surfaces positive and negative word associations from across the web.</p>
+          <p>You can go further. Type in a competitor and the tool will analyse how Brand B scores on the associations that matter to Brand A.</p>
+          <img src="images/BrandDNA6.png" alt="Brand DNA tool — competitor comparison" class="entry-img" />
+          <p>Finally, there's a Brand Experience section. Paste in the TrustPilot page for the brand and the top five themes are surfaced, along with the sentiment attached to each.</p>
+          <img src="images/BrandDNA7.png" alt="Brand DNA tool — brand experience themes from TrustPilot" class="entry-img" />
+          <p>Now, this isn't a substitute for real research. It won't give you consumer profiles, explain why people buy or walk away, or surface the real pain points underneath the numbers. That work is harder and you still need it.</p>
+          <p>But as a topline sense-check, a way for a brand to ask itself whether its stated positioning is landing the way it intends, it's a useful place to start.</p>
+          <p>At the very least, it might stop a brand from staring too long at its own reflection.</p>
+          <p><em>Who am I?</em></p>
+          <p>It's worth asking.</p>
+        `
+      },
+      {
+        icon: icons.handshake,
+        photo: 'images/Xabi.png',
+        photoAlt: 'Xabi Alonso',
+        meta: '22 May 2026',
+        title: "Hiring Xabi Alonso",
+        body: `
+          <img src="images/Xabi.png" alt="Xabi Alonso" class="entry-img" />
+          <p>Once upon a time I gave Xabi Alonso his "first job" in management.</p>
+          <p>I was hoping to post this in celebration of him returning to Liverpool, but instead he has gone to Chelsea.</p>
+          <p>Nearly 10 years ago I managed a UEFA Champions League activation at adidas called Tango Squad FC. It was a micro-influencer campaign, a global super team of what we would now call content creators.</p>
+          <p>The team needed a manager and Xabi Alonso had recently retired, planning his next move. We were delighted he joined the project to "manage" the team.</p>
+          <img src="images/TSFC_Alonso.jpg" alt="Tango Squad FC with Xabi Alonso" class="entry-img" />
+          <p>We took the squad across Europe, training at the biggest clubs and meeting the biggest players. By giving the kids this access and creating our docu-series, we wanted to find out: could the combined engaged reach of the micro-influencers match the reach of someone like Xabi? Well, we found that they did, when promoting many of the episodes.</p>
+          <p>That being said, when I stood at the sideline of a pitch in Madrid and captured the video of Xabi announcing he was going into management, the news went everywhere. It was a teaser for the campaign. It needed that big moment to drive the awareness. Usually that's how things go viral. A super spreader. One-to-one sharing and word of mouth can help brand perception. Media spend will help too of course. But the large well followed accounts sharing a video that hits the right emotion are those which will help the video reach the masses.</p>
+          <img src="images/xabi_beinsports.png" alt="beIN Sports screengrab — Xabi Alonso announcing he was going into management" class="entry-img" style="object-fit: contain; max-height: 420px; background: var(--cream-light); padding: 24px;" />
+          <p>So Xabi has gone on to have an exciting managerial career so far. It doesn't look like he'll manage Liverpool sadly, but at least I can say he did manage my other team.</p>
+        `
+      },
+      {
+        icon: icons.lough,
+        photo: 'images/SJC_lough_pose.png',
+        photoAlt: 'SJC figurine standing on the rear deck of a cabin cruiser sailing along an Irish lough',
+        meta: '21 May 2026',
+        title: "Creativity, Codes & Constraints",
+        body: `
+          <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+            <source src="images/lough_animation.mp4" type="video/mp4" />
+          </video>
+          <p>A few years ago I worked on an ad for The National Lottery. It was built around a brilliant organisation called Lough Ree Access for All, a group who built an accessible boat so that everyone, regardless of ability, could get out on the water and experience the lough.</p>
+          <p>When you're making an ad for a charity or a third-party cause, the emotional angles are everywhere. The people who built it. The service users. The challenges that were overcome. The volunteers. The challenge isn't finding the emotion. It's deciding which emotion to follow, and how to tell a complete story in 40 seconds while making sure the brand still gets noticed.</p>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin:28px 0;">
+            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube.com/embed/SUCXzv0y7AE?si=yar2HA3_Zf694Kgs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <p>I've been listening to Adam Morgan's podcast <a href="https://podcasts.apple.com/gb/podcast/the-magic-of-aardman-with-magda-osinska/id1707821202?i=1000768498442" target="_blank" rel="noopener noreferrer"><em>Let's Make This More Interesting</em></a> recently. A conversation with Magda Osinska from Aardman stuck with me. She talked about the challenge and the thrill of working within constraints: the stop-motion process, the tiny sets, the physical limitations of the craft. But they make it work. And they make it work beautifully. Maybe it's the constraints that keep the work focused to complete the job it's meant to do.</p>
+          <p>The Lough Ree ad was packed with the emotion of a real tightly knit community, but carefully crafted. We had a charming voiceover from a key member of the team. We selected the frames with the most joy from service users out on the water. It was also well-branded, because it needed to be. It was all wrapped up and presented clearly by the National Lottery. The logo early, the key funding message at the end, and the brand track running throughout.</p>
+          <p>We tested it with System 1 at the time. It scored 5.6 stars. That's genuinely rare. Around 1% of ads ever reach that level. The emotional intensity was rated exceptional. Brand fluency hit 92%. Participants felt pleased for others. Uplifted.</p>
+          <p>A key character. An unfolding story. A clear sense of place. Well-branded.</p>
+          <p>Creativity and codes, co-existing.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/lightswitch_thumb.png',
+        photoAlt: 'SJC figurine standing in a rustic living room beside a light switch',
+        meta: '16 May 2026',
+        title: "How social advertising works",
+        body: `
+          <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+            <source src="images/lightswitch.mp4" type="video/mp4" />
+          </video>
+          <p>I heard a really good analogy once that explained how social advertising works. It was a lady at a conference and unfortunately I can't remember who it was. She said, if you have a strong brand with a campaign that is broad reaching and carries emotion, using a set of distinctive brand assets, it's like having a beautifully furnished living room. Advertising on social is like flicking the lights on and off. Consider your social feeds. People are scrolling and there's so much distraction. But at a glance, people might notice the brand. Your distinctive brand assets are really useful ways to help with that.</p>
+          <p>Peter Field is one of the most respected voices in marketing effectiveness. He told us at the National Lottery that social media advertising is a gentle reinforcement of your distinctive brand assets.</p>
+          <p>Social has great reach and targeting capabilities. But the evidence is pretty clear on how little attention you are likely to get. From long form, short form, creators, gifs, memes and trends, with all the things possible on social, there are also a lot of constraints on how much of your advertising is actually seen. So the question I keep coming back to is whether your brand is getting noticed at all.</p>
+          <p>The guidance from Peter Field and the attention research we had done transformed our approach to social advertising at The National Lottery. We created a set of principles that we applied to everything we made.</p>
+          <ul>
+            <li>No longer than 10 seconds, no long story arcs</li>
+            <li>Distinctive brand assets used up front; big, early and often</li>
+            <li>Works with and without audio</li>
+            <li>Bright visuals with little text</li>
+            <li>Fun and rooted in the overall brand narrative</li>
+          </ul>
+          <p>No more long ads. We cut out the heavy dialogue. Considered how the brand shows up early. But kept it as bright and fun within the time likely to be available.</p>
+          <p>We make sure when the lights flick on, people know which room they're looking at.</p>
+        `
+      },
+      {
+        icon: icons.fruit,
+        photo: 'images/FruitVeg.png',
+        photoAlt: 'SJC figurine head emerging from a towering pile of fruit and vegetables in a supermarket aisle',
+        meta: '14 May 2026',
+        title: "Sweating the brand asset",
+        body: `
+          <p>Tesco recently launched a campaign for their Free Fruit &amp; Veg for Schools initiative. It introduces a character called Plumbert the Fruit Giant. It's lovely work — fun, well branded early and often, with a great track. No wonder it scored a 5.9 star rating with System 1.</p>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin:28px 0;">
+            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube.com/embed/3CYzNYeG3Kg?si=IbXhnZgdKykcDijz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <p>A character like Plumbert is exactly what Jenni Romaniuk would call a Distinctive Brand Asset in the making. Her work in <em>Building Distinctive Brand Assets</em> is clear on this: assets need to be grown over time. Used consistently. Sweated.</p>
+          <p>So I went looking for Plumbert beyond the ad. Checked Tesco's website. Nothing. Their Instagram is running cutdowns of the ad, but they're not exactly made for social. For a character with this much personality, that feels like a missed opportunity. Perhaps it's still early days and Tesco has big, giant plans in mind. I know the trade press articles have said the campaign will be live across various channels so it will be great to see how that is done beyond launch.</p>
+          <img src="images/GiantFruit_ooh.png" alt="Plumbert the Fruit Giant OOH campaign screengrab" class="entry-img" />
+          <p>There is one challenge that Tesco might face. Plumbert is a complicated character to reproduce consistently — and consistency is everything when you're building a DBA.</p>
+          <img src="images/waterslide94.png" alt="The National Lottery waterslide — a visual distinctive brand asset recognised by 94% of Irish adults" class="entry-img" />
+          <p>At The National Lottery a few years ago we introduced a campaign that featured Waterslides. This became a visual DBA, so much so that 94% of Irish adults could recognise The National Lottery when they saw the above image. We used it big, early and often in advertising. We even had them printed on the walls of the office.</p>
+          <p>It's something I've been thinking about with my own mascot. I've been working hard to keep the face consistent across every still and animation. Same kit, same crest, same base. Even so, I've caught the number 15 appearing on the jersey at times. The model drifts. You have to keep pulling it back.</p>
+          <img src="images/FruitVeg.png" alt="SJC figurine head emerging from a towering pile of fruit and vegetables in a supermarket aisle" class="entry-img" />
+          <p>In a world where AI is increasingly used to generate brand content, this is a real question: if the tool generating your asset can't hold the details, what does that mean for consistency? Plumbert's complexity might make him harder to scale — prompt a model to generate Plumbert and you'll probably get a different fruit giant every time. But that's exactly the kind of problem worth solving if you believe in the asset.</p>
+          <p>Sweat the asset. Just make sure it stays recognisable while you do. Apples for apples.</p>
+        `
+      },
+      {
+        icon: icons.fiveMin,
+        photo: 'images/5min_timer.png',
+        photoAlt: 'SJC figurine standing pitchside pointing at a countdown timer showing 05:00',
+        meta: '14 May 2026',
+        title: "Five minutes and counting",
+        body: `
+          <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+            <source src="images/20260514_134952_figurine-raises-its-left-wrist-slowly-up v2.mp4" type="video/mp4" />
+          </video>
+          <p>Last week adidas launched a 5-minute ad for the World Cup. Five minutes. I've been thinking about that a lot.</p>
+          <p>Professor Karen Nelson-Field's attention research shows that 85% of digital ads globally get less than 2.5 seconds of attention. So a brand releasing a five-minute film feels either very brave or very wrong.</p>
+
+          <!-- Attention chart -->
+          <div style="background:#F7F2EA;border:1px solid #EDE0C4;border-radius:8px;padding:24px 24px 16px;margin:28px 0;font-family:'Outfit','Segoe UI',sans-serif;">
+            <p style="margin:0 0 20px;font-size:0.95rem;font-weight:700;color:#1C1C1C;line-height:1.4;">When ads don't meet the Attention-Memory Threshold<br>of 2.5 seconds, it's hard for memory to grow.</p>
+            <div style="position:relative;">
+              <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+                <!-- Y axis label -->
+                <text transform="rotate(-90,14,110)" x="14" y="110" text-anchor="middle" font-size="10" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif">Active Attention Seconds</text>
+                <!-- Y axis ticks -->
+                <text x="30" y="28"  font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">20</text>
+                <text x="30" y="82"  font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">15</text>
+                <text x="30" y="136" font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">10</text>
+                <text x="30" y="190" font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">5</text>
+                <text x="30" y="212" font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">0</text>
+                <!-- X axis baseline -->
+                <line x1="34" y1="210" x2="598" y2="210" stroke="#EDE0C4" stroke-width="1"/>
+                <!-- Bars: 80 total, first 12 (~15%) above threshold, remaining 68 (~85%) below -->
+                <!-- Threshold at y=187 (2.5s). Above: bars drop steeply from 20s. Below: slow taper to near-zero -->
+                <g fill="#1C1C1C" opacity="0.75">
+                  <!-- Bars 1–12: above threshold (y < 187), steep descent -->
+                  <rect x="35"  y="28"  width="6" height="182"/>
+                  <rect x="42"  y="55"  width="6" height="155"/>
+                  <rect x="49"  y="88"  width="6" height="122"/>
+                  <rect x="56"  y="115" width="6" height="95"/>
+                  <rect x="63"  y="136" width="6" height="74"/>
+                  <rect x="70"  y="152" width="6" height="58"/>
+                  <rect x="77"  y="163" width="6" height="47"/>
+                  <rect x="84"  y="171" width="6" height="39"/>
+                  <rect x="91"  y="177" width="6" height="33"/>
+                  <rect x="98"  y="181" width="6" height="29"/>
+                  <rect x="105" y="184" width="6" height="26"/>
+                  <rect x="112" y="186" width="6" height="24"/>
+                  <!-- Bars 13–80: below threshold (y >= 187), slow taper -->
+                  <rect x="119" y="188" width="6" height="22"/>
+                  <rect x="126" y="189" width="6" height="21"/>
+                  <rect x="133" y="190" width="6" height="20"/>
+                  <rect x="140" y="191" width="6" height="19"/>
+                  <rect x="147" y="191" width="6" height="19"/>
+                  <rect x="154" y="192" width="6" height="18"/>
+                  <rect x="161" y="192" width="6" height="18"/>
+                  <rect x="168" y="193" width="6" height="17"/>
+                  <rect x="175" y="193" width="6" height="17"/>
+                  <rect x="182" y="194" width="6" height="16"/>
+                  <rect x="189" y="194" width="6" height="16"/>
+                  <rect x="196" y="195" width="6" height="15"/>
+                  <rect x="203" y="195" width="6" height="15"/>
+                  <rect x="210" y="196" width="6" height="14"/>
+                  <rect x="217" y="196" width="6" height="14"/>
+                  <rect x="224" y="197" width="6" height="13"/>
+                  <rect x="231" y="197" width="6" height="13"/>
+                  <rect x="238" y="197" width="6" height="13"/>
+                  <rect x="245" y="198" width="6" height="12"/>
+                  <rect x="252" y="198" width="6" height="12"/>
+                  <rect x="259" y="199" width="6" height="11"/>
+                  <rect x="266" y="199" width="6" height="11"/>
+                  <rect x="273" y="199" width="6" height="11"/>
+                  <rect x="280" y="200" width="6" height="10"/>
+                  <rect x="287" y="200" width="6" height="10"/>
+                  <rect x="294" y="200" width="6" height="10"/>
+                  <rect x="301" y="201" width="6" height="9"/>
+                  <rect x="308" y="201" width="6" height="9"/>
+                  <rect x="315" y="201" width="6" height="9"/>
+                  <rect x="322" y="202" width="6" height="8"/>
+                  <rect x="329" y="202" width="6" height="8"/>
+                  <rect x="336" y="202" width="6" height="8"/>
+                  <rect x="343" y="203" width="6" height="7"/>
+                  <rect x="350" y="203" width="6" height="7"/>
+                  <rect x="357" y="203" width="6" height="7"/>
+                  <rect x="364" y="204" width="6" height="6"/>
+                  <rect x="371" y="204" width="6" height="6"/>
+                  <rect x="378" y="204" width="6" height="6"/>
+                  <rect x="385" y="205" width="6" height="5"/>
+                  <rect x="392" y="205" width="6" height="5"/>
+                  <rect x="399" y="205" width="6" height="5"/>
+                  <rect x="406" y="206" width="6" height="4"/>
+                  <rect x="413" y="206" width="6" height="4"/>
+                  <rect x="420" y="206" width="6" height="4"/>
+                  <rect x="427" y="207" width="6" height="3"/>
+                  <rect x="434" y="207" width="6" height="3"/>
+                  <rect x="441" y="207" width="6" height="3"/>
+                  <rect x="448" y="208" width="6" height="2"/>
+                  <rect x="455" y="208" width="6" height="2"/>
+                  <rect x="462" y="208" width="6" height="2"/>
+                  <rect x="469" y="208" width="6" height="2"/>
+                  <rect x="476" y="209" width="6" height="1"/>
+                  <rect x="483" y="209" width="6" height="1"/>
+                  <rect x="490" y="209" width="6" height="1"/>
+                  <rect x="497" y="209" width="6" height="1"/>
+                  <rect x="504" y="209" width="6" height="1"/>
+                  <rect x="511" y="209" width="6" height="1"/>
+                  <rect x="518" y="209" width="6" height="1"/>
+                  <rect x="525" y="209" width="6" height="1"/>
+                  <rect x="532" y="210" width="6" height="0"/>
+                  <rect x="539" y="210" width="6" height="0"/>
+                  <rect x="546" y="210" width="6" height="0"/>
+                  <rect x="553" y="210" width="6" height="0"/>
+                  <rect x="560" y="210" width="6" height="0"/>
+                  <rect x="567" y="210" width="6" height="0"/>
+                  <rect x="574" y="210" width="6" height="0"/>
+                  <rect x="581" y="210" width="6" height="0"/>
+                </g>
+                <!-- Attention-Memory Threshold dashed line at 2.5s -->
+                <line x1="34" y1="187" x2="598" y2="187" stroke="#C8102E" stroke-width="2" stroke-dasharray="8,5"/>
+                <!-- Callout box -->
+                <rect x="370" y="30" width="220" height="52" rx="4" fill="#1C1C1C"/>
+                <rect x="370" y="30" width="4" height="52" rx="2" fill="#C8102E"/>
+                <text x="490" y="52" text-anchor="middle" font-size="18" font-weight="700" fill="white" font-family="Outfit,Segoe UI,sans-serif">85% &lt;2.5 seconds</text>
+                <text x="490" y="72" text-anchor="middle" font-size="10" fill="#EDE0C4" font-family="Outfit,Segoe UI,sans-serif">130,000 ad views · 1,150 brands</text>
+                <!-- Legend -->
+                <line x1="370" y1="165" x2="390" y2="165" stroke="#C8102E" stroke-width="2" stroke-dasharray="6,4"/>
+                <text x="395" y="169" font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif">Attention-Memory Threshold</text>
+              </svg>
+            </div>
+            <p style="margin:8px 0 0;font-size:0.7rem;color:#5C5247;text-align:right;">© Amplified Intelligence</p>
+          </div>
+
+          <p>But watch it and you start to understand why it might just work.</p>
+          <p>It's adidas — one of the most recognised sports brands on the planet. It's football, which is peak interest for a huge chunk of the global population. It features Hollywood star power alongside the biggest names in the game, past and present. And it's built around the World Cup — the single biggest moment in the football calendar.</p>
+          <p>That's not one ingredient. That's the full recipe: decades of brand equity, genuine cultural relevance in football, the biggest stars money can buy, a production budget to match, and the global media budget to support it across every ad length. I spotted a shorter cut playing on Sky during the weekend football — it's likely a lot of the media spend is going against the 30 or 60-second edits.</p>
+          <p>The attention research I've been exploring shows that passive, low-interest content gets brutally short viewing times. But high-interest content — content that people genuinely want to watch — operates by completely different rules. adidas has essentially created a piece of entertainment that happens to be an ad.</p>
+          <p>Could any other brand pull this off? Very few could.</p>
+          <p>That's the lesson worth taking from this. It's not "five-minute ads are back." It's understanding <em>why</em> this one has a fighting chance of being watched — and being honest that most brands don't have those ingredients.</p>
+          <p>Know what you're working with before you decide how long to talk.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/timmy_adi.png',
+        photoAlt: 'Timothée Chalamet in the adidas Backyard Legends ad',
+        meta: '7 May 2026',
+        title: "The Greatest Show",
+        body: `
+          <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+            <source src="images/sjc_cage_animation.mp4" type="video/mp4" />
+          </video>
+          <p>Paul Feldwick's <em>The Anatomy of Humbug</em> changed how I think about advertising. Not as communication, not as persuasion — but as showmanship. Feldwick traces a lineage from PT Barnum through to modern brand advertising, and the argument is simple: people don't engage with ads because they're informative. They engage because they're entertaining. Because someone put on a show.</p>
+          <p>The Greatest Showman understood this before the industry had a framework for it.</p>
+          <p>At The National Lottery I found this in our Dream Inspector character for the EuroMillions campaign. His performance elevated the ad. Any social content or events became much more theatrical from his showmanship.</p>
+          <img src="images/dreamy_NL.jpg" alt="The Dream Inspector character from the Irish National Lottery EuroMillions campaign" class="entry-img" />
+          <p>This summer is a World Cup summer. From my time at adidas I know what that means — months of build, pressure, creative ambition, a global stage. So I was watching closely when Backyard Legends dropped.</p>
+          <img src="images/adi_legends.png" alt="adidas Backyard Legends ad" class="entry-img" />
+          <p>What struck me most was Timothée Chalamet. Not the players, not the tricks — him. He led the narrative. He was the showman. That casting decision unlocked everything else: the energy, the nostalgia, the blend of world-class footballers and street football culture. It felt like a performance.</p>
+          <p>I love the ad. To my former colleagues heading into one of the most exciting summers in sport — over to you.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/sjc_office_thumb.png',
+        photoAlt: 'Corinthian-style figurine of Stephen Cleary reaching for a coffee cup at a standing desk in a cosy office',
+        meta: '7 May 2026',
+        title: "Character. Incident. Place.",
+        body: `
+          <p>Orlando Wood's work on advertising effectiveness — particularly in <em>Look Out</em> (2023) and his research with System 1 — identifies three elements that make characters work in advertising. Character. Incident. Place. When attention is fleeting, getting all three right is what makes brand advertising something worth watching.</p>
+          <p>A character alone isn't enough. You need something happening — an incident, a moment, something to make you look. And you need a setting — a place that gives the scene context and warmth. All three together is what makes a character feel alive rather than like a logo with legs.</p>
+          <p>I've been building toward this.</p>
+          <p>First I made the character — a Corinthian-style figurine of me, with the SJC crest, number 9, CLEARY on the base. Then I worked on animations — a kick, a tactics board, keepy-uppies, a ball spin, a press conference. Those gave the character incidents. Things to do.</p>
+          <p>What I hadn't done yet was give it a place.</p>
+          <p>Today I built a pipeline to fix that. The old workflow used the same start image every time — the figurine on a black background. Every animation opened from that frame. It worked, but there was no sense of location. No world for the character to exist in.</p>
+          <p>The new approach generates a purpose-built still first — the right scene, the right pose — then animates from that. Brief in, image out, animation out. The office scene below was built this way. A cosy dimly lit room, warm lamp, standing desk, steaming coffee. The figurine turns to close the laptop and reaches for a drink.</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/sjc_office_animation.mp4" type="video/mp4" />
+          </video>
+          <p>Character. Incident. Place. It's a simple framework but it changes how you think about what you're building. I'm not just making animations — I'm building a character with a life.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/animation_thumb.png',
+        photoAlt: 'Corinthian-style figurine of Stephen Cleary spinning a ball on one finger',
+        meta: '26 April 2026',
+        title: "Prompting my Mascot to Move",
+        body: `
+          <p>At The National Lottery, we had a principle for social media content: use Distinctive Brand Assets big, early and often. DBAs work if they are used consistently — and the assets themselves are consistent. A character that looks different every time isn't an asset, it's just a series of unrelated images.</p>
+          <p>After animating the kick, I wanted to see how far I could push the mascot. Could I get it to do other things? A tactics board. Keepy-uppies. A ball spin. Would the character hold up across different animations, or would it drift into something unrecognisable every time?</p>
+          <p>The short answer: it depends entirely on how you write the prompt.</p>
+          <p>I spent a session working through this with Claude. The key insight was simple but easy to miss — treat prompting like a character brief. Lock the personality explicitly. Describe the end pose, not the action. Add a sentence that freezes what shouldn't move.</p>
+          <p>This was an early attempt — a knee-slide celebration. The body went wrong, but the face was already getting there.</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/knee_slide_trim.mp4" type="video/mp4" />
+          </video>
+          <p>A few things I learned the hard way:</p>
+          <p>The model defaults to "American football" if you just say "football". Always say black and white soccer ball.</p>
+          <p>Dark backgrounds make friendly expressions look sinister. Bright warm lighting is non-negotiable.</p>
+          <p>Describing movement produces worse results than describing a static pose.</p>
+          <p>The wink was a dead end. Both eyes kept closing. I swapped it for a thumbs up and got a much cleaner result.</p>
+          <p>Here are three that landed well:</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/tactics_trim.mp4" type="video/mp4" />
+          </video>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/header_keepyups_trim.mp4" type="video/mp4" />
+          </video>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/ballspin_trim.mp4" type="video/mp4" />
+          </video>
+          <p>The formula is still being refined. But consistency doesn't just mean repetition — the character needs to feel like the same person across different situations. Same face, same warmth, different moment. That's what I'm working toward.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/SJC_kick_thumb.png',
+        photoAlt: 'Animated figurine of Stephen Cleary mid-kick, leg raised, looking up',
+        meta: '25 April 2026',
+        title: "He kicked! Animating my Brand Mascot",
+        body: `
+          <p>The original figurine on this blog was made in ChatGPT. One session, a good prompt, and it came out better than expected — the CLEARY base, the SJC crest, the kit colours. I was happy with it. I understand the value in characters as Distinctive Brand Assets. They offer flexibility in creative — they can do dialogue, or do interesting things. But they work best when used consistently.</p>
+          <p>The problem is ChatGPT has no memory of a character. Every time you go back, the face changes. It's stateless. That made the figurine a one-off rather than an asset I could actually use.</p>
+          <p>So I wanted to fix that. I wanted a version I could reproduce — the same face, the same kit, any pose.</p>
+          <p>The answer was a LoRA. A LoRA is a fine-tuned AI model trained on a specific set of images. Instead of prompting a general model and hoping it lands on your face, you train a small model that knows what you look like. Then you use that every time.</p>
+          <p>I did this on fal.ai, using around 15 photos of myself. The result:</p>
+          <img src="images/SJC_ai.jpg" alt="A LoRA-generated photorealistic portrait of Stephen Cleary" class="entry-img" />
+          <p>That's a generated image, not a photo. The face is locked — I can reproduce it any time I want with a prompt.</p>
+          <p>From there I prompted the model to render that face as a figurine — chibi proportions, cream jersey, number 9, SJC crest, CLEARY base. Lots of iteration. Lots of prompts. Getting the proportions right was the trickiest part — AI models have a strong gravitational pull toward realistic human proportions. But eventually:</p>
+          <img src="images/SJC_update.png" alt="A LoRA-generated Corinthian-style figurine of Stephen Cleary with coffee, phone, laptop and football" class="entry-img" style="object-fit: contain; max-height: 420px;" />
+          <p>Then I took it one step further. I uploaded the figurine image to Kling — an AI video model — and prompted it to kick a ball. Five seconds later:</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/SJC_kick_update.mp4" type="video/mp4" />
+          </video>
+
+          <p>This is a first attempt. I'll tweak the character further and build out more movements and expressions over time.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/keepup_screenshot.png',
+        photoAlt: 'Keepy-uppies game start screen showing the footballer sprite on a green pitch',
+        meta: '24 April 2026',
+        title: "Fancy a game of Keepy-uppies?",
+        body: `
+          <img src="images/keepup_screenshot.png" alt="Keepy-uppies game start screen showing the footballer sprite on a green pitch" class="entry-img" />
+          <p>I built a browser game. It's called Keepy-uppies. It took around 20 mins in total to make.</p>
+          <p>You move the footballer left and right using the arrow keys, and press space to kick the ball when it drops close enough to you. Each successful kick adds to your counter. When the ball hits the ground, it's game over.</p>
+          <p>It's live at <a href="/keepup" style="color:var(--red);">stephenjcleary.com/keepup</a>.</p>
+          <p>The sprites are custom — a standing pose and a kicking pose — both made in Canva. The pitch is drawn directly on the canvas: alternating green stripes, a centre circle, a ground line. The whole thing is a single HTML file, about 450 lines.</p>
+          <p>There's a high score saved to localStorage too. Mine is embarrassingly low.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/ChatGPT_Image_Apr_24__2026__08_09_16_AM-removebg-preview.png',
+        photoAlt: 'A ChatGPT-generated figurine of Stephen Cleary',
+        meta: '24 April 2026',
+        title: "I made a brand mascot",
+        body: `
+          <p>I have spent a lot of time thinking about Distinctive Brand Assets. It is one of the most rigorous and practically useful areas of marketing science. I follow Jenni Romaniuk's work closely — her research through the Ehrenberg-Bass Institute has shaped how I think about what brands actually own in the mind of a buyer.</p>
+          <p>At the National Lottery we worked on building and measuring DBAs properly. Not just asking "do people like our logo" but tracking distinctiveness, uniqueness, and fame across assets — visual, audio, character. It changes how you think about brand investment. I presented our work at a global research conference in Amsterdam.</p>
+          <img src="images/AmsterdamDBA.jpeg" alt="Stephen Cleary presenting at the ESOMAR research conference in Amsterdam" class="entry-img" />
+          <p>So when I started building my personal brand, I wanted to apply the same thinking. One of the asset types I was most interested in was a character — something ownable, memorable, and a bit fun.</p>
+          <p>Growing up I was obsessed with Corinthian figurines. If you're not familiar — they were small, incredibly detailed football player models. I had dozens. My brother and I then played matches with them.</p>
+          <img src="images/corinthians.jpg" alt="Four Corinthian football figurines including Nakata and Thuram" class="entry-img" />
+          <p>That format stuck with me. So I asked ChatGPT to create a version of me as one. I gave it a description, a few reference points, and let it work. Then I added some objects around the figurine to give it a bit more personality and context.</p>
+          <p>Here's the final product.</p>
+          <img src="images/ChatGPT_Image_Apr_24__2026__08_09_16_AM-removebg-preview.png" alt="A ChatGPT-generated Corinthian-style figurine of Stephen Cleary" class="entry-img" style="object-fit: contain; max-height: 320px; background: var(--cream-light); padding: 24px;" />
+          <p>What I really like is the detail. The CLEARY name carved into the green base. The number 9 and SJC crest on the jersey. And the kit colours match the brand style exactly.</p>
+          <p>It's now sitting in the header of this blog — and I made a version for the footer too. A small, distinctive, ownable asset. Now to see how flexible I can make the character.</p>
+        `
+      },
+      {
+        icon: icons.fontFind,
+        photo: 'images/thumb_font.png',
+        photoAlt: 'Blog header in Outfit — the new font',
+        photoPosition: 'left center',
+        meta: '23 April 2026',
+        title: "Finding a new font",
+        body: `
+          <p>During my undergraduate degree in Multimedia Design I built websites regularly. One part of that was picking fonts — for logos, headings, body copy. It could take a while. You'd end up on dafont.com or Google Fonts, flicking through options, trying to picture how they'd look in context. Time consuming, a bit of a rabbit hole.</p>
+          <p>My personal brand was using Inter. It's a good font. Precise, clean, reliable. But the verdict from Claude's assessment was pretty direct: too neutral. Reads as default. The brand has more warmth and personality than Inter conveys.</p>
+          <p>So I briefed Claude to find me a new one.</p>
+          <p>What came back wasn't just a list of names — it was a full font explorer page. Seven alternatives, each rendered at multiple weights and sizes in my actual wordmark, across all three brand backgrounds: light, cream, and dark. Character notes. A verdict on how the red accent j sits in each one. All the information needed to make the call.</p>
+          <img src="images/Screenshot 2026-04-23 at 20.11.54.png" alt="Font comparison tool showing Inter and 7 alternatives rendered in the stephenjcleary wordmark" class="entry-img" />
+          <p>The alphabet comparison view was the most useful. It shows every font rendering the same string — "stephenjcleary" — so you can see exactly how each one handles the letters that actually matter in your name.</p>
+          <img src="images/Screenshot 2026-04-23 at 20.12.00.png" alt="Alphabet comparison showing all fonts side by side rendering stephenjcleary" class="entry-img" />
+          <p>Outfit was the one. Geometric with intentional warmth — 45° terminals and rounded joints make it feel friendly without being casual. The j in particular sits nicely in crimson: clean dot, rounded curve at the base. It feels part of the wordmark, not just a letter. The verdict: a strong middle ground — modern and approachable. Distinctive at large sizes.</p>
+          <img src="images/Screenshot 2026-04-23 at 20.12.14.png" alt="Outfit font close-up panel showing character, j treatment, and verdict" class="entry-img" />
+          <p>Once the decision was made, the style guide updated to Outfit across the board.</p>
+          <img src="images/Screenshot 2026-04-23 at 20.12.42.png" alt="Brand style guide updated with Outfit as the typeface" class="entry-img" />
+          <p>The before and after is visible most clearly in the blog header. Here's Inter:</p>
+          <img src="images/Screenshot 2026-04-23 at 20.17.04.png" alt="Blog header in Inter — the previous font" class="entry-img" />
+          <p>And here's Outfit:</p>
+          <img src="images/Screenshot 2026-04-23 at 20.17.32.png" alt="Blog header in Outfit — the new font" class="entry-img" />
+          <p>What used to take an hour of tab-switching took about ten minutes. Better output, less friction.</p>
+        `
+      },
+      {
+        icon: icons.claudeDesign,
+        photo: 'images/claude_design_slide1.jpg',
+        photoAlt: 'Attention Tester deck title slide — made with Claude Design',
+        meta: '19 April 2026',
+        title: "Making a deck with Claude Design",
+        body: `
+          <p>Claude Design is a new feature that lets you create polished visual presentations directly inside Claude. I wanted to try it properly.</p>
+          <p>The brief was simple: make a short how-to deck for the Attention Tester. Step by step, explain the features, include visuals of the tool. Here's the exact prompt I gave it:</p>
+          <blockquote style="border-left:3px solid var(--red);padding:12px 20px;margin:24px 0;color:var(--mid);font-style:italic;">"I want to make a short deck which explains how to use the Attention Tester tool. It should be a simple step by step which explains the features and benefits. Include visuals of the tool."</blockquote>
+          <p>I uploaded two things before writing the prompt: my stephenjcleary brand style guide, and the Attention Tester project folder. That's it. No further instruction on colours, layout, or structure.</p>
+          <p>What came back was an 8-slide deck. Dark opening and closing slides using my near-black background, red accent colour, and STEPHENJCLEARY wordmark. Step slides using the deep red left panel with cream text, and the actual tool UI on the right. The chart colours — dark bars, sand passive, red active — were pulled directly from the tool itself.</p>
+          <p>It got the brand right without being told to. The type hierarchy, the way the step numbers are labelled, the use of white space — all consistent with the style guide I'd uploaded.</p>
+          <div class="slideshow" id="slideshow-claudedesign">
+            <div class="slideshow-track">
+              <img src="images/claude_design_slide1.jpg" alt="Title slide: Attention Tester — Tool Guide" class="slideshow-slide" />
+              <img src="images/claude_design_slide2.jpg" alt="Overview: Three analyses, one upload — AI Headline, Attention Chart, DBA Check" class="slideshow-slide" />
+              <img src="images/claude_design_slide3.jpg" alt="Step 01: Upload your video" class="slideshow-slide" />
+              <img src="images/claude_design_slide4.jpg" alt="Step 02: Read the AI headline" class="slideshow-slide" />
+              <img src="images/claude_design_slide5.jpg" alt="Step 03: Read the attention chart" class="slideshow-slide" />
+              <img src="images/claude_design_slide6.jpg" alt="Step 04: Check your brand asset" class="slideshow-slide" />
+              <img src="images/claude_design_slide7.jpg" alt="Step 05: Compare by platform" class="slideshow-slide" />
+              <img src="images/claude_design_slide8.jpg" alt="Closing slide: Upload. Analyse. Improve." class="slideshow-slide" />
+            </div>
+            <div class="slideshow-controls">
+              <button class="slideshow-btn" onclick="slideshowPrev('slideshow-claudedesign')">&#8592;</button>
+              <span class="slideshow-counter" id="slideshow-claudedesign-counter">1 / 8</span>
+              <button class="slideshow-btn" onclick="slideshowNext('slideshow-claudedesign')">&#8594;</button>
+            </div>
+          </div>
+          <p>I've spent hours upon hours of my working life on decks. It's really nice knowing that time could be saved in future and put into making better work.</p>
+          <p>Not every output will be this clean on the first pass. But this one was. Worth sharing.</p>
+        `
+      },
+      {
+        icon: icons.whyEnjoying,
+        photo: 'images/NathanScott.jpg',
+        photoAlt: 'Nathan and Haley Scott in couples therapy, One Tree Hill Season 5',
+        meta: '9 April 2026',
+        title: "Why am I enjoying this so much?",
+        body: `
+          <p>I've been rewatching One Tree Hill on Netflix, like so many others apparently. There's an episode in Season 5 where Nathan and Haley are in couples therapy. The therapist asks them why they don't describe themselves the way they used to — a basketball player and a musician. Their answer is simple: life got in the way.</p>
+          <img src="images/NathanScott.jpg" alt="Nathan and Haley Scott in couples therapy, One Tree Hill Season 5" class="entry-img" />
+          <p>It's a throwaway moment in a teen drama. But it stuck with me.</p>
+          <p>My career started with making things. My undergrad was Multimedia Design — I was building websites regularly, learning by doing, putting things out into the world. My big break at adidas came because I took initiative. I made a campaign to find an internship: built a website, networked, documented the whole thing as it happened. It won a Digital Advertising Northern Ireland award.</p>
+          <img src="images/DANIawards.JPG" alt="Digital Advertising Northern Ireland award" class="entry-img" />
+          <p>That instinct — to make something rather than just talk about it — is what got me in the room. And somewhere along the way, I stopped exercising it.</p>
+          <p>I think that's why throwing myself into Claude Code has felt so good. It's not just that the tools are impressive or the builds are useful. It's that I'm making things again. Properly making them — from an idea to something you can open in a browser and use.</p>
+          <p>One small thing that captures this well: I built a skill this week just to stay on top of Claude news. One command — <code>/NewClaudeFeatures</code> — and it goes and finds everything that's dropped recently, then explains it back to me in plain language. No jargon, no press release tone. Just: here's what's new and here's what it means.</p>
+          <img src="images/Screenshot 2026-04-09 at 21.12.01.png" alt="The /NewClaudeFeatures skill command in Claude Code" class="entry-img" />
+          <img src="images/Screenshot 2026-04-09 at 21.12.17.png" alt="NewClaudeFeatures skill output showing recent Claude updates in plain language" class="entry-img" />
+          <p>I used to describe myself as someone who builds things. Life got in the way for a while. It's good to be back.</p>
+        `
+      },
+      {
+        icon: icons.dinner,
+        photo: 'images/dinner_page.png',
+        photoAlt: "What's For Dinner? page showing the three search modes",
+        meta: '6 April 2026',
+        title: "What's For Dinner?",
+        body: `
+          <p>My wife Caroline has some specific dietary requirements. Gluten free. Low histamine. Vegetarian. No spice, no acid, no tomato. Add a few personal dislikes on top of that and dinner becomes more of a logic puzzle than a pleasure.</p>
+          <p>I wanted to do something useful about it. So I built her a page. The whole thing took about 20 minutes.</p>
+          <p>It's a simple dish finder — a curated list of meals I know she can actually eat, drawn from some of my favourite food creators: Gaz Oakley, Derek Sarno, Rainbow Plant Life, LifebyMikeG. All vegetarian, all adapted to her restrictions.</p>
+          <img src="images/dinner_page.png" alt="What's For Dinner? page showing three search modes" class="entry-img" />
+          <p>There are three ways to use it.</p>
+          <p><strong>Surprise me</strong> does exactly what it says. Hit the button and get five random dishes from the full list. Good for when you don't know what you want but you're hungry now.</p>
+          <p><strong>Search by ingredient</strong> lets you type something — halloumi, sweet potato, whatever — and it finds every dish that uses it. Useful when something in the fridge needs eating.</p>
+          <img src="images/dinner_search.png" alt="Search by ingredient with leek typed and Curries & Stews category selected" class="entry-img" />
+          <p><strong>Browse by dish type</strong> gives you category buttons — Pasta & Grains, Noodles, Curries & Stews, Soups, Comfort Food, Salads. Pick one and get five ideas from that section.</p>
+          <p>Each dish card shows the ingredients, a gluten free tag where it applies, and which chef it's inspired by. No recipes — just enough to know what's possible and what to look up.</p>
+          <img src="images/dinner_results.png" alt="Results cards showing noodle dishes with chef attribution tags" class="entry-img" />
+          <p>One thing worth showing: the first draft wasn't perfect. Claude's initial list included a few high-histamine ingredients — peanut butter, tofu, nori, walnuts, pine nuts. So we ran an audit. Everything that didn't pass got replaced or removed. This is the kind of thing that's easy to miss on the first pass and quick to fix when you catch it.</p>
+          <img src="images/dinner_audit.png" alt="Claude audit table showing removed high-histamine ingredients and their replacements" class="entry-img" />
+          <p>It's a small build. But it's one of the more useful things I've made.</p>
+        `
+      },
+      {
+        icon: icons.attentionPt3,
+        photo: 'images/attention_summary.png',
+        photoAlt: 'Ad Performance Summary output showing Creative Interest, Branding and Platform Fit panels',
+        meta: '5 April 2026',
+        title: 'Making an Attention Tester: Part 3',
+        body: `
+          <p>Parts 1 and 2 got the attention tester working — upload a video, get a graph, see where attention drops off and where your brand first appears. Useful. But I kept thinking: what does someone actually <em>do</em> with that information? I think about this a lot. It's why I offered to contribute to this important book by Professor Karen Nelson-Field, The Attention Economy.</p>
+          <img src="images/Attention_book.png" alt="Book on The Attention Economy featuring a contributed chapter" class="entry-img" />
+          <p>A graph tells you what happened. What I wanted was something that tells you what it means.</p>
+          <p>So Part 3 was about adding an Ad Performance Summary. One button. Three verdicts.</p>
+          <p><strong>Is it interesting?</strong> The tool looks at the creative hook — whether the ad has a clear character, action, and setting in the opening seconds. An ad that only establishes a setting, with no character or action, gets flagged as a weak hook. That's not a pass/fail — it's a steer. Go back and look at your first three seconds. This is quite basic for now though — there's a lot more that makes a social ad interesting that I could layer in over time. Camera movement, music, pacing. Something to come back to.</p>
+          <p><strong>Is it well branded early?</strong> This one cross-references the DBA (Distinct Brand Asset) detection from Parts 1 and 2. If your brand appears at 0s — before any drop-off — that's well branded across all platforms. The tool says so clearly, in green. No ambiguity.</p>
+          <p><strong>Which platform is it suited to?</strong> This is where it got interesting to build. I wanted the tool to give a platform-by-platform verdict, not just a generic "this is too long." Claude Code worked out a scoring model using two signals: whether DBA appears before the attention drop-off point, and how the total ad length compares to each platform's active attention window.</p>
+          <img src="images/attention_platform_scoring.png" alt="Platform Fit scoring matrix showing DBA timing and length ratio signals" class="entry-img" />
+          <img src="images/attention_summary.png" alt="Ad Performance Summary showing Creative Interest, Branding and Platform Fit panels" class="entry-img" />
+          <p>The logic comes out as a simple matrix — DBA timing crossed with length ratio — and produces three outcomes: Good, Partial, or Poor. Each platform gets its own line. If it's Partial, you get a specific recommendation: <em>"ad is 1.8× the attention window — consider cutting to 8s."</em> That's the kind of note a media planner would actually use.</p>
+          <p>The thing I find most satisfying about this is that the tool now produces something you could put in front of a colleague. It's not a dashboard for data scientists. It's a summary for someone who needs to make a decision about a piece of creative.</p>
+          <p>That's what I was going for from the start. Took three parts to get there.</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/attention_summary_demo.mov" type="video/mp4" />
+          </video>
+          <p>Building this project gave me something concrete to bring back into work. I've been able to share what I've learned about attention in advertising with colleagues — how it's measured, what it means for creative decisions, and why the first few seconds matter so much.</p>
+        `
+      },
+      {
+        icon: icons.socialCopy,
+        photo: 'images/social_copy_output.png',
+        photoAlt: 'Social copy skill output for Caroline Cleary',
+        meta: '4 April 2026',
+        title: 'Creating a Social Copywriter Skill',
+        body: `
+          <p>I wanted to see if Claude could help brainstorm social media copy. Not generic copy — copy that actually sounds like me, per channel, with two options to choose from.</p>
+          <p>The skill didn't need much building. Claude already understands the structure of social copy across platforms — what works on Instagram is different to what works on X or LinkedIn, and it knows that. What I added was my own tone of voice so the output would sound like me rather than a generic AI post.</p>
+          <p>The tone of voice is built from real writing samples — LinkedIn posts, published articles, and a book contribution. It's broken into seven sections: who stephenjcleary is, voice characteristics, how sentences work, how to open, vocabulary, format by platform, and what the voice is not.</p>
+          <img src="images/tov_page.png" alt="Tone of voice guide page" class="entry-img" />
+          <p>Once that was in place I tried it out. I briefed it to write Instagram copy about my wife Caroline and her mental health therapy business, Replenish. The brief was straightforward — her work on OCD, the key message that she's brilliant at what she does, statement only with no link required.</p>
+          <img src="images/social_copy_skill.png" alt="Social copy skill command in Claude Code" class="entry-img" />
+          <p>What came back was good. Both options captured something real about what Caroline does without being heavy or clinical about it. The second option in particular landed well.</p>
+          <img src="images/social_copy_output.png" alt="Social copy skill output showing Instagram options for Caroline Cleary" class="entry-img" />
+          <p>That's the thing with a well-built skill — the brief can be short because the context is already baked in. I didn't have to explain tone, format, or structure. I just described what I wanted to say and about who.</p>
+        `
+      },
+      {
+        icon: icons.attentionPt2,
+        photo: 'images/attention_dba_graph.png',
+        photoAlt: 'Attention graph with DBA line',
+        meta: '4 April 2026',
+        title: 'Making an Attention Tester: Part 2',
+        body: `
+          <p>Part 1 got the core working — upload a video, get a graph, toggle between platforms. Part 2 was about pushing it further.</p>
+          <p>The first addition was connecting to Gemini. Once that was in place, the tool could actually read and analyse the video content. The result is an AI headline at the top — a one-line summary of what the video contains. It sounds simple but it changes how the tool feels. It goes from a graph to something that understands what it's looking at.</p>
+          <img src="images/attention_ai_headline.png" alt="AI headline showing video summary" class="entry-img" />
+          <p>That got me thinking. If it can analyse a video, can it tell me whether the brand shows up in it? I added a Distinctive Brand Asset checker. You upload an image of your logo, character, or any visual brand asset, and the tool confirms whether it appears in the video — and at what second.</p>
+          <img src="images/attention_dba_checker.png" alt="DBA checker showing Lotto logo detected at 6s" class="entry-img" />
+          <p>The natural next step was to connect those two things. The DBA moment is now marked on the attention graph as a line — so you can see not just when the brand appears, but how much attention the platform is likely to be giving at that exact moment. In this case, the Lotto logo appears at 6 seconds on TikTok, right around where average active attention starts to drop off.</p>
+          <img src="images/attention_dba_graph.png" alt="Attention graph with DBA line marked at 6s" class="entry-img" />
+          <p>That combination — attention curve, platform toggle, and DBA marker — is what makes it useful. It's not just a graph. It's a question: is your brand showing up at the right moment?</p>
+          <p>More to come in Part 3.</p>
+        `
+      },
+      {
+        icon: icons.attentionPt1,
+        photo: 'images/attention_upload.png',
+        photoAlt: 'Attention Tester upload interface',
+        meta: '4 April 2026',
+        title: 'Making an Attention Tester: Part 1',
+        body: `
+          <p>A big part of my work over the last few years has been attention — specifically, how much of it advertising actually gets. I've led studies on this in the Irish market and was included in Professor Karen Nelson-Field's book on the Attention Economy. It's a subject I find genuinely fascinating.</p>
+          <p>I wanted to see if I could build something that explains it. Not a slide deck or a document — an actual tool you can use.</p>
+          <img src="images/attention_upload.png" alt="Attention Tester upload interface" class="entry-img" />
+          <p>The idea was straightforward. You upload a video ad. The tool breaks it down frame by frame, second by second, and shows you a graph of the expected attention that video would get — based on real attention data. Alongside that, it plays back a "window of attention" — the video plays, but only for as long as a real viewer would typically watch it on that platform.</p>
+          <p>The bit I found most interesting to build was the channel toggle. Different platforms have very different attention profiles. What gets watched on YouTube behaves nothing like what gets watched on TikTok or Facebook. So the tool lets you switch between platforms and the graph animates to reflect each one — same video, completely different story depending on where it lives.</p>
+          <p>Here's what the first version looked like:</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="images/attention_demo.mp4" type="video/mp4" />
+          </video>
+          <p>It's rough. The UI needs work and there are things I'd do differently now. But the core of it works — upload a video, get a graph, toggle the platform, watch the numbers change.</p>
+          <p>That felt like enough for Part 1.</p>
+        `
+      },
+      {
+        icon: icons.brandGuide,
+        photo: 'images/fowler_lfc.jpeg',
+        photoAlt: 'Robbie Fowler in the Liverpool away kit',
+        meta: '4 April 2026',
+        title: 'The stephenjcleary Brand Style Guide',
+        body: `
+          <p>I wanted to build a blog and a few tools, but before any of that I needed to figure out what they'd look like. So I started with a brand style guide — a single HTML file that defines the colours, typography, and visual rules for everything I make.</p>
+          <p>I'm a big Liverpool FC fan, and I wanted to base the design on a shirt I love. This shirt is the one.</p>
+          <div class="entry-img-pair">
+            <div>
+              <img src="images/fowler_lfc.jpeg" alt="Robbie Fowler in the 1990s Liverpool away kit" class="entry-img" style="margin:0;" />
+              <p class="entry-img-caption">Robbie Fowler, Liverpool Away Kit 1996/97</p>
+            </div>
+            <div>
+              <img src="images/salah_lfc.jpeg" alt="Mohamed Salah in the current Liverpool away kit" class="entry-img" style="margin:0;" />
+              <p class="entry-img-caption">Mohamed Salah, Liverpool Away Kit 2025/26</p>
+            </div>
+          </div>
+          <p>The palette I built from it uses those warm creams as the base, with a deep red lifted from the Liverpool crest as the accent colour. Paired with a near-black for text and a warm brown-grey for secondary labels.</p>
+          <div class="swatch-row">
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#C8102E;"></div><div class="swatch-block-label">#C8102E</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#A00E24;"></div><div class="swatch-block-label">#A00E24</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#EDE0C4;"></div><div class="swatch-block-label">#EDE0C4</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#F7F2EA;"></div><div class="swatch-block-label">#F7F2EA</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#1C1C1C;"></div><div class="swatch-block-label">#1C1C1C</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#5C5247;"></div><div class="swatch-block-label">#5C5247</div></div>
+          </div>
+          <p>Here's how each one gets used:</p>
+          <p><strong>#C8102E</strong> — deep red, the primary accent. Links, highlights, anything that needs to draw the eye.<br>
+          <strong>#A00E24</strong> — a darker red for hover states and emphasis.<br>
+          <strong>#EDE0C4</strong> — warm ecru, the main background. Straight from the shirt.<br>
+          <strong>#F7F2EA</strong> — lighter cream for cards and section backgrounds.<br>
+          <strong>#1C1C1C</strong> — near-black for all body text.<br>
+          <strong>#5C5247</strong> — warm brown-grey for secondary text and labels.</p>
+          <p>The typeface is Outfit. Warm and readable without feeling corporate. Headlines use Title Case. Body copy uses sentence case. Nothing in all-caps, ever.</p>
+          <p>Six colours, one font, a handful of rules. It's simple enough to apply consistently across anything I build — including this blog.</p>
+        `
+      },
+    ];
+
+    let _entryOpenTime = null;
+    let _entryOpenTitle = null;
+
+    function openEntry(index) {
+      const entry = entries[index];
+      document.getElementById('entry-meta').innerHTML = entry.meta;
+      document.getElementById('entry-title').textContent = entry.title;
+      document.getElementById('entry-body').innerHTML = entry.body;
+      const overlay = document.getElementById('overlay');
+      overlay.classList.add('open');
+      overlay.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        document.querySelectorAll('.slideshow').forEach(el => slideshowInit(el.id));
+      }, 50);
+      _entryOpenTime = Date.now();
+      _entryOpenTitle = entry.title;
+      gtag('event', 'entry_open', { entry_title: entry.title });
+    }
+
+    function closeEntry() {
+      if (_entryOpenTime && _entryOpenTitle) {
+        const seconds = Math.round((Date.now() - _entryOpenTime) / 1000);
+        gtag('event', 'entry_dwell', { entry_title: _entryOpenTitle, seconds_read: seconds });
+        _entryOpenTime = null;
+        _entryOpenTitle = null;
+      }
+      document.getElementById('overlay').classList.remove('open');
+      if (entryOpenedFromList) {
+        entryOpenedFromList = false;
+        document.querySelector('.entry-close').textContent = 'Back to all entries';
+        openAllEntries();
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('overlay')) {
+        closeEntry();
+      }
+    }
+
+    // Slideshow
+    const slideshowState = {};
+
+    function slideshowInit(id) {
+      const el = document.getElementById(id);
+      if (!el || slideshowState[id] !== undefined) return;
+      slideshowState[id] = 0;
+      const slides = el.querySelectorAll('.slideshow-slide');
+      slides.forEach((s, i) => s.classList.toggle('active', i === 0));
+    }
+
+    function slideshowGo(id, dir) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const slides = el.querySelectorAll('.slideshow-slide');
+      if (slideshowState[id] === undefined) slideshowState[id] = 0;
+      slides[slideshowState[id]].classList.remove('active');
+      slideshowState[id] = (slideshowState[id] + dir + slides.length) % slides.length;
+      slides[slideshowState[id]].classList.add('active');
+      const counter = document.getElementById(id + '-counter');
+      if (counter) counter.textContent = (slideshowState[id] + 1) + ' / ' + slides.length;
+    }
+
+    function slideshowNext(id) { slideshowGo(id, 1); }
+    function slideshowPrev(id) { slideshowGo(id, -1); }
+
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('[data-slideshow]');
+      if (!btn) return;
+      slideshowGo(btn.dataset.slideshow, parseInt(btn.dataset.dir, 10));
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeEntry();
+        closeAllEntries();
+        closeSearch();
+      }
+    });
+
+    // ── Slug map — title → filename ──
+    const slugMap = [
+      'posts/is-anyone-listening.html',
+      'posts/a-social-ad-machine.html',
+      'posts/a-seaside-walk-and-ceps.html',
+      'posts/a-bobby-dazzler.html',
+      'posts/the-content-atelier.html',
+      'posts/a-diy-campaign-dashboard.html',
+      'posts/the-13-year-itch.html',
+      'posts/making-an-attention-tester-part-4.html',
+      'posts/the-struggle-is-real-hook-early-or-brand-early.html',
+      'posts/exploring-brand-positioning-with-derek-zoolander.html',
+      'posts/hiring-xabi-alonso.html',
+      'posts/creativity-codes-and-constraints.html',
+      'posts/how-social-advertising-works.html',
+      'posts/sweating-the-brand-asset.html',
+      'posts/five-minutes-and-counting.html',
+      'posts/the-greatest-show.html',
+      'posts/character-incident-place.html',
+      'posts/prompting-my-mascot-to-move.html',
+      'posts/he-kicked-animating-my-brand-mascot.html',
+      'posts/fancy-a-game-of-keepy-uppies.html',
+      'posts/i-made-a-brand-mascot.html',
+      'posts/finding-a-new-font.html',
+      'posts/making-a-deck-with-claude-design.html',
+      'posts/why-am-i-enjoying-this-so-much.html',
+      'posts/whats-for-dinner.html',
+      'posts/making-an-attention-tester-part-3.html',
+      'posts/creating-a-social-copywriter-skill.html',
+      'posts/making-an-attention-tester-part-2.html',
+      'posts/making-an-attention-tester-part-1.html',
+      'posts/the-stephenjcleary-brand-style-guide.html',
+    ];
+
+    // ── Featured card — populate dynamically from entries[0] ──
+    const featured = entries[0];
+    const featuredExcerpt = featured.body.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160) + '…';
+    document.getElementById('featured-meta').textContent = featured.meta;
+    document.getElementById('featured-title').textContent = featured.title;
+    document.getElementById('featured-excerpt').textContent = featuredExcerpt;
+    const featuredImg = document.querySelector('#featured-thumb img');
+    featuredImg.src = featured.photo;
+    featuredImg.alt = featured.photoAlt || '';
+    featuredImg.classList.toggle('thumb-contain', !featured.photo);
+    document.querySelector('#featured-thumb .thumb-icon').innerHTML = featured.icon;
+    if (featured.photoBg) document.getElementById('featured-thumb').style.background = featured.photoBg;
+    document.getElementById('featured-card').onclick = () => location.href = slugMap[0];
+    document.getElementById('featured-read').href = slugMap[0];
+
+    // ── Archive Grid ──
+    function renderArchiveGrid() {
+      const grid = document.getElementById('archive-grid');
+      const slots = [1, 2, 3];
+      grid.innerHTML = slots.map(slot => {
+        const i = slot < entries.length ? slot : slot % entries.length;
+        const entry = entries[i];
+        const excerpt = entry.body.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 120) + '…';
+        const photo = entry.photo
+          ? `<img src="${entry.photo}" alt="${entry.photoAlt || ''}" style="object-position: ${entry.photoPosition || 'center center'}" />`
+          : '';
+        return `
+          <div class="card archive-card" onclick="location.href='${slugMap[i]}'">
+            <div class="archive-image" style="${entry.photoBg ? `background:${entry.photoBg}` : ''}">
+              ${photo}
+              <div class="thumb-icon">${entry.icon}</div>
+            </div>
+            <div class="archive-body">
+              <p class="card-meta">${entry.meta}</p>
+              <h3 class="card-title">${entry.title}</h3>
+              <p class="card-excerpt">${excerpt}</p>
+              <a class="card-read" href="${slugMap[i]}">Read entry</a>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    renderArchiveGrid();
+
+    // ── All Entries Overlay ──
+    function renderArchiveList() {
+      const list = document.getElementById('all-entries-list');
+      list.innerHTML = entries.map((entry, i) => {
+        const datePart = entry.meta.replace(/&nbsp;/g, ' ').replace(/<[^>]*>/g, '').split('·').pop().trim();
+        return `
+          <div class="all-entries-row" onclick="location.href='${slugMap[i]}'">
+            <span class="all-entries-title">${entry.title}</span>
+            <span class="all-entries-date">${datePart}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openAllEntries() {
+      renderArchiveList();
+      const overlay = document.getElementById('all-entries-overlay');
+      overlay.classList.add('open');
+      overlay.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAllEntries() {
+      document.getElementById('all-entries-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleAllEntriesClick(e) {
+      if (e.target === document.getElementById('all-entries-overlay')) closeAllEntries();
+    }
+
+    let entryOpenedFromList = false;
+
+    function openEntryFromAll(index) {
+      closeAllEntries();
+      entryOpenedFromList = true;
+      openEntry(index);
+    }
+
+    // ── Search ──
+    const searchInput = document.getElementById('nav-search-input');
+    const searchResults = document.getElementById('search-results');
+
+    function stripHtml(html) {
+      return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    function getSnippet(text, query, length) {
+      const lower = text.toLowerCase();
+      const idx = lower.indexOf(query.toLowerCase());
+      if (idx === -1) return text.slice(0, length) + '…';
+      const start = Math.max(0, idx - 40);
+      const end = Math.min(text.length, idx + query.length + 80);
+      const snippet = (start > 0 ? '…' : '') + text.slice(start, end) + (end < text.length ? '…' : '');
+      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return snippet.replace(new RegExp(escaped, 'gi'), m => `<mark>${m}</mark>`);
+    }
+
+    searchInput.addEventListener('input', function() {
+      const q = this.value.trim();
+      if (q.length < 2) { closeSearch(); return; }
+
+      const matches = entries.map((entry, i) => {
+        const plain = stripHtml(entry.body);
+        const inTitle = entry.title.toLowerCase().includes(q.toLowerCase());
+        const inBody = plain.toLowerCase().includes(q.toLowerCase());
+        if (!inTitle && !inBody) return null;
+        return { index: i, title: entry.title, snippet: getSnippet(plain, q, 120) };
+      }).filter(Boolean);
+
+      if (matches.length === 0) {
+        searchResults.innerHTML = '<p class="search-no-results">No entries found.</p>';
+      } else {
+        searchResults.innerHTML = matches.map(m => `
+          <div class="search-result-item" onclick="location.href='${slugMap[m.index]}'; clearSearch();">
+            <div class="search-result-title">${m.title}</div>
+            <div class="search-result-snippet">${m.snippet}</div>
+          </div>
+        `).join('');
+      }
+      searchResults.classList.add('visible');
+    });
+
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') clearSearch();
+    });
+
+    function closeSearch() {
+      searchResults.classList.remove('visible');
+    }
+
+    function clearSearch() {
+      searchResults.classList.remove('visible');
+      searchInput.value = '';
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-search')) closeSearch();
+    });
+  </script>
+
+</body>
+</html>

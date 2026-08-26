@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>stephenjcleary</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HLCJ1PDQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5HLCJ1PDQK');
+  </script>
+  <style>
+    :root {
+      --cream:       #EDE0C4;
+      --cream-light: #F7F2EA;
+      --red:         #C8102E;
+      --red-deep:    #A00E24;
+      --dark:        #1C1C1C;
+      --mid:         #5C5247;
+      --font:        'Outfit', 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--cream-light);
+      color: var(--dark);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    nav {
+      background: transparent;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 56px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+
+    .nav-search {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-search input {
+      background: #2e2e2e;
+      border: 1px solid rgba(237, 224, 196, 0.25);
+      border-radius: 4px;
+      color: #ffffff;
+      -webkit-text-fill-color: #ffffff;
+      caret-color: #ffffff;
+      font-family: var(--font);
+      font-size: 13px;
+      padding: 6px 14px;
+      width: 220px;
+      outline: none;
+      position: relative;
+      z-index: 101;
+      transition: border-color 0.15s, width 0.2s;
+    }
+
+    .nav-search input:focus {
+      border-color: rgba(237, 224, 196, 0.6);
+      width: 280px;
+    }
+
+    .nav-search input:-webkit-autofill {
+      -webkit-text-fill-color: #ffffff;
+      -webkit-box-shadow: 0 0 0px 1000px #2e2e2e inset;
+    }
+
+    .nav-search input::placeholder {
+      color: rgba(237, 224, 196, 0.4);
+    }
+
+.search-results {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 340px;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      overflow: hidden;
+      z-index: 200;
+    }
+
+    .search-results.visible {
+      display: block;
+    }
+
+    .search-result-item {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--cream);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .search-result-item:last-child {
+      border-bottom: none;
+    }
+
+    .search-result-item:hover {
+      background: var(--cream-light);
+    }
+
+    .search-result-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 3px;
+    }
+
+    .search-result-snippet {
+      font-size: 12px;
+      color: var(--mid);
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .search-result-snippet mark {
+      background: #fde68a;
+      color: var(--dark);
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+
+    .search-no-results {
+      padding: 16px;
+      font-size: 13px;
+      color: var(--mid);
+      text-align: center;
+    }
+
+    /* ── Hero (header + bio share positioned wrapper) ── */
+    .hero {
+      position: relative;
+    }
+
+    /* ── Page Header ── */
+    .page-header {
+      background: var(--dark);
+      padding: 76px 32px 16px;
+      border-bottom: 3px solid var(--red);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dot grid */
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+
+    /* Red glow — right side */
+    .page-header::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 72%;
+      transform: translate(-50%, -44%);
+      width: 500px;
+      height: 240px;
+      background: radial-gradient(ellipse at center,
+        rgba(200,16,46,0.35) 0%,
+        rgba(200,16,46,0.14) 40%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+
+    .page-header .container {
+      padding-bottom: 0;
+      position: relative;
+      z-index: 1;
+      padding-right: 220px;
+    }
+
+    .header-figurine-mobile {
+      display: none;
+    }
+
+    .mobile-bio-row {
+      display: none;
+    }
+
+    .header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--red);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .page-title {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      color: var(--cream-light);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.45);
+    }
+
+    /* ── Bio strip ── */
+    .bio-strip {
+      position: relative;
+    }
+
+    .bio-strip .container {
+      padding-top: 14px;
+      padding-bottom: 16px;
+    }
+
+    .bio-strip-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 14px 32px 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .bio-divider {
+      width: 1px;
+      height: 52px;
+      background: var(--cream);
+      flex-shrink: 0;
+    }
+
+    .bio-text {
+      /* Stop text before it reaches the figurine */
+      max-width: 440px;
+    }
+
+    .bio-text p {
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    .bio-linkedin {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      text-decoration: none;
+      margin-top: 6px;
+      transition: color 0.15s;
+    }
+
+    .bio-linkedin:hover { color: var(--red-deep); }
+    .bio-linkedin::after { content: '→'; }
+
+    /* ── Figurine ── */
+    .hero-figure {
+      position: absolute;
+      /* Anchor to right edge of 720px container */
+      right: calc(50% - 360px);
+      top: auto;
+      bottom: -16px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .hero-figure img {
+      height: 340px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 32px 0;
+    }
+
+    section {
+      margin-top: 28px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--mid);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* ── Cards shared ── */
+    .card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .card-meta {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--mid);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .card-excerpt {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .card-read {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.15s;
+    }
+
+    .card-read:hover {
+      color: var(--red-deep);
+    }
+
+    .card-read::after {
+      content: '→';
+    }
+
+    /* ── Image / Video placeholders ── */
+    .img-placeholder {
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--mid);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+
+    .video-placeholder {
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--cream-light);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-top: 14px solid transparent;
+      border-bottom: 14px solid transparent;
+      border-left: 22px solid var(--red);
+      margin-left: 4px;
+    }
+
+    /* ── Featured Card ── */
+    .featured-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 3px solid var(--red);
+    }
+
+    .featured-image {
+      height: 280px;
+      min-height: 280px;
+      max-height: 280px;
+      overflow: hidden;
+      position: relative;
+      background: #1C1C1C;
+    }
+
+    .featured-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .featured-image img.thumb-contain {
+      object-fit: contain;
+      background: #1C1C1C;
+      padding: 24px;
+    }
+
+    .featured-image .thumb-icon {
+      display: none;
+    }
+
+    .featured-body {
+      padding: 36px 36px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .featured-body .card-title {
+      font-size: 24px;
+    }
+
+    .featured-body .card-excerpt {
+      font-size: 15px;
+    }
+
+    /* ── Archive Grid ── */
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .archive-card {
+      border-top: 3px solid var(--cream);
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+    }
+
+    .archive-card:hover {
+      border-top-color: var(--red);
+    }
+
+    .archive-image {
+      height: 160px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .archive-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .archive-image .thumb-icon {
+      display: none;
+    }
+
+    .archive-body {
+      padding: 20px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .archive-body .card-title {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .archive-body .card-excerpt {
+      flex: 1;
+    }
+
+    /* ── Full Entry Overlay ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 28, 28, 0.7);
+      z-index: 200;
+      overflow-y: auto;
+      padding: 48px 24px;
+    }
+
+    .overlay.open {
+      display: block;
+    }
+
+    .entry-panel {
+      background: var(--cream-light);
+      max-width: 720px;
+      margin: 0 auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    .entry-header {
+      background: var(--dark);
+      padding: 36px 40px 32px;
+      border-bottom: 3px solid var(--red);
+    }
+
+    .entry-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .entry-header-top .card-meta {
+      margin-bottom: 0;
+    }
+
+    .entry-close-top {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      transition: color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .entry-close-top:hover {
+      color: var(--red-deep);
+    }
+
+    .entry-header .card-meta {
+      color: var(--mid);
+      margin-bottom: 10px;
+    }
+
+    .entry-title {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 700;
+      color: var(--cream-light);
+      line-height: 1.2;
+    }
+
+    .entry-body {
+      padding: 40px 40px 48px;
+    }
+
+    .entry-body p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+
+    .entry-body ul {
+      margin: 0 0 20px 20px;
+      padding: 0;
+    }
+
+    .entry-body ul li {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .entry-body .img-placeholder {
+      width: 100%;
+      height: 240px;
+      border-radius: 6px;
+      margin: 28px 0;
+    }
+
+    .entry-body .video-placeholder {
+      width: 100%;
+      height: 240px;
+      border-radius: 6px;
+      margin: 28px 0;
+    }
+
+    .entry-close {
+      display: block;
+      margin: 0 40px 32px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: var(--font);
+      text-align: left;
+      transition: color 0.15s;
+    }
+
+    .entry-close:hover {
+      color: var(--red-deep);
+    }
+
+    .entry-close::before {
+      content: '← ';
+    }
+
+    /* ── Entry images ── */
+    .entry-img {
+      width: 100%;
+      border-radius: 6px;
+      margin: 28px 0;
+      display: block;
+      object-fit: cover;
+      max-height: 400px;
+    }
+
+    .entry-img-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .entry-img-pair img {
+      width: 100%;
+      border-radius: 6px;
+      object-fit: cover;
+      height: 280px;
+    }
+
+    .entry-img-caption {
+      font-size: 12px;
+      color: var(--mid);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    /* ── Slideshow ── */
+    .slideshow {
+      margin: 28px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #1C1C1C;
+    }
+
+    .slideshow-track {
+      position: relative;
+    }
+
+    .slideshow-slide {
+      width: 100%;
+      display: none;
+      border-radius: 0;
+      margin: 0;
+    }
+
+    .slideshow-slide.active {
+      display: block;
+    }
+
+    .slideshow-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 12px 16px;
+      background: #1C1C1C;
+    }
+
+    .slideshow-btn {
+      background: none;
+      border: 1px solid rgba(237,224,196,0.3);
+      color: #EDE0C4;
+      border-radius: 4px;
+      width: 32px;
+      height: 32px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .slideshow-btn:hover {
+      border-color: #C8102E;
+      background: rgba(200,16,46,0.1);
+      color: #EDE0C4;
+    }
+
+    .slideshow-counter {
+      font-size: 13px;
+      color: rgba(237,224,196,0.5);
+      min-width: 40px;
+      text-align: center;
+    }
+
+    /* ── Colour swatches ── */
+    .swatch-row {
+      display: flex;
+      gap: 12px;
+      margin: 28px 0;
+      flex-wrap: wrap;
+    }
+
+    .swatch-block {
+      flex: 1;
+      min-width: 80px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .swatch-block-colour {
+      height: 64px;
+    }
+
+    .swatch-block-label {
+      background: white;
+      padding: 6px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--dark);
+      text-align: center;
+    }
+
+    /* ── View All Button ── */
+    .view-all-btn {
+      display: block;
+      width: 100%;
+      padding: 18px;
+      background: white;
+      border: 1px solid var(--cream);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--dark);
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .view-all-btn:hover {
+      background: var(--cream-light);
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    /* ── All Entries Overlay ── */
+    .all-entries-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 28, 28, 0.7);
+      z-index: 200;
+      overflow-y: auto;
+      padding: 100px 24px 48px;
+    }
+
+    .all-entries-overlay.open {
+      display: block;
+    }
+
+    .all-entries-panel {
+      background: var(--cream-light);
+      max-width: 720px;
+      margin: 0 auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    .all-entries-header {
+      background: var(--dark);
+      padding: 28px 40px;
+      border-bottom: 3px solid var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .all-entries-header h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cream-light);
+    }
+
+    .all-entries-close {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      transition: color 0.15s;
+    }
+
+    .all-entries-close:hover {
+      color: var(--red-deep);
+    }
+
+    .all-entries-list {
+      padding: 8px 0;
+    }
+
+    .all-entries-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 40px;
+      border-bottom: 1px solid var(--cream);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .all-entries-row:last-child {
+      border-bottom: none;
+    }
+
+    .all-entries-row:hover {
+      background: var(--cream);
+    }
+
+    .all-entries-row:hover .all-entries-title {
+      color: var(--red);
+    }
+
+    .all-entries-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--dark);
+      transition: color 0.1s;
+    }
+
+    .all-entries-date {
+      font-size: 12px;
+      color: var(--mid);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 32px 32px;
+    }
+    footer img {
+      max-width: 960px;
+      width: 100%;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      .featured-card {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-image {
+        height: 80px;
+        min-height: 0;
+        background: var(--cream);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .featured-image img {
+        display: none;
+      }
+
+      .featured-image .thumb-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+      }
+
+      .featured-image .thumb-icon svg {
+        width: 72px;
+        height: auto;
+      }
+
+      .archive-image {
+        height: 64px;
+        background: var(--cream);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .archive-image img {
+        display: none;
+      }
+
+      .archive-image .thumb-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+      }
+
+      .archive-image .thumb-icon svg {
+        width: 56px;
+        height: auto;
+      }
+
+      .featured-body {
+        padding: 24px;
+      }
+
+      .archive-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 0 20px 0;
+      }
+
+      nav {
+        padding: 0 20px;
+      }
+
+      .page-header {
+        padding: 72px 20px 16px;
+      }
+
+      .bio-strip-inner {
+        padding: 16px 20px 20px 20px;
+        gap: 16px;
+      }
+
+      .bio-text p {
+        max-width: 100%;
+        font-size: 15px;
+      }
+
+      /* Hide desktop elements on mobile */
+      .hero-figure {
+        display: none;
+      }
+
+      .bio-strip {
+        display: none;
+      }
+
+      .page-header .container {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      /* Option A — mobile bio row */
+      .mobile-bio-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px 20px 20px;
+        background: var(--cream-light);
+        border-bottom: 1px solid var(--cream);
+      }
+
+      .mobile-bio-fig {
+        flex-shrink: 0;
+      }
+
+      .mobile-bio-fig img {
+        height: 140px;
+        width: auto;
+        display: block;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+      }
+
+      .mobile-bio-text {
+        padding-top: 4px;
+      }
+
+      .mobile-bio-text p {
+        font-size: 13px;
+        color: var(--mid);
+        line-height: 1.6;
+      }
+
+      .page-subtitle {
+        font-size: clamp(13px, 3.5vw, 15px);
+        white-space: nowrap;
+      }
+
+      .entry-header {
+        padding: 28px 24px 24px;
+      }
+
+      .entry-body {
+        padding: 28px 24px 36px;
+      }
+
+      .entry-close {
+        margin: 0 24px 24px;
+      }
+
+      footer {
+        padding: 16px 20px 0;
+      }
+    }
+
+    @media (max-width: 960px) and (min-width: 721px) {
+      .archive-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-search">
+      <input type="text" id="nav-search-input" placeholder="Search entries…" autocomplete="off" spellcheck="false" />
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </nav>
+
+  <!-- Hero: header + bio + figure -->
+  <div class="hero">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="container">
+        <div class="header-tag">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <rect x="5" y="1" width="5" height="3" rx="1" fill="white" transform="rotate(45 5 1)"/>
+              <line x1="2" y1="10" x2="6.5" y2="5.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Build Log
+          </div>
+          <h1 class="page-title">stephen<span style="color:var(--red);">j</span>cleary</h1>
+      </div>
+    </div>
+
+    <!-- Bio strip (desktop) -->
+    <div class="bio-strip">
+      <div class="container">
+        <div class="bio-text">
+          <p>Brand marketer with 13+ years experience. Global brand marketing at adidas Football, currently a brand manager at The National Lottery in Dublin. This blog is a record of what I'm building, learning, and figuring out along the way.</p>
+          <a class="bio-linkedin" href="https://www.linkedin.com/in/clearystephen/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile bio row (Option A) -->
+    <div class="mobile-bio-row">
+      <div class="mobile-bio-fig">
+        <img src="../images/SJC_headerMay.png" alt="Stephen Cleary Corinthian figurine" />
+      </div>
+      <div class="mobile-bio-text">
+        <p>Brand marketer with 13+ years experience. Global brand marketing at adidas, currently at The Irish National Lottery. This is a record of what I'm building, and learning along the way.</p>
+        <a class="bio-linkedin" href="https://www.linkedin.com/in/clearystephen/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+      </div>
+    </div>
+
+    <!-- Figurine straddling the header/bio boundary -->
+    <div class="hero-figure">
+      <img src="../images/SJC_headerMay.png" alt="Stephen Cleary Corinthian figurine" />
+    </div>
+
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+
+    <!-- Latest -->
+    <section>
+      <p class="section-label">Latest</p>
+      <div class="card featured-card" onclick="openEntry(0)" id="featured-card">
+        <div id="featured-thumb" class="featured-image">
+          <img src="../images/ChatGPT_Image_Apr_24__2026__08_09_16_AM-removebg-preview.png" alt="ChatGPT-generated Corinthian figurine of Stephen Cleary" class="thumb-contain" />
+          <div class="thumb-icon"></div>
+        </div>
+        <div class="featured-body">
+          <p class="card-meta" id="featured-meta"></p>
+          <h2 class="card-title" id="featured-title"></h2>
+          <p class="card-excerpt" id="featured-excerpt"></p>
+          <a class="card-read" onclick="event.stopPropagation(); openEntry(0)">Read entry</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer — used as separator between latest and archive -->
+  <footer>
+    <picture>
+      <source media="(max-width: 720px)" srcset="images/SJC_section_divider.png" />
+      <img src="../images/SJC_footer.png" alt="stephenjcleary" />
+    </picture>
+  </footer>
+
+  <div class="container">
+
+    <!-- Previous Entries -->
+    <section>
+      <p class="section-label">Previous Entries</p>
+      <div class="archive-grid" id="archive-grid"></div>
+    </section>
+
+    <!-- View All Button -->
+    <section>
+      <button class="view-all-btn" onclick="openAllEntries()">View all entries</button>
+    </section>
+
+    <div style="height: 48px;"></div>
+
+  </div>
+
+  <!-- All Entries Overlay -->
+  <div class="all-entries-overlay" id="all-entries-overlay" onclick="handleAllEntriesClick(event)">
+    <div class="all-entries-panel">
+      <div class="all-entries-header">
+        <h2>All Entries</h2>
+        <button class="all-entries-close" onclick="closeAllEntries()">Close ✕</button>
+      </div>
+      <div class="all-entries-list" id="all-entries-list"></div>
+    </div>
+  </div>
+
+  <!-- Full Entry Overlay -->
+  <div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+    <div class="entry-panel" id="entry-panel">
+      <div class="entry-header">
+        <div class="entry-header-top">
+          <p class="card-meta" id="entry-meta"></p>
+          <button class="entry-close-top" onclick="closeEntry()">Close ✕</button>
+        </div>
+        <h1 class="entry-title" id="entry-title"></h1>
+      </div>
+      <div class="entry-body" id="entry-body"></div>
+      <button class="entry-close" onclick="closeEntry()">Back to all entries</button>
+    </div>
+  </div>
+
+  <script>
+    // SVG icons: bold geometric, red (#C8102E) on cream (#EDE0C4)
+    const icons = {
+      handshake: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Left arm -->
+        <path d="M10 75 Q30 65 55 62" stroke="#C8102E" stroke-width="7" stroke-linecap="round" fill="none"/>
+        <!-- Left hand fingers -->
+        <path d="M55 62 Q65 55 72 58 Q70 48 78 47 Q76 38 84 39 Q83 31 90 33 L95 50 Q100 45 104 50 L98 65" stroke="#C8102E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <!-- Right arm -->
+        <path d="M150 75 Q130 65 105 62" stroke="#C8102E" stroke-width="7" stroke-linecap="round" fill="none"/>
+        <!-- Right hand fingers -->
+        <path d="M105 62 Q95 55 88 58 Q90 48 82 47 Q84 38 76 39 Q77 31 70 33 L65 50 Q60 45 56 50 L62 65" stroke="#C8102E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <!-- Clasped centre -->
+        <ellipse cx="80" cy="62" rx="18" ry="10" fill="#C8102E" opacity="0.85"/>
+      </svg>`,
+      lough: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Water waves -->
+        <path d="M10 88 Q30 80 50 88 Q70 96 90 88 Q110 80 130 88 Q150 96 160 88" stroke="#C8102E" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M10 100 Q30 92 50 100 Q70 108 90 100 Q110 92 130 100 Q150 108 160 100" stroke="#C8102E" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
+        <!-- Boat hull -->
+        <path d="M30 82 L40 68 L120 68 L130 82 Z" fill="#C8102E"/>
+        <!-- Cabin -->
+        <rect x="60" y="50" width="44" height="20" rx="3" fill="#C8102E" opacity="0.75"/>
+        <!-- Cabin window -->
+        <rect x="68" y="55" width="12" height="10" rx="2" fill="#EDE0C4"/>
+        <rect x="86" y="55" width="12" height="10" rx="2" fill="#EDE0C4"/>
+      </svg>`,
+      socialCopy: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <rect x="36" y="28" width="88" height="54" rx="8" fill="#C8102E"/>
+        <polygon points="52,82 52,96 68,82" fill="#C8102E"/>
+        <rect x="50" y="41" width="60" height="6" rx="3" fill="#EDE0C4"/>
+        <rect x="50" y="53" width="44" height="6" rx="3" fill="#EDE0C4"/>
+        <rect x="50" y="65" width="52" height="6" rx="3" fill="#EDE0C4"/>
+      </svg>`,
+      attentionPt2: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <polyline points="20,80 40,80 55,45 65,65 75,35 85,60 95,50 110,70 125,60 140,70" stroke="#C8102E" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="95" y1="26" x2="95" y2="88" stroke="#C8102E" stroke-width="2.5" stroke-dasharray="5 4" opacity="0.55"/>
+        <circle cx="95" cy="50" r="6" fill="#C8102E"/>
+        <line x1="20" y1="88" x2="145" y2="88" stroke="#C8102E" stroke-width="2" opacity="0.25"/>
+      </svg>`,
+      attentionPt1: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <line x1="80" y1="84" x2="80" y2="36" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <polyline points="58,57 80,33 102,57" stroke="#C8102E" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="42" y="88" width="76" height="8" rx="4" fill="#C8102E"/>
+      </svg>`,
+      attentionPt3: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <rect x="24" y="22" width="112" height="22" rx="6" fill="#C8102E" opacity="0.15"/>
+        <rect x="32" y="28" width="68" height="6" rx="3" fill="#C8102E"/>
+        <circle cx="122" cy="33" r="7" fill="#C8102E"/>
+        <rect x="24" y="49" width="112" height="22" rx="6" fill="#C8102E" opacity="0.15"/>
+        <rect x="32" y="55" width="52" height="6" rx="3" fill="#C8102E"/>
+        <circle cx="122" cy="60" r="7" fill="#C8102E"/>
+        <rect x="24" y="76" width="112" height="22" rx="6" fill="#C8102E" opacity="0.15"/>
+        <rect x="32" y="82" width="60" height="6" rx="3" fill="#C8102E"/>
+        <circle cx="122" cy="87" r="7" fill="#C8102E"/>
+      </svg>`,
+      brandGuide: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <rect x="24" y="26" width="34" height="68" rx="6" fill="#C8102E"/>
+        <rect x="63" y="26" width="34" height="68" rx="6" fill="#A00E24"/>
+        <rect x="102" y="26" width="34" height="68" rx="6" fill="#1C1C1C"/>
+        <rect x="32" y="86" width="18" height="4" rx="2" fill="#EDE0C4" opacity="0.55"/>
+        <rect x="71" y="86" width="18" height="4" rx="2" fill="#EDE0C4" opacity="0.55"/>
+        <rect x="110" y="86" width="18" height="4" rx="2" fill="#EDE0C4" opacity="0.55"/>
+      </svg>`,
+      dinner: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Fork (left) -->
+        <line x1="57" y1="18" x2="57" y2="102" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <line x1="48" y1="18" x2="48" y2="48" stroke="#C8102E" stroke-width="4" stroke-linecap="round"/>
+        <line x1="66" y1="18" x2="66" y2="48" stroke="#C8102E" stroke-width="4" stroke-linecap="round"/>
+        <path d="M48 48 Q48 58 57 60 Q66 58 66 48" stroke="#C8102E" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- Knife (right) -->
+        <line x1="103" y1="18" x2="103" y2="102" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <path d="M103 18 Q118 28 118 50 Q118 62 103 65" stroke="#C8102E" stroke-width="4" fill="#C8102E" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>`,
+      fontFind: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <text x="18" y="98" font-family="Georgia, serif" font-size="90" font-weight="700" fill="#C8102E">A</text>
+        <text x="96" y="74" font-family="Arial, sans-serif" font-size="46" font-weight="700" fill="#1C1C1C" opacity="0.65">a</text>
+        <rect x="18" y="102" width="124" height="4" rx="2" fill="#C8102E"/>
+      </svg>`,
+      claudeDesign: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Slide / canvas shape -->
+        <rect x="22" y="30" width="116" height="72" rx="6" fill="#C8102E"/>
+        <!-- Screen glare line -->
+        <rect x="30" y="38" width="100" height="56" rx="4" fill="#EDE0C4" opacity="0.12"/>
+        <!-- Title bar lines -->
+        <rect x="34" y="46" width="48" height="7" rx="3.5" fill="#EDE0C4"/>
+        <rect x="34" y="58" width="32" height="5" rx="2.5" fill="#EDE0C4" opacity="0.55"/>
+        <!-- Small image placeholder box -->
+        <rect x="88" y="44" width="36" height="28" rx="4" fill="#EDE0C4" opacity="0.25"/>
+        <!-- Red accent bar bottom -->
+        <rect x="22" y="94" width="116" height="4" rx="2" fill="#A00E24"/>
+      </svg>`,
+      mascot: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Base -->
+        <ellipse cx="80" cy="98" rx="28" ry="7" fill="#C8102E"/>
+        <!-- Body -->
+        <rect x="65" y="62" width="30" height="32" rx="6" fill="#C8102E"/>
+        <!-- Head -->
+        <circle cx="80" cy="50" r="16" fill="#C8102E"/>
+        <!-- Arms -->
+        <line x1="65" y1="72" x2="48" y2="82" stroke="#C8102E" stroke-width="6" stroke-linecap="round"/>
+        <line x1="95" y1="72" x2="112" y2="82" stroke="#C8102E" stroke-width="6" stroke-linecap="round"/>
+        <!-- Face highlight -->
+        <circle cx="74" cy="47" r="4" fill="#EDE0C4" opacity="0.3"/>
+      </svg>`,
+      whyEnjoying: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Bulb globe -->
+        <path d="M80 22 C60 22 46 36 46 54 C46 66 53 76 63 82 L63 92 L97 92 L97 82 C107 76 114 66 114 54 C114 36 100 22 80 22 Z" fill="#C8102E"/>
+        <!-- Base rings -->
+        <rect x="63" y="93" width="34" height="6" rx="3" fill="#C8102E"/>
+        <rect x="66" y="101" width="28" height="5" rx="2.5" fill="#C8102E"/>
+        <!-- Highlight -->
+        <path d="M66 40 C66 36 70 32 76 30" stroke="#EDE0C4" stroke-width="4" stroke-linecap="round" opacity="0.55"/>
+      </svg>`,
+      fruit: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Fruit body (orange) -->
+        <circle cx="80" cy="68" r="36" fill="#C8102E"/>
+        <!-- Leaf -->
+        <path d="M80 32 Q92 18 106 22 Q96 34 80 32Z" fill="#C8102E" opacity="0.75"/>
+        <!-- Stem -->
+        <line x1="80" y1="32" x2="80" y2="42" stroke="#C8102E" stroke-width="4" stroke-linecap="round"/>
+        <!-- Highlight -->
+        <circle cx="66" cy="56" r="8" fill="#EDE0C4" opacity="0.2"/>
+      </svg>`,
+      fiveMin: `<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="160" height="120" fill="#EDE0C4"/>
+        <!-- Clock face -->
+        <circle cx="80" cy="60" r="42" fill="#C8102E"/>
+        <circle cx="80" cy="60" r="36" fill="#EDE0C4"/>
+        <!-- Hour hand (12 o'clock) -->
+        <line x1="80" y1="60" x2="80" y2="32" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/>
+        <!-- Minute hand (5 mins = 30deg from 12) -->
+        <line x1="80" y1="60" x2="80" y2="32" stroke="#C8102E" stroke-width="5" stroke-linecap="round" transform="rotate(30 80 60)"/>
+        <!-- Centre dot -->
+        <circle cx="80" cy="60" r="4" fill="#C8102E"/>
+      </svg>`,
+    };
+
+    const entries = [
+      {
+        icon: icons.handshake,
+        photo: 'images/Xabi.png',
+        photoAlt: 'Xabi Alonso',
+        meta: '22 May 2026',
+        title: "Hiring Xabi Alonso",
+        body: `
+          <img src="../images/Xabi.png" alt="Xabi Alonso" class="entry-img" />
+          <p>Once upon a time I gave Xabi Alonso his "first job" in management.</p>
+          <p>I was hoping to post this in celebration of him returning to Liverpool, but instead he has gone to Chelsea.</p>
+          <p>Nearly 10 years ago I managed a UEFA Champions League activation at adidas called Tango Squad FC. It was a micro-influencer campaign, a global super team of what we would now call content creators.</p>
+          <p>The team needed a manager and Xabi Alonso had recently retired, planning his next move. We were delighted he joined the project to "manage" the team.</p>
+          <img src="../images/TSFC_Alonso.jpg" alt="Tango Squad FC with Xabi Alonso" class="entry-img" />
+          <p>We took the squad across Europe, training at the biggest clubs and meeting the biggest players. By giving the kids this access and creating our docu-series, we wanted to find out: could the combined engaged reach of the micro-influencers match the reach of someone like Xabi? Well, we found that they did, when promoting many of the episodes.</p>
+          <p>That being said, when I stood at the sideline of a pitch in Madrid and captured the video of Xabi announcing he was going into management, the news went everywhere. It was a teaser for the campaign. It needed that big moment to drive the awareness. Usually that's how things go viral. A super spreader. One-to-one sharing and word of mouth can help brand perception. Media spend will help too of course. But the large well followed accounts sharing a video that hits the right emotion are those which will help the video reach the masses.</p>
+          <img src="../images/xabi_beinsports.png" alt="beIN Sports screengrab — Xabi Alonso announcing he was going into management" class="entry-img" style="object-fit: contain; max-height: 420px; background: var(--cream-light); padding: 24px;" />
+          <p>So Xabi has gone on to have an exciting managerial career so far. It doesn't look like he'll manage Liverpool sadly, but at least I can say he did manage my other team.</p>
+        `
+      },
+      {
+        icon: icons.lough,
+        photo: 'images/SJC_lough_pose.png',
+        photoAlt: 'SJC figurine standing on the rear deck of a cabin cruiser sailing along an Irish lough',
+        meta: '21 May 2026',
+        title: "Creativity, Codes & Constraints",
+        body: `
+          <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+            <source src="../images/lough_animation.mp4" type="video/mp4" />
+          </video>
+          <p>A few years ago I worked on an ad for The National Lottery. It was built around a brilliant organisation called Lough Ree Access for All, a group who built an accessible boat so that everyone, regardless of ability, could get out on the water and experience the lough.</p>
+          <p>When you're making an ad for a charity or a third-party cause, the emotional angles are everywhere. The people who built it. The service users. The challenges that were overcome. The volunteers. The challenge isn't finding the emotion. It's deciding which emotion to follow, and how to tell a complete story in 40 seconds while making sure the brand still gets noticed.</p>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin:28px 0;">
+            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube.com/embed/SUCXzv0y7AE?si=yar2HA3_Zf694Kgs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <p>I've been listening to Adam Morgan's podcast <a href="https://podcasts.apple.com/gb/podcast/the-magic-of-aardman-with-magda-osinska/id1707821202?i=1000768498442" target="_blank" rel="noopener noreferrer"><em>Let's Make This More Interesting</em></a> recently. A conversation with Magda Osinska from Aardman stuck with me. She talked about the challenge and the thrill of working within constraints: the stop-motion process, the tiny sets, the physical limitations of the craft. But they make it work. And they make it work beautifully. Maybe it's the constraints that keep the work focused to complete the job it's meant to do.</p>
+          <p>The Lough Ree ad was packed with the emotion of a real tightly knit community, but carefully crafted. We had a charming voiceover from a key member of the team. We selected the frames with the most joy from service users out on the water. It was also well-branded, because it needed to be. It was all wrapped up and presented clearly by the National Lottery. The logo early, the key funding message at the end, and the brand track running throughout.</p>
+          <p>We tested it with System 1 at the time. It scored 5.6 stars. That's genuinely rare. Around 1% of ads ever reach that level. The emotional intensity was rated exceptional. Brand fluency hit 92%. Participants felt pleased for others. Uplifted.</p>
+          <p>A key character. An unfolding story. A clear sense of place. Well-branded.</p>
+          <p>Creativity and codes, co-existing.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/lightswitch_thumb.png',
+        photoAlt: 'SJC figurine standing in a rustic living room beside a light switch',
+        meta: '16 May 2026',
+        title: "How social advertising works",
+        body: `
+          <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+            <source src="../images/lightswitch.mp4" type="video/mp4" />
+          </video>
+          <p>I heard a really good analogy once that explained how social advertising works. It was a lady at a conference and unfortunately I can't remember who it was. She said, if you have a strong brand with a campaign that is broad reaching and carries emotion, using a set of distinctive brand assets, it's like having a beautifully furnished living room. Advertising on social is like flicking the lights on and off. Consider your social feeds. People are scrolling and there's so much distraction. But at a glance, people might notice the brand. Your distinctive brand assets are really useful ways to help with that.</p>
+          <p>Peter Field is one of the most respected voices in marketing effectiveness. He told us at the National Lottery that social media advertising is a gentle reinforcement of your distinctive brand assets.</p>
+          <p>Social has great reach and targeting capabilities. But the evidence is pretty clear on how little attention you are likely to get. From long form, short form, creators, gifs, memes and trends, with all the things possible on social, there are also a lot of constraints on how much of your advertising is actually seen. So the question I keep coming back to is whether your brand is getting noticed at all.</p>
+          <p>The guidance from Peter Field and the attention research we had done transformed our approach to social advertising at The National Lottery. We created a set of principles that we applied to everything we made.</p>
+          <ul>
+            <li>No longer than 10 seconds, no long story arcs</li>
+            <li>Distinctive brand assets used up front; big, early and often</li>
+            <li>Works with and without audio</li>
+            <li>Bright visuals with little text</li>
+            <li>Fun and rooted in the overall brand narrative</li>
+          </ul>
+          <p>No more long ads. We cut out the heavy dialogue. Considered how the brand shows up early. But kept it as bright and fun within the time likely to be available.</p>
+          <p>We make sure when the lights flick on, people know which room they're looking at.</p>
+        `
+      },
+      {
+        icon: icons.fruit,
+        photo: 'images/FruitVeg.png',
+        photoAlt: 'SJC figurine head emerging from a towering pile of fruit and vegetables in a supermarket aisle',
+        meta: '14 May 2026',
+        title: "Sweating the brand asset",
+        body: `
+          <p>Tesco recently launched a campaign for their Free Fruit &amp; Veg for Schools initiative. It introduces a character called Plumbert the Fruit Giant. It's lovely work — fun, well branded early and often, with a great track. No wonder it scored a 5.9 star rating with System 1.</p>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin:28px 0;">
+            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube.com/embed/3CYzNYeG3Kg?si=IbXhnZgdKykcDijz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <p>A character like Plumbert is exactly what Jenni Romaniuk would call a Distinctive Brand Asset in the making. Her work in <em>Building Distinctive Brand Assets</em> is clear on this: assets need to be grown over time. Used consistently. Sweated.</p>
+          <p>So I went looking for Plumbert beyond the ad. Checked Tesco's website. Nothing. Their Instagram is running cutdowns of the ad, but they're not exactly made for social. For a character with this much personality, that feels like a missed opportunity. Perhaps it's still early days and Tesco has big, giant plans in mind. I know the trade press articles have said the campaign will be live across various channels so it will be great to see how that is done beyond launch.</p>
+          <img src="../images/GiantFruit_ooh.png" alt="Plumbert the Fruit Giant OOH campaign screengrab" class="entry-img" />
+          <p>There is one challenge that Tesco might face. Plumbert is a complicated character to reproduce consistently — and consistency is everything when you're building a DBA.</p>
+          <img src="../images/waterslide94.png" alt="The National Lottery waterslide — a visual distinctive brand asset recognised by 94% of Irish adults" class="entry-img" />
+          <p>At The National Lottery a few years ago we introduced a campaign that featured Waterslides. This became a visual DBA, so much so that 94% of Irish adults could recognise The National Lottery when they saw the above image. We used it big, early and often in advertising. We even had them printed on the walls of the office.</p>
+          <p>It's something I've been thinking about with my own mascot. I've been working hard to keep the face consistent across every still and animation. Same kit, same crest, same base. Even so, I've caught the number 15 appearing on the jersey at times. The model drifts. You have to keep pulling it back.</p>
+          <img src="../images/FruitVeg.png" alt="SJC figurine head emerging from a towering pile of fruit and vegetables in a supermarket aisle" class="entry-img" />
+          <p>In a world where AI is increasingly used to generate brand content, this is a real question: if the tool generating your asset can't hold the details, what does that mean for consistency? Plumbert's complexity might make him harder to scale — prompt a model to generate Plumbert and you'll probably get a different fruit giant every time. But that's exactly the kind of problem worth solving if you believe in the asset.</p>
+          <p>Sweat the asset. Just make sure it stays recognisable while you do. Apples for apples.</p>
+        `
+      },
+      {
+        icon: icons.fiveMin,
+        photo: 'images/5min_timer.png',
+        photoAlt: 'SJC figurine standing pitchside pointing at a countdown timer showing 05:00',
+        meta: '14 May 2026',
+        title: "Five minutes and counting",
+        body: `
+          <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+            <source src="../images/20260514_134952_figurine-raises-its-left-wrist-slowly-up v2.mp4" type="video/mp4" />
+          </video>
+          <p>Last week adidas launched a 5-minute ad for the World Cup. Five minutes. I've been thinking about that a lot.</p>
+          <p>Professor Karen Nelson-Field's attention research shows that 85% of digital ads globally get less than 2.5 seconds of attention. So a brand releasing a five-minute film feels either very brave or very wrong.</p>
+
+          <!-- Attention chart -->
+          <div style="background:#F7F2EA;border:1px solid #EDE0C4;border-radius:8px;padding:24px 24px 16px;margin:28px 0;font-family:'Outfit','Segoe UI',sans-serif;">
+            <p style="margin:0 0 20px;font-size:0.95rem;font-weight:700;color:#1C1C1C;line-height:1.4;">When ads don't meet the Attention-Memory Threshold<br>of 2.5 seconds, it's hard for memory to grow.</p>
+            <div style="position:relative;">
+              <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+                <!-- Y axis label -->
+                <text transform="rotate(-90,14,110)" x="14" y="110" text-anchor="middle" font-size="10" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif">Active Attention Seconds</text>
+                <!-- Y axis ticks -->
+                <text x="30" y="28"  font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">20</text>
+                <text x="30" y="82"  font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">15</text>
+                <text x="30" y="136" font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">10</text>
+                <text x="30" y="190" font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">5</text>
+                <text x="30" y="212" font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif" text-anchor="end">0</text>
+                <!-- X axis baseline -->
+                <line x1="34" y1="210" x2="598" y2="210" stroke="#EDE0C4" stroke-width="1"/>
+                <!-- Bars: 80 total, first 12 (~15%) above threshold, remaining 68 (~85%) below -->
+                <!-- Threshold at y=187 (2.5s). Above: bars drop steeply from 20s. Below: slow taper to near-zero -->
+                <g fill="#1C1C1C" opacity="0.75">
+                  <!-- Bars 1–12: above threshold (y < 187), steep descent -->
+                  <rect x="35"  y="28"  width="6" height="182"/>
+                  <rect x="42"  y="55"  width="6" height="155"/>
+                  <rect x="49"  y="88"  width="6" height="122"/>
+                  <rect x="56"  y="115" width="6" height="95"/>
+                  <rect x="63"  y="136" width="6" height="74"/>
+                  <rect x="70"  y="152" width="6" height="58"/>
+                  <rect x="77"  y="163" width="6" height="47"/>
+                  <rect x="84"  y="171" width="6" height="39"/>
+                  <rect x="91"  y="177" width="6" height="33"/>
+                  <rect x="98"  y="181" width="6" height="29"/>
+                  <rect x="105" y="184" width="6" height="26"/>
+                  <rect x="112" y="186" width="6" height="24"/>
+                  <!-- Bars 13–80: below threshold (y >= 187), slow taper -->
+                  <rect x="119" y="188" width="6" height="22"/>
+                  <rect x="126" y="189" width="6" height="21"/>
+                  <rect x="133" y="190" width="6" height="20"/>
+                  <rect x="140" y="191" width="6" height="19"/>
+                  <rect x="147" y="191" width="6" height="19"/>
+                  <rect x="154" y="192" width="6" height="18"/>
+                  <rect x="161" y="192" width="6" height="18"/>
+                  <rect x="168" y="193" width="6" height="17"/>
+                  <rect x="175" y="193" width="6" height="17"/>
+                  <rect x="182" y="194" width="6" height="16"/>
+                  <rect x="189" y="194" width="6" height="16"/>
+                  <rect x="196" y="195" width="6" height="15"/>
+                  <rect x="203" y="195" width="6" height="15"/>
+                  <rect x="210" y="196" width="6" height="14"/>
+                  <rect x="217" y="196" width="6" height="14"/>
+                  <rect x="224" y="197" width="6" height="13"/>
+                  <rect x="231" y="197" width="6" height="13"/>
+                  <rect x="238" y="197" width="6" height="13"/>
+                  <rect x="245" y="198" width="6" height="12"/>
+                  <rect x="252" y="198" width="6" height="12"/>
+                  <rect x="259" y="199" width="6" height="11"/>
+                  <rect x="266" y="199" width="6" height="11"/>
+                  <rect x="273" y="199" width="6" height="11"/>
+                  <rect x="280" y="200" width="6" height="10"/>
+                  <rect x="287" y="200" width="6" height="10"/>
+                  <rect x="294" y="200" width="6" height="10"/>
+                  <rect x="301" y="201" width="6" height="9"/>
+                  <rect x="308" y="201" width="6" height="9"/>
+                  <rect x="315" y="201" width="6" height="9"/>
+                  <rect x="322" y="202" width="6" height="8"/>
+                  <rect x="329" y="202" width="6" height="8"/>
+                  <rect x="336" y="202" width="6" height="8"/>
+                  <rect x="343" y="203" width="6" height="7"/>
+                  <rect x="350" y="203" width="6" height="7"/>
+                  <rect x="357" y="203" width="6" height="7"/>
+                  <rect x="364" y="204" width="6" height="6"/>
+                  <rect x="371" y="204" width="6" height="6"/>
+                  <rect x="378" y="204" width="6" height="6"/>
+                  <rect x="385" y="205" width="6" height="5"/>
+                  <rect x="392" y="205" width="6" height="5"/>
+                  <rect x="399" y="205" width="6" height="5"/>
+                  <rect x="406" y="206" width="6" height="4"/>
+                  <rect x="413" y="206" width="6" height="4"/>
+                  <rect x="420" y="206" width="6" height="4"/>
+                  <rect x="427" y="207" width="6" height="3"/>
+                  <rect x="434" y="207" width="6" height="3"/>
+                  <rect x="441" y="207" width="6" height="3"/>
+                  <rect x="448" y="208" width="6" height="2"/>
+                  <rect x="455" y="208" width="6" height="2"/>
+                  <rect x="462" y="208" width="6" height="2"/>
+                  <rect x="469" y="208" width="6" height="2"/>
+                  <rect x="476" y="209" width="6" height="1"/>
+                  <rect x="483" y="209" width="6" height="1"/>
+                  <rect x="490" y="209" width="6" height="1"/>
+                  <rect x="497" y="209" width="6" height="1"/>
+                  <rect x="504" y="209" width="6" height="1"/>
+                  <rect x="511" y="209" width="6" height="1"/>
+                  <rect x="518" y="209" width="6" height="1"/>
+                  <rect x="525" y="209" width="6" height="1"/>
+                  <rect x="532" y="210" width="6" height="0"/>
+                  <rect x="539" y="210" width="6" height="0"/>
+                  <rect x="546" y="210" width="6" height="0"/>
+                  <rect x="553" y="210" width="6" height="0"/>
+                  <rect x="560" y="210" width="6" height="0"/>
+                  <rect x="567" y="210" width="6" height="0"/>
+                  <rect x="574" y="210" width="6" height="0"/>
+                  <rect x="581" y="210" width="6" height="0"/>
+                </g>
+                <!-- Attention-Memory Threshold dashed line at 2.5s -->
+                <line x1="34" y1="187" x2="598" y2="187" stroke="#C8102E" stroke-width="2" stroke-dasharray="8,5"/>
+                <!-- Callout box -->
+                <rect x="370" y="30" width="220" height="52" rx="4" fill="#1C1C1C"/>
+                <rect x="370" y="30" width="4" height="52" rx="2" fill="#C8102E"/>
+                <text x="490" y="52" text-anchor="middle" font-size="18" font-weight="700" fill="white" font-family="Outfit,Segoe UI,sans-serif">85% &lt;2.5 seconds</text>
+                <text x="490" y="72" text-anchor="middle" font-size="10" fill="#EDE0C4" font-family="Outfit,Segoe UI,sans-serif">130,000 ad views · 1,150 brands</text>
+                <!-- Legend -->
+                <line x1="370" y1="165" x2="390" y2="165" stroke="#C8102E" stroke-width="2" stroke-dasharray="6,4"/>
+                <text x="395" y="169" font-size="9" fill="#5C5247" font-family="Outfit,Segoe UI,sans-serif">Attention-Memory Threshold</text>
+              </svg>
+            </div>
+            <p style="margin:8px 0 0;font-size:0.7rem;color:#5C5247;text-align:right;">© Amplified Intelligence</p>
+          </div>
+
+          <p>But watch it and you start to understand why it might just work.</p>
+          <p>It's adidas — one of the most recognised sports brands on the planet. It's football, which is peak interest for a huge chunk of the global population. It features Hollywood star power alongside the biggest names in the game, past and present. And it's built around the World Cup — the single biggest moment in the football calendar.</p>
+          <p>That's not one ingredient. That's the full recipe: decades of brand equity, genuine cultural relevance in football, the biggest stars money can buy, a production budget to match, and the global media budget to support it across every ad length. I spotted a shorter cut playing on Sky during the weekend football — it's likely a lot of the media spend is going against the 30 or 60-second edits.</p>
+          <p>The attention research I've been exploring shows that passive, low-interest content gets brutally short viewing times. But high-interest content — content that people genuinely want to watch — operates by completely different rules. adidas has essentially created a piece of entertainment that happens to be an ad.</p>
+          <p>Could any other brand pull this off? Very few could.</p>
+          <p>That's the lesson worth taking from this. It's not "five-minute ads are back." It's understanding <em>why</em> this one has a fighting chance of being watched — and being honest that most brands don't have those ingredients.</p>
+          <p>Know what you're working with before you decide how long to talk.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/timmy_adi.png',
+        photoAlt: 'Timothée Chalamet in the adidas Backyard Legends ad',
+        meta: '7 May 2026',
+        title: "The Greatest Show",
+        body: `
+          <video controls style="width:100%;border-radius:6px;margin:0 0 28px;display:block;">
+            <source src="../images/sjc_cage_animation.mp4" type="video/mp4" />
+          </video>
+          <p>Paul Feldwick's <em>The Anatomy of Humbug</em> changed how I think about advertising. Not as communication, not as persuasion — but as showmanship. Feldwick traces a lineage from PT Barnum through to modern brand advertising, and the argument is simple: people don't engage with ads because they're informative. They engage because they're entertaining. Because someone put on a show.</p>
+          <p>The Greatest Showman understood this before the industry had a framework for it.</p>
+          <p>At The National Lottery I found this in our Dream Inspector character for the EuroMillions campaign. His performance elevated the ad. Any social content or events became much more theatrical from his showmanship.</p>
+          <img src="../images/dreamy_NL.jpg" alt="The Dream Inspector character from the Irish National Lottery EuroMillions campaign" class="entry-img" />
+          <p>This summer is a World Cup summer. From my time at adidas I know what that means — months of build, pressure, creative ambition, a global stage. So I was watching closely when Backyard Legends dropped.</p>
+          <img src="../images/adi_legends.png" alt="adidas Backyard Legends ad" class="entry-img" />
+          <p>What struck me most was Timothée Chalamet. Not the players, not the tricks — him. He led the narrative. He was the showman. That casting decision unlocked everything else: the energy, the nostalgia, the blend of world-class footballers and street football culture. It felt like a performance.</p>
+          <p>I love the ad. To my former colleagues heading into one of the most exciting summers in sport — over to you.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/sjc_office_thumb.png',
+        photoAlt: 'Corinthian-style figurine of Stephen Cleary reaching for a coffee cup at a standing desk in a cosy office',
+        meta: '7 May 2026',
+        title: "Character. Incident. Place.",
+        body: `
+          <p>Orlando Wood's work on advertising effectiveness — particularly in <em>Look Out</em> (2023) and his research with System 1 — identifies three elements that make characters work in advertising. Character. Incident. Place. When attention is fleeting, getting all three right is what makes brand advertising something worth watching.</p>
+          <p>A character alone isn't enough. You need something happening — an incident, a moment, something to make you look. And you need a setting — a place that gives the scene context and warmth. All three together is what makes a character feel alive rather than like a logo with legs.</p>
+          <p>I've been building toward this.</p>
+          <p>First I made the character — a Corinthian-style figurine of me, with the SJC crest, number 9, CLEARY on the base. Then I worked on animations — a kick, a tactics board, keepy-uppies, a ball spin, a press conference. Those gave the character incidents. Things to do.</p>
+          <p>What I hadn't done yet was give it a place.</p>
+          <p>Today I built a pipeline to fix that. The old workflow used the same start image every time — the figurine on a black background. Every animation opened from that frame. It worked, but there was no sense of location. No world for the character to exist in.</p>
+          <p>The new approach generates a purpose-built still first — the right scene, the right pose — then animates from that. Brief in, image out, animation out. The office scene below was built this way. A cosy dimly lit room, warm lamp, standing desk, steaming coffee. The figurine turns to close the laptop and reaches for a drink.</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="../images/sjc_office_animation.mp4" type="video/mp4" />
+          </video>
+          <p>Character. Incident. Place. It's a simple framework but it changes how you think about what you're building. I'm not just making animations — I'm building a character with a life.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/animation_thumb.png',
+        photoAlt: 'Corinthian-style figurine of Stephen Cleary spinning a ball on one finger',
+        meta: '26 April 2026',
+        title: "Prompting my Mascot to Move",
+        body: `
+          <p>At The National Lottery, we had a principle for social media content: use Distinctive Brand Assets big, early and often. DBAs work if they are used consistently — and the assets themselves are consistent. A character that looks different every time isn't an asset, it's just a series of unrelated images.</p>
+          <p>After animating the kick, I wanted to see how far I could push the mascot. Could I get it to do other things? A tactics board. Keepy-uppies. A ball spin. Would the character hold up across different animations, or would it drift into something unrecognisable every time?</p>
+          <p>The short answer: it depends entirely on how you write the prompt.</p>
+          <p>I spent a session working through this with Claude. The key insight was simple but easy to miss — treat prompting like a character brief. Lock the personality explicitly. Describe the end pose, not the action. Add a sentence that freezes what shouldn't move.</p>
+          <p>This was an early attempt — a knee-slide celebration. The body went wrong, but the face was already getting there.</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="../images/knee_slide_trim.mp4" type="video/mp4" />
+          </video>
+          <p>A few things I learned the hard way:</p>
+          <p>The model defaults to "American football" if you just say "football". Always say black and white soccer ball.</p>
+          <p>Dark backgrounds make friendly expressions look sinister. Bright warm lighting is non-negotiable.</p>
+          <p>Describing movement produces worse results than describing a static pose.</p>
+          <p>The wink was a dead end. Both eyes kept closing. I swapped it for a thumbs up and got a much cleaner result.</p>
+          <p>Here are three that landed well:</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="../images/tactics_trim.mp4" type="video/mp4" />
+          </video>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="../images/header_keepyups_trim.mp4" type="video/mp4" />
+          </video>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="../images/ballspin_trim.mp4" type="video/mp4" />
+          </video>
+          <p>The formula is still being refined. But consistency doesn't just mean repetition — the character needs to feel like the same person across different situations. Same face, same warmth, different moment. That's what I'm working toward.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/SJC_kick_thumb.png',
+        photoAlt: 'Animated figurine of Stephen Cleary mid-kick, leg raised, looking up',
+        meta: '25 April 2026',
+        title: "He kicked! Animating my Brand Mascot",
+        body: `
+          <p>The original figurine on this blog was made in ChatGPT. One session, a good prompt, and it came out better than expected — the CLEARY base, the SJC crest, the kit colours. I was happy with it. I understand the value in characters as Distinctive Brand Assets. They offer flexibility in creative — they can do dialogue, or do interesting things. But they work best when used consistently.</p>
+          <p>The problem is ChatGPT has no memory of a character. Every time you go back, the face changes. It's stateless. That made the figurine a one-off rather than an asset I could actually use.</p>
+          <p>So I wanted to fix that. I wanted a version I could reproduce — the same face, the same kit, any pose.</p>
+          <p>The answer was a LoRA. A LoRA is a fine-tuned AI model trained on a specific set of images. Instead of prompting a general model and hoping it lands on your face, you train a small model that knows what you look like. Then you use that every time.</p>
+          <p>I did this on fal.ai, using around 15 photos of myself. The result:</p>
+          <img src="../images/SJC_ai.jpg" alt="A LoRA-generated photorealistic portrait of Stephen Cleary" class="entry-img" />
+          <p>That's a generated image, not a photo. The face is locked — I can reproduce it any time I want with a prompt.</p>
+          <p>From there I prompted the model to render that face as a figurine — chibi proportions, cream jersey, number 9, SJC crest, CLEARY base. Lots of iteration. Lots of prompts. Getting the proportions right was the trickiest part — AI models have a strong gravitational pull toward realistic human proportions. But eventually:</p>
+          <img src="../images/SJC_update.png" alt="A LoRA-generated Corinthian-style figurine of Stephen Cleary with coffee, phone, laptop and football" class="entry-img" style="object-fit: contain; max-height: 420px;" />
+          <p>Then I took it one step further. I uploaded the figurine image to Kling — an AI video model — and prompted it to kick a ball. Five seconds later:</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="../images/SJC_kick_update.mp4" type="video/mp4" />
+          </video>
+
+          <p>This is a first attempt. I'll tweak the character further and build out more movements and expressions over time.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/keepup_screenshot.png',
+        photoAlt: 'Keepy-uppies game start screen showing the footballer sprite on a green pitch',
+        meta: '24 April 2026',
+        title: "Fancy a game of Keepy-uppies?",
+        body: `
+          <img src="../images/keepup_screenshot.png" alt="Keepy-uppies game start screen showing the footballer sprite on a green pitch" class="entry-img" />
+          <p>I built a browser game. It's called Keepy-uppies. It took around 20 mins in total to make.</p>
+          <p>You move the footballer left and right using the arrow keys, and press space to kick the ball when it drops close enough to you. Each successful kick adds to your counter. When the ball hits the ground, it's game over.</p>
+          <p>It's live at <a href="/keepup" style="color:var(--red);">stephenjcleary.com/keepup</a>.</p>
+          <p>The sprites are custom — a standing pose and a kicking pose — both made in Canva. The pitch is drawn directly on the canvas: alternating green stripes, a centre circle, a ground line. The whole thing is a single HTML file, about 450 lines.</p>
+          <p>There's a high score saved to localStorage too. Mine is embarrassingly low.</p>
+        `
+      },
+      {
+        icon: icons.mascot,
+        photo: 'images/ChatGPT_Image_Apr_24__2026__08_09_16_AM-removebg-preview.png',
+        photoAlt: 'A ChatGPT-generated figurine of Stephen Cleary',
+        meta: '24 April 2026',
+        title: "I made a brand mascot",
+        body: `
+          <p>I have spent a lot of time thinking about Distinctive Brand Assets. It is one of the most rigorous and practically useful areas of marketing science. I follow Jenni Romaniuk's work closely — her research through the Ehrenberg-Bass Institute has shaped how I think about what brands actually own in the mind of a buyer.</p>
+          <p>At the National Lottery we worked on building and measuring DBAs properly. Not just asking "do people like our logo" but tracking distinctiveness, uniqueness, and fame across assets — visual, audio, character. It changes how you think about brand investment. I presented our work at a global research conference in Amsterdam.</p>
+          <img src="../images/AmsterdamDBA.jpeg" alt="Stephen Cleary presenting at the ESOMAR research conference in Amsterdam" class="entry-img" />
+          <p>So when I started building my personal brand, I wanted to apply the same thinking. One of the asset types I was most interested in was a character — something ownable, memorable, and a bit fun.</p>
+          <p>Growing up I was obsessed with Corinthian figurines. If you're not familiar — they were small, incredibly detailed football player models. I had dozens. My brother and I then played matches with them.</p>
+          <img src="../images/corinthians.jpg" alt="Four Corinthian football figurines including Nakata and Thuram" class="entry-img" />
+          <p>That format stuck with me. So I asked ChatGPT to create a version of me as one. I gave it a description, a few reference points, and let it work. Then I added some objects around the figurine to give it a bit more personality and context.</p>
+          <p>Here's the final product.</p>
+          <img src="../images/ChatGPT_Image_Apr_24__2026__08_09_16_AM-removebg-preview.png" alt="A ChatGPT-generated Corinthian-style figurine of Stephen Cleary" class="entry-img" style="object-fit: contain; max-height: 320px; background: var(--cream-light); padding: 24px;" />
+          <p>What I really like is the detail. The CLEARY name carved into the green base. The number 9 and SJC crest on the jersey. And the kit colours match the brand style exactly.</p>
+          <p>It's now sitting in the header of this blog — and I made a version for the footer too. A small, distinctive, ownable asset. Now to see how flexible I can make the character.</p>
+        `
+      },
+      {
+        icon: icons.fontFind,
+        photo: 'images/thumb_font.png',
+        photoAlt: 'Blog header in Outfit — the new font',
+        photoPosition: 'left center',
+        meta: '23 April 2026',
+        title: "Finding a new font",
+        body: `
+          <p>During my undergraduate degree in Multimedia Design I built websites regularly. One part of that was picking fonts — for logos, headings, body copy. It could take a while. You'd end up on dafont.com or Google Fonts, flicking through options, trying to picture how they'd look in context. Time consuming, a bit of a rabbit hole.</p>
+          <p>My personal brand was using Inter. It's a good font. Precise, clean, reliable. But the verdict from Claude's assessment was pretty direct: too neutral. Reads as default. The brand has more warmth and personality than Inter conveys.</p>
+          <p>So I briefed Claude to find me a new one.</p>
+          <p>What came back wasn't just a list of names — it was a full font explorer page. Seven alternatives, each rendered at multiple weights and sizes in my actual wordmark, across all three brand backgrounds: light, cream, and dark. Character notes. A verdict on how the red accent j sits in each one. All the information needed to make the call.</p>
+          <img src="../images/Screenshot 2026-04-23 at 20.11.54.png" alt="Font comparison tool showing Inter and 7 alternatives rendered in the stephenjcleary wordmark" class="entry-img" />
+          <p>The alphabet comparison view was the most useful. It shows every font rendering the same string — "stephenjcleary" — so you can see exactly how each one handles the letters that actually matter in your name.</p>
+          <img src="../images/Screenshot 2026-04-23 at 20.12.00.png" alt="Alphabet comparison showing all fonts side by side rendering stephenjcleary" class="entry-img" />
+          <p>Outfit was the one. Geometric with intentional warmth — 45° terminals and rounded joints make it feel friendly without being casual. The j in particular sits nicely in crimson: clean dot, rounded curve at the base. It feels part of the wordmark, not just a letter. The verdict: a strong middle ground — modern and approachable. Distinctive at large sizes.</p>
+          <img src="../images/Screenshot 2026-04-23 at 20.12.14.png" alt="Outfit font close-up panel showing character, j treatment, and verdict" class="entry-img" />
+          <p>Once the decision was made, the style guide updated to Outfit across the board.</p>
+          <img src="../images/Screenshot 2026-04-23 at 20.12.42.png" alt="Brand style guide updated with Outfit as the typeface" class="entry-img" />
+          <p>The before and after is visible most clearly in the blog header. Here's Inter:</p>
+          <img src="../images/Screenshot 2026-04-23 at 20.17.04.png" alt="Blog header in Inter — the previous font" class="entry-img" />
+          <p>And here's Outfit:</p>
+          <img src="../images/Screenshot 2026-04-23 at 20.17.32.png" alt="Blog header in Outfit — the new font" class="entry-img" />
+          <p>What used to take an hour of tab-switching took about ten minutes. Better output, less friction.</p>
+        `
+      },
+      {
+        icon: icons.claudeDesign,
+        photo: 'images/claude_design_slide1.jpg',
+        photoAlt: 'Attention Tester deck title slide — made with Claude Design',
+        meta: '19 April 2026',
+        title: "Making a deck with Claude Design",
+        body: `
+          <p>Claude Design is a new feature that lets you create polished visual presentations directly inside Claude. I wanted to try it properly.</p>
+          <p>The brief was simple: make a short how-to deck for the Attention Tester. Step by step, explain the features, include visuals of the tool. Here's the exact prompt I gave it:</p>
+          <blockquote style="border-left:3px solid var(--red);padding:12px 20px;margin:24px 0;color:var(--mid);font-style:italic;">"I want to make a short deck which explains how to use the Attention Tester tool. It should be a simple step by step which explains the features and benefits. Include visuals of the tool."</blockquote>
+          <p>I uploaded two things before writing the prompt: my stephenjcleary brand style guide, and the Attention Tester project folder. That's it. No further instruction on colours, layout, or structure.</p>
+          <p>What came back was an 8-slide deck. Dark opening and closing slides using my near-black background, red accent colour, and STEPHENJCLEARY wordmark. Step slides using the deep red left panel with cream text, and the actual tool UI on the right. The chart colours — dark bars, sand passive, red active — were pulled directly from the tool itself.</p>
+          <p>It got the brand right without being told to. The type hierarchy, the way the step numbers are labelled, the use of white space — all consistent with the style guide I'd uploaded.</p>
+          <div class="slideshow" id="slideshow-claudedesign">
+            <div class="slideshow-track">
+              <img src="../images/claude_design_slide1.jpg" alt="Title slide: Attention Tester — Tool Guide" class="slideshow-slide" />
+              <img src="../images/claude_design_slide2.jpg" alt="Overview: Three analyses, one upload — AI Headline, Attention Chart, DBA Check" class="slideshow-slide" />
+              <img src="../images/claude_design_slide3.jpg" alt="Step 01: Upload your video" class="slideshow-slide" />
+              <img src="../images/claude_design_slide4.jpg" alt="Step 02: Read the AI headline" class="slideshow-slide" />
+              <img src="../images/claude_design_slide5.jpg" alt="Step 03: Read the attention chart" class="slideshow-slide" />
+              <img src="../images/claude_design_slide6.jpg" alt="Step 04: Check your brand asset" class="slideshow-slide" />
+              <img src="../images/claude_design_slide7.jpg" alt="Step 05: Compare by platform" class="slideshow-slide" />
+              <img src="../images/claude_design_slide8.jpg" alt="Closing slide: Upload. Analyse. Improve." class="slideshow-slide" />
+            </div>
+            <div class="slideshow-controls">
+              <button class="slideshow-btn" onclick="slideshowPrev('slideshow-claudedesign')">&#8592;</button>
+              <span class="slideshow-counter" id="slideshow-claudedesign-counter">1 / 8</span>
+              <button class="slideshow-btn" onclick="slideshowNext('slideshow-claudedesign')">&#8594;</button>
+            </div>
+          </div>
+          <p>I've spent hours upon hours of my working life on decks. It's really nice knowing that time could be saved in future and put into making better work.</p>
+          <p>Not every output will be this clean on the first pass. But this one was. Worth sharing.</p>
+        `
+      },
+      {
+        icon: icons.whyEnjoying,
+        photo: 'images/NathanScott.jpg',
+        photoAlt: 'Nathan and Haley Scott in couples therapy, One Tree Hill Season 5',
+        meta: '9 April 2026',
+        title: "Why am I enjoying this so much?",
+        body: `
+          <p>I've been rewatching One Tree Hill on Netflix, like so many others apparently. There's an episode in Season 5 where Nathan and Haley are in couples therapy. The therapist asks them why they don't describe themselves the way they used to — a basketball player and a musician. Their answer is simple: life got in the way.</p>
+          <img src="../images/NathanScott.jpg" alt="Nathan and Haley Scott in couples therapy, One Tree Hill Season 5" class="entry-img" />
+          <p>It's a throwaway moment in a teen drama. But it stuck with me.</p>
+          <p>My career started with making things. My undergrad was Multimedia Design — I was building websites regularly, learning by doing, putting things out into the world. My big break at adidas came because I took initiative. I made a campaign to find an internship: built a website, networked, documented the whole thing as it happened. It won a Digital Advertising Northern Ireland award.</p>
+          <img src="../images/DANIawards.JPG" alt="Digital Advertising Northern Ireland award" class="entry-img" />
+          <p>That instinct — to make something rather than just talk about it — is what got me in the room. And somewhere along the way, I stopped exercising it.</p>
+          <p>I think that's why throwing myself into Claude Code has felt so good. It's not just that the tools are impressive or the builds are useful. It's that I'm making things again. Properly making them — from an idea to something you can open in a browser and use.</p>
+          <p>One small thing that captures this well: I built a skill this week just to stay on top of Claude news. One command — <code>/NewClaudeFeatures</code> — and it goes and finds everything that's dropped recently, then explains it back to me in plain language. No jargon, no press release tone. Just: here's what's new and here's what it means.</p>
+          <img src="../images/Screenshot 2026-04-09 at 21.12.01.png" alt="The /NewClaudeFeatures skill command in Claude Code" class="entry-img" />
+          <img src="../images/Screenshot 2026-04-09 at 21.12.17.png" alt="NewClaudeFeatures skill output showing recent Claude updates in plain language" class="entry-img" />
+          <p>I used to describe myself as someone who builds things. Life got in the way for a while. It's good to be back.</p>
+        `
+      },
+      {
+        icon: icons.dinner,
+        photo: 'images/dinner_page.png',
+        photoAlt: "What's For Dinner? page showing the three search modes",
+        meta: '6 April 2026',
+        title: "What's For Dinner?",
+        body: `
+          <p>My wife Caroline has some specific dietary requirements. Gluten free. Low histamine. Vegetarian. No spice, no acid, no tomato. Add a few personal dislikes on top of that and dinner becomes more of a logic puzzle than a pleasure.</p>
+          <p>I wanted to do something useful about it. So I built her a page. The whole thing took about 20 minutes.</p>
+          <p>It's a simple dish finder — a curated list of meals I know she can actually eat, drawn from some of my favourite food creators: Gaz Oakley, Derek Sarno, Rainbow Plant Life, LifebyMikeG. All vegetarian, all adapted to her restrictions.</p>
+          <img src="../images/dinner_page.png" alt="What's For Dinner? page showing three search modes" class="entry-img" />
+          <p>There are three ways to use it.</p>
+          <p><strong>Surprise me</strong> does exactly what it says. Hit the button and get five random dishes from the full list. Good for when you don't know what you want but you're hungry now.</p>
+          <p><strong>Search by ingredient</strong> lets you type something — halloumi, sweet potato, whatever — and it finds every dish that uses it. Useful when something in the fridge needs eating.</p>
+          <img src="../images/dinner_search.png" alt="Search by ingredient with leek typed and Curries & Stews category selected" class="entry-img" />
+          <p><strong>Browse by dish type</strong> gives you category buttons — Pasta & Grains, Noodles, Curries & Stews, Soups, Comfort Food, Salads. Pick one and get five ideas from that section.</p>
+          <p>Each dish card shows the ingredients, a gluten free tag where it applies, and which chef it's inspired by. No recipes — just enough to know what's possible and what to look up.</p>
+          <img src="../images/dinner_results.png" alt="Results cards showing noodle dishes with chef attribution tags" class="entry-img" />
+          <p>One thing worth showing: the first draft wasn't perfect. Claude's initial list included a few high-histamine ingredients — peanut butter, tofu, nori, walnuts, pine nuts. So we ran an audit. Everything that didn't pass got replaced or removed. This is the kind of thing that's easy to miss on the first pass and quick to fix when you catch it.</p>
+          <img src="../images/dinner_audit.png" alt="Claude audit table showing removed high-histamine ingredients and their replacements" class="entry-img" />
+          <p>It's a small build. But it's one of the more useful things I've made.</p>
+        `
+      },
+      {
+        icon: icons.attentionPt3,
+        photo: 'images/attention_summary.png',
+        photoAlt: 'Ad Performance Summary output showing Creative Interest, Branding and Platform Fit panels',
+        meta: '5 April 2026',
+        title: 'Making an Attention Tester: Part 3',
+        body: `
+          <p>Parts 1 and 2 got the attention tester working — upload a video, get a graph, see where attention drops off and where your brand first appears. Useful. But I kept thinking: what does someone actually <em>do</em> with that information? I think about this a lot. It's why I offered to contribute to this important book by Professor Karen Nelson-Field, The Attention Economy.</p>
+          <img src="../images/Attention_book.png" alt="Book on The Attention Economy featuring a contributed chapter" class="entry-img" />
+          <p>A graph tells you what happened. What I wanted was something that tells you what it means.</p>
+          <p>So Part 3 was about adding an Ad Performance Summary. One button. Three verdicts.</p>
+          <p><strong>Is it interesting?</strong> The tool looks at the creative hook — whether the ad has a clear character, action, and setting in the opening seconds. An ad that only establishes a setting, with no character or action, gets flagged as a weak hook. That's not a pass/fail — it's a steer. Go back and look at your first three seconds. This is quite basic for now though — there's a lot more that makes a social ad interesting that I could layer in over time. Camera movement, music, pacing. Something to come back to.</p>
+          <p><strong>Is it well branded early?</strong> This one cross-references the DBA (Distinct Brand Asset) detection from Parts 1 and 2. If your brand appears at 0s — before any drop-off — that's well branded across all platforms. The tool says so clearly, in green. No ambiguity.</p>
+          <p><strong>Which platform is it suited to?</strong> This is where it got interesting to build. I wanted the tool to give a platform-by-platform verdict, not just a generic "this is too long." Claude Code worked out a scoring model using two signals: whether DBA appears before the attention drop-off point, and how the total ad length compares to each platform's active attention window.</p>
+          <img src="../images/attention_platform_scoring.png" alt="Platform Fit scoring matrix showing DBA timing and length ratio signals" class="entry-img" />
+          <img src="../images/attention_summary.png" alt="Ad Performance Summary showing Creative Interest, Branding and Platform Fit panels" class="entry-img" />
+          <p>The logic comes out as a simple matrix — DBA timing crossed with length ratio — and produces three outcomes: Good, Partial, or Poor. Each platform gets its own line. If it's Partial, you get a specific recommendation: <em>"ad is 1.8× the attention window — consider cutting to 8s."</em> That's the kind of note a media planner would actually use.</p>
+          <p>The thing I find most satisfying about this is that the tool now produces something you could put in front of a colleague. It's not a dashboard for data scientists. It's a summary for someone who needs to make a decision about a piece of creative.</p>
+          <p>That's what I was going for from the start. Took three parts to get there.</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="../images/attention_summary_demo.mov" type="video/mp4" />
+          </video>
+          <p>Building this project gave me something concrete to bring back into work. I've been able to share what I've learned about attention in advertising with colleagues — how it's measured, what it means for creative decisions, and why the first few seconds matter so much.</p>
+        `
+      },
+      {
+        icon: icons.socialCopy,
+        photo: 'images/social_copy_output.png',
+        photoAlt: 'Social copy skill output for Caroline Cleary',
+        meta: '4 April 2026',
+        title: 'Creating a Social Copywriter Skill',
+        body: `
+          <p>I wanted to see if Claude could help brainstorm social media copy. Not generic copy — copy that actually sounds like me, per channel, with two options to choose from.</p>
+          <p>The skill didn't need much building. Claude already understands the structure of social copy across platforms — what works on Instagram is different to what works on X or LinkedIn, and it knows that. What I added was my own tone of voice so the output would sound like me rather than a generic AI post.</p>
+          <p>The tone of voice is built from real writing samples — LinkedIn posts, published articles, and a book contribution. It's broken into seven sections: who stephenjcleary is, voice characteristics, how sentences work, how to open, vocabulary, format by platform, and what the voice is not.</p>
+          <img src="../images/tov_page.png" alt="Tone of voice guide page" class="entry-img" />
+          <p>Once that was in place I tried it out. I briefed it to write Instagram copy about my wife Caroline and her mental health therapy business, Replenish. The brief was straightforward — her work on OCD, the key message that she's brilliant at what she does, statement only with no link required.</p>
+          <img src="../images/social_copy_skill.png" alt="Social copy skill command in Claude Code" class="entry-img" />
+          <p>What came back was good. Both options captured something real about what Caroline does without being heavy or clinical about it. The second option in particular landed well.</p>
+          <img src="../images/social_copy_output.png" alt="Social copy skill output showing Instagram options for Caroline Cleary" class="entry-img" />
+          <p>That's the thing with a well-built skill — the brief can be short because the context is already baked in. I didn't have to explain tone, format, or structure. I just described what I wanted to say and about who.</p>
+        `
+      },
+      {
+        icon: icons.attentionPt2,
+        photo: 'images/attention_dba_graph.png',
+        photoAlt: 'Attention graph with DBA line',
+        meta: '4 April 2026',
+        title: 'Making an Attention Tester: Part 2',
+        body: `
+          <p>Part 1 got the core working — upload a video, get a graph, toggle between platforms. Part 2 was about pushing it further.</p>
+          <p>The first addition was connecting to Gemini. Once that was in place, the tool could actually read and analyse the video content. The result is an AI headline at the top — a one-line summary of what the video contains. It sounds simple but it changes how the tool feels. It goes from a graph to something that understands what it's looking at.</p>
+          <img src="../images/attention_ai_headline.png" alt="AI headline showing video summary" class="entry-img" />
+          <p>That got me thinking. If it can analyse a video, can it tell me whether the brand shows up in it? I added a Distinctive Brand Asset checker. You upload an image of your logo, character, or any visual brand asset, and the tool confirms whether it appears in the video — and at what second.</p>
+          <img src="../images/attention_dba_checker.png" alt="DBA checker showing Lotto logo detected at 6s" class="entry-img" />
+          <p>The natural next step was to connect those two things. The DBA moment is now marked on the attention graph as a line — so you can see not just when the brand appears, but how much attention the platform is likely to be giving at that exact moment. In this case, the Lotto logo appears at 6 seconds on TikTok, right around where average active attention starts to drop off.</p>
+          <img src="../images/attention_dba_graph.png" alt="Attention graph with DBA line marked at 6s" class="entry-img" />
+          <p>That combination — attention curve, platform toggle, and DBA marker — is what makes it useful. It's not just a graph. It's a question: is your brand showing up at the right moment?</p>
+          <p>More to come in Part 3.</p>
+        `
+      },
+      {
+        icon: icons.attentionPt1,
+        photo: 'images/attention_upload.png',
+        photoAlt: 'Attention Tester upload interface',
+        meta: '4 April 2026',
+        title: 'Making an Attention Tester: Part 1',
+        body: `
+          <p>A big part of my work over the last few years has been attention — specifically, how much of it advertising actually gets. I've led studies on this in the Irish market and was included in Professor Karen Nelson-Field's book on the Attention Economy. It's a subject I find genuinely fascinating.</p>
+          <p>I wanted to see if I could build something that explains it. Not a slide deck or a document — an actual tool you can use.</p>
+          <img src="../images/attention_upload.png" alt="Attention Tester upload interface" class="entry-img" />
+          <p>The idea was straightforward. You upload a video ad. The tool breaks it down frame by frame, second by second, and shows you a graph of the expected attention that video would get — based on real attention data. Alongside that, it plays back a "window of attention" — the video plays, but only for as long as a real viewer would typically watch it on that platform.</p>
+          <p>The bit I found most interesting to build was the channel toggle. Different platforms have very different attention profiles. What gets watched on YouTube behaves nothing like what gets watched on TikTok or Facebook. So the tool lets you switch between platforms and the graph animates to reflect each one — same video, completely different story depending on where it lives.</p>
+          <p>Here's what the first version looked like:</p>
+          <video controls style="width:100%;border-radius:6px;margin:28px 0;display:block;">
+            <source src="../images/attention_demo.mp4" type="video/mp4" />
+          </video>
+          <p>It's rough. The UI needs work and there are things I'd do differently now. But the core of it works — upload a video, get a graph, toggle the platform, watch the numbers change.</p>
+          <p>That felt like enough for Part 1.</p>
+        `
+      },
+      {
+        icon: icons.brandGuide,
+        photo: 'images/fowler_lfc.jpeg',
+        photoAlt: 'Robbie Fowler in the Liverpool away kit',
+        meta: '4 April 2026',
+        title: 'The stephenjcleary Brand Style Guide',
+        body: `
+          <p>I wanted to build a blog and a few tools, but before any of that I needed to figure out what they'd look like. So I started with a brand style guide — a single HTML file that defines the colours, typography, and visual rules for everything I make.</p>
+          <p>I'm a big Liverpool FC fan, and I wanted to base the design on a shirt I love. This shirt is the one.</p>
+          <div class="entry-img-pair">
+            <div>
+              <img src="../images/fowler_lfc.jpeg" alt="Robbie Fowler in the 1990s Liverpool away kit" class="entry-img" style="margin:0;" />
+              <p class="entry-img-caption">Robbie Fowler, Liverpool Away Kit 1996/97</p>
+            </div>
+            <div>
+              <img src="../images/salah_lfc.jpeg" alt="Mohamed Salah in the current Liverpool away kit" class="entry-img" style="margin:0;" />
+              <p class="entry-img-caption">Mohamed Salah, Liverpool Away Kit 2025/26</p>
+            </div>
+          </div>
+          <p>The palette I built from it uses those warm creams as the base, with a deep red lifted from the Liverpool crest as the accent colour. Paired with a near-black for text and a warm brown-grey for secondary labels.</p>
+          <div class="swatch-row">
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#C8102E;"></div><div class="swatch-block-label">#C8102E</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#A00E24;"></div><div class="swatch-block-label">#A00E24</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#EDE0C4;"></div><div class="swatch-block-label">#EDE0C4</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#F7F2EA;"></div><div class="swatch-block-label">#F7F2EA</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#1C1C1C;"></div><div class="swatch-block-label">#1C1C1C</div></div>
+            <div class="swatch-block"><div class="swatch-block-colour" style="background:#5C5247;"></div><div class="swatch-block-label">#5C5247</div></div>
+          </div>
+          <p>Here's how each one gets used:</p>
+          <p><strong>#C8102E</strong> — deep red, the primary accent. Links, highlights, anything that needs to draw the eye.<br>
+          <strong>#A00E24</strong> — a darker red for hover states and emphasis.<br>
+          <strong>#EDE0C4</strong> — warm ecru, the main background. Straight from the shirt.<br>
+          <strong>#F7F2EA</strong> — lighter cream for cards and section backgrounds.<br>
+          <strong>#1C1C1C</strong> — near-black for all body text.<br>
+          <strong>#5C5247</strong> — warm brown-grey for secondary text and labels.</p>
+          <p>The typeface is Outfit. Warm and readable without feeling corporate. Headlines use Title Case. Body copy uses sentence case. Nothing in all-caps, ever.</p>
+          <p>Six colours, one font, a handful of rules. It's simple enough to apply consistently across anything I build — including this blog.</p>
+        `
+      },
+    ];
+
+    let _entryOpenTime = null;
+    let _entryOpenTitle = null;
+
+    function openEntry(index) {
+      const entry = entries[index];
+      document.getElementById('entry-meta').innerHTML = entry.meta;
+      document.getElementById('entry-title').textContent = entry.title;
+      document.getElementById('entry-body').innerHTML = entry.body;
+      const overlay = document.getElementById('overlay');
+      overlay.classList.add('open');
+      overlay.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        document.querySelectorAll('.slideshow').forEach(el => slideshowInit(el.id));
+      }, 50);
+      _entryOpenTime = Date.now();
+      _entryOpenTitle = entry.title;
+      gtag('event', 'entry_open', { entry_title: entry.title });
+    }
+
+    function closeEntry() {
+      if (_entryOpenTime && _entryOpenTitle) {
+        const seconds = Math.round((Date.now() - _entryOpenTime) / 1000);
+        gtag('event', 'entry_dwell', { entry_title: _entryOpenTitle, seconds_read: seconds });
+        _entryOpenTime = null;
+        _entryOpenTitle = null;
+      }
+      document.getElementById('overlay').classList.remove('open');
+      if (entryOpenedFromList) {
+        entryOpenedFromList = false;
+        document.querySelector('.entry-close').textContent = 'Back to all entries';
+        openAllEntries();
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('overlay')) {
+        closeEntry();
+      }
+    }
+
+    // Slideshow
+    const slideshowState = {};
+
+    function slideshowInit(id) {
+      const el = document.getElementById(id);
+      if (!el || slideshowState[id] !== undefined) return;
+      slideshowState[id] = 0;
+      const slides = el.querySelectorAll('.slideshow-slide');
+      slides.forEach((s, i) => s.classList.toggle('active', i === 0));
+    }
+
+    function slideshowGo(id, dir) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const slides = el.querySelectorAll('.slideshow-slide');
+      if (slideshowState[id] === undefined) slideshowState[id] = 0;
+      slides[slideshowState[id]].classList.remove('active');
+      slideshowState[id] = (slideshowState[id] + dir + slides.length) % slides.length;
+      slides[slideshowState[id]].classList.add('active');
+      const counter = document.getElementById(id + '-counter');
+      if (counter) counter.textContent = (slideshowState[id] + 1) + ' / ' + slides.length;
+    }
+
+    function slideshowNext(id) { slideshowGo(id, 1); }
+    function slideshowPrev(id) { slideshowGo(id, -1); }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeEntry();
+        closeAllEntries();
+        closeSearch();
+      }
+    });
+
+    // ── Featured card — populate dynamically from entries[0] ──
+    const featured = entries[0];
+    const featuredExcerpt = featured.body.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160) + '…';
+    document.getElementById('featured-meta').textContent = featured.meta;
+    document.getElementById('featured-title').textContent = featured.title;
+    document.getElementById('featured-excerpt').textContent = featuredExcerpt;
+    document.querySelector('#featured-thumb img').src = featured.photo;
+    document.querySelector('#featured-thumb img').alt = featured.photoAlt || '';
+    document.querySelector('#featured-thumb .thumb-icon').innerHTML = featured.icon;
+    if (featured.photoBg) document.getElementById('featured-thumb').style.background = featured.photoBg;
+
+    // ── Archive Grid ──
+    function renderArchiveGrid() {
+      const grid = document.getElementById('archive-grid');
+      const slots = [1, 2, 3];
+      grid.innerHTML = slots.map(slot => {
+        const i = slot < entries.length ? slot : slot % entries.length;
+        const entry = entries[i];
+        const excerpt = entry.body.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 120) + '…';
+        const photo = entry.photo
+          ? `<img src="${entry.photo}" alt="${entry.photoAlt || ''}" style="object-position: ${entry.photoPosition || 'center center'}" />`
+          : '';
+        return `
+          <div class="card archive-card" onclick="openEntry(${i})">
+            <div class="archive-image" style="${entry.photoBg ? `background:${entry.photoBg}` : ''}">
+              ${photo}
+              <div class="thumb-icon">${entry.icon}</div>
+            </div>
+            <div class="archive-body">
+              <p class="card-meta">${entry.meta}</p>
+              <h3 class="card-title">${entry.title}</h3>
+              <p class="card-excerpt">${excerpt}</p>
+              <a class="card-read" onclick="event.stopPropagation(); openEntry(${i})">Read entry</a>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    renderArchiveGrid();
+
+    // ── All Entries Overlay ──
+    function renderArchiveList() {
+      const list = document.getElementById('all-entries-list');
+      list.innerHTML = entries.map((entry, i) => {
+        const datePart = entry.meta.replace(/&nbsp;/g, ' ').replace(/<[^>]*>/g, '').split('·').pop().trim();
+        return `
+          <div class="all-entries-row" onclick="openEntryFromAll(${i})">
+            <span class="all-entries-title">${entry.title}</span>
+            <span class="all-entries-date">${datePart}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openAllEntries() {
+      renderArchiveList();
+      const overlay = document.getElementById('all-entries-overlay');
+      overlay.classList.add('open');
+      overlay.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAllEntries() {
+      document.getElementById('all-entries-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleAllEntriesClick(e) {
+      if (e.target === document.getElementById('all-entries-overlay')) closeAllEntries();
+    }
+
+    let entryOpenedFromList = false;
+
+    function openEntryFromAll(index) {
+      closeAllEntries();
+      entryOpenedFromList = true;
+      openEntry(index);
+    }
+
+    // ── Search ──
+    const searchInput = document.getElementById('nav-search-input');
+    const searchResults = document.getElementById('search-results');
+
+    function stripHtml(html) {
+      return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    function getSnippet(text, query, length) {
+      const lower = text.toLowerCase();
+      const idx = lower.indexOf(query.toLowerCase());
+      if (idx === -1) return text.slice(0, length) + '…';
+      const start = Math.max(0, idx - 40);
+      const end = Math.min(text.length, idx + query.length + 80);
+      const snippet = (start > 0 ? '…' : '') + text.slice(start, end) + (end < text.length ? '…' : '');
+      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return snippet.replace(new RegExp(escaped, 'gi'), m => `<mark>${m}</mark>`);
+    }
+
+    searchInput.addEventListener('input', function() {
+      const q = this.value.trim();
+      if (q.length < 2) { closeSearch(); return; }
+
+      const matches = entries.map((entry, i) => {
+        const plain = stripHtml(entry.body);
+        const inTitle = entry.title.toLowerCase().includes(q.toLowerCase());
+        const inBody = plain.toLowerCase().includes(q.toLowerCase());
+        if (!inTitle && !inBody) return null;
+        return { index: i, title: entry.title, snippet: getSnippet(plain, q, 120) };
+      }).filter(Boolean);
+
+      if (matches.length === 0) {
+        searchResults.innerHTML = '<p class="search-no-results">No entries found.</p>';
+      } else {
+        searchResults.innerHTML = matches.map(m => `
+          <div class="search-result-item" onclick="openEntry(${m.index}); clearSearch();">
+            <div class="search-result-title">${m.title}</div>
+            <div class="search-result-snippet">${m.snippet}</div>
+          </div>
+        `).join('');
+      }
+      searchResults.classList.add('visible');
+    });
+
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') clearSearch();
+    });
+
+    function closeSearch() {
+      searchResults.classList.remove('visible');
+    }
+
+    function clearSearch() {
+      searchResults.classList.remove('visible');
+      searchInput.value = '';
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-search')) closeSearch();
+    });
+  </script>
+
+</body>
+</html>

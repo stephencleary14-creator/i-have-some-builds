@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkedIn Post — stephenjcleary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:       #EDE0C4;
+      --cream-light: #F7F2EA;
+      --red:         #C8102E;
+      --red-deep:    #A00E24;
+      --dark:        #1C1C1C;
+      --mid:         #5C5247;
+      --font:        'Outfit', 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: #2a2a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px;
+    }
+
+    /* 4:5 aspect ratio card — 1080x1350px native, shown at 480x600 */
+    .card {
+      width: 480px;
+      height: 600px;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top accent rule */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--red);
+      z-index: 10;
+    }
+
+    /* Dot grid background */
+    .dot-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200,16,46,0.15) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    /* Red glow */
+    .red-glow {
+      position: absolute;
+      bottom: -40px;
+      right: -60px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(ellipse at center,
+        rgba(200,16,46,0.3) 0%,
+        rgba(200,16,46,0.1) 45%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+
+    /* Content layout */
+    .content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 36px 40px 32px;
+    }
+
+    /* Top section — kicker + wordmark */
+    .top {
+      flex-shrink: 0;
+    }
+
+    .kicker {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 14px;
+    }
+
+    .wordmark {
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--cream-light);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .wordmark .j {
+      color: var(--red);
+    }
+
+    .tagline {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--mid);
+      margin-top: 8px;
+      letter-spacing: 0.01em;
+    }
+
+    /* Red rule divider */
+    .rule {
+      width: 40px;
+      height: 3px;
+      background: var(--red);
+      margin: 20px 0;
+      flex-shrink: 0;
+    }
+
+    /* Body copy */
+    .body-copy {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--cream-light);
+      line-height: 1.65;
+      flex-shrink: 0;
+      opacity: 0.88;
+    }
+
+    /* Spacer pushes figurine + url to bottom */
+    .spacer { flex: 1; }
+
+    /* Figurine */
+    .figurine {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 3;
+    }
+
+    .figurine img {
+      height: 380px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 12px 28px rgba(0,0,0,0.55));
+    }
+
+    /* Bottom bar */
+    .bottom-bar {
+      flex-shrink: 0;
+      border-top: 1px solid rgba(200,16,46,0.3);
+      padding-top: 16px;
+      text-align: center;
+    }
+
+    .site-url {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--cream-light);
+      letter-spacing: 0.01em;
+      opacity: 0.8;
+    }
+
+    .site-url .j {
+      color: var(--red);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="dot-grid"></div>
+    <div class="red-glow"></div>
+
+    <div class="content">
+
+      <div class="top">
+        <div class="wordmark">stephen<span class="j">j</span>cleary</div>
+      </div>
+
+      <div class="figurine">
+        <img src="../images/ChatGPT_Image_Apr_24__2026__08_09_16_AM-removebg-preview.png" alt="stephenjcleary figurine" />
+      </div>
+
+      <div class="bottom-bar">
+        <div class="site-url">stephen<span class="j">j</span>cleary.com</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

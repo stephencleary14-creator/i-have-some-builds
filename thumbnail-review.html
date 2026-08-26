@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thumbnail Review — stephenjcleary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:       #EDE0C4;
+      --cream-light: #F7F2EA;
+      --red:         #C8102E;
+      --red-deep:    #A00E24;
+      --dark:        #1C1C1C;
+      --mid:         #5C5247;
+      --font:        'Inter', 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--cream-light);
+      color: var(--dark);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    nav {
+      background: var(--dark);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      height: 56px;
+    }
+
+    .nav-wordmark {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--cream-light);
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+
+    .nav-wordmark span { color: var(--red); }
+
+    .page-header {
+      background: var(--dark);
+      padding: 48px 32px 44px;
+      border-bottom: 3px solid var(--red);
+    }
+
+    .page-title {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 700;
+      color: var(--cream-light);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .page-subtitle {
+      font-size: 15px;
+      color: var(--mid);
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 32px 80px;
+    }
+
+    /* ── Decision block ── */
+    .decision {
+      margin-top: 72px;
+    }
+
+    .decision-header {
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--cream);
+    }
+
+    .decision-number {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .decision-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .decision-desc {
+      font-size: 14px;
+      color: var(--mid);
+    }
+
+    /* ── Options row ── */
+    .options-row {
+      display: grid;
+      gap: 24px;
+    }
+
+    .options-row.cols-2 { grid-template-columns: 1fr 1fr; }
+    .options-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+    .option-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      border-top: 3px solid var(--cream);
+    }
+
+    .option-preview {
+      padding: 32px;
+      background: var(--cream-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .option-label {
+      padding: 18px 20px;
+      border-top: 1px solid var(--cream-light);
+    }
+
+    .option-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .option-note {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.5;
+    }
+
+    /* ── Thumbnail mock ── */
+    /* Simulates the card thumbnail slot at realistic proportions */
+    .thumb {
+      width: 160px;
+      height: 120px;
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .thumb svg {
+      display: block;
+    }
+
+    /* Desktop featured-card mock (side by side) */
+    .mock-featured {
+      width: 100%;
+      max-width: 460px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .mock-featured-img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mock-featured-body {
+      background: white;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      border-top: 3px solid var(--red);
+    }
+
+    .mock-featured-body .mock-meta {
+      width: 80px;
+      height: 8px;
+      background: var(--cream);
+      border-radius: 4px;
+    }
+
+    .mock-featured-body .mock-title {
+      width: 100%;
+      height: 10px;
+      background: var(--dark);
+      border-radius: 4px;
+      opacity: 0.7;
+    }
+
+    .mock-featured-body .mock-title-short {
+      width: 70%;
+      height: 10px;
+      background: var(--dark);
+      border-radius: 4px;
+      opacity: 0.7;
+    }
+
+    .mock-featured-body .mock-line {
+      width: 100%;
+      height: 7px;
+      background: var(--cream);
+      border-radius: 4px;
+    }
+
+    .mock-featured-body .mock-line-short {
+      width: 80%;
+      height: 7px;
+      background: var(--cream);
+      border-radius: 4px;
+    }
+
+    .mock-featured-body .mock-link {
+      width: 60px;
+      height: 8px;
+      background: var(--red);
+      border-radius: 4px;
+      opacity: 0.7;
+      margin-top: 4px;
+    }
+
+    /* Mobile card mock */
+    .mock-mobile {
+      width: 160px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mock-mobile-body {
+      background: white;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      border-top: 3px solid var(--red);
+    }
+
+    .mock-mobile-body .mock-meta {
+      width: 80px;
+      height: 6px;
+      background: var(--cream);
+      border-radius: 3px;
+    }
+
+    .mock-mobile-body .mock-title {
+      width: 100%;
+      height: 8px;
+      background: var(--dark);
+      border-radius: 3px;
+      opacity: 0.7;
+    }
+
+    .mock-mobile-body .mock-title-short {
+      width: 65%;
+      height: 8px;
+      background: var(--dark);
+      border-radius: 3px;
+      opacity: 0.7;
+    }
+
+    .mock-mobile-body .mock-line {
+      width: 100%;
+      height: 6px;
+      background: var(--cream);
+      border-radius: 3px;
+    }
+
+    .mock-mobile-body .mock-link {
+      width: 48px;
+      height: 6px;
+      background: var(--red);
+      border-radius: 3px;
+      opacity: 0.7;
+      margin-top: 2px;
+    }
+
+    /* Colour accent strip for mobile option */
+    .mock-accent-strip {
+      height: 6px;
+    }
+
+    @media (max-width: 680px) {
+      .options-row.cols-2,
+      .options-row.cols-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .mock-featured {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-wordmark">stephen<span>j</span>cleary</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-title">Thumbnail Review</h1>
+      <p class="page-subtitle">Four decisions. Pick one option per question — then we'll build it.</p>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- ══════════════════════════════════════════
+         DECISION 1 — Icon style
+    ══════════════════════════════════════════ -->
+    <div class="decision">
+      <div class="decision-header">
+        <p class="decision-number">Decision 1</p>
+        <h2 class="decision-title">Icon Style</h2>
+        <p class="decision-desc">How the icons are drawn. Shown here using the social copywriter post as a test case.</p>
+      </div>
+
+      <div class="options-row cols-3">
+
+        <!-- Option A: Bold geometric -->
+        <div class="option-card">
+          <div class="option-preview" style="flex-direction:column; gap:16px;">
+            <div class="thumb">
+              <svg width="160" height="120" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="160" height="120" fill="#EDE0C4"/>
+                <!-- Bold speech bubble, filled -->
+                <rect x="36" y="28" width="88" height="54" rx="8" fill="#C8102E"/>
+                <polygon points="52,82 52,96 68,82" fill="#C8102E"/>
+                <!-- Three lines of text inside bubble -->
+                <rect x="50" y="41" width="60" height="6" rx="3" fill="#EDE0C4"/>
+                <rect x="50" y="53" width="44" height="6" rx="3" fill="#EDE0C4"/>
+                <rect x="50" y="65" width="52" height="6" rx="3" fill="#EDE0C4"/>
+              </svg>
+            </div>
+          </div>
+          <div class="option-label">
+            <p class="option-name">Option A — Bold geometric</p>
+            <p class="option-note">Flat, solid, high contrast. Strong at small sizes. Matches the Inter typeface's clean character.</p>
+          </div>
+        </div>
+
+        <!-- Option B: Outlined / line icon -->
+        <div class="option-card">
+          <div class="option-preview" style="flex-direction:column; gap:16px;">
+            <div class="thumb">
+              <svg width="160" height="120" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="160" height="120" fill="#EDE0C4"/>
+                <!-- Outlined speech bubble -->
+                <rect x="36" y="28" width="88" height="54" rx="8" fill="none" stroke="#C8102E" stroke-width="3.5"/>
+                <polygon points="52,81 52,97 70,81" fill="#EDE0C4" stroke="#C8102E" stroke-width="3.5" stroke-linejoin="round"/>
+                <!-- Lines of text -->
+                <rect x="50" y="41" width="60" height="5" rx="2.5" fill="#C8102E"/>
+                <rect x="50" y="52" width="44" height="5" rx="2.5" fill="#C8102E" opacity="0.5"/>
+                <rect x="50" y="63" width="52" height="5" rx="2.5" fill="#C8102E" opacity="0.5"/>
+              </svg>
+            </div>
+          </div>
+          <div class="option-label">
+            <p class="option-name">Option B — Outlined / line icon</p>
+            <p class="option-note">Lighter, editorial feel. More breathing room. Works well where the card already has strong red accents.</p>
+          </div>
+        </div>
+
+        <!-- Option C: Icon + label text -->
+        <div class="option-card">
+          <div class="option-preview" style="flex-direction:column; gap:16px;">
+            <div class="thumb">
+              <svg width="160" height="120" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="160" height="120" fill="#EDE0C4"/>
+                <!-- Smaller bold icon, centred higher -->
+                <rect x="46" y="18" width="68" height="44" rx="7" fill="#C8102E"/>
+                <polygon points="58,62 58,74 72,62" fill="#C8102E"/>
+                <rect x="57" y="28" width="46" height="5" rx="2.5" fill="#EDE0C4"/>
+                <rect x="57" y="38" width="34" height="5" rx="2.5" fill="#EDE0C4"/>
+                <rect x="57" y="48" width="40" height="5" rx="2.5" fill="#EDE0C4"/>
+                <!-- Category label text below -->
+                <rect x="28" y="86" width="104" height="1.5" fill="#C8102E" opacity="0.3"/>
+                <text x="80" y="105" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#5C5247" text-anchor="middle" letter-spacing="1.5">BEHIND THE BUILD</text>
+              </svg>
+            </div>
+          </div>
+          <div class="option-label">
+            <p class="option-name">Option C — Icon + category label</p>
+            <p class="option-note">Icon plus a small category tag. Adds information to the thumbnail — useful when you have multiple series running.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════
+         DECISION 2 — Colour
+    ══════════════════════════════════════════ -->
+    <div class="decision">
+      <div class="decision-header">
+        <p class="decision-number">Decision 2</p>
+        <h2 class="decision-title">Colour</h2>
+        <p class="decision-desc">Icon colour and background. All four entry icons shown side by side for each option.</p>
+      </div>
+
+      <div class="options-row cols-2">
+
+        <!-- Option A: Red on cream -->
+        <div class="option-card">
+          <div class="option-preview" style="gap:12px; flex-wrap:wrap; justify-content:center;">
+            <!-- Social copy -->
+            <div class="thumb">
+              <svg width="160" height="120" viewBox="0 0 160 120" fill="none">
+                <rect width="160" height="120" fill="#EDE0C4"/>
+                <rect x="36" y="28" width="88" height="54" rx="8" fill="#C8102E"/>
+                <polygon points="52,82 52,96 68,82" fill="#C8102E"/>
+                <rect x="50" y="41" width="60" height="6" rx="3" fill="#EDE0C4"/>
+                <rect x="50" y="53" width="44" height="6" rx="3" fill="#EDE0C4"/>
+                <rect x="50" y="65" width="52" height="6" rx="3" fill="#EDE0C4"/>
+              </svg>
+            </div>
+            <!-- Attention pt2 -->
+            <div class="thumb">
+              <svg width="160" height="120" viewBox="0 0 160 120" fill="none">
+                <rect width="160" height="120" fill="#EDE0C4"/>
+                <!-- Waveform / graph line -->
+                <polyline points="20,80 40,80 55,45 65,65 75,35 85,60 95,50 110,70 125,60 140,70" stroke="#C8102E" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- DBA vertical marker -->
+                <line x1="95" y1="28" x2="95" y2="88" stroke="#C8102E" stroke-width="2" stroke-dasharray="4 3" opacity="0.6"/>
+                <circle cx="95" cy="50" r="5" fill="#C8102E"/>
+                <!-- Axis -->
+                <line x1="20" y1="88" x2="145" y2="88" stroke="#C8102E" stroke-width="2" opacity="0.25"/>
+              </svg>
+            </div>
+            <!-- Attention pt1 -->
+            <div class="thumb">
+              <svg width="160" height="120" viewBox="0 0 160 120" fill="none">
+                <rect width="160" height="120" fill="#EDE0C4"/>
+                <!-- Upload arrow -->
+                <line x1="80" y1="82" x2="80" y2="36" stroke="#C8102E" stroke-width="4" stroke-linecap="round"/>
+                <polyline points="60,55 80,34 100,55" stroke="#C8102E" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Base tray -->
+                <rect x="44" y="86" width="72" height="6" rx="3" fill="#C8102E"/>
+              </svg>
+            </div>
+            <!-- Brand style guide -->
+            <div class="thumb">
+              <svg width="160" height="120" viewBox="0 0 160 120" fill="none">
+                <rect width="160" height="120" fill="#EDE0C4"/>
+                <!-- Three colour swatches -->
+                <rect x="28" y="30" width="32" height="60" rx="5" fill="#C8102E"/>
+                <rect x="64" y="30" width="32" height="60" rx="5" fill="#A00E24"/>
+                <rect x="100" y="30" width="32" height="60" rx="5" fill="#1C1C1C"/>
+                <!-- Tick marks at bottom of each swatch -->
+                <rect x="36" y="82" width="16" height="3" rx="1.5" fill="#EDE0C4" opacity="0.6"/>
+                <rect x="72" y="82" width="16" height="3" rx="1.5" fill="#EDE0C4" opacity="0.6"/>
+                <rect x="108" y="82" width="16" height="3" rx="1.5" fill="#EDE0C4" opacity="0.6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="option-label">
+            <p class="option-name">Option A — Red on cream</p>
+            <p class="option-note">Punchy, on-brand, matches the red accent used in cards and nav. Each icon reads clearly against the warm background.</p>
+          </div>
+        </div>
+
+        <!-- Option B: Dark on cream -->
+        <div class="option-card">
+          <div class="option-preview" style="gap:12px; flex-wrap:wrap; justify-content:center;">
+            <!-- Social copy -->
+            <div class="thumb">
+              <svg width="160" height="120" viewBox="0 0 160 120" fill="none">
+                <rect width="160" height="120" fill="#EDE0C4"/>
+                <rect x="36" y="28" width="88" height="54" rx="8" fill="#1C1C1C"/>
+                <polygon points="52,82 52,96 68,82" fill="#1C1C1C"/>
+                <rect x="50" y="41" width="60" height="6" rx="3" fill="#EDE0C4"/>
+                <rect x="50" y="53" width="44" height="6" rx="3" fill="#EDE0C4"/>
+                <rect x="50" y="65" width="52" height="6" rx="3" fill="#EDE0C4"/>
+              </svg>
+            </div>
+            <!-- Attention pt2 -->
+            <div class="thumb">
+              <svg width="160" height="120" viewBox="0 0 160 120" fill="none">
+                <rect width="160" height="120" fill="#EDE0C4"/>
+                <polyline points="20,80 40,80 55,45 65,65 75,35 85,60 95,50 110,70 125,60 140,70" stroke="#1C1C1C" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="95" y1="28" x2="95" y2="88" stroke="#1C1C1C" stroke-width="2" stroke-dasharray="4 3" opacity="0.4"/>
+                <circle cx="95" cy="50" r="5" fill="#1C1C1C"/>
+                <line x1="20" y1="88" x2="145" y2="88" stroke="#1C1C1C" stroke-width="2" opacity="0.2"/>
+              </svg>
+            </div>
+            <!-- Attention pt1 -->
+            <div class="thumb">
+              <svg width="160" height="120" viewBox="0 0 160 120" fill="none">
+                <rect width="160" height="120" fill="#EDE0C4"/>
+                <line x1="80" y1="82" x2="80" y2="36" stroke="#1C1C1C" stroke-width="4" stroke-linecap="round"/>
+                <polyline points="60,55 80,34 100,55" stroke="#1C1C1C" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="44" y="86" width="72" height="6" rx="3" fill="#1C1C1C"/>
+              </svg>
+            </div>
+            <!-- Brand style guide -->
+            <div class="thumb">
+              <svg width="160" height="120" viewBox="0 0 160 120" fill="none">
+                <rect width="160" height="120" fill="#EDE0C4"/>
+                <rect x="28" y="30" width="32" height="60" rx="5" fill="#1C1C1C"/>
+                <rect x="64" y="30" width="32" height="60" rx="5" fill="#5C5247"/>
+                <rect x="100" y="30" width="32" height="60" rx="5" fill="#1C1C1C" opacity="0.4"/>
+                <rect x="36" y="82" width="16" height="3" rx="1.5" fill="#EDE0C4" opacity="0.6"/>
+                <rect x="72" y="82" width="16" height="3" rx="1.5" fill="#EDE0C4" opacity="0.6"/>
+                <rect x="108" y="82" width="16" height="3" rx="1.5" fill="#EDE0C4" opacity="0.6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="option-label">
+            <p class="option-name">Option B — Dark on cream</p>
+            <p class="option-note">Quieter, more editorial. Lets the red card border do the accent work. Better if you add more colour in the icon itself later (e.g. brand swatches entry).</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════
+         DECISION 3 — Featured card treatment
+    ══════════════════════════════════════════ -->
+    <div class="decision">
+      <div class="decision-header">
+        <p class="decision-number">Decision 3</p>
+        <h2 class="decision-title">Featured Card Treatment</h2>
+        <p class="decision-desc">The latest/hero post sits above the archive grid. Should it use the same thumbnail, or something different to distinguish it?</p>
+      </div>
+
+      <div class="options-row cols-3">
+
+        <!-- Option A: Same thumbnail, fills the left panel -->
+        <div class="option-card">
+          <div class="option-preview">
+            <div class="mock-featured" style="height:140px;">
+              <div class="mock-featured-img" style="background:#EDE0C4; height:140px;">
+                <svg width="100" height="80" viewBox="0 0 160 120" fill="none">
+                  <rect width="160" height="120" fill="#EDE0C4"/>
+                  <rect x="36" y="28" width="88" height="54" rx="8" fill="#C8102E"/>
+                  <polygon points="52,82 52,96 68,82" fill="#C8102E"/>
+                  <rect x="50" y="41" width="60" height="6" rx="3" fill="#EDE0C4"/>
+                  <rect x="50" y="53" width="44" height="6" rx="3" fill="#EDE0C4"/>
+                  <rect x="50" y="65" width="52" height="6" rx="3" fill="#EDE0C4"/>
+                </svg>
+              </div>
+              <div class="mock-featured-body">
+                <div class="mock-meta"></div>
+                <div class="mock-title"></div>
+                <div class="mock-title-short"></div>
+                <div class="mock-line"></div>
+                <div class="mock-line-short"></div>
+                <div class="mock-link"></div>
+              </div>
+            </div>
+          </div>
+          <div class="option-label">
+            <p class="option-name">Option A — Same thumbnail, left panel</p>
+            <p class="option-note">Consistent with the archive cards. Icon sits large in the left half of the hero card — simple and tidy.</p>
+          </div>
+        </div>
+
+        <!-- Option B: Dark background panel, icon in cream/red -->
+        <div class="option-card">
+          <div class="option-preview">
+            <div class="mock-featured" style="height:140px;">
+              <div class="mock-featured-img" style="background:#1C1C1C; height:140px;">
+                <svg width="100" height="80" viewBox="0 0 160 120" fill="none">
+                  <rect width="160" height="120" fill="#1C1C1C"/>
+                  <rect x="36" y="28" width="88" height="54" rx="8" fill="#C8102E"/>
+                  <polygon points="52,82 52,96 68,82" fill="#C8102E"/>
+                  <rect x="50" y="41" width="60" height="6" rx="3" fill="#EDE0C4"/>
+                  <rect x="50" y="53" width="44" height="6" rx="3" fill="#EDE0C4"/>
+                  <rect x="50" y="65" width="52" height="6" rx="3" fill="#EDE0C4"/>
+                </svg>
+              </div>
+              <div class="mock-featured-body">
+                <div class="mock-meta"></div>
+                <div class="mock-title"></div>
+                <div class="mock-title-short"></div>
+                <div class="mock-line"></div>
+                <div class="mock-line-short"></div>
+                <div class="mock-link"></div>
+              </div>
+            </div>
+          </div>
+          <div class="option-label">
+            <p class="option-name">Option B — Dark panel, coloured icon</p>
+            <p class="option-note">Dark background on the image half elevates the hero card above the archive grid. Red icon pops against navy — more editorial drama.</p>
+          </div>
+        </div>
+
+        <!-- Option C: Full-width banner with icon, no side-by-side split -->
+        <div class="option-card">
+          <div class="option-preview">
+            <div style="width:100%;max-width:460px;">
+              <!-- Banner across top -->
+              <div style="background:#1C1C1C; border-radius:8px 8px 0 0; height:80px; display:flex; align-items:center; justify-content:center;">
+                <svg width="80" height="60" viewBox="0 0 160 120" fill="none">
+                  <rect width="160" height="120" fill="#1C1C1C"/>
+                  <rect x="36" y="28" width="88" height="54" rx="8" fill="#C8102E"/>
+                  <polygon points="52,82 52,96 68,82" fill="#C8102E"/>
+                  <rect x="50" y="41" width="60" height="6" rx="3" fill="#EDE0C4"/>
+                  <rect x="50" y="53" width="44" height="6" rx="3" fill="#EDE0C4"/>
+                  <rect x="50" y="65" width="52" height="6" rx="3" fill="#EDE0C4"/>
+                </svg>
+              </div>
+              <!-- Text body below -->
+              <div style="background:white; border-radius:0 0 8px 8px; padding:14px 16px; display:flex; flex-direction:column; gap:6px; border-top:3px solid var(--red);">
+                <div class="mock-meta"></div>
+                <div class="mock-title"></div>
+                <div class="mock-title-short"></div>
+                <div class="mock-line"></div>
+                <div class="mock-link"></div>
+              </div>
+            </div>
+          </div>
+          <div class="option-label">
+            <p class="option-name">Option C — Full-width banner above text</p>
+            <p class="option-note">Drops the side-by-side layout. Icon banner spans full width above the text, and scales naturally on mobile without any layout switching needed.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════
+         DECISION 4 — Mobile behaviour
+    ══════════════════════════════════════════ -->
+    <div class="decision">
+      <div class="decision-header">
+        <p class="decision-number">Decision 4</p>
+        <h2 class="decision-title">Mobile Behaviour</h2>
+        <p class="decision-desc">How the archive cards look on a narrow screen. Currently the image is hidden entirely.</p>
+      </div>
+
+      <div class="options-row cols-3">
+
+        <!-- Option A: Small compact banner (shorter height), icon centred -->
+        <div class="option-card">
+          <div class="option-preview" style="gap:24px;">
+            <div class="mock-mobile">
+              <!-- Compact icon banner -->
+              <div style="background:#EDE0C4; height:64px; display:flex; align-items:center; justify-content:center;">
+                <svg width="48" height="36" viewBox="0 0 160 120" fill="none">
+                  <rect width="160" height="120" fill="#EDE0C4"/>
+                  <rect x="36" y="28" width="88" height="54" rx="8" fill="#C8102E"/>
+                  <polygon points="52,82 52,96 68,82" fill="#C8102E"/>
+                  <rect x="50" y="41" width="60" height="6" rx="3" fill="#EDE0C4"/>
+                  <rect x="50" y="53" width="44" height="6" rx="3" fill="#EDE0C4"/>
+                  <rect x="50" y="65" width="52" height="6" rx="3" fill="#EDE0C4"/>
+                </svg>
+              </div>
+              <div class="mock-mobile-body">
+                <div class="mock-meta"></div>
+                <div class="mock-title"></div>
+                <div class="mock-title-short"></div>
+                <div class="mock-line"></div>
+                <div class="mock-link"></div>
+              </div>
+            </div>
+            <!-- Second card -->
+            <div class="mock-mobile">
+              <div style="background:#EDE0C4; height:64px; display:flex; align-items:center; justify-content:center;">
+                <svg width="48" height="36" viewBox="0 0 160 120" fill="none">
+                  <rect width="160" height="120" fill="#EDE0C4"/>
+                  <polyline points="20,80 40,80 55,45 65,65 75,35 85,60 95,50 110,70 125,60 140,70" stroke="#C8102E" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  <line x1="95" y1="28" x2="95" y2="88" stroke="#C8102E" stroke-width="2" stroke-dasharray="4 3" opacity="0.6"/>
+                  <circle cx="95" cy="50" r="5" fill="#C8102E"/>
+                  <line x1="20" y1="88" x2="145" y2="88" stroke="#C8102E" stroke-width="2" opacity="0.25"/>
+                </svg>
+              </div>
+              <div class="mock-mobile-body">
+                <div class="mock-meta"></div>
+                <div class="mock-title"></div>
+                <div class="mock-title-short"></div>
+                <div class="mock-line"></div>
+                <div class="mock-link"></div>
+              </div>
+            </div>
+          </div>
+          <div class="option-label">
+            <p class="option-name">Option A — Compact icon banner</p>
+            <p class="option-note">Short 64px strip at the top of each card. Icon is small but legible. Adds visual identity without eating up screen space.</p>
+          </div>
+        </div>
+
+        <!-- Option B: Coloured accent strip only, no icon -->
+        <div class="option-card">
+          <div class="option-preview" style="gap:24px;">
+            <div class="mock-mobile">
+              <!-- Cream accent strip -->
+              <div style="height:8px; background:#EDE0C4;"></div>
+              <div class="mock-mobile-body" style="border-top:3px solid var(--red);">
+                <div class="mock-meta"></div>
+                <div class="mock-title"></div>
+                <div class="mock-title-short"></div>
+                <div class="mock-line"></div>
+                <div class="mock-link"></div>
+              </div>
+            </div>
+            <div class="mock-mobile">
+              <div style="height:8px; background:#EDE0C4;"></div>
+              <div class="mock-mobile-body" style="border-top:3px solid var(--red);">
+                <div class="mock-meta"></div>
+                <div class="mock-title"></div>
+                <div class="mock-title-short"></div>
+                <div class="mock-line"></div>
+                <div class="mock-link"></div>
+              </div>
+            </div>
+          </div>
+          <div class="option-label">
+            <p class="option-name">Option B — Accent strip only</p>
+            <p class="option-note">A thin cream strip sits above the red border, giving a layered look without any image. Text-first, nothing to distract. Clean but minimal.</p>
+          </div>
+        </div>
+
+        <!-- Option C: Hidden entirely — same as current -->
+        <div class="option-card">
+          <div class="option-preview" style="gap:24px;">
+            <div class="mock-mobile">
+              <div class="mock-mobile-body" style="border-top:3px solid var(--red); border-radius:8px 8px 0 0;">
+                <div class="mock-meta"></div>
+                <div class="mock-title"></div>
+                <div class="mock-title-short"></div>
+                <div class="mock-line"></div>
+                <div class="mock-link"></div>
+              </div>
+            </div>
+            <div class="mock-mobile">
+              <div class="mock-mobile-body" style="border-top:3px solid var(--red); border-radius:8px 8px 0 0;">
+                <div class="mock-meta"></div>
+                <div class="mock-title"></div>
+                <div class="mock-title-short"></div>
+                <div class="mock-line"></div>
+                <div class="mock-link"></div>
+              </div>
+            </div>
+          </div>
+          <div class="option-label">
+            <p class="option-name">Option C — Hidden (current behaviour)</p>
+            <p class="option-note">Keep the current mobile layout untouched. The new designed thumbnails only appear on desktop where they render well. Text-first on mobile.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

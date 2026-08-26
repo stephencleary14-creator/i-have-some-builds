@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bio Section — Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:       #EDE0C4;
+      --cream-light: #F7F2EA;
+      --red:         #C8102E;
+      --red-deep:    #A00E24;
+      --dark:        #1C1C1C;
+      --mid:         #5C5247;
+      --font:        'Outfit', 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--cream-light);
+      color: var(--dark);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    nav {
+      background: var(--dark);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-search-fake {
+      background: #2e2e2e;
+      border: 1px solid rgba(237,224,196,0.25);
+      border-radius: 4px;
+      color: rgba(237,224,196,0.4);
+      font-family: var(--font);
+      font-size: 13px;
+      padding: 6px 14px;
+      width: 220px;
+    }
+
+    /* ══════════════════════════════════════
+       The trick: header and bio-row share a
+       single positioned wrapper so the figure
+       can be absolutely placed straddling both.
+    ══════════════════════════════════════ */
+    .hero {
+      position: relative;
+    }
+
+    /* Dark header band */
+    .hero-header {
+      background: var(--dark);
+      border-bottom: 3px solid var(--red);
+      padding: 20px 32px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+
+    /* Red glow — right side where figure will sit */
+    .hero-header::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 72%;
+      transform: translate(-50%, -44%);
+      width: 500px;
+      height: 240px;
+      background: radial-gradient(ellipse at center,
+        rgba(200,16,46,0.35) 0%,
+        rgba(200,16,46,0.14) 40%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+
+    .hero-header-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      padding-right: 220px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--red);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .page-title {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      color: var(--cream-light);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.45);
+    }
+
+    .page-title span { color: var(--red); }
+
+    /* Bio strip — cream, left-aligned text, right-padded to clear figure */
+    .bio-row {
+      position: relative;
+    }
+
+    .bio-row-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 14px 220px 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .bio-divider {
+      width: 1px;
+      height: 56px;
+      background: var(--cream);
+      flex-shrink: 0;
+    }
+
+    .bio-text {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bio-text p {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.6;
+      max-width: 480px;
+    }
+
+    .bio-linkedin {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .bio-linkedin:hover { color: var(--red-deep); }
+    .bio-linkedin::after { content: '→'; }
+
+    /* ── Figure — absolutely positioned, straddling the red border ── */
+    .hero-figure {
+      position: absolute;
+      right: calc(50% - 360px + 32px);
+      top: 8px;
+      z-index: 10;
+    }
+
+    .hero-figure img {
+      height: 260px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      filter:
+        drop-shadow(0px 20px 12px rgba(0,0,0,0.35))
+        drop-shadow(0px 6px 4px rgba(0,0,0,0.2));
+    }
+
+
+
+    /* ── Fake entries ── */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 32px 80px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--mid);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .fake-featured {
+      background: white;
+      border-radius: 8px;
+      border-top: 3px solid var(--red);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      height: 180px;
+    }
+
+    .fake-img { background: var(--cream); }
+
+    .fake-body {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .fake-line {
+      height: 11px;
+      background: var(--cream);
+      border-radius: 4px;
+    }
+
+    .fake-line.short  { width: 45%; }
+    .fake-line.medium { width: 70%; }
+    .fake-line.full   { width: 100%; }
+    .fake-line.red    { width: 28%; background: var(--red); opacity: 0.35; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-search-fake">Search entries…</div>
+  </nav>
+
+  <!-- Hero: header + bio share a positioned wrapper -->
+  <div class="hero">
+
+    <!-- Dark header band -->
+    <div class="hero-header">
+      <div class="hero-header-inner">
+        <div class="pill">▶ Build Log</div>
+        <h1 class="page-title">stephen<span>j</span>cleary</h1>
+      </div>
+    </div>
+
+    <!-- Bio strip -->
+    <div class="bio-row">
+      <div class="bio-row-inner">
+        <div class="bio-divider"></div>
+        <div class="bio-text">
+          <p>Brand marketer with 13+ years experience. Global brand marketing at adidas Football, currently a brand manager at The National Lottery in Dublin. This blog is a record of what I'm building, learning, and figuring out along the way.</p>
+          <a class="bio-linkedin" href="https://www.linkedin.com/in/clearystephen/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Figure straddling the two bands -->
+    <div class="hero-figure">
+      <img src="../images/ChatGPT_Image_Apr_23__2026__09_56_44_PM-removebg-preview.png" alt="Stephen Cleary figurine" />
+    </div>
+
+  </div>
+
+  <!-- Entries -->
+  <div class="container">
+    <p class="section-label">Latest</p>
+    <div class="fake-featured">
+      <div class="fake-img"></div>
+      <div class="fake-body">
+        <div class="fake-line short"></div>
+        <div class="fake-line full"></div>
+        <div class="fake-line medium"></div>
+        <div class="fake-line full"></div>
+        <div class="fake-line red"></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

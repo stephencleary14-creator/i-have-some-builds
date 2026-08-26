@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Character Integration — Options</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:       #EDE0C4;
+      --cream-light: #F7F2EA;
+      --red:         #C8102E;
+      --red-deep:    #A00E24;
+      --dark:        #1C1C1C;
+      --mid:         #5C5247;
+      --font:        'Outfit', 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--cream-light);
+      color: var(--dark);
+      padding: 48px 32px 80px;
+    }
+
+    h1 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 40px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 64px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .option-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 6px;
+    }
+
+    .option-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+
+    /* ── Shared header shell ── */
+    .header-shell {
+      background: var(--dark);
+      border-bottom: 3px solid var(--red);
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .header-shell::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+
+    /* Red glow */
+    .header-shell::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 30%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 200px;
+      background: radial-gradient(ellipse at center,
+        rgba(200,16,46,0.28) 0%,
+        rgba(200,16,46,0.10) 45%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--red);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .wordmark {
+      font-size: clamp(28px, 5vw, 46px);
+      font-weight: 700;
+      color: var(--cream-light);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .wordmark span { color: var(--red); }
+
+    /* ── Option 1: Peering over the edge ── */
+    .opt1 {
+      padding: 32px 40px 0 40px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 200px;
+    }
+
+    .opt1-text {
+      padding-bottom: 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .opt1-figure {
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      height: 200px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .opt1-figure img {
+      height: 300px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+      object-position: bottom;
+    }
+
+    /* ── Option 2: Cut-out standing at the side ── */
+    .opt2 {
+      padding: 28px 0 0 40px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 0;
+      min-height: 180px;
+    }
+
+    .opt2-text {
+      position: relative;
+      z-index: 1;
+      padding-bottom: 28px;
+    }
+
+    .opt2-figure {
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      height: 220px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .opt2-figure img {
+      height: 220px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* ── Option 3: Collector's card ── */
+    .opt3 {
+      padding: 0;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: 220px;
+    }
+
+    .opt3-figure {
+      background: var(--red);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 8px 0 0 5px;
+      position: relative;
+    }
+
+    /* Override glow on opt3 — not needed */
+    .opt3 .header-shell::after { display: none; }
+
+    .opt3-figure img {
+      height: 230px;
+      width: auto;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
+    }
+
+    .opt3-text {
+      padding: 32px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .opt3-stats {
+      display: flex;
+      gap: 24px;
+      margin-top: 4px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(237,224,196,0.15);
+    }
+
+    .stat-block {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cream-light);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(237,224,196,0.45);
+    }
+
+    /* ── Option 4: Footer signature ── */
+    .opt4-shell {
+      background: var(--cream-light);
+      border: 1px solid var(--cream);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .opt4-page {
+      background: white;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .opt4-fake-header {
+      background: var(--dark);
+      border-bottom: 3px solid var(--red);
+      padding: 20px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .opt4-fake-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200,16,46,0.18) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+
+    .opt4-fake-header .wordmark {
+      font-size: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .opt4-fake-header .pill {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 8px;
+    }
+
+    .opt4-fake-content {
+      padding: 20px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .fake-card {
+      height: 14px;
+      background: var(--cream);
+      border-radius: 4px;
+      width: 100%;
+    }
+
+    .fake-card.short  { width: 60%; }
+    .fake-card.medium { width: 80%; }
+
+    .opt4-footer {
+      border-top: 2px solid var(--cream);
+      padding: 0 28px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .opt4-footer-text {
+      font-size: 12px;
+      color: var(--mid);
+      padding-bottom: 20px;
+    }
+
+    .opt4-footer img {
+      height: 100px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Character integration — 4 options</h1>
+
+  <div class="options">
+
+    <!-- Option 1: Peering over the edge -->
+    <div>
+      <p class="option-label">Option 1</p>
+      <p class="option-title">Peering over the header edge</p>
+      <div class="header-shell">
+        <div class="opt1">
+          <div class="opt1-text">
+            <div class="pill">▶ Build Log</div>
+            <div class="wordmark">stephen<span>j</span>cleary</div>
+          </div>
+          <div class="opt1-figure">
+            <img src="../images/ChatGPT_Image_Apr_23__2026__09_56_44_PM-removebg-preview.png" alt="SJC Corinthian figure" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option 2: Full figure at the side, base sitting on the border -->
+    <div>
+      <p class="option-label">Option 2</p>
+      <p class="option-title">Standing at the side</p>
+      <div class="header-shell">
+        <div class="opt2">
+          <div class="opt2-text">
+            <div class="pill">▶ Build Log</div>
+            <div class="wordmark">stephen<span>j</span>cleary</div>
+          </div>
+          <div class="opt2-figure">
+            <img src="../images/ChatGPT_Image_Apr_23__2026__09_56_44_PM-removebg-preview.png" alt="SJC Corinthian figure" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option 3: Collector's card -->
+    <div>
+      <p class="option-label">Option 3</p>
+      <p class="option-title">Collector's card</p>
+      <div class="header-shell">
+        <div class="opt3">
+          <div class="opt3-figure">
+            <img src="../images/ChatGPT_Image_Apr_23__2026__09_56_44_PM-removebg-preview.png" alt="SJC Corinthian figure" />
+          </div>
+          <div class="opt3-text">
+            <div class="pill">▶ Build Log</div>
+            <div class="wordmark" style="font-size:34px;">stephen<span>j</span>cleary</div>
+            <div class="opt3-stats">
+              <div class="stat-block">
+                <span class="stat-value">9</span>
+                <span class="stat-label">Number</span>
+              </div>
+              <div class="stat-block">
+                <span class="stat-value">LFC</span>
+                <span class="stat-label">Club</span>
+              </div>
+              <div class="stat-block">
+                <span class="stat-value">MKT</span>
+                <span class="stat-label">Position</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option 4: Footer signature -->
+    <div>
+      <p class="option-label">Option 4</p>
+      <p class="option-title">Footer signature</p>
+      <div class="opt4-shell">
+        <div class="opt4-page">
+          <div class="opt4-fake-header">
+            <div class="pill">▶ Build Log</div>
+            <div class="wordmark opt4-fake-header">stephen<span style="color:var(--red);">j</span>cleary</div>
+          </div>
+          <div class="opt4-fake-content">
+            <div class="fake-card"></div>
+            <div class="fake-card medium"></div>
+            <div class="fake-card short"></div>
+            <div class="fake-card"></div>
+            <div class="fake-card medium"></div>
+            <div class="fake-card short"></div>
+          </div>
+          <div class="opt4-footer">
+            <span class="opt4-footer-text">stephenjcleary.com</span>
+            <img src="../images/ChatGPT_Image_Apr_23__2026__09_56_44_PM-removebg-preview.png" alt="SJC Corinthian figure" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
