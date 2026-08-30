@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <base href="/findthe10-talent/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Find The 10 — Brand Consultancy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -412,6 +411,7 @@
     .about-scroll-zone {
       position: relative;
       height: 400vh;
+      view-timeline: --about-zone block;
     }
 
     /* Sticky viewport — pins while user scrolls */
@@ -424,12 +424,26 @@
       border-top: 1px solid rgba(255,255,255,0.06);
     }
 
-    /* Track — three panels side by side, 300vw wide */
+    /* Track — three panels side by side, 255vw wide */
     .about-track {
       display: flex;
       width: 255vw; /* 55vw + 100vw + 100vw */
       height: 100%;
       will-change: transform;
+      animation: about-slide linear both;
+      animation-timeline: --about-zone;
+      animation-range: contain 0% contain 100%;
+    }
+
+    @keyframes about-slide {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-155vw); }
+    }
+
+    @media (max-width: 768px) {
+      .about-track {
+        animation: none;
+      }
     }
 
     /* Each panel fills one viewport width */
@@ -2449,19 +2463,23 @@
 
     document.querySelectorAll('.about-mobile__panel').forEach(el => mobilePanelObserver.observe(el));
 
-    // ── About horizontal scroll (desktop only) ───────────────
+    // ── About section (desktop only) ─────────────────────────
+    // Track movement handled by CSS scroll-timeline (see .about-track).
+    // JS handles: scroll hint, SVG tactics animation, panel activations.
     (function () {
-      const zone  = document.querySelector('.about-scroll-zone');
-      const track = document.getElementById('about-track');
-      const hint  = document.getElementById('about-hint');
-      const p1          = document.getElementById('about-panel-1');
-      const p2          = document.getElementById('about-panel-2');
-      const p3          = document.getElementById('about-panel-3');
+      const zone           = document.querySelector('.about-scroll-zone');
+      const hint           = document.getElementById('about-hint');
+      const p1             = document.getElementById('about-panel-1');
+      const p2             = document.getElementById('about-panel-2');
+      const p3             = document.getElementById('about-panel-3');
       const tacticsPaths   = document.querySelectorAll('#tactics-svg-desktop path');
       const tacticsPolygon = document.querySelector('#tactics-svg-desktop polygon');
       const tenChip        = document.querySelector('#about-panel-2 .chip--ten');
+      const pitchPanel     = document.getElementById('about-panel-2');
 
-      // Init: set dasharray and dashoffset via setAttribute — most reliable for SVG
+      if (!zone || window.innerWidth <= 768) return;
+
+      // ── Init SVG dasharray/dashoffset ─────────────────────
       Array.from(tacticsPaths).slice(0, 9).forEach(p => {
         p.setAttribute('stroke-dasharray', '400');
         p.setAttribute('stroke-dashoffset', '400');
@@ -2474,80 +2492,88 @@
         tacticsPolygon.setAttribute('stroke-dasharray', '50');
         tacticsPolygon.setAttribute('stroke-dashoffset', '50');
       }
-      // On mobile the scroll zone is hidden — skip entirely
-      if (!zone || !track || window.innerWidth <= 768) return;
 
+      // ── Scroll hint ───────────────────────────────────────
+      let hintHidden = false;
       let rafId = null;
-      const activated = new Set();
-
-      function activatePanel(el) {
-        if (!el || activated.has(el)) return;
-        activated.add(el);
-        el.classList.add('panel-active');
-      }
-
-      function update() {
-        rafId = null;
-        const isMobile = window.innerWidth <= 768;
-        const panels = isMobile ? 5 : 3;
-        const zoneTop    = zone.getBoundingClientRect().top + window.scrollY;
-        const zoneHeight = zone.offsetHeight - window.innerHeight;
-        const raw = (window.scrollY - zoneTop) / zoneHeight;
-        const p   = Math.min(1, Math.max(0, raw));
-        // Desktop: travel = 55vw + 100vw + 100vw - 100vw viewport = 155vw
-        const travel = isMobile ? (panels - 1) * 100 : 155;
-        track.style.transform = `translateX(-${p * travel}vw)`;
-        if (hint) hint.classList.toggle('about-scroll-hint--hidden', p > 0.15);
-
-        // ── Tactics board scroll animation (desktop only) ─────
-        // Panel 2 occupies p ≈ 0.35 → 0.85 of scroll range
-        // Extract a 0→1 progress just for that window
-        if (!isMobile && tacticsPaths.length) {
-          const tp = Math.min(1, Math.max(0, (p - 0.22) / 0.5));
-
-          // Draw pass lines sequentially as tp progresses
-          // Each of the 10 paths gets its own sub-range
-          // Draw the 9 pass lines sequentially, last path (red) uses dasharray 50
-          const passPaths = Array.from(tacticsPaths).slice(0, 9);
-          const redPath   = tacticsPaths[9];
-          passPaths.forEach((path, i) => {
-            const start = i / passPaths.length;
-            const end   = (i + 1) / passPaths.length;
-            const lp    = Math.min(1, Math.max(0, (tp - start) / (end - start)));
-            path.setAttribute('stroke-dashoffset', 400 * (1 - lp));
-          });
-          if (redPath) {
-            const redP = Math.min(1, Math.max(0, (tp - 0.85) / 0.15));
-            redPath.setAttribute('stroke-dashoffset', 200 * (1 - redP));
-          }
-          if (tacticsPolygon) {
-            const polyP = Math.min(1, Math.max(0, (tp - 0.92) / 0.08));
-            tacticsPolygon.setAttribute('stroke-dashoffset', 50 * (1 - polyP));
-          }
-
-          // "10" chip pulses throughout
-          if (tenChip) tenChip.classList.add('is-pulsing');
-        }
-
-        // Activate panels once fully centred in viewport
-        if (!isMobile) {
-          if (p >= 0.0)   activatePanel(p1);
-          if (p >= 0.72)  activatePanel(p3);
-
-          if (p >= 0.85)  activatePanel(p2);
-        } else {
-          if (p >= 0.0)   activatePanel(p1);
-          if (p >= 0.22)  activatePanel(document.getElementById('about-panel-mob-pitch'));
-          if (p >= 0.42)  activatePanel(document.getElementById('about-panel-mob-copy'));
-          if (p >= 0.62)  activatePanel(p3);
-        }
-      }
-
       window.addEventListener('scroll', () => {
-        if (!rafId) rafId = requestAnimationFrame(update);
+        if (hintHidden || !hint) return;
+        if (!rafId) rafId = requestAnimationFrame(() => {
+          rafId = null;
+          const zoneTop = zone.offsetTop;
+          const p = (window.scrollY - zoneTop) / (zone.offsetHeight - window.innerHeight);
+          if (p > 0.05) {
+            hint.classList.add('about-scroll-hint--hidden');
+            hintHidden = true;
+          }
+        });
       }, { passive: true });
 
-      update();
+      // ── Panel 1 activates when zone enters view ───────────
+      const zoneObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { p1 && p1.classList.add('panel-active'); } });
+      }, { threshold: 0.1 });
+      zoneObserver.observe(zone);
+
+      // ── SVG tactics animation ─────────────────────────────
+      let svgAnimating = false;
+      let svgRaf = null;
+      let svgStartScroll = null;
+      const SVG_SCROLL_RANGE = zone.offsetHeight * 0.45;
+
+      function animateSVG() {
+        svgRaf = null;
+        if (!svgAnimating) return;
+        const scrolled = window.scrollY - svgStartScroll;
+        const tp = Math.min(1, Math.max(0, scrolled / SVG_SCROLL_RANGE));
+        const passPaths = Array.from(tacticsPaths).slice(0, 9);
+        const redPath   = tacticsPaths[9];
+        passPaths.forEach((path, i) => {
+          const start = i / passPaths.length;
+          const end   = (i + 1) / passPaths.length;
+          const lp    = Math.min(1, Math.max(0, (tp - start) / (end - start)));
+          path.setAttribute('stroke-dashoffset', (400 * (1 - lp)).toFixed(1));
+        });
+        if (redPath) {
+          const redP = Math.min(1, Math.max(0, (tp - 0.85) / 0.15));
+          redPath.setAttribute('stroke-dashoffset', (200 * (1 - redP)).toFixed(1));
+        }
+        if (tacticsPolygon) {
+          const polyP = Math.min(1, Math.max(0, (tp - 0.92) / 0.08));
+          tacticsPolygon.setAttribute('stroke-dashoffset', (50 * (1 - polyP)).toFixed(1));
+        }
+        if (tenChip) tenChip.classList.add('is-pulsing');
+        if (tp < 1) svgRaf = requestAnimationFrame(animateSVG);
+        else { svgAnimating = false; p2 && p2.classList.add('panel-active'); }
+      }
+
+      function onSVGScroll() {
+        if (!svgAnimating) return;
+        if (!svgRaf) svgRaf = requestAnimationFrame(animateSVG);
+      }
+
+      const pitchObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting && !svgAnimating) {
+            svgAnimating = true;
+            svgStartScroll = window.scrollY;
+            window.addEventListener('scroll', onSVGScroll, { passive: true });
+            requestAnimationFrame(animateSVG);
+          } else if (!e.isIntersecting) {
+            svgAnimating = false;
+            window.removeEventListener('scroll', onSVGScroll);
+          }
+        });
+      }, { threshold: 0.3 });
+      if (pitchPanel) pitchObserver.observe(pitchPanel);
+
+      // ── Panel 3 activates on intersection ─────────────────
+      if (p3) {
+        const p3Observer = new IntersectionObserver(entries => {
+          entries.forEach(e => { if (e.isIntersecting) { p3.classList.add('panel-active'); p3Observer.disconnect(); } });
+        }, { threshold: 0.4 });
+        p3Observer.observe(p3);
+      }
     }());
 
 
