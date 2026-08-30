@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kellie Harrington — Brand Intelligence Snapshot</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #EDE0C4;
+    --cream-light: #F7F2EA;
+    --red: #C8102E;
+    --dark: #1C1C1C;
+    --mid: #5C5247;
+    --muted-bg: #F0EBE1;
+    --muted-border: #D4C8B2;
+    --font: 'Outfit', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--cream-light);
+    color: var(--dark);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 48px 40px 64px;
+  }
+
+  /* HEADER */
+  .header {
+    border-top: 4px solid var(--red);
+    padding-top: 28px;
+    margin-bottom: 12px;
+  }
+
+  .header-eyebrow {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .header-sub {
+    font-size: 0.82rem;
+    color: var(--mid);
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  .header-note {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--mid);
+    background: var(--cream);
+    border-left: 3px solid var(--muted-border);
+    padding: 8px 14px;
+    border-radius: 0 4px 4px 0;
+    margin-top: 8px;
+    margin-bottom: 36px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 44px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .section-num {
+    width: 32px;
+    height: 32px;
+    background: var(--red);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .section-title-block h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 2px;
+  }
+
+  .section-title-block p {
+    font-size: 0.75rem;
+    color: var(--mid);
+    font-weight: 400;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--cream);
+    margin-bottom: 20px;
+  }
+
+  /* RESEARCH WORKFLOW */
+  .research-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: 24px;
+    margin-left: -40px;
+    margin-right: -40px;
+    position: relative;
+  }
+
+  .flow-step-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .flow-step {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    padding: 16px 14px;
+    position: relative;
+    text-align: center;
+  }
+
+  .flow-step.pending {
+    background: #F5F5F5;
+    opacity: 0.65;
+  }
+
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
+
+  .flow-arrow svg {
+    display: block;
+  }
+
+  .flow-icon {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  .flow-step-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .flow-step.pending .flow-step-label {
+    color: var(--mid);
+  }
+
+  .flow-step-desc {
+    font-size: 0.68rem;
+    color: var(--mid);
+    line-height: 1.4;
+  }
+
+  .flow-step-output {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--red);
+    background: #FEE2E2;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+
+  .flow-step-output.pending-tag {
+    color: var(--mid);
+    background: #E5E7EB;
+  }
+
+  /* FINDINGS */
+  .finding {
+    display: flex;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--cream);
+  }
+
+  .finding:last-child {
+    border-bottom: none;
+  }
+
+  .finding-num {
+    width: 26px;
+    height: 26px;
+    border: 2px solid var(--cream);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--mid);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .finding-text strong {
+    display: block;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 6px;
+    font-size: 0.94rem;
+  }
+
+  .finding-text p {
+    font-size: 0.84rem;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  /* COMMERCIAL CATEGORIES TABLE */
+  .categories-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.84rem;
+  }
+
+  .categories-table thead tr {
+    background: var(--dark);
+  }
+
+  .categories-table thead th {
+    color: var(--cream);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  .categories-table tbody tr {
+    border-bottom: 1px solid var(--cream-light);
+  }
+
+  .categories-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .categories-table tbody td {
+    padding: 13px 16px;
+    vertical-align: top;
+    color: var(--dark);
+    line-height: 1.5;
+  }
+
+  .categories-table tbody td:first-child {
+    font-weight: 600;
+  }
+
+  .consensus-tag {
+    display: inline-block;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .consensus-very-strong {
+    background: #DCFCE7;
+    color: #15803D;
+  }
+
+  .consensus-strong {
+    background: #DBEAFE;
+    color: #1D4ED8;
+  }
+
+  .consensus-moderate {
+    background: #FEF9C3;
+    color: #854D0E;
+  }
+
+  .categories-table tbody td.why-col {
+    font-size: 0.8rem;
+    color: var(--mid);
+  }
+
+  /* OPPORTUNITY BLOCK */
+  .opportunity-block {
+    background: var(--dark);
+    border-radius: 8px;
+    padding: 28px 32px;
+  }
+
+  .opportunity-block-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+
+  .opportunity-block h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 14px;
+    line-height: 1.25;
+  }
+
+  .opportunity-block p {
+    font-size: 0.86rem;
+    color: #9C8E7E;
+    line-height: 1.7;
+  }
+
+  .opportunity-line {
+    border-left: 3px solid var(--red);
+    padding: 10px 16px;
+    margin-top: 18px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--cream);
+    background: rgba(255,255,255,0.05);
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* SENSITIVITY NOTE */
+  .sensitivity-block {
+    background: var(--muted-bg);
+    border: 1px solid var(--muted-border);
+    border-left: 4px solid var(--muted-border);
+    border-radius: 0 8px 8px 0;
+    padding: 22px 26px;
+  }
+
+  .sensitivity-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 8px;
+  }
+
+  .sensitivity-block h3 {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 10px;
+  }
+
+  .sensitivity-block p {
+    font-size: 0.84rem;
+    color: var(--mid);
+    line-height: 1.65;
+  }
+
+  /* SOCIAL SNAPSHOT */
+  .social-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .social-card {
+    background: white;
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+
+  .social-card-platform {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+
+  .social-card-handle {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+
+  .social-card-stats {
+    font-size: 0.8rem;
+    color: var(--mid);
+    line-height: 1.55;
+  }
+
+  .social-card-stats span {
+    display: block;
+  }
+
+  /* SENTIMENT THEMES */
+  .sentiment-section {
+    background: white;
+    border-radius: 8px;
+    padding: 22px 24px;
+  }
+
+  .sentiment-section-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+
+  .sentiment-theme {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--cream-light);
+  }
+
+  .sentiment-theme:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .sentiment-theme-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 5px;
+  }
+
+  .sentiment-theme-body {
+    font-size: 0.82rem;
+    color: var(--mid);
+    line-height: 1.55;
+    margin-bottom: 8px;
+  }
+
+  .sentiment-verbatim {
+    font-size: 0.79rem;
+    color: var(--mid);
+    font-style: italic;
+    border-left: 2px solid var(--cream);
+    padding-left: 10px;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .sentiment-verbatim cite {
+    font-style: normal;
+    font-size: 0.72rem;
+    color: #B0A090;
+    display: block;
+    margin-top: 3px;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--cream);
+    font-size: 0.72rem;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { padding: 32px; }
+    .finding { page-break-inside: avoid; }
+    .opportunity-block { page-break-inside: avoid; }
+    .sensitivity-block { page-break-inside: avoid; }
+    .research-flow { page-break-inside: avoid; }
+    .categories-table { page-break-inside: avoid; }
+    .social-strip { page-break-inside: avoid; }
+    .sentiment-section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-eyebrow">Find The 10 &ndash; Brand Intelligence</div>
+    <h1>Kellie Harrington</h1>
+    <div class="header-sub">Brand Intelligence Snapshot &middot; August 2026</div>
+  </div>
+  <div class="header-note">Prototype wave. Sources 2 to 5 only. Source 1 (direct athlete conversation) pending.</div>
+
+  <!-- SECTION 1 — RESEARCH SOURCES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title-block">
+        <h2>What the Research Tells Us</h2>
+        <p>Four sources. One clear picture.</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="research-flow">
+
+      <div class="flow-step-wrap">
+        <span class="flow-step-output pending-tag">Source 1</span>
+        <div class="flow-step pending">
+          <div class="flow-icon">🎙️</div>
+          <div class="flow-step-label">Direct Conversation with Athlete &amp; Manager</div>
+          <div class="flow-step-desc">Pending. Not yet conducted.</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#C8102E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="flow-step-wrap">
+        <span class="flow-step-output">Source 2</span>
+        <div class="flow-step">
+          <div class="flow-icon">📰</div>
+          <div class="flow-step-label">Public Record &amp; Press Coverage</div>
+          <div class="flow-step-desc">Complete</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#C8102E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="flow-step-wrap">
+        <span class="flow-step-output">Source 3</span>
+        <div class="flow-step">
+          <div class="flow-icon">📱</div>
+          <div class="flow-step-label">Own Social Channels</div>
+          <div class="flow-step-desc">Complete</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#C8102E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="flow-step-wrap">
+        <span class="flow-step-output">Source 4</span>
+        <div class="flow-step">
+          <div class="flow-icon">🌐</div>
+          <div class="flow-step-label">Online Conversation</div>
+          <div class="flow-step-desc">Last 30 days. Complete.</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#C8102E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="flow-step-wrap">
+        <span class="flow-step-output">Source 5</span>
+        <div class="flow-step">
+          <div class="flow-icon">🗣️</div>
+          <div class="flow-step-label">AI Synthetic Audience Panel</div>
+          <div class="flow-step-desc">Complete</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 2 — KEY FINDINGS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title-block">
+        <h2>Key Findings</h2>
+        <p>Three things the research is telling us clearly</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="finding">
+      <div class="finding-num">1</div>
+      <div class="finding-text">
+        <strong>Her most powerful asset is structural authenticity</strong>
+        <p>She kept her day job while competing at elite level. She stayed amateur when she could have gone professional. She went back to Portland Row when she could have moved anywhere. These are life choices that happen to form an extraordinarily coherent brand. The authenticity is simply the record.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">2</div>
+      <div class="finding-text">
+        <strong>The comeback arc is the commercial opportunity</strong>
+        <p>She retired after Paris 2024 gold. She returned to training. She publicly confirmed an LA 2028 qualification attempt in August 2026 and was named in the European Championship squad on 29 August. A brand that builds a partnership around this three-year journey gets a beginning, middle and ending. A full campaign, not a badge.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">3</div>
+      <div class="finding-text">
+        <strong>Her cultural reach vastly exceeds her social reach</strong>
+        <p>102K Instagram followers is modest for a double Olympic champion. The AI synthetic panel found near-universal recognition across age groups, income brackets and levels of sports interest. A brand working with Kellie is buying cultural meaning, not media reach. The two are priced very differently.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 — COMMERCIAL CATEGORIES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title-block">
+        <h2>Commercial Categories</h2>
+        <p>Panel consensus on where the brand fits strongest</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <table class="categories-table">
+      <thead>
+        <tr>
+          <th style="width: 34%;">Category</th>
+          <th style="width: 18%;">Panel Consensus</th>
+          <th>Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Irish financial services (credit unions, insurance)</td>
+          <td><span class="consensus-tag consensus-very-strong">Very Strong</span></td>
+          <td class="why-col">Trust is the primary purchase driver in this category. She holds it in abundance across every panel segment.</td>
+        </tr>
+        <tr>
+          <td>Irish FMCG / everyday grocery</td>
+          <td><span class="consensus-tag consensus-strong">Strong</span></td>
+          <td class="why-col">Working-class Dublin authenticity maps directly onto the values these brands rely on.</td>
+        </tr>
+        <tr>
+          <td>Women's sportswear / activewear</td>
+          <td><span class="consensus-tag consensus-strong">Strong</span></td>
+          <td class="why-col">Credible in a way that influencer athletes are not. The panel's younger segments responded strongly.</td>
+        </tr>
+        <tr>
+          <td>Government / Sport Ireland campaigns</td>
+          <td><span class="consensus-tag consensus-strong">Strong</span></td>
+          <td class="why-col">DCC Sports Ambassador role already in place. A natural extension with an established track record.</td>
+        </tr>
+        <tr>
+          <td>Premium Irish food and drink</td>
+          <td><span class="consensus-tag consensus-moderate">Moderate&ndash;Strong</span></td>
+          <td class="why-col">Irish provenance combined with earned excellence is a fit. Requires careful framing to avoid misalignment with mass-market positioning.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 4 — BIGGEST OPPORTUNITY -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title-block">
+        <h2>Biggest Opportunity</h2>
+        <p>One play that stands above the others</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="opportunity-block">
+      <div class="opportunity-block-label">Primary recommendation</div>
+      <h3>The LA 2028 Partnership Play</h3>
+      <p>An Irish financial services or insurance brand that builds a long-form partnership around the LA 2028 journey. Three years of story. A comeback that has not yet been commercially activated. A category where trust is the primary purchase driver. Add a community dimension, such as a boxing fund for Portland Row-type clubs, and a commercial deal becomes a cultural moment.</p>
+      <div class="opportunity-line">"We back the people who keep going."</div>
+    </div>
+  </div>
+
+  <!-- SECTION 5 — SENSITIVITY NOTE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title-block">
+        <h2>Sensitivity Note</h2>
+        <p>One flag to carry into any conversation</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="sensitivity-block">
+      <div class="sensitivity-label">Due diligence flag</div>
+      <h3>A 2022 social media incident</h3>
+      <p>In October 2022 she retweeted immigration-related content, deleted it and apologised. She later disclosed that the aftermath took her to "the really darkest of the darkest places" and that she underwent counselling. Press treated the disclosure sympathetically. The incident is not resurfacing in current coverage, confirmed across 102 items monitored in the last 30 days (August 2026). It is not a disqualifier, but any brand in a trust-sensitive category, including financial services, public health or government, should have done proper due diligence and have a communications position ready before any announcement.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 6 — SOCIAL SNAPSHOT -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div class="section-title-block">
+        <h2>Social Snapshot</h2>
+        <p>Own channel data and online conversation, last 30 days</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="social-strip">
+
+      <div class="social-card">
+        <div class="social-card-platform">Instagram</div>
+        <div class="social-card-handle">@kelly_harrington14</div>
+        <div class="social-card-stats">
+          <span>102K followers</span>
+          <span>324 posts</span>
+          <span>No link in bio</span>
+          <span>Verified account</span>
+        </div>
+      </div>
+
+      <div class="social-card">
+        <div class="social-card-platform">Twitter / X</div>
+        <div class="social-card-handle">@kelly_harrington14</div>
+        <div class="social-card-stats">
+          <span>Inactive in last 30 days</span>
+          <span>0 posts from own account</span>
+        </div>
+      </div>
+
+      <div class="social-card">
+        <div class="social-card-platform">TikTok</div>
+        <div class="social-card-handle">No confirmed own account</div>
+        <div class="social-card-stats">
+          <span>Fan content only</span>
+          <span>1.48M views in last 30 days</span>
+          <span>184K likes across 18 videos</span>
+        </div>
+      </div>
+
+      <div class="social-card">
+        <div class="social-card-platform">Online Conversation (30 days)</div>
+        <div class="social-card-handle">102 items monitored</div>
+        <div class="social-card-stats">
+          <span>Reddit, X, YouTube, TikTok, Instagram</span>
+          <span>Sentiment: strongly positive across all platforms</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SENTIMENT THEMES -->
+    <div class="sentiment-section">
+      <div class="sentiment-section-title">What people are saying. Key themes from the last 30 days.</div>
+
+      <div class="sentiment-theme">
+        <div class="sentiment-theme-title">Major international return</div>
+        <div class="sentiment-theme-body">The biggest story in the window. Her selection for the European Elite Championships in Sofia (announced 29 August) was covered as a landmark moment, not routine squad news. Media framing was consistent: "Olympic icon," "major return," first international selection since Paris 2024.</div>
+        <div class="sentiment-verbatim">
+          "For the first time since the Paris Olympics, Kellie Harrington is named in an Irish boxing squad."
+          <cite>@seidodge on X, 29 August 2026</cite>
+        </div>
+        <div class="sentiment-verbatim">
+          "Kellie Harrington set for major international return as Olympic icon named in strong Ireland squad."
+          <cite>@IrishSunSport on X, 29 August 2026</cite>
+        </div>
+      </div>
+
+      <div class="sentiment-theme">
+        <div class="sentiment-theme-title">LA 2028 ambition</div>
+        <div class="sentiment-theme-body">Her August 2026 statement at the Dublin City Council SportsFest that she would "probably try and give it a go to qualify" for LA 2028 was picked up widely. The Irish Times covered it directly. It reframes the entire comeback narrative from "one last run" to a three-year project.</div>
+        <div class="sentiment-verbatim">
+          "Olympic champion Kellie Harrington has teamed up with Dublin City Council to launch the 10th annual SportsFest."
+          <cite>@griptmedia on X, 19 August 2026</cite>
+        </div>
+      </div>
+
+      <div class="sentiment-theme">
+        <div class="sentiment-theme-title">Community role model</div>
+        <div class="sentiment-theme-body">A visit to Darndale Boxing Club and a meeting with youth group Lighting Up the Spectrum (autism spectrum community) on 12 August generated the most-liked single piece of content featuring her in the 30-day window. Comment tone was warm and specific, with people noting the quality of her engagement rather than just the celebrity value.</div>
+        <div class="sentiment-verbatim">
+          "Lucky kids, no better role model."
+          <cite>@nbradythefoodclinic, Instagram, 12 August 2026 (4 likes)</cite>
+        </div>
+        <div class="sentiment-verbatim">
+          "Brilliant boxer, and a credit to Dublin, and Ireland. A winner."
+          <cite>@mickconvey7944, YouTube comments</cite>
+        </div>
+      </div>
+
+      <div class="sentiment-theme">
+        <div class="sentiment-theme-title">Legacy and admiration</div>
+        <div class="sentiment-theme-body">Across Reddit, X and YouTube, unprompted references to her as a "legend" and "great of the sport" appear in threads not specifically about her. She is used as a benchmark reference point by the Irish sports community. No detractors found in this window.</div>
+        <div class="sentiment-verbatim">
+          "Good girl Kellie."
+          <cite>@rorybrennan360 on X (5 likes)</cite>
+        </div>
+        <div class="sentiment-verbatim">
+          "Hope to see you in LA28."
+          <cite>@goncalopintocrosspunch, Instagram comment on her own post</cite>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Prepared by Pele, Research &amp; Insights, Find The 10 &middot; Prototype wave, August 2026 &middot; For presentation use only</p>
+  </div>
+
+</div>
+</body>
+</html>
