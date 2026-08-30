@@ -1,0 +1,3213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find The 10 — Brand Consultancy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Tokens ─────────────────────────────────────────────── */
+    :root {
+      --cream:       #EDE0C4;
+      --cream-light: #F7F2EA;
+      --red:         #C8102E;
+      --red-deep:    #A00E24;
+      --dark:        #1C1C1C;
+      --mid:         #5C5247;
+      --font:        'Outfit', 'Segoe UI', sans-serif;
+    }
+
+    /* ── Reset ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--cream);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Layout utilities ───────────────────────────────────── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── Buttons ─────────────────────────────────────────────── */
+    .btn {
+      display: inline-block;
+      padding: 0.875rem 2rem;
+      border-radius: 4px;
+      font-family: var(--font);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+                  transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+      border: 2px solid transparent;
+    }
+    .btn--red {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+    }
+    .btn--outline {
+      background: transparent;
+      color: var(--dark);
+      border-color: var(--dark);
+    }
+    .btn--outline-light {
+      background: #fff;
+      color: var(--red);
+      border-color: #fff;
+    }
+    .btn--outline-light:hover {
+      background: rgba(255,255,255,0.85);
+      border-color: rgba(255,255,255,0.85);
+      color: var(--red);
+      transform: translateY(-2px);
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+    /* ── Grain texture — site-wide material quality ─────────── */
+    /*
+       A fine noise overlay applied at fixed position so it covers the whole
+       viewport regardless of scroll. mix-blend-mode: multiply means it only
+       darkens — it never washes out light text or white cards. Opacity is
+       deliberately low: the effect should be felt, not seen.
+    */
+    #grain-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.06;
+      mix-blend-mode: soft-light;
+    }
+
+    /* ── Scroll fade-in ──────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       NAV
+    ══════════════════════════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--dark);
+      transition: box-shadow 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
+      opacity: 0;
+      transform: translateY(-100%);
+      pointer-events: none;
+    }
+    .nav.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+    .nav--scrolled {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+    .nav__logo img {
+      height: 60px;
+      width: auto;
+      display: block;
+    }
+    .nav__logo .logo-hover { display: none; }
+    .nav__logo:hover .logo-default { display: none; }
+    .nav__logo:hover .logo-hover { display: block; }
+    /* Logo hidden until About section reached */
+    .nav__logo {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .nav__logo.is-visible {
+      opacity: 1;
+    }
+    .nav__links {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+    }
+    .nav__links a {
+      color: var(--cream);
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .nav__links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--red);
+      transition: width 0.25s ease;
+    }
+    /* Burger */
+    .nav__burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav__burger span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--cream);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    /* Burger open state */
+    .nav--open .nav__burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav--open .nav__burger span:nth-child(2) { opacity: 0; }
+    .nav--open .nav__burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav panel */
+    .nav__mobile-panel {
+      display: none;
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5rem 2rem 2rem;
+    }
+    .nav__mobile-panel ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .nav__mobile-panel a {
+      color: var(--cream);
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav__mobile-panel a:hover { color: var(--red); }
+    .nav--open .nav__mobile-panel { display: block; }
+
+    /* ══════════════════════════════════════════════════════════
+       HERO — sticky with scroll zoom on desktop
+    ══════════════════════════════════════════════════════════ */
+
+    /* Scroll zone — gives travel distance for the zoom effect */
+    .hero-scroll-zone {
+      position: relative;
+      height: 200vh; /* desktop only — mobile overrides below */
+    }
+
+    .hero {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      overflow: hidden;
+      background: #0d0a08;
+    }
+
+    /* Full-bleed image — zooms on scroll (desktop only) */
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      will-change: transform;
+      transform-origin: center 50%;
+    }
+    .hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 55%;
+      display: block;
+      filter: brightness(1.15);
+    }
+
+    /* Subtle vignette — edges only, not centre */
+    .hero__vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 45%, rgba(13,10,8,0.4) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Gradient that fades left edge for legibility */
+    .hero__fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(13,10,8,0.62) 0%, rgba(13,10,8,0.25) 42%, transparent 68%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Content — logo, tagline, CTAs */
+    .hero__inner {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+    }
+    .hero__content-col {
+      width: 52%;
+      padding-left: 5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .hero__logo {
+      height: 60px;
+      width: auto;
+      max-width: 300px;
+      object-fit: contain;
+      display: block;
+    }
+    .hero__tagline {
+      font-size: clamp(1.8rem, 4vw, 3.8rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 40px rgba(0,0,0,0.6);
+    }
+    .hero__ctas {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+
+    /* ── About panel entry animations ───────────────────────── */
+
+    /* Panel content — hidden until panel becomes active */
+    .about-panel .anim-item {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .about-panel.panel-active .anim-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Explicit stagger via data-delay — reliable across any markup structure */
+    .about-panel.panel-active .anim-item[data-delay="1"] { transition-delay: 0.05s; }
+    .about-panel.panel-active .anim-item[data-delay="2"] { transition-delay: 0.22s; }
+    .about-panel.panel-active .anim-item[data-delay="3"] { transition-delay: 0.39s; }
+    .about-panel.panel-active .anim-item[data-delay="4"] { transition-delay: 0.56s; }
+    .about-panel.panel-active .anim-item[data-delay="5"] { transition-delay: 0.73s; }
+
+    /* Chips — always visible, no animation */
+    .chip {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* Panel 2 — no animation, content always visible */
+    #p2-left {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Tactics board — scroll-driven draw-in */
+    /* stroke-dasharray/offset set directly as SVG attributes on each path */
+    /* "10" chip pulse — keyframe runs when class applied */
+    @keyframes ten-pulse {
+      0%   {
+        box-shadow: 0 0 0 0 rgba(200,16,46,0.8), 0 0 30px rgba(200,16,46,0.6);
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50%  {
+        box-shadow: 0 0 0 18px rgba(200,16,46,0), 0 0 80px rgba(200,16,46,1), 0 0 140px rgba(200,16,46,0.5);
+        transform: translate(-50%, -50%) scale(1.15);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(200,16,46,0.8), 0 0 30px rgba(200,16,46,0.6);
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+    .chip--ten.is-pulsing {
+      animation: ten-pulse 1.4s ease-in-out infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero__scroll-prompt {
+        animation: none;
+        opacity: 0.6;
+      }
+      .chip--ten.is-pulsing {
+        animation: none;
+        box-shadow: 0 0 20px rgba(200,16,46,0.5);
+      }
+      .about-scroll-hint__arrow {
+        animation: none;
+        opacity: 0.7;
+      }
+    }
+
+    /* ── Panel continues indicator ──────────────────────────── */
+    .panel-continues {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2.5rem;
+      color: rgba(237,224,196,0.35);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .panel-continues svg {
+      animation: hint-pulse 1.8s ease-in-out infinite;
+    }
+
+    /* ── Section eyebrow (shared) ───────────────────────────── */
+    .section-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--red);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       ABOUT — horizontal scroll reveal
+    ══════════════════════════════════════════════════════════ */
+
+    /* Scroll zone — provides the scroll travel */
+    .about-scroll-zone {
+      position: relative;
+      height: 400vh;
+    }
+
+    /* Sticky viewport — pins while user scrolls */
+    .about-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* Track — three panels side by side, 300vw wide */
+    .about-track {
+      display: flex;
+      width: 255vw; /* 55vw + 100vw + 100vw */
+      height: 100%;
+      will-change: transform;
+    }
+
+    /* Each panel fills one viewport width */
+    .about-panel {
+      width: 100vw;
+      height: 100%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+    /* Problem panel narrower — lets next panel peek in */
+    .about-panel--problem {
+      width: 55vw;
+    }
+
+    /* Red pass line connector — links panel 1 to panel 2 */
+    .panel-pass-line {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-top: 3rem;
+      width: 100%;
+    }
+    .panel-pass-line__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease 0.6s;
+    }
+    .panel-pass-line__rule {
+      height: 2px;
+      background: linear-gradient(to right, var(--red), transparent);
+      flex: 1;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.7s ease 0.7s;
+    }
+    .panel-active .panel-pass-line__dot  { opacity: 1; }
+    .panel-active .panel-pass-line__rule { transform: scaleX(1); }
+
+    /* Panels — container must fill width so margin:auto centres correctly */
+    .about-panel .container {
+      width: 100%;
+      margin-left: 0;
+      padding-left: max(2rem, calc((100vw - 1200px) / 2 + 2rem));
+    }
+    .about__eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--red);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 2rem;
+    }
+    .about__opener-heading {
+      font-size: clamp(2.2rem, 4.5vw, 4rem);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      max-width: 820px;
+    }
+    .about__opener-sub {
+      display: block;
+      font-size: clamp(1.5rem, 3vw, 2.6rem);
+      font-weight: 400;
+      color: var(--red);
+      margin-top: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .about__opener-body {
+      font-size: 1.05rem;
+      color: rgba(237,224,196,0.5);
+      line-height: 1.75;
+      margin-top: 1.75rem;
+      max-width: 620px;
+    }
+
+    /* Panel 2 — football / solution */
+    .about__grid {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about__heading {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 1.1rem;
+      line-height: 1.2;
+    }
+    .about__body {
+      font-size: 1.05rem;
+      color: rgba(237,224,196,0.5);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+    .about__link {
+      color: var(--red);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s;
+    }
+    /* Tactics board */
+    .tactics-board-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+    .tactics-board {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3/2;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .tactics-board::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 30% at 50% 50%, rgba(255,255,255,0.015) 0%, transparent 70%);
+    }
+    .tactics-board__centre {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .tactics-board__mid-line {
+      position: absolute;
+      top: 10%; bottom: 10%; left: 50%;
+      width: 1px;
+      background: rgba(255,255,255,0.07);
+    }
+    .chip {
+      position: absolute;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--cream);
+      transform: translate(-50%, -50%);
+    }
+    .chip--grey { background: rgb(92,82,71); border: 1px solid rgba(255,255,255,0.15); }
+    .chip--red  { background: var(--red); border: 2px solid rgba(255,255,255,0.2); width: 44px; height: 44px; font-size: 0.9rem; box-shadow: 0 0 20px rgba(200,16,46,0.5); }
+    .chip--gk  { left:  7%; top: 50%; }
+    .chip--cb1 { left: 22%; top: 20%; }
+    .chip--cb2 { left: 22%; top: 40%; }
+    .chip--cb3 { left: 22%; top: 60%; }
+    .chip--cb4 { left: 22%; top: 80%; }
+    .chip--cm1 { left: 42%; top: 18%; }
+    .chip--cm2 { left: 42%; top: 38%; }
+    .chip--cm3 { left: 42%; top: 62%; }
+    .chip--cm4 { left: 42%; top: 82%; }
+    .chip--ten { left: 62%; top: 50%; }
+    .chip--st  { left: 82%; top: 50%; }
+    .tactics-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    /* Stephen strip — below the sticky zone, normal scroll */
+    .about__stephen-strip {
+      display: none;
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 3rem 0;
+    }
+    .about__cta-infobox--strip p {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .about__cta-infobox--strip p:last-child { margin-bottom: 0; }
+    @media (max-width: 768px) {
+      .about__stephen-strip { display: block; }
+    }
+    .about__stephen-copy {
+      font-size: 0.95rem;
+      color: rgba(237,224,196,0.75);
+      line-height: 1.7;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Mobile infobox — stacked below heading */
+    @media (max-width: 768px) {
+      .about__cta-heading { font-size: clamp(1.2rem, 4.5vw, 1.7rem); }
+      .about__cta-grid { gap: 1.5rem; }
+    }
+    .about__cta-infobox--mobile {
+      margin-top: 0;
+      border-left: 2px solid var(--red);
+      padding-left: 1rem;
+    }
+    .about__cta-infobox--mobile p {
+      font-size: 0.7rem !important;
+      line-height: 1.4 !important;
+      margin-bottom: 0.35rem !important;
+    }
+    .about__cta-infobox--mobile p:last-child { margin-bottom: 0 !important; }
+
+    /* Mobile-only panels — hidden on desktop */
+    .about-panel--mobile-pitch,
+    .about-panel--mobile-copy,
+    .about-panel--mobile-cta,
+    .about-panel--mobile-info { display: none; }
+    @media (max-width: 768px) {
+      .about-panel--mobile-pitch,
+      .about-panel--mobile-copy,
+      .about-panel--mobile-cta,
+      .about-panel--mobile-info { display: flex; }
+      .about-panel--cta { display: none; }
+    }
+
+    /* Inline logo in CTA heading */
+    .about__cta-logo {
+      height: 60px;
+      width: auto;
+      display: block;
+      align-self: flex-start;
+    }
+
+    /* Panel 3 — single column */
+    .about__cta-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Panel 3 CTA heading */
+    .about__cta-heading {
+      font-size: clamp(1.8rem, 3.2vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--cream);
+      letter-spacing: -0.02em;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1em;
+    }
+    .about__managed-by {
+      font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+      font-weight: 500;
+      color: rgba(237,224,196,0.5);
+      margin-top: 0.5rem;
+    }
+    .about__managed-by a {
+      color: rgba(237,224,196,0.5);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s;
+    }
+    .about__managed-by a:hover {
+      color: var(--cream);
+    }
+
+    /* Scroll hint arrow */
+    .about-scroll-hint {
+      position: absolute;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      pointer-events: none;
+      z-index: 10;
+      animation: hint-fade 0.4s ease forwards;
+    }
+    .about-scroll-hint--hidden {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .about-scroll-hint__arrow {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      animation: hint-pulse 1.5s ease-in-out infinite;
+    }
+    .about-scroll-hint__arrow svg {
+      display: block;
+    }
+    @keyframes hint-pulse {
+      0%, 100% { opacity: 0.4; transform: translateX(0); }
+      50%       { opacity: 1;   transform: translateX(6px); }
+    }
+
+    /* Mobile — vertical scroll drives horizontal panel slide */
+    @media (max-width: 768px) {
+      .about-scroll-zone { height: 550vh; }
+      .about-sticky {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .about-track { width: 500vw; }
+      .about-panel {
+        width: 100vw;
+        padding: 4rem 0 3rem;
+        align-items: flex-start;
+        padding-top: 7rem;
+      }
+      /* Hide desktop panel on mobile */
+      .about-panel--solution { display: none; }
+      /* Hint */
+      .about-scroll-hint {
+        position: absolute;
+        right: 1.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       PRODUCTS
+    ══════════════════════════════════════════════════════════ */
+    .products {
+      background: var(--cream-light);
+      padding: 4rem 0 3.5rem;
+    }
+    .products__header {
+      margin-bottom: 1.75rem;
+    }
+    .products__title {
+      font-size: clamp(1.9rem, 3.5vw, 2.75rem);
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.75rem;
+    }
+    .products__intro {
+      font-size: 1.05rem;
+      color: var(--mid);
+      line-height: 1.7;
+    }
+
+    /* ── Ladder ──────────────────────────────────────────────── */
+    .ladder {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      align-items: start;
+      gap: 0;
+      margin-bottom: 2.5rem;
+    }
+    .ladder__node {
+      background: #fff;
+      border: 1px solid rgba(28,28,28,0.08);
+      border-radius: 8px;
+      padding: 1.25rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    .ladder__node:hover {
+      box-shadow: 0 10px 32px rgba(200,16,46,0.09);
+      transform: translateY(-2px);
+    }
+    .ladder__node--highlight {
+    }
+    .ladder__node--addon {
+      background: rgba(28,28,28,0.04);
+      border-color: rgba(28,28,28,0.08);
+    }
+    .ladder__step {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+    .ladder__node--addon .ladder__step {
+      color: var(--mid);
+    }
+    .ladder__name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.3;
+    }
+    .ladder__node--addon .ladder__name {
+      color: var(--dark);
+    }
+    .ladder__desc {
+      font-size: 0.88rem;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+    .ladder__meta {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--red);
+      margin-top: 0.25rem;
+    }
+    .ladder__node--addon .ladder__meta {
+      color: var(--mid);
+    }
+    .ladder__arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0.5rem;
+      padding-top: 1.75rem; /* align with card top content */
+      color: var(--red);
+      font-size: 1.1rem;
+      opacity: 0.5;
+      flex-shrink: 0;
+      align-self: start;
+    }
+    .product-card__tools-note {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mid);
+      opacity: 0.6;
+      margin-top: 1.5rem;
+    }
+    .products__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+    .product-card-wrap {
+      /* perspective removed with 3D tilt */
+    }
+    .product-card {
+      background: #fff;
+      border: 1px solid rgba(28,28,28,0.08);
+      border-radius: 8px;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .product-card:hover {
+      box-shadow: 0 12px 40px rgba(200,16,46,0.10);
+      transform: translateY(-3px);
+    }
+    .product-card__trace,
+    .ladder__node__trace {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .product-card__trace polyline,
+    .ladder__node__trace polyline {
+      fill: none;
+      stroke: #C8102E;
+      stroke-width: 2;
+      stroke-linecap: square;
+    }
+    .product-card__step {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+    .product-card__title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .product-card__body {
+      font-size: 0.95rem;
+      color: var(--mid);
+      line-height: 1.7;
+      flex-grow: 1;
+    }
+    /* AI workflow pills */
+    .product-card__pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+    .workflow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dark);
+      border: 1.5px solid rgba(28,28,28,0.22);
+      border-radius: 3px;
+      padding: 0.3rem 0.65rem;
+      cursor: pointer;
+      background: transparent;
+      font-family: var(--font);
+      position: relative;
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+    .workflow-pill::before {
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+    /* Pills are self-evidently clickable via border + underline on hover */
+    /* Modal */
+    .workflow-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(28,28,28,0.6);
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+    .workflow-modal-backdrop.is-open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .workflow-modal {
+      background: #fff;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 860px;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 2.5rem 2.5rem 2rem;
+      position: relative;
+      transform: translateY(12px);
+      transition: transform 0.22s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    #workflowModalContent {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto 1fr;
+      gap: 0 3rem;
+    }
+    .workflow-modal-backdrop.is-open .workflow-modal {
+      transform: translateY(0);
+    }
+    .workflow-modal__close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: 1.5px solid rgba(28,28,28,0.18);
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--mid);
+      font-size: 1rem;
+      font-family: var(--font);
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    .workflow-modal__close:hover {
+      border-color: var(--dark);
+      color: var(--dark);
+    }
+    .workflow-modal__eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.5rem;
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .workflow-modal__title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.6rem;
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .workflow-modal__desc {
+      font-size: 0.95rem;
+      color: var(--mid);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      grid-column: 1;
+      grid-row: 3;
+    }
+    .workflow-modal__why {
+      grid-column: 1;
+      grid-row: 4;
+      align-self: start;
+      border-top: 1.5px solid rgba(28,28,28,0.08);
+      padding-top: 1rem;
+    }
+    .workflow-modal__why-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.3rem;
+    }
+    .workflow-modal__why-heading {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.35rem;
+      line-height: 1.35;
+    }
+    .workflow-modal__why-body {
+      font-size: 0.88rem;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+    .workflow-modal__graphic {
+      background: var(--cream-light);
+      border-radius: 6px;
+      padding: 1.5rem;
+      grid-column: 2;
+      grid-row: 1 / 5;
+      align-self: stretch;
+    }
+    /* Vertical timeline */
+    .wf {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .wf-step {
+      background: #fff;
+      border: 1.5px solid rgba(28,28,28,0.1);
+      border-radius: 6px;
+      padding: 0.7rem 0.9rem;
+      position: relative;
+    }
+    .wf-step--ai {
+      background: var(--dark);
+      border-color: var(--dark);
+    }
+    .wf-step--human {
+      background: #EBF3FB;
+      border: 1.5px solid #1A3A5C;
+    }
+    .wf-step--outcome {
+      background: var(--red);
+      border-color: var(--red);
+    }
+    .wf-step__label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.2rem;
+    }
+    .wf-step--ai .wf-step__label { color: rgba(196,170,145,0.7); }
+    .wf-step--human .wf-step__label { color: #1A3A5C; }
+    .wf-step--outcome .wf-step__label { color: rgba(255,255,255,0.7); }
+    .wf-step__title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.3;
+      margin-bottom: 0.15rem;
+    }
+    .wf-step--ai .wf-step__title { color: #fff; }
+    .wf-step--human .wf-step__title { color: #1A3A5C; }
+    .wf-step--outcome .wf-step__title { color: #fff; }
+    .wf-step__desc {
+      font-size: 0.72rem;
+      color: var(--mid);
+      line-height: 1.4;
+    }
+    .wf-step--ai .wf-step__desc { color: rgba(196,170,145,0.8); }
+    .wf-step--human .wf-step__desc { color: #2A4A6C; }
+    .wf-step--outcome .wf-step__desc { color: rgba(255,255,255,0.85); }
+    /* Connector line between steps */
+    .wf-arrow {
+      width: 1.5px;
+      height: 1rem;
+      background: rgba(28,28,28,0.15);
+      margin: 0 auto;
+      flex-shrink: 0;
+    }
+    /* Mobile: modal goes single column */
+    @media (max-width: 640px) {
+      #workflowModalContent {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .workflow-modal__desc {
+        margin-bottom: 1rem;
+      }
+      .workflow-modal__why {
+        grid-column: 1;
+        margin-bottom: 1.25rem;
+      }
+      .workflow-modal__graphic {
+        grid-column: 1;
+        grid-row: auto;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       ATHLETE PILLARS
+    ══════════════════════════════════════════════════════════ */
+    .athlete-pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .athlete-pillar {
+      background: #fff;
+      border: 1px solid rgba(28,28,28,0.08);
+      border-radius: 10px;
+      padding: 2rem 2rem 1.5rem;
+    }
+
+    .athlete-pillar__connector {
+      text-align: center;
+      font-size: 1.4rem;
+      color: var(--red);
+      line-height: 1;
+      padding: 0.4rem 0;
+    }
+
+    .athlete-pillar__header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .athlete-pillar__num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--red);
+      border-radius: 4px;
+      padding: 4px 8px;
+      white-space: nowrap;
+      margin-top: 3px;
+    }
+
+    .athlete-pillar__title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 2px;
+    }
+
+    .athlete-pillar__subtitle {
+      font-size: 0.85rem;
+      color: var(--mid);
+    }
+
+    /* ── Source flow ── */
+    .athlete-sources {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .athlete-source {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: var(--cream-light);
+      border: 1px solid rgba(28,28,28,0.08);
+      border-radius: 8px;
+      padding: 0.7rem 0.9rem;
+      flex: 1;
+      min-width: 90px;
+      min-height: 90px;
+      text-align: center;
+    }
+
+    .athlete-source__icon {
+      font-size: 1.3rem;
+    }
+
+    .athlete-source__label {
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: var(--dark);
+      line-height: 1.3;
+    }
+
+    .athlete-source__arrow {
+      color: var(--red);
+      font-size: 1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ── Strategy items ── */
+    .athlete-strategy-items {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .athlete-strategy-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--cream-light);
+      border: 1px solid rgba(28,28,28,0.08);
+      border-radius: 6px;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .athlete-strategy-item__icon {
+      font-size: 1rem;
+    }
+
+    /* ── Output bar ── */
+    .athlete-pillar__output {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.7rem 1rem;
+      background: var(--dark);
+      border-radius: 6px;
+    }
+
+    .athlete-pillar__output-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      white-space: nowrap;
+    }
+
+    .athlete-pillar__output-value {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* ── Agency cards ── */
+    .agency-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .agency-card {
+      background: #fff;
+      border: 1px solid rgba(28,28,28,0.08);
+      border-radius: 10px;
+      padding: 1.75rem 1.5rem;
+    }
+
+    .agency-card--highlight {
+      background: #E8E2DA;
+    }
+
+    .agency-card__icon {
+      font-size: 1.75rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .agency-card__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .agency-card__body {
+      font-size: 0.875rem;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .athlete-sources {
+        gap: 0.35rem;
+      }
+      .athlete-source {
+        min-width: 70px;
+        padding: 0.5rem 0.6rem;
+      }
+      .athlete-source__label {
+        font-size: 0.65rem;
+      }
+      .athlete-source__arrow {
+        display: none;
+      }
+      .agency-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── Closing strip ── */
+    .closing-strip {
+      margin-top: 2.5rem;
+      border-top: 2px solid var(--red);
+      padding-top: 1.75rem;
+      padding-bottom: 3rem;
+      text-align: left;
+    }
+
+    .closing-strip__text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       CONTACT
+    ══════════════════════════════════════════════════════════ */
+    .contact {
+      background: var(--dark);
+      color: var(--cream);
+      padding: 4rem 0 7rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .contact__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .contact__title {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .contact__intro {
+      color: var(--mid);
+      font-size: 1rem;
+      margin-bottom: 2.25rem;
+      line-height: 1.7;
+    }
+
+    /* Form */
+    .contact__form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-group label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(237,224,196,0.7);
+      letter-spacing: 0.03em;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      padding: 0.8rem 1rem;
+      color: var(--cream);
+      font-family: var(--font);
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s;
+      resize: vertical;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(237,224,196,0.3);
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--red);
+      background: rgba(255,255,255,0.07);
+    }
+    .form-group textarea { min-height: 130px; }
+
+    /* ── Submit button states ───────────────────────────────── */
+    .btn--submit {
+      position: relative;
+      min-width: 160px; /* lock width so it never reflows */
+      overflow: hidden;
+    }
+
+    /* Label layers — stacked absolutely, only one visible at a time */
+    .btn__label,
+    .btn__sending,
+    .btn__sent {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: opacity 200ms cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .btn__sending,
+    .btn__sent {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+    }
+
+    /* Spinner */
+    .btn__spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: btn-spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes btn-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Sending state */
+    .btn--submit.is-sending .btn__label   { opacity: 0; transform: translateY(-8px); }
+    .btn--submit.is-sending .btn__sending { opacity: 1; transform: translateY(0); }
+
+    /* Sent state */
+    .btn--submit.is-sent .btn__label   { opacity: 0; transform: translateY(-8px); }
+    .btn--submit.is-sent .btn__sending { opacity: 0; transform: translateY(-8px); }
+    .btn--submit.is-sent .btn__sent    { opacity: 1; transform: translateY(0); }
+
+    /* Reduced motion — skip transform, keep opacity cross-fade; stop spinner */
+    @media (prefers-reduced-motion: reduce) {
+      .btn__label, .btn__sending, .btn__sent {
+        transition: opacity 200ms ease;
+        transform: none !important;
+      }
+      .btn__spinner {
+        animation: none;
+        border-top-color: rgba(255,255,255,0.6);
+      }
+    }
+
+    /* Testimonials */
+    .testimonials__heading {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--mid);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .carousel {
+      position: relative;
+      overflow: hidden;
+    }
+    .carousel__track {
+      display: flex;
+      transition: transform 320ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .testimonial {
+      min-width: 100%;
+      padding-right: 1rem;
+    }
+    .testimonial__quote {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-left: 0.5rem;
+    }
+    .testimonial__quote::before {
+      content: '\201C';
+      position: absolute;
+      top: -1.5rem;
+      left: -0.75rem;
+      font-size: 5rem;
+      color: var(--red);
+      opacity: 0.25;
+      line-height: 1;
+      font-style: normal;
+      font-weight: 700;
+      pointer-events: none;
+    }
+    .testimonial__cite {
+      font-size: 0.83rem;
+      color: var(--mid);
+      font-weight: 600;
+      font-style: normal;
+      letter-spacing: 0.03em;
+    }
+    .carousel__dots {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+    .carousel__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(92,82,71,0.6);
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.25s;
+      padding: 0;
+    }
+    .carousel__dot--active {
+      background: var(--red);
+      transform: scale(1.35);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════════════════ */
+    .footer {
+      background: #111;
+      color: var(--mid);
+      padding: 1.75rem 0;
+      font-size: 0.83rem;
+    }
+    .footer__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer__nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer__nav a {
+      color: var(--mid);
+      transition: color 0.2s;
+    }
+    /* ── Hover motion — desktop pointer devices only ─────── */
+    @media (hover: hover) and (pointer: fine) {
+      .nav__links a:hover { color: var(--red); }
+      .nav__links a:hover::after { width: 100%; }
+
+      .btn--red:hover {
+        background: var(--red-deep);
+        border-color: var(--red-deep);
+        transform: translateY(-2px);
+      }
+      .btn--outline:hover {
+        border-color: var(--red);
+        color: var(--red);
+        transform: translateY(-2px);
+      }
+      .btn--outline-light:hover {
+        background: rgba(255,255,255,0.85);
+        border-color: rgba(255,255,255,0.85);
+        color: var(--red);
+        transform: translateY(-2px);
+      }
+
+      .product-card:hover {
+        box-shadow: 0 24px 56px rgba(28,28,28,0.16), 0 4px 16px rgba(200,16,46,0.08);
+      }
+      .workflow-pill:hover {
+        border-color: var(--red);
+        color: var(--red);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .workflow-pill:hover::before {
+        background: var(--red);
+      }
+
+      .footer__nav a:hover { color: var(--cream); }
+      .about__link:hover { color: #e8274a; }
+    }
+
+    /* ── Mobile hero (hidden on desktop, shown via media query) */
+    .hero-mobile {
+      display: none;
+      background: var(--dark);
+    }
+    .hero-mobile__img-wrap {
+      position: relative;
+      width: 100%;
+      height: 100svh;
+      overflow: hidden;
+    }
+    .hero-mobile__img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .hero-mobile__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 45%, rgba(13,10,8,0.85) 100%);
+    }
+    .hero-mobile__caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+    }
+    .hero-mobile__tagline {
+      font-size: clamp(1.6rem, 7vw, 2.2rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-mobile__ctas {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .hero-mobile__ctas .btn {
+      flex: 1;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .products__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+
+      /* Nav */
+      .nav__links { display: none; }
+      .nav__burger { display: flex; }
+      .nav__logo .logo-default { display: none; }
+      .nav__logo .logo-hover { display: block; }
+
+      .desktop-br { display: none; }
+      /* Hide desktop scroll zone entirely on mobile */
+      .hero-scroll-zone { display: none; }
+      /* Show mobile hero instead */
+      .hero-mobile { display: block; }
+
+
+      /* Products */
+      .products { padding: 3rem 0 4.5rem; }
+      .products__grid { grid-template-columns: 1fr; }
+      .ladder {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        margin-bottom: 3rem;
+      }
+      .ladder__arrow { display: none; }
+
+      /* Contact */
+      .contact { padding: 4.5rem 0; }
+      .contact__grid {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+      }
+
+      /* Footer */
+      .footer__inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+
+
+    /* ── Mobile about — vertical stack (replaces horizontal scroll) ── */
+    .about-mobile {
+      display: none;
+      background: var(--dark);
+      padding: 3rem 0 3rem;
+    }
+    @media (max-width: 768px) {
+      /* Hide horizontal scroll zone entirely on mobile */
+      .about-scroll-zone { display: none; }
+      /* Show vertical stack */
+      .about-mobile { display: block; }
+    }
+
+    /* Mobile about section panels */
+    .about-mobile__panel {
+      padding: 2.5rem 0;
+      border-bottom: 1px solid rgba(237,224,196,0.08);
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .about-mobile__panel:last-child { border-bottom: none; }
+    .about-mobile__panel.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Panel 1: What is it */
+    .about-mobile__eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .about-mobile__eyebrow-line {
+      flex: 1;
+      height: 1px;
+      background: var(--red);
+    }
+    .about-mobile__label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+    .about-mobile__logo {
+      height: 52px;
+      width: auto;
+      display: block;
+      margin-bottom: 1.25rem;
+    }
+    .about-mobile__heading {
+      font-size: clamp(1.7rem, 6vw, 2.4rem);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .about-mobile__body {
+      font-size: 1rem;
+      color: rgba(237,224,196,0.65);
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+    .about-mobile__body:last-child { margin-bottom: 0; }
+    .about-mobile__body span { color: var(--red); }
+
+    /* Tactics board — sits between paragraphs */
+    .about-mobile__tactics {
+      margin-top: 1.25rem;
+      margin-bottom: 1.25rem;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    /* Panel 3: CTA + infobox */
+    .about-mobile__cta-heading {
+      font-size: clamp(1.5rem, 5.5vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--cream);
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .about-mobile__cta-heading .about-mobile__logo {
+      align-self: flex-start;
+      height: 48px;
+      width: auto;
+      display: block;
+    }
+    .about-mobile__infobox {
+      border-left: 2px solid var(--red);
+      padding-left: 1.25rem;
+    }
+    .about-mobile__infobox p {
+      font-size: 0.95rem;
+      color: rgba(237,224,196,0.5);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .about-mobile__infobox p:last-child { margin-bottom: 0; }
+    .about-mobile__link {
+      color: var(--red);
+      font-weight: 600;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .about-mobile__link:hover { border-color: var(--red); }
+  </style>
+</head>
+<body>
+  <div id="grain-overlay" aria-hidden="true"></div>
+
+  <!-- ══ NAV ════════════════════════════════════════════════ -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#hero" class="nav__logo">
+        <img src="Artwork/Logo/FindThe10_Logo2.png" alt="Find The 10" class="logo-default">
+        <img src="Artwork/Logo/FindThe10_Logo2_hover.png" alt="Find The 10" class="logo-hover">
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="nav__links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#products">How we work</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </nav>
+      <button class="nav__burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile-panel" id="mobile-nav">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#products">How we work</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ══ HERO ════════════════════════════════════════════════ -->
+    <div class="hero-scroll-zone">
+    <section class="hero" id="hero" aria-label="Hero">
+
+      <!-- Full-bleed background image — subtle zoom on scroll (desktop only) -->
+      <div class="hero__bg" id="hero-bg" aria-hidden="true">
+        <img src="Artwork/Mascot/Hero_wideWeb2.png" alt="Find The 10 locker room">
+      </div>
+
+      <!-- Depth layers -->
+      <div class="hero__vignette" aria-hidden="true"></div>
+      <div class="hero__fade" aria-hidden="true"></div>
+
+      <!-- Logo, tagline, CTAs -->
+      <div class="hero__inner">
+        <div class="hero__content-col">
+          <img src="Artwork/Logo/FindThe10_Logo2_hover.png" alt="Find The 10" class="hero__logo">
+          <p class="hero__tagline">Elite brand building<br class="desktop-br"> for sport.</p>
+          <div class="hero__ctas">
+            <a href="#about" class="btn btn--red">Find out how</a>
+            <a href="#contact" class="btn btn--outline-light">Work with me</a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    </div><!-- /.hero-scroll-zone -->
+
+    <!-- ══ MOBILE HERO (hidden on desktop) ═════════════════════ -->
+    <section class="hero-mobile" aria-label="Hero">
+      <div class="hero-mobile__img-wrap">
+        <img src="Artwork/Mascot/Hero_mobile2.png" alt="Find The 10">
+        <div class="hero-mobile__overlay"></div>
+        <div class="hero-mobile__caption">
+          <p class="hero-mobile__tagline">Elite brand building<br>for sport.</p>
+          <div class="hero-mobile__ctas">
+            <a href="#about-mobile-anchor" class="btn btn--red">Find out how</a>
+            <a href="#contact" class="btn btn--outline-light">Work with me</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ ABOUT ════════════════════════════════════════════════ -->
+    <div id="about" style="position:relative;top:-76px;pointer-events:none;" aria-hidden="true"></div>
+    <div class="about-scroll-zone">
+      <div class="about-sticky">
+
+        <!-- Scroll hint — pulses until user scrolls -->
+        <div class="about-scroll-hint" id="about-hint" aria-hidden="true">
+          <div class="about-scroll-hint__arrow">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 14h16M16 8l6 6-6 6" stroke="#C8102E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.4">
+              <path d="M6 14h16M16 8l6 6-6 6" stroke="#C8102E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="about-track" id="about-track">
+
+          <!-- Panel 1: What is it? -->
+          <div class="about-panel about-panel--problem" id="about-panel-1">
+            <div class="container">
+              <img src="Artwork/Logo/FindThe10_Logo2_hover.png" alt="Find The 10" class="anim-item" data-delay="1" style="height: 60px; width: auto; display: block; margin-bottom: 1.5rem;">
+              <h2 class="about__opener-heading anim-item" data-delay="2">What is it?</h2>
+              <!-- Red pass line — draws right into panel 2 -->
+              <div class="panel-pass-line" aria-hidden="true">
+                <div class="panel-pass-line__dot"></div>
+                <div class="panel-pass-line__rule"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile panel 2: heading + pitch board (hidden on desktop) -->
+          <div class="about-panel about-panel--mobile-pitch">
+            <div class="container">
+              <h2 class="about__heading">In football, there's a position that changes everything.</h2>
+              <div class="tactics-board" aria-hidden="true" style="margin-top: 2rem;">
+                <div class="tactics-board__mid-line"></div>
+                <div class="tactics-board__centre"></div>
+                <div class="chip chip--grey chip--gk"></div>
+                <div class="chip chip--grey chip--cb1"></div>
+                <div class="chip chip--grey chip--cb2"></div>
+                <div class="chip chip--grey chip--cb3"></div>
+                <div class="chip chip--grey chip--cb4"></div>
+                <div class="chip chip--grey chip--cm1"></div>
+                <div class="chip chip--grey chip--cm2"></div>
+                <div class="chip chip--grey chip--cm3"></div>
+                <div class="chip chip--grey chip--cm4"></div>
+                <div class="chip chip--red chip--ten">10</div>
+                <div class="chip chip--grey chip--st"></div>
+                <svg id="tactics-svg-mobile" class="tactics-svg" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M 46 200 Q 200 160 372 200" stroke="rgba(255,255,255,0.49)" stroke-width="1.5"/>
+                  <path d="M 134 80 Q 260 120 372 200" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                  <path d="M 134 160 Q 260 170 372 200" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                  <path d="M 134 240 Q 260 230 372 200" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                  <path d="M 134 320 Q 260 280 372 200" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                  <path d="M 254 72 Q 310 130 372 200" stroke="rgba(255,255,255,0.67)" stroke-width="2.5"/>
+                  <path d="M 254 152 Q 310 170 372 200" stroke="rgba(255,255,255,0.67)" stroke-width="2.5"/>
+                  <path d="M 254 248 Q 310 230 372 200" stroke="rgba(255,255,255,0.67)" stroke-width="2.5"/>
+                  <path d="M 254 328 Q 310 270 372 200" stroke="rgba(255,255,255,0.67)" stroke-width="2.5"/>
+                  <path d="M 378 200 Q 450 200 498 200" stroke="#C8102E" stroke-width="3"/>
+                  <polygon points="506,200 492,193 492,207" fill="#C8102E"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile panel 3: body copy (hidden on desktop) -->
+          <div class="about-panel about-panel--mobile-copy">
+            <div class="container">
+              <p class="about__body">The number 10. The most creative and effective player on the pitch. The one who connects defence to attack and turns possession into goals.</p>
+              <p class="about__body">When you build your game plan to <span style="color: var(--red);">Find The 10</span>, you're more likely to be effective. More likely to win.</p>
+            </div>
+          </div>
+
+          <!-- Mobile panel 4: CTA heading (hidden on desktop) -->
+          <div class="about-panel about-panel--mobile-cta">
+            <div class="container">
+              <h2 class="about__cta-heading">
+                <img src="Artwork/Logo/FindThe10_Logo2_hover.png" alt="Find The 10" class="about__cta-logo">
+                <span>brings elite brand thinking and AI workflows</span>
+                <span>to sport brands, athletes, and agencies.</span>
+                <span>Turning audience into commercial advantage.</span>
+              </h2>
+            </div>
+          </div>
+
+          <!-- Mobile panel 5: Stephen infobox (hidden on desktop) -->
+          <div class="about-panel about-panel--mobile-info">
+            <div class="container">
+              <div class="about__cta-infobox">
+                <p>Stephen J Cleary is a formally trained marketer with experience working at adidas Football Global and the Irish National Lottery.</p>
+                <p>Read more on his experiences on the blog <a href="#" class="about__link">here</a>.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 2: Solution — football analogy + tactics board -->
+          <div class="about-panel about-panel--solution" id="about-panel-2">
+            <div class="container">
+              <div class="about__grid">
+
+                <div class="about__left" id="p2-left">
+                  <h2 class="about__heading about__heading--sol" id="p2-heading">In football, there's a position that changes everything.</h2>
+                  <div class="about__body-wrap">
+                    <p class="about__body" id="p2-body1">The number 10. The most creative and effective player on the pitch. The one who connects defence to attack and turns possession into goals.</p>
+                    <p class="about__body" id="p2-body2">When you build your game plan to <span style="color: var(--red);">Find The 10</span>, you're more likely to be effective. More likely to win.</p>
+                  </div>
+                </div>
+
+                <div class="about__right tactics-board-wrap">
+                  <div class="tactics-board" aria-hidden="true">
+                    <div class="tactics-board__mid-line"></div>
+                    <div class="tactics-board__centre"></div>
+                    <!-- SVG first = renders behind chips -->
+                    <svg id="tactics-svg-desktop" class="tactics-svg" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M 46 200 Q 200 160 372 200" stroke="rgba(255,255,255,0.49)" stroke-width="1.5"/>
+                      <path d="M 134 80 Q 260 120 372 200" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                      <path d="M 134 160 Q 260 170 372 200" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                      <path d="M 134 240 Q 260 230 372 200" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                      <path d="M 134 320 Q 260 280 372 200" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                      <path d="M 254 72 Q 310 130 372 200" stroke="rgba(255,255,255,0.67)" stroke-width="2.5"/>
+                      <path d="M 254 152 Q 310 170 372 200" stroke="rgba(255,255,255,0.67)" stroke-width="2.5"/>
+                      <path d="M 254 248 Q 310 230 372 200" stroke="rgba(255,255,255,0.67)" stroke-width="2.5"/>
+                      <path d="M 254 328 Q 310 270 372 200" stroke="rgba(255,255,255,0.67)" stroke-width="2.5"/>
+                      <path d="M 378 200 Q 450 200 498 200" stroke="#C8102E" stroke-width="3"/>
+                      <polygon points="506,200 492,193 492,207" fill="#C8102E"/>
+                    </svg>
+                    <!-- Chips after SVG = render on top of lines -->
+                    <div class="chip chip--grey chip--gk"></div>
+                    <div class="chip chip--grey chip--cb1"></div>
+                    <div class="chip chip--grey chip--cb2"></div>
+                    <div class="chip chip--grey chip--cb3"></div>
+                    <div class="chip chip--grey chip--cb4"></div>
+                    <div class="chip chip--grey chip--cm1"></div>
+                    <div class="chip chip--grey chip--cm2"></div>
+                    <div class="chip chip--grey chip--cm3"></div>
+                    <div class="chip chip--grey chip--cm4"></div>
+                    <div class="chip chip--red chip--ten">10</div>
+                    <div class="chip chip--grey chip--st"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 3: CTA heading (desktop only) -->
+          <div class="about-panel about-panel--cta" id="about-panel-3">
+            <div class="container">
+              <div class="about__cta-grid">
+                <h2 class="about__cta-heading">
+                  <img src="Artwork/Logo/FindThe10_Logo2_hover.png" alt="Find The 10" class="about__cta-logo anim-item" data-delay="1">
+                  <span class="anim-item" data-delay="2">brings elite brand thinking and AI workflows</span>
+                  <span class="anim-item" data-delay="3">to sport brands, athletes, and agencies.</span>
+                  <span class="anim-item" data-delay="4">Turning audience into commercial advantage.</span>
+                </h2>
+                <p class="about__managed-by anim-item" data-delay="5">Managed by <a href="#">Stephen J Cleary</a></p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /.about-scroll-zone -->
+
+    <!-- ══ ABOUT (mobile vertical stack) ═══════════════════════ -->
+    <!-- id="about-mobile-anchor" used by mobile nav; desktop uses #about on the scroll-zone -->
+    <section class="about-mobile" id="about-mobile-anchor" aria-label="About Find The 10">
+
+      <!-- Panel 1: What is Find The 10? -->
+      <div class="about-mobile__panel">
+        <div class="container">
+          <div class="about-mobile__eyebrow">
+            <span class="about-mobile__label">What is Find The 10?</span>
+            <div class="about-mobile__eyebrow-line"></div>
+          </div>
+          <h2 class="about-mobile__heading">In football, there's a position that changes everything.</h2>
+          <p class="about-mobile__body">The number 10. The most creative and effective player on the pitch. The one who connects defence to attack and turns possession into goals.</p>
+          <div class="about-mobile__tactics">
+            <div class="tactics-board" aria-hidden="true">
+              <div class="tactics-board__mid-line"></div>
+              <div class="tactics-board__centre"></div>
+              <svg class="tactics-svg" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 46 200 Q 200 160 372 200" stroke="rgba(255,255,255,0.49)" stroke-width="1.5"/>
+                <path d="M 134 80 Q 260 120 372 200" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                <path d="M 134 160 Q 260 170 372 200" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                <path d="M 134 240 Q 260 230 372 200" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                <path d="M 134 320 Q 260 280 372 200" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                <path d="M 254 72 Q 310 130 372 200" stroke="rgba(255,255,255,0.67)" stroke-width="2.5"/>
+                <path d="M 254 152 Q 310 170 372 200" stroke="rgba(255,255,255,0.67)" stroke-width="2.5"/>
+                <path d="M 254 248 Q 310 230 372 200" stroke="rgba(255,255,255,0.67)" stroke-width="2.5"/>
+                <path d="M 254 328 Q 310 270 372 200" stroke="rgba(255,255,255,0.67)" stroke-width="2.5"/>
+                <path d="M 378 200 Q 450 200 498 200" stroke="#C8102E" stroke-width="3"/>
+                <polygon points="506,200 492,193 492,207" fill="#C8102E"/>
+              </svg>
+              <div class="chip chip--grey chip--gk"></div>
+              <div class="chip chip--grey chip--cb1"></div>
+              <div class="chip chip--grey chip--cb2"></div>
+              <div class="chip chip--grey chip--cb3"></div>
+              <div class="chip chip--grey chip--cb4"></div>
+              <div class="chip chip--grey chip--cm1"></div>
+              <div class="chip chip--grey chip--cm2"></div>
+              <div class="chip chip--grey chip--cm3"></div>
+              <div class="chip chip--grey chip--cm4"></div>
+              <div class="chip chip--red chip--ten">10</div>
+              <div class="chip chip--grey chip--st"></div>
+            </div>
+          </div>
+          <p class="about-mobile__body">When you build your game plan to <span>Find The 10</span>, you're more likely to be effective. More likely to win.</p>
+        </div>
+      </div>
+
+      <!-- Panel 3: CTA + Stephen infobox -->
+      <div class="about-mobile__panel">
+        <div class="container">
+          <h2 class="about-mobile__cta-heading">
+            Find The 10 brings elite brand thinking and AI workflows to sport brands, athletes, and agencies. Turning audience into commercial advantage.
+          </h2>
+          <p class="about__managed-by" style="margin-top:1rem;">Managed by <a href="#">Stephen J Cleary</a></p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ══ PRODUCTS ════════════════════════════════════════════ -->
+    <section id="products" class="products">
+      <div class="container">
+
+        <div class="products__header fade-in">
+          <h2 class="products__title">How we work with athletes.</h2>
+          <p class="products__intro">Three phases. Clear outputs. Built to turn sporting talent into commercial opportunity.</p>
+        </div>
+
+        <!-- ── Athlete Pillars ─────────────────────────────────── -->
+        <div class="athlete-pillars fade-in" style="transition-delay: 0.1s">
+
+          <!-- Pillar 1: Research & Insights -->
+          <div class="athlete-pillar">
+            <div class="athlete-pillar__header">
+              <span class="athlete-pillar__num">01</span>
+              <div>
+                <h3 class="athlete-pillar__title">Athlete Research &amp; Insights</h3>
+                <p class="athlete-pillar__subtitle">Five sources. One clear picture.</p>
+              </div>
+            </div>
+            <div class="athlete-sources">
+              <div class="athlete-source">
+                <span class="athlete-source__icon">🎙️</span>
+                <span class="athlete-source__label">Direct conversation with Athlete &amp; Manager</span>
+              </div>
+              <div class="athlete-source__arrow">→</div>
+              <div class="athlete-source">
+                <span class="athlete-source__icon">📰</span>
+                <span class="athlete-source__label">Public record &amp; press coverage</span>
+              </div>
+              <div class="athlete-source__arrow">→</div>
+              <div class="athlete-source">
+                <span class="athlete-source__icon">📱</span>
+                <span class="athlete-source__label">Own Social<br>Media Channels</span>
+              </div>
+              <div class="athlete-source__arrow">→</div>
+              <div class="athlete-source">
+                <span class="athlete-source__icon">🌐</span>
+                <span class="athlete-source__label">Online conversation<br>(Last 30 days)</span>
+              </div>
+              <div class="athlete-source__arrow">→</div>
+              <div class="athlete-source">
+                <span class="athlete-source__icon">🗣️</span>
+                <span class="athlete-source__label">AI Synthetic<br>Audience Panel</span>
+              </div>
+            </div>
+            <div class="athlete-pillar__output">
+              <span class="athlete-pillar__output-label">Output</span>
+              <span class="athlete-pillar__output-value">Key insights on the athlete brand</span>
+            </div>
+          </div>
+
+          <div class="athlete-pillar__connector" aria-hidden="true">↓</div>
+
+          <!-- Pillar 2: Brand Strategy -->
+          <div class="athlete-pillar">
+            <div class="athlete-pillar__header">
+              <span class="athlete-pillar__num">02</span>
+              <div>
+                <h3 class="athlete-pillar__title">Athlete Brand Strategy</h3>
+                <p class="athlete-pillar__subtitle">Insights into a clear commercial direction.</p>
+              </div>
+            </div>
+            <div class="athlete-strategy-items">
+              <div class="athlete-strategy-item">
+                <span class="athlete-strategy-item__icon">🎯</span>
+                <span>Athlete Positioning</span>
+              </div>
+              <div class="athlete-strategy-item">
+                <span class="athlete-strategy-item__icon">📅</span>
+                <span>Short-term Commercial Targets</span>
+              </div>
+              <div class="athlete-strategy-item">
+                <span class="athlete-strategy-item__icon">🏆</span>
+                <span>Long-term Brand Ambition</span>
+              </div>
+              <div class="athlete-strategy-item">
+                <span class="athlete-strategy-item__icon">⚡</span>
+                <span>Athlete Distinctive Brand Assets</span>
+              </div>
+            </div>
+            <div class="athlete-pillar__output">
+              <span class="athlete-pillar__output-label">Output</span>
+              <span class="athlete-pillar__output-value">A positioning that opens the right commercial doors</span>
+            </div>
+          </div>
+
+          <div class="athlete-pillar__connector" aria-hidden="true">↓</div>
+
+          <!-- Pillar 3: Brand Activation -->
+          <div class="athlete-pillar">
+            <div class="athlete-pillar__header">
+              <span class="athlete-pillar__num">03</span>
+              <div>
+                <h3 class="athlete-pillar__title">Athlete Brand Activation</h3>
+                <p class="athlete-pillar__subtitle">Strategy turned into something you can use.</p>
+              </div>
+            </div>
+            <div class="athlete-strategy-items">
+              <div class="athlete-strategy-item">
+                <span class="athlete-strategy-item__icon">📋</span>
+                <span>Athlete Brand Toolkit</span>
+              </div>
+              <div class="athlete-strategy-item">
+                <span class="athlete-strategy-item__icon">📲</span>
+                <span>Social Media Strategy</span>
+              </div>
+              <div class="athlete-strategy-item">
+                <span class="athlete-strategy-item__icon">✏️</span>
+                <span>Content Planning</span>
+              </div>
+              <div class="athlete-strategy-item">
+                <span class="athlete-strategy-item__icon">💻</span>
+                <span>Website Development</span>
+              </div>
+              <div class="athlete-strategy-item">
+                <span class="athlete-strategy-item__icon">📧</span>
+                <span>CRM &amp; Email Marketing</span>
+              </div>
+            </div>
+            <div class="athlete-pillar__output">
+              <span class="athlete-pillar__output-label">Output</span>
+              <span class="athlete-pillar__output-value">Ready to use. Built around the athlete.</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ── Agency value cards ─────────────────────────────── -->
+        <div class="products__header fade-in" style="margin-top: 3.5rem;">
+          <h2 class="products__title">What this means for your agency.</h2>
+        </div>
+
+        <div class="agency-cards fade-in" style="transition-delay: 0.1s">
+
+          <div class="agency-card">
+            <span class="agency-card__icon">🏅</span>
+            <h3 class="agency-card__title">For your athletes</h3>
+            <p class="agency-card__body">A clear brand identity and commercial strategy, built specifically for the athlete.</p>
+          </div>
+
+          <div class="agency-card">
+            <span class="agency-card__icon">🤝</span>
+            <h3 class="agency-card__title">For your agency</h3>
+            <p class="agency-card__body">A specialist brand partner you bring in. Expands what you can offer without adding headcount.</p>
+          </div>
+
+          <div class="agency-card agency-card--highlight">
+            <span class="agency-card__icon">💼</span>
+            <h3 class="agency-card__title">For your deals</h3>
+            <p class="agency-card__body">Brand-ready athletes attract better commercial partners. Bigger deals, better fit, longer tenure.</p>
+          </div>
+
+        </div>
+
+        <!-- ── Closing strip ─────────────────────────────────── -->
+        <div class="closing-strip fade-in" style="transition-delay: 0.2s">
+          <p class="closing-strip__text">Find The 10 works with talent agencies as a specialist brand partner.<br>Flexible to the athlete, flexible to the agency.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ WORKFLOW MODALS ════════════════════════════════════════ -->
+    <div class="workflow-modal-backdrop" id="workflowModalBackdrop" aria-modal="true" role="dialog">
+      <div class="workflow-modal" id="workflowModal">
+        <button class="workflow-modal__close" id="workflowModalClose" aria-label="Close">✕</button>
+        <div id="workflowModalContent"></div>
+      </div>
+    </div>
+
+
+  </main>
+
+
+  <script>
+    // ── Hero — image zoom on scroll (desktop only) ──────────
+    (function () {
+      const bg   = document.getElementById('hero-bg');
+      const zone = document.querySelector('.hero-scroll-zone');
+      if (!bg || !zone) return;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) return;
+
+      let raf = null;
+
+      function update() {
+        raf = null;
+        if (window.innerWidth <= 768) return;
+        // p = 0 at top of zone, 1 when zone is fully scrolled through
+        const zoneHeight = zone.offsetHeight - window.innerHeight;
+        const p = zoneHeight > 0 ? Math.min(1, Math.max(0, window.scrollY / zoneHeight)) : 0;
+        bg.style.transform = `scale(${1 + 0.18 * p})`;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!raf) raf = requestAnimationFrame(update);
+      }, { passive: true });
+
+      update();
+    }());
+
+    // ── Nav reveal — shows when hero is scrolled past ────────
+    (function () {
+      const nav = document.getElementById('nav');
+      const navLogo = document.querySelector('.nav__logo');
+      if (!nav) return;
+
+      let revealed = false;
+      function checkScroll() {
+        if (revealed) return;
+        const zone = document.querySelector('.hero-scroll-zone');
+        const heroBottom = zone ? zone.getBoundingClientRect().bottom : 0;
+        if (heroBottom <= 80) {
+          revealed = true;
+          nav.classList.add('is-visible');
+          if (navLogo) navLogo.classList.add('is-visible');
+          window.removeEventListener('scroll', checkScroll);
+        }
+      }
+
+      window.addEventListener('scroll', checkScroll, { passive: true });
+      checkScroll(); // run once on load in case already scrolled
+    }());
+
+    // ── Grain texture ─────────────────────────────────────────
+    (function () {
+      const SIZE = 256;
+      const offscreen = document.createElement('canvas');
+      offscreen.width  = SIZE;
+      offscreen.height = SIZE;
+      const ctx = offscreen.getContext('2d');
+      const img = ctx.createImageData(SIZE, SIZE);
+      const data = img.data;
+      for (let i = 0; i < data.length; i += 4) {
+        const v = Math.random() * 255 | 0;
+        data[i] = data[i+1] = data[i+2] = v;
+        data[i+3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+      const url = offscreen.toDataURL();
+      const overlay = document.getElementById('grain-overlay');
+      overlay.style.backgroundImage  = `url(${url})`;
+      overlay.style.backgroundRepeat = 'repeat';
+      overlay.style.backgroundSize   = `${SIZE}px ${SIZE}px`;
+    }());
+
+    // ── Nav: scroll shadow + mobile burger ───────────────────
+    const nav = document.getElementById('nav');
+    const burger = nav.querySelector('.nav__burger');
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav--scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    burger.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('nav--open');
+      burger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close mobile nav on link click
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('nav--open');
+        burger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ── Scroll fade-in ───────────────────────────────────────
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+    // ── Mobile about panels: fade in on scroll ───────────────
+    const mobilePanelObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // stagger each panel slightly
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 80);
+          mobilePanelObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.about-mobile__panel').forEach(el => mobilePanelObserver.observe(el));
+
+    // ── About horizontal scroll (desktop only) ───────────────
+    (function () {
+      const zone  = document.querySelector('.about-scroll-zone');
+      const track = document.getElementById('about-track');
+      const hint  = document.getElementById('about-hint');
+      const p1          = document.getElementById('about-panel-1');
+      const p2          = document.getElementById('about-panel-2');
+      const p3          = document.getElementById('about-panel-3');
+      const tacticsPaths   = document.querySelectorAll('#tactics-svg-desktop path');
+      const tacticsPolygon = document.querySelector('#tactics-svg-desktop polygon');
+      const tenChip        = document.querySelector('#about-panel-2 .chip--ten');
+
+      // Init: set dasharray and dashoffset via setAttribute — most reliable for SVG
+      Array.from(tacticsPaths).slice(0, 9).forEach(p => {
+        p.setAttribute('stroke-dasharray', '400');
+        p.setAttribute('stroke-dashoffset', '400');
+      });
+      if (tacticsPaths[9]) {
+        tacticsPaths[9].setAttribute('stroke-dasharray', '200');
+        tacticsPaths[9].setAttribute('stroke-dashoffset', '200');
+      }
+      if (tacticsPolygon) {
+        tacticsPolygon.setAttribute('stroke-dasharray', '50');
+        tacticsPolygon.setAttribute('stroke-dashoffset', '50');
+      }
+      // On mobile the scroll zone is hidden — skip entirely
+      if (!zone || !track || window.innerWidth <= 768) return;
+
+      let rafId = null;
+      const activated = new Set();
+
+      function activatePanel(el) {
+        if (!el || activated.has(el)) return;
+        activated.add(el);
+        el.classList.add('panel-active');
+      }
+
+      function update() {
+        rafId = null;
+        const isMobile = window.innerWidth <= 768;
+        const panels = isMobile ? 5 : 3;
+        const zoneTop    = zone.getBoundingClientRect().top + window.scrollY;
+        const zoneHeight = zone.offsetHeight - window.innerHeight;
+        const raw = (window.scrollY - zoneTop) / zoneHeight;
+        const p   = Math.min(1, Math.max(0, raw));
+        // Desktop: travel = 55vw + 100vw + 100vw - 100vw viewport = 155vw
+        const travel = isMobile ? (panels - 1) * 100 : 155;
+        track.style.transform = `translateX(-${p * travel}vw)`;
+        if (hint) hint.classList.toggle('about-scroll-hint--hidden', p > 0.15);
+
+        // ── Tactics board scroll animation (desktop only) ─────
+        // Panel 2 occupies p ≈ 0.35 → 0.85 of scroll range
+        // Extract a 0→1 progress just for that window
+        if (!isMobile && tacticsPaths.length) {
+          const tp = Math.min(1, Math.max(0, (p - 0.22) / 0.5));
+
+          // Draw pass lines sequentially as tp progresses
+          // Each of the 10 paths gets its own sub-range
+          // Draw the 9 pass lines sequentially, last path (red) uses dasharray 50
+          const passPaths = Array.from(tacticsPaths).slice(0, 9);
+          const redPath   = tacticsPaths[9];
+          passPaths.forEach((path, i) => {
+            const start = i / passPaths.length;
+            const end   = (i + 1) / passPaths.length;
+            const lp    = Math.min(1, Math.max(0, (tp - start) / (end - start)));
+            path.setAttribute('stroke-dashoffset', 400 * (1 - lp));
+          });
+          if (redPath) {
+            const redP = Math.min(1, Math.max(0, (tp - 0.85) / 0.15));
+            redPath.setAttribute('stroke-dashoffset', 200 * (1 - redP));
+          }
+          if (tacticsPolygon) {
+            const polyP = Math.min(1, Math.max(0, (tp - 0.92) / 0.08));
+            tacticsPolygon.setAttribute('stroke-dashoffset', 50 * (1 - polyP));
+          }
+
+          // "10" chip pulses throughout
+          if (tenChip) tenChip.classList.add('is-pulsing');
+        }
+
+        // Activate panels once fully centred in viewport
+        if (!isMobile) {
+          if (p >= 0.0)   activatePanel(p1);
+          if (p >= 0.72)  activatePanel(p3);
+
+          if (p >= 0.85)  activatePanel(p2);
+        } else {
+          if (p >= 0.0)   activatePanel(p1);
+          if (p >= 0.22)  activatePanel(document.getElementById('about-panel-mob-pitch'));
+          if (p >= 0.42)  activatePanel(document.getElementById('about-panel-mob-copy'));
+          if (p >= 0.62)  activatePanel(p3);
+        }
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!rafId) rafId = requestAnimationFrame(update);
+      }, { passive: true });
+
+      update();
+    }());
+
+
+    // ── Testimonial carousel ─────────────────────────────────
+    const track = document.querySelector('.carousel__track');
+    const dots = document.querySelectorAll('.carousel__dot');
+    const totalSlides = document.querySelectorAll('.testimonial').length;
+    let current = 0;
+    let timer;
+
+    function goTo(index) {
+      current = (index + totalSlides) % totalSlides;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('carousel__dot--active', i === current);
+      });
+    }
+
+    function startAutoplay() {
+      timer = setInterval(() => goTo(current + 1), 5000);
+    }
+
+    function stopAutoplay() {
+      clearInterval(timer);
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        stopAutoplay();
+        goTo(parseInt(dot.dataset.index));
+        startAutoplay();
+      });
+    });
+
+    const carousel = document.querySelector('.carousel');
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+
+    startAutoplay();
+
+    // ── Contact form submit morph ────────────────────────────
+    (function () {
+      const form   = document.querySelector('.contact__form');
+      const btn    = form ? form.querySelector('.btn--submit') : null;
+      if (!form || !btn) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (btn.classList.contains('is-sending') || btn.classList.contains('is-sent')) return;
+
+        // → sending state
+        btn.classList.add('is-sending');
+        btn.disabled = true;
+        btn.setAttribute('aria-label', 'Sending your message');
+
+        // Simulate async — replace with real fetch when backend is ready
+        setTimeout(function () {
+          btn.classList.remove('is-sending');
+          btn.classList.add('is-sent');
+          btn.setAttribute('aria-label', 'Message sent');
+
+          // Reset after 4s so the form can be reused
+          setTimeout(function () {
+            btn.classList.remove('is-sent');
+            btn.disabled = false;
+            btn.setAttribute('aria-label', '');
+          }, 4000);
+        }, 1500);
+      });
+    }());
+
+    // 3D card tilt removed — pills at card base made it unreliable
+
+    // ── Workflow modals ───────────────────────────────────────
+    (function () {
+
+      const MODALS = {
+        'social-listening': {
+          eyebrow: 'Research workflow',
+          title: 'Social Listening',
+          desc: 'Live public conversation about your brand or category pulled from Reddit, X, TikTok, Instagram, YouTube, and the web — analysed and delivered as a strategic report.',
+          whyHeading: 'Research that would take weeks, delivered in days',
+          whyBody: 'Traditional brand research means surveys, agencies, and long wait times. This pulls live public conversation across six platforms in hours, giving you real opinion data before any strategy decision is made.',
+          graphic: `<div class="wf">
+  <div class="wf-step">
+    <div class="wf-step__label">Input</div>
+    <div class="wf-step__title">Brand or topic brief</div>
+    <div class="wf-step__desc">Brand name, category, key competitors</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">Pre-research</div>
+    <div class="wf-step__desc">Subreddits, handles, news context resolved</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">Live data pull</div>
+    <div class="wf-step__desc">Reddit, X, TikTok, Instagram, YouTube, web</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--human">
+    <div class="wf-step__label">Human review</div>
+    <div class="wf-step__title">Insight synthesis</div>
+    <div class="wf-step__desc">Themes ranked, verbatims selected, gaps flagged</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--outcome">
+    <div class="wf-step__label">Outcome</div>
+    <div class="wf-step__title">Social Listening Report</div>
+    <div class="wf-step__desc">Claimed vs measured + strategic implications</div>
+  </div>
+</div>`
+        },
+        'brand-dna-audit': {
+          eyebrow: 'Research workflow',
+          title: 'Brand DNA Audit',
+          desc: 'Your brand scored across five axes (purpose, personality, values, positioning, and promise) — showing where your claimed identity matches market perception and where it does not.',
+          whyHeading: 'A full brand diagnostic in one session, not one month',
+          whyBody: 'What used to require a research agency and weeks of interviews is done in a single AI-assisted workflow. You get a scored view of how your brand is perceived across five axes, ready to act on immediately.',
+          graphic: `<div class="wf">
+  <div class="wf-step">
+    <div class="wf-step__label">Input</div>
+    <div class="wf-step__title">Brand name</div>
+    <div class="wf-step__desc">Category context</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">5-axis DNA score</div>
+    <div class="wf-step__desc">Purpose, personality, values, positioning, promise</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step">
+    <div class="wf-step__label">Output</div>
+    <div class="wf-step__title">Perception map</div>
+    <div class="wf-step__desc">Claimed identity vs. consumer reality</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--outcome">
+    <div class="wf-step__label">Outcome</div>
+    <div class="wf-step__title">Strategic gap</div>
+    <div class="wf-step__desc">Where you are vs. where you want to be</div>
+  </div>
+</div>`
+        },
+        'competitor-mapping': {
+          eyebrow: 'Research workflow',
+          title: 'Competitor Mapping',
+          desc: 'Your brand and a key competitor scored on the same five axes, showing where you lead, where you lag, and which territory is genuinely ownable.',
+          whyHeading: 'See exactly where you can win, before spending a pound',
+          whyBody: 'Instead of guessing where your brand sits relative to competitors, you get a scored side-by-side comparison on the same five axes. The ownable territory becomes obvious, not a matter of opinion.',
+          graphic: `<div class="wf">
+  <div class="wf-step">
+    <div class="wf-step__label">Input</div>
+    <div class="wf-step__title">Your brand + competitor</div>
+    <div class="wf-step__desc">Two names, same axes</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">Side-by-side scoring</div>
+    <div class="wf-step__desc">5 shared axes, both brands</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step">
+    <div class="wf-step__label">Output</div>
+    <div class="wf-step__title">Comparison chart</div>
+    <div class="wf-step__desc">Score diff per axis</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--outcome">
+    <div class="wf-step__label">Outcome</div>
+    <div class="wf-step__title">Ownable territory</div>
+    <div class="wf-step__desc">Where you can win vs. the field</div>
+  </div>
+</div>`
+        },
+        'ad-attention-audit': {
+          eyebrow: 'Research workflow',
+          title: 'Digital Brand Advertising Audit',
+          desc: 'Your existing ad creative scored for attention, brand asset presence, and channel fit — ranked so you know what is working and what to fix.',
+          whyHeading: 'Know which ads are working before you scale the budget',
+          whyBody: 'Rather than waiting for campaign results to tell you what failed, this scores your existing creative for attention and brand recognition upfront. You stop wasting spend on ads that were never going to land.',
+          graphic: `<div class="wf">
+  <div class="wf-step">
+    <div class="wf-step__label">Input</div>
+    <div class="wf-step__title">Existing ad creative</div>
+    <div class="wf-step__desc">Video or static ads across channels</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">DBA presence scoring</div>
+    <div class="wf-step__desc">Brand assets rated for fame and uniqueness</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">Attention prediction</div>
+    <div class="wf-step__desc">Scored against platform attention averages</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--human">
+    <div class="wf-step__label">Human review</div>
+    <div class="wf-step__title">Channel fit assessment</div>
+    <div class="wf-step__desc">Platform recommendations grounded in strategy</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--outcome">
+    <div class="wf-step__label">Outcome</div>
+    <div class="wf-step__title">Creative audit report</div>
+    <div class="wf-step__desc">Ranked ads + channel recommendations</div>
+  </div>
+</div>`
+        },
+        'cep-builder': {
+          eyebrow: 'Strategy workflow',
+          title: 'Category Entry Point Mapping',
+          desc: 'Every moment a customer could enter your category mapped using the 7W framework, then scored for commonality, brand credibility, and competitive whitespace.',
+          whyHeading: 'Know which moments to own before you brief any channel',
+          whyBody: 'Most brands spread awareness too thin because they have never mapped when their customers actually enter the category. This workflow gives you a prioritised list of the moments worth owning, so every channel decision has a clear strategic reason behind it.',
+          graphic: `<div class="wf">
+  <div class="wf-step">
+    <div class="wf-step__label">Input</div>
+    <div class="wf-step__title">Category + market</div>
+    <div class="wf-step__desc">Demographic optional</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">7W framework</div>
+    <div class="wf-step__desc">42 entry points generated</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">3C scoring</div>
+    <div class="wf-step__desc">Commonality, credibility, whitespace</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--outcome">
+    <div class="wf-step__label">Outcome</div>
+    <div class="wf-step__title">Priority moments</div>
+    <div class="wf-step__desc">Ranked: own first, consider, deprioritise</div>
+  </div>
+</div>`
+        },
+        'dba-builder': {
+          eyebrow: 'Strategy workflow',
+          title: 'Building Distinctive Brand Assets',
+          desc: 'Your existing brand assets audited against DBA principles (fame, uniqueness, consistency), with a clear plan for what to protect, what to fix, and what to build next.',
+          whyHeading: 'A clear investment case for every brand asset you build',
+          whyBody: 'Most businesses spend on creative without knowing which assets are actually building recognition. This audit tells you exactly what is working, what is at risk, and what is worth investing in next.',
+          graphic: `<div class="wf">
+  <div class="wf-step">
+    <div class="wf-step__label">Input</div>
+    <div class="wf-step__title">Brand style guide</div>
+    <div class="wf-step__desc">Logos, colours, fonts, characters, sounds</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">Asset audit</div>
+    <div class="wf-step__desc">Current DBAs scored for fame and uniqueness</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--human">
+    <div class="wf-step__label">Human review</div>
+    <div class="wf-step__title">Gap analysis</div>
+    <div class="wf-step__desc">What is missing, weak, or at risk</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--human">
+    <div class="wf-step__label">Human review</div>
+    <div class="wf-step__title">What to build</div>
+    <div class="wf-step__desc">New DBAs worth investing in and why</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--outcome">
+    <div class="wf-step__label">Outcome</div>
+    <div class="wf-step__title">DBA growth plan</div>
+    <div class="wf-step__desc">How to deploy assets in advertising to build memory</div>
+  </div>
+</div>`
+        },
+        'brand-guidelines': {
+          eyebrow: 'Strategy workflow',
+          title: 'Brand Guideline Development',
+          desc: 'A complete brand style guide covering colours, typography, logo usage, tone of voice, and application examples across your key touchpoints.',
+          whyHeading: 'One document that makes every future creative decision faster',
+          whyBody: 'Without guidelines, every new piece of work restarts the same conversation. A properly built style guide cuts briefing time, reduces creative back-and-forth, and means anyone you work with can produce on-brand work from day one.',
+          graphic: `<div class="wf">
+  <div class="wf-step">
+    <div class="wf-step__label">Input</div>
+    <div class="wf-step__title">Brand strategy</div>
+    <div class="wf-step__desc">Positioning, values, audience</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--human">
+    <div class="wf-step__label">Human-led</div>
+    <div class="wf-step__title">Design decisions</div>
+    <div class="wf-step__desc">Colour, type, logo, tone of voice</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step">
+    <div class="wf-step__label">Output</div>
+    <div class="wf-step__title">Style guide</div>
+    <div class="wf-step__desc">Tokens, rules, and application examples</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--outcome">
+    <div class="wf-step__label">Outcome</div>
+    <div class="wf-step__title">Creative consistency</div>
+    <div class="wf-step__desc">Every touchpoint looks and sounds like you</div>
+  </div>
+</div>`
+        },
+        'social-ads': {
+          eyebrow: 'Tactics workflow',
+          title: 'Paid Social Media Campaigns',
+          desc: 'A full Meta advertising pipeline: multiple ad formats produced programmatically, uploaded via API, and tracked in a live dashboard — with human sign-off before anything goes live.',
+          whyHeading: 'Creative production, campaign setup, and live performance tracking in one pipeline',
+          whyBody: 'Most businesses treat ad creative, campaign setup, and reporting as three separate jobs. Here they run as one connected workflow: multiple formats produced programmatically, uploaded to Meta via API, and tracked in a live dashboard from day one.',
+          graphic: `<div class="wf">
+  <div class="wf-step">
+    <div class="wf-step__label">Input</div>
+    <div class="wf-step__title">Brand brief</div>
+    <div class="wf-step__desc">Colours, copy, creative matrix</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">Automated</div>
+    <div class="wf-step__title">Ad generation</div>
+    <div class="wf-step__desc">HTML templates rendered to PNG via Puppeteer</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--human">
+    <div class="wf-step__label">Human decision</div>
+    <div class="wf-step__title">Review + approve</div>
+    <div class="wf-step__desc">Select creatives, set budget and targeting</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">Automated</div>
+    <div class="wf-step__title">Meta upload</div>
+    <div class="wf-step__desc">Images, creatives and ads created via API</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--human">
+    <div class="wf-step__label">Human decision</div>
+    <div class="wf-step__title">Activate</div>
+    <div class="wf-step__desc">All ads sit paused until final sign-off</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--outcome">
+    <div class="wf-step__label">Outcome</div>
+    <div class="wf-step__title">Live campaign</div>
+    <div class="wf-step__desc">Dashboard tracks CTR, CPM, spend by persona</div>
+  </div>
+</div>`
+        },
+        'content-planning': {
+          eyebrow: 'Tactics workflow',
+          title: 'Social Media Management',
+          desc: 'A weekly brief turned into a planned, approved post calendar by an AI agent team covering insights, content planning, and copywriting per channel.',
+          whyHeading: 'A full week of planned, brand-consistent content from a single brief',
+          whyBody: 'An AI agent team handles insights review, content planning, and copywriting per channel. What would take a marketing coordinator a full day takes one brief and a review.',
+          graphic: `<div class="wf">
+  <div class="wf-step">
+    <div class="wf-step__label">Input</div>
+    <div class="wf-step__title">Weekly brief</div>
+    <div class="wf-step__desc">What to promote and why</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">Insights agent</div>
+    <div class="wf-step__desc">Reviews past post performance</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">Content Manager</div>
+    <div class="wf-step__desc">Plans one post per brief item</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">Copywriter</div>
+    <div class="wf-step__desc">Writes copy per channel</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--outcome">
+    <div class="wf-step__label">Outcome</div>
+    <div class="wf-step__title">Approved calendar</div>
+    <div class="wf-step__desc">Posts ready to publish</div>
+  </div>
+</div>`
+        },
+        'campaign-tracking': {
+          eyebrow: 'Tactics workflow',
+          title: 'Campaign Tracking Dashboard',
+          desc: 'Media plan, spend, creative status, and live performance across all channels pulled into a single dashboard.',
+          whyHeading: 'Your entire campaign in one view, updated in real time',
+          whyBody: 'Instead of chasing reports across platforms and spreadsheets, everything sits in a single dashboard. You make decisions faster because the information is always current and in one place.',
+          graphic: `<div class="wf">
+  <div class="wf-step">
+    <div class="wf-step__label">Input</div>
+    <div class="wf-step__title">Media plan + budget</div>
+    <div class="wf-step__desc">Channels, flights, creative status</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">Dashboard</div>
+    <div class="wf-step__title">Campaign tracker</div>
+    <div class="wf-step__desc">4 tabs: Overview, Media, Creative, Live</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step">
+    <div class="wf-step__label">Output</div>
+    <div class="wf-step__title">Gantt + spend</div>
+    <div class="wf-step__desc">52-week timeline, budget by channel</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--outcome">
+    <div class="wf-step__label">Outcome</div>
+    <div class="wf-step__title">Always informed</div>
+    <div class="wf-step__desc">What's live, what's working, where the budget is</div>
+  </div>
+</div>`
+        },
+        'email-flows': {
+          eyebrow: 'Tactics workflow',
+          title: 'Email Flows',
+          desc: 'Full email sequences planned and written by an AI agent — from welcome flows to re-engagement, with four subject line variants per email.',
+          whyHeading: 'A full email sequence, including subject line variants, ready to send',
+          whyBody: 'Writing and planning a multi-email flow manually takes days. The agent handles sequence planning, copywriting, and A/B variant generation in one workflow, so you launch faster and test more from the start.',
+          graphic: `<div class="wf">
+  <div class="wf-step">
+    <div class="wf-step__label">Input</div>
+    <div class="wf-step__title">Campaign objective</div>
+    <div class="wf-step__desc">e.g. welcome, re-engagement, offer</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">Analyst + Strategist</div>
+    <div class="wf-step__desc">List health, sequence planning</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">Copywriter</div>
+    <div class="wf-step__desc">4 subject variants per email</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--outcome">
+    <div class="wf-step__label">Outcome</div>
+    <div class="wf-step__title">Full sequence</div>
+    <div class="wf-step__desc">Ready to send, loss aversion to curiosity triggers</div>
+  </div>
+</div>`
+        },
+        'content-formatting': {
+          eyebrow: 'Tactics workflow',
+          title: 'Content Formatting',
+          desc: 'One hero asset reformatted to every channel spec — Stories, Feed, email header, web banner — by an AI workflow with human review before export.',
+          whyHeading: 'One hero asset reformatted to every channel in a single session',
+          whyBody: 'Briefing a designer to reformat assets across Stories, Feed, email, and web banner takes days and multiple rounds of revision. This builds all six formats from one source file in a single workflow, reviewed once and exported.',
+          graphic: `<div class="wf">
+  <div class="wf-step">
+    <div class="wf-step__label">Input</div>
+    <div class="wf-step__title">Hero asset + brief</div>
+    <div class="wf-step__desc">Source GIF or image + campaign brief</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">Element extraction</div>
+    <div class="wf-step__desc">Mascot, headline, wordmark, CTA isolated</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--human">
+    <div class="wf-step__label">Human review</div>
+    <div class="wf-step__title">Element approval</div>
+    <div class="wf-step__desc">All crops confirmed before build</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">Canvas build</div>
+    <div class="wf-step__desc">6 formats: Stories, Feed, email, web banner</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--outcome">
+    <div class="wf-step__label">Outcome</div>
+    <div class="wf-step__title">Formatted assets</div>
+    <div class="wf-step__desc">Channel-ready PNGs and GIFs for export</div>
+  </div>
+</div>`
+        },
+        'seo-audit': {
+          eyebrow: 'Tactics workflow',
+          title: 'SEO Planner',
+          desc: 'We research the keyword landscape for your business, identifying where search demand exists, how competitive each term is, and where you have a realistic chance of ranking. The output is a prioritised content plan: the pages to build first, the questions to answer, and the angles that make your authority count.',
+          graphic: `<div class="wf">
+  <div class="wf-step">
+    <div class="wf-step__label">Input</div>
+    <div class="wf-step__title">Domain + keywords</div>
+    <div class="wf-step__desc">Up to 2 competitors, 5 target terms</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">Live data</div>
+    <div class="wf-step__title">SERP fetch</div>
+    <div class="wf-step__desc">Top results + PAA per keyword</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--ai">
+    <div class="wf-step__label">AI workflow</div>
+    <div class="wf-step__title">Difficulty scoring</div>
+    <div class="wf-step__desc">Low to High per keyword</div>
+  </div>
+  <div class="wf-arrow"></div>
+  <div class="wf-step wf-step--outcome">
+    <div class="wf-step__label">Outcome</div>
+    <div class="wf-step__title">Content plan</div>
+    <div class="wf-step__desc">Prioritised pages to build first</div>
+  </div>
+</div>`
+        }
+      };
+
+      const backdrop = document.getElementById('workflowModalBackdrop');
+      const contentEl = document.getElementById('workflowModalContent');
+      const closeBtn  = document.getElementById('workflowModalClose');
+
+      function openModal(key) {
+        const data = MODALS[key];
+        if (!data) return;
+        contentEl.innerHTML = `
+          <p class="workflow-modal__eyebrow">${data.eyebrow}</p>
+          <h2 class="workflow-modal__title">${data.title}</h2>
+          <p class="workflow-modal__desc">${data.desc}</p>
+          <div class="workflow-modal__why">
+            <p class="workflow-modal__why-label">Why this helps</p>
+            <p class="workflow-modal__why-heading">${data.whyHeading}</p>
+            <p class="workflow-modal__why-body">${data.whyBody}</p>
+          </div>
+          <div class="workflow-modal__graphic">${data.graphic}</div>`;
+        backdrop.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        backdrop.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+
+      // Clockwise border trace on product cards and ladder nodes
+      document.querySelectorAll('.product-card, .ladder__node').forEach(card => {
+        const ns = 'http://www.w3.org/2000/svg';
+        const svg = document.createElementNS(ns, 'svg');
+        svg.setAttribute('class', card.classList.contains('ladder__node') ? 'ladder__node__trace' : 'product-card__trace');
+        svg.setAttribute('aria-hidden', 'true');
+        const poly = document.createElementNS(ns, 'polyline');
+        svg.appendChild(poly);
+        card.appendChild(svg);
+
+        let animFrame, progress = 0, direction = 1, lastTs = null;
+        const DURATION = 600;
+
+        function buildPoints(w, h) {
+          // Clockwise from top-left: TL → TR → BR → BL → TL
+          return [
+            [1, 1], [w - 1, 1], [w - 1, h - 1], [1, h - 1], [1, 1]
+          ];
+        }
+
+        function totalLength(pts) {
+          let len = 0;
+          for (let i = 1; i < pts.length; i++) {
+            const dx = pts[i][0] - pts[i-1][0];
+            const dy = pts[i][1] - pts[i-1][1];
+            len += Math.sqrt(dx*dx + dy*dy);
+          }
+          return len;
+        }
+
+        function draw(p) {
+          const w = card.offsetWidth;
+          const h = card.offsetHeight;
+          svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+          const pts = buildPoints(w, h);
+          const total = totalLength(pts);
+          const target = total * p;
+
+          // Walk the polyline up to `target` distance
+          let remaining = target;
+          let drawn = [];
+          drawn.push(pts[0]);
+          for (let i = 1; i < pts.length; i++) {
+            const dx = pts[i][0] - pts[i-1][0];
+            const dy = pts[i][1] - pts[i-1][1];
+            const segLen = Math.sqrt(dx*dx + dy*dy);
+            if (remaining <= 0) break;
+            if (remaining >= segLen) {
+              drawn.push(pts[i]);
+              remaining -= segLen;
+            } else {
+              const t = remaining / segLen;
+              drawn.push([pts[i-1][0] + dx * t, pts[i-1][1] + dy * t]);
+              remaining = 0;
+            }
+          }
+          poly.setAttribute('points', drawn.map(p => p.join(',')).join(' '));
+        }
+
+        function animate(ts) {
+          if (lastTs === null) lastTs = ts;
+          const delta = ts - lastTs;
+          lastTs = ts;
+          progress += direction * (delta / DURATION);
+          progress = Math.max(0, Math.min(1, progress));
+          draw(progress);
+          if ((direction === 1 && progress < 1) || (direction === -1 && progress > 0)) {
+            animFrame = requestAnimationFrame(animate);
+          }
+        }
+
+        card.addEventListener('mouseenter', () => {
+          cancelAnimationFrame(animFrame);
+          direction = 1;
+          lastTs = null;
+          animFrame = requestAnimationFrame(animate);
+        });
+        card.addEventListener('mouseleave', () => {
+          cancelAnimationFrame(animFrame);
+          direction = -1;
+          lastTs = null;
+          animFrame = requestAnimationFrame(animate);
+        });
+      });
+
+      document.querySelectorAll('.workflow-pill').forEach(pill => {
+        pill.addEventListener('click', () => openModal(pill.dataset.modal));
+      });
+
+      closeBtn.addEventListener('click', closeModal);
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+      });
+
+    }());
+
+  </script>
+
+</body>
+</html>
